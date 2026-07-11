@@ -1,0 +1,30 @@
+import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:myportfolioapp/features/home/presentation/pages/home_view.dart';
+
+import '../../features/career/presentation/pages/career_page.dart';
+
+final GoRouter router = GoRouter(
+  routes: <RouteBase>[
+    GoRoute(
+      path: HomePage.route,
+      pageBuilder: (context, state) => buildPage(state, const HomePage()),
+    ),
+
+    GoRoute(
+      path: CareerPage.route,
+      pageBuilder: (context, state) => buildPage(state, CareerPage()),
+    ),
+  ],
+);
+
+CustomTransitionPage buildPage(GoRouterState state, Widget child) {
+  return CustomTransitionPage(
+    key: state.pageKey,
+    child: child,
+    transitionDuration: const Duration(milliseconds: 400),
+    transitionsBuilder: (context, animation, secondaryAnimation, child) {
+      return FadeTransition(opacity: animation, child: child);
+    },
+  );
+}

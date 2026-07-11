@@ -1,0 +1,148 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../../../../core/app_resources/app_colors.dart';
+import '../../../../core/utils/responsive.dart';
+import '../../data/models/work_experience.dart';
+import 'experience_card.dart';
+
+class WorkTimeline extends StatelessWidget {
+  const WorkTimeline({super.key, required this.experiences});
+
+  final List<WorkExperience> experiences;
+
+  @override
+  Widget build(BuildContext context) {
+    final bool isMobile = Responsive.isMobile(context);
+
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: isMobile ? 16.w : 40.w),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Work Experience',
+            style: TextStyle(
+              fontSize: 14.sp,
+              fontWeight: FontWeight.w600,
+              color: Colors.white,
+            ),
+          ),
+          SizedBox(height: 20.h),
+          for (int i = 0; i < experiences.length; i++)
+            isMobile
+                ? _MobileTimelineItem(
+                    experience: experiences[i],
+                    isLast: i == experiences.length - 1,
+                  )
+                : _RailTimelineItem(
+                    experience: experiences[i],
+                    isLast: i == experiences.length - 1,
+                  ),
+        ],
+      ),
+    );
+  }
+}
+
+/// Desktop/tablet: fixed-width year + dot + connecting-line rail on the
+/// left, card on the right.
+class _RailTimelineItem extends StatelessWidget {
+  const _RailTimelineItem({required this.experience, required this.isLast});
+
+  final WorkExperience experience;
+  final bool isLast;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.only(bottom: 24.h),
+      child: IntrinsicHeight(
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            SizedBox(
+              width: 90.w,
+              child: Column(
+                children: [
+                  Text(
+                    experience.year,
+                    style: TextStyle(
+                      fontSize: 15.sp,
+                      fontStyle: FontStyle.italic,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.white,
+                    ),
+                  ),
+                  SizedBox(height: 10.h),
+                  Container(
+                    width: 16.r,
+                    height: 16.r,
+                    decoration: BoxDecoration(
+                      color: AppColors.background,
+                      shape: BoxShape.circle,
+                      border: Border.all(color: Colors.white, width: 2.5),
+                    ),
+                  ),
+                  SizedBox(height: 6.h),
+                  if (!isLast)
+                    Expanded(
+                      child: Container(width: 2, color: AppColors.divider),
+                    ),
+                ],
+              ),
+            ),
+            SizedBox(width: 24.w),
+            Expanded(child: ExperienceCard(experience: experience)),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+/// Mobile: compact year+dot header above each card, no continuous rail
+/// (keeps things legible at narrow widths).
+class _MobileTimelineItem extends StatelessWidget {
+  const _MobileTimelineItem({required this.experience, required this.isLast});
+
+  final WorkExperience experience;
+  final bool isLast;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.only(bottom: 20.h),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Container(
+                width: 12.r,
+                height: 12.r,
+                decoration: BoxDecoration(
+                  color: AppColors.background,
+                  shape: BoxShape.circle,
+                  border: Border.all(color: Colors.white, width: 2),
+                ),
+              ),
+              SizedBox(width: 10.w),
+              Text(
+                experience.year,
+                style: TextStyle(
+                  fontSize: 14.sp,
+                  fontStyle: FontStyle.italic,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.white,
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 10.h),
+          ExperienceCard(experience: experience),
+        ],
+      ),
+    );
+  }
+}
