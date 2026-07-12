@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 /// instead of navigating, so the nav bar stays functional as new sections
 /// (Skills, Projects, Blogs, Contact...) get added incrementally.
 import 'package:go_router/go_router.dart';
+import 'package:myportfolioapp/features/projects/presentation/pages/projects_page.dart';
 
 import '../../features/career/presentation/pages/career_page.dart';
 import '../../features/home/presentation/pages/home_view.dart';
@@ -22,6 +23,9 @@ void navigateToSection(BuildContext context, String label) {
 
     case 'Skills':
       context.go(SkillsPage.route);
+      break;
+    case 'Projects':
+      context.go(ProjectsPage.route);
       break;
 
     default:

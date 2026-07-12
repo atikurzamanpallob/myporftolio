@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:myportfolioapp/features/home/presentation/pages/home_view.dart';
+import 'package:myportfolioapp/features/projects/presentation/pages/projects_page.dart';
 
 import '../../features/career/presentation/pages/career_page.dart';
 import '../../features/skills/presentation/pages/skills_page.dart';
@@ -11,7 +12,7 @@ final GoRouter router = GoRouter(
       path: HomePage.route,
       pageBuilder: (context, state) => buildPage(state, const HomePage()),
     ),
- 
+
     GoRoute(
       path: CareerPage.route,
       pageBuilder: (context, state) => buildPage(state, CareerPage()),
@@ -19,7 +20,11 @@ final GoRouter router = GoRouter(
 
     GoRoute(
       path: SkillsPage.route,
-      pageBuilder: (context, state) => buildPage(state,SkillsPage()),
+      pageBuilder: (context, state) => buildPage(state, SkillsPage()),
+    ),
+    GoRoute(
+      path: ProjectsPage.route,
+      pageBuilder: (context, state) => buildPage(state, ProjectsPage()),
     ),
   ],
 );
