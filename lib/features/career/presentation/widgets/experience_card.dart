@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:myportfolioapp/core/common/glass_card.dart';
 
 import '../../../../core/app_resources/app_colors.dart';
 import '../../../../core/app_resources/app_icons.dart';
@@ -56,18 +57,9 @@ class ExperienceCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          MetaInfoRow(
-            iconAsset: AppIcons.stack,
-            text: experience.techStack,
-          ),
-          MetaInfoRow(
-            iconAsset: AppIcons.location,
-            text: experience.location,
-          ),
-          MetaInfoRow(
-            iconAsset: AppIcons.calender,
-            text: experience.dateRange,
-          ),
+          MetaInfoRow(iconAsset: AppIcons.stack, text: experience.techStack),
+          MetaInfoRow(iconAsset: AppIcons.location, text: experience.location),
+          MetaInfoRow(iconAsset: AppIcons.calender, text: experience.dateRange),
         ],
       ),
     );
@@ -149,15 +141,16 @@ class ExperienceCard extends StatelessWidget {
       );
     }
 
-    return Container(
-      width: double.infinity,
-      padding: EdgeInsets.all(isMobile ? 16.r : 24.r),
-      decoration: BoxDecoration(
-        color: AppColors.cardBackground,
-        borderRadius: BorderRadius.circular(14.r),
-        border: Border.all(color: AppColors.divider, width: 1),
+    return GlassCard(
+      child: Container(
+        width: double.infinity,
+        padding: EdgeInsets.all(isMobile ? 16.r : 24.r),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(14.r),
+          border: Border.all(color: AppColors.divider, width: 1),
+        ),
+        child: content,
       ),
-      child: content,
     );
   }
 }
