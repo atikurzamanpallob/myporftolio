@@ -22,7 +22,7 @@ class AppIcons {
   static const university = 'assets/icons/career/university.svg';
   static const greentick = 'assets/icons/career/green_tick.svg';
 
-   //skills icons
+  //skills icons
   static const skillLanguage = 'assets/icons/skills/language.svg';
   static const skillFramework = 'assets/icons/skills/framework.svg';
   static const skillBackend = 'assets/icons/skills/backend.svg';
@@ -32,8 +32,10 @@ class AppIcons {
   static const skillOther = 'assets/icons/skills/other.svg';
   static const skillCommunication = 'assets/icons/skills/communication.svg';
   static const skillTeamwork = 'assets/icons/skills/teamwork.svg';
-  static const skillTimeManagement =
-      'assets/icons/skills/timemanagement.svg';
+  static const skillTimeManagement = 'assets/icons/skills/timemanagement.svg';
   static const skillAdapt = 'assets/icons/skills/adapt.svg';
   static const skillProblem = 'assets/icons/skills/problem.svg';
+
+  //blog icons
+  static const minutesIcon = 'assets/icons/blogs/minute.svg';
 }

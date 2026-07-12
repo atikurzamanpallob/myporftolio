@@ -69,14 +69,14 @@ class _PhoneFrame extends StatelessWidget {
     return Container(
       width: width,
       height: height,
-      padding: EdgeInsets.all(8.r),
+      padding: EdgeInsets.all(3.r),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(14.r),
-        border: Border.all(color: AppColors.divider, width: 2),
+        border: Border.all(color: AppColors.divider, width: 1),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.35),
+            color: Colors.black.withValues(alpha: 0.35),
             blurRadius: 12,
             offset: const Offset(0, 6),
           ),
@@ -91,7 +91,7 @@ class _PhoneFrame extends StatelessWidget {
             colors: muted
                 ? [AppColors.iconCircleFill, AppColors.cardBackground]
                 : [
-                    AppColors.primaryBlue.withOpacity(0.85),
+                    AppColors.primaryBlue.withValues(alpha: 0.85),
                     AppColors.background,
                   ],
           ),
@@ -99,7 +99,7 @@ class _PhoneFrame extends StatelessWidget {
         child: Center(
           child: Icon(
             icon,
-            color: Colors.white.withOpacity(muted ? 0.5 : 0.9),
+            color: Colors.white.withValues(alpha: muted ? 0.5 : 0.9),
             size: 30.r,
           ),
         ),
