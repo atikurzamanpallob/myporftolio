@@ -63,10 +63,10 @@ class SkillCategoryCard extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.only(bottom: 8.h),
                 child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Padding(
-                      padding: EdgeInsets.only(top: 6.h),
+                      padding: EdgeInsets.only(top: 1.h),
                       child: Container(
                         width: 10.r,
                         height: 10.r,
