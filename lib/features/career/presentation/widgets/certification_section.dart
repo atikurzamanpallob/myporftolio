@@ -20,8 +20,8 @@ class CertificationSection extends StatelessWidget {
         Text(
           'Certifications',
           style: TextStyle(
-            fontSize: 18.sp,
-            fontWeight: FontWeight.w700,
+            fontSize: 14.sp,
+            fontWeight: FontWeight.w600,
             color: Colors.white,
           ),
         ),

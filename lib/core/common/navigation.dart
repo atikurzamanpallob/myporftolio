@@ -8,6 +8,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../features/career/presentation/pages/career_page.dart';
 import '../../features/home/presentation/pages/home_view.dart';
+import '../../features/skills/presentation/pages/skills_page.dart';
 
 void navigateToSection(BuildContext context, String label) {
   switch (label) {
@@ -17,6 +18,10 @@ void navigateToSection(BuildContext context, String label) {
 
     case 'Career':
       context.go(CareerPage.route);
+      break;
+
+    case 'Skills':
+      context.go(SkillsPage.route);
       break;
 
     default:
