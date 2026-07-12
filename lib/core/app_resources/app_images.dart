@@ -3,4 +3,5 @@ class AppImages {
   static const profile = 'assets/images/profile.png';
   static const careerImage = 'assets/images/career_image.jpg';
   static const skillImage = 'assets/images/skill_image.jpg';
+  static const projectImage = 'assets/images/project_image.jpg';
 }
