@@ -19,6 +19,7 @@ class AppColors {
   static const Color accentGreen = Color(
     0xFF29E0A6,
   ); // "Flutter Developer" subtitle + stat numbers
+  static const Color green = Color(0xFF59FF00);
   static const Color iconCircleBorder = Color(0xFF1E4066);
   static const Color iconCircleFill = Color(0xFF0F2A4D);
   static const Color starYellow = Color(0xFFF4EE58);

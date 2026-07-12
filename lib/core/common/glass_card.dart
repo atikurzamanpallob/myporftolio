@@ -18,7 +18,7 @@ class GlassCard extends StatelessWidget {
             borderRadius: BorderRadius.circular(8),
             gradient: LinearGradient(
               colors: [
-                Colors.black.withValues(alpha: 0.05),
+                Colors.yellow.withValues(alpha: 0.05),
                 Colors.white.withValues(alpha: 0.07),
                 Colors.white.withValues(alpha: 0.1),
               ],
