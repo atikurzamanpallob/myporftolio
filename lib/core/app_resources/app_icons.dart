@@ -38,4 +38,13 @@ class AppIcons {
 
   //blog icons
   static const minutesIcon = 'assets/icons/blogs/minute.svg';
+
+  //contact icons
+  static const communication = 'assets/icons/contact/communication.svg';
+  static const date = 'assets/icons/contact/date.svg';
+  static const email = 'assets/icons/contact/email.svg';
+  static const lightening = 'assets/icons/contact/lightening.svg';
+  static const phone = 'assets/icons/contact/phone.svg';
+  static const quality = 'assets/icons/contact/quality.svg';
+  static const whatsapp = 'assets/icons/contact/whatsapp.svg';
 }

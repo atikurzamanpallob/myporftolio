@@ -5,4 +5,5 @@ class AppImages {
   static const skillImage = 'assets/images/skill_image.jpg';
   static const projectImage = 'assets/images/project_image.jpg';
   static const blogImage = 'assets/images/blog_image.jpg';
+  static const contactImage = 'assets/images/contact_image.jpg';
 }
