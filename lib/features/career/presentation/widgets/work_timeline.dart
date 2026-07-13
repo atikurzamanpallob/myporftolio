@@ -76,18 +76,17 @@ class _RailTimelineItem extends StatelessWidget {
                   ),
                   SizedBox(height: 10.h),
                   Container(
-                    width: 16.r,
-                    height: 16.r,
+                    width: 25.r,
+                    height: 25.r,
                     decoration: BoxDecoration(
-                      color: AppColors.background,
+                      color: AppColors.textPrimary,
                       shape: BoxShape.circle,
-                      border: Border.all(color: Colors.white, width: 2.5),
                     ),
                   ),
-                  SizedBox(height: 6.h),
+
                   if (!isLast)
                     Expanded(
-                      child: Container(width: 2, color: AppColors.divider),
+                      child: Container(width: 3, color: AppColors.textPrimary),
                     ),
                 ],
               ),
@@ -101,8 +100,6 @@ class _RailTimelineItem extends StatelessWidget {
   }
 }
 
-/// Mobile: compact year+dot header above each card, no continuous rail
-/// (keeps things legible at narrow widths).
 class _MobileTimelineItem extends StatelessWidget {
   const _MobileTimelineItem({required this.experience, required this.isLast});
 
@@ -119,12 +116,11 @@ class _MobileTimelineItem extends StatelessWidget {
           Row(
             children: [
               Container(
-                width: 12.r,
-                height: 12.r,
+                width: 15.r,
+                height: 15.r,
                 decoration: BoxDecoration(
-                  color: AppColors.background,
+                  color: AppColors.textPrimary,
                   shape: BoxShape.circle,
-                  border: Border.all(color: Colors.white, width: 2),
                 ),
               ),
               SizedBox(width: 10.w),

@@ -146,8 +146,6 @@ class _TechChip extends StatelessWidget {
   }
 }
 
-/// Case-study link (top) and Android/iOS availability badges (bottom).
-/// Stacked on desktop/tablet (spaceBetween), laid out in a row on mobile.
 class _ProjectSideActions extends StatelessWidget {
   const _ProjectSideActions({required this.project, this.horizontal = false});
 

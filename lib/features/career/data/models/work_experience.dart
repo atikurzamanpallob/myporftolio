@@ -1,4 +1,3 @@
-
 import 'package:myportfolioapp/core/app_resources/app_icons.dart';
 
 /// What kind of logo to render for a [WorkExperience.company] when no real
@@ -16,6 +15,7 @@ class WorkExperience {
     required this.dateRange,
     required this.description,
     required this.achievements,
+    this.url,
     this.logoStyle = LogoStyle.initials,
     this.logoAsset,
   });
@@ -30,6 +30,7 @@ class WorkExperience {
   final String description;
   final List<String> achievements;
   final LogoStyle logoStyle;
+  final String? url;
 
   /// Optional real logo image (drop a file into assets/images and point
   /// this at it, e.g. 'assets/images/amharc_tech_logo.png'). Falls back to
@@ -48,7 +49,8 @@ const List<WorkExperience> kWorkExperiences = [
     techStack: 'Flutter , Node , Express, Firebase',
     location: 'Remote',
     dateRange: 'Aug 2025 -  Present',
-    description: 'Working with clients from Australia , Dubai , UK on freelance basis.',
+    description:
+        'Working with clients from Australia , Dubai , UK on freelance basis.',
     achievements: [
       "Designed  end-to-end system architecture from REST Api's to database schema to mobile UI and state management",
       'Integrating Firebase services, Real time web sockets feature across client projects',
@@ -64,7 +66,8 @@ const List<WorkExperience> kWorkExperiences = [
     techStack: 'Flutter , Micro Service, Firebase, Sockets',
     location: 'Dublin, County Dublin , Ireland ( Remote )',
     dateRange: 'Mar 2024 -  Aug 2025',
-    description: 'Global IT company based in Dublin, Ireland. Specialising in custom software and digital marketing.',
+    description:
+        'Global IT company based in Dublin, Ireland. Specialising in custom software and digital marketing.',
     achievements: [
       'Worked on paired saas apps (AT Service Portal & AT Customer Portal ) for field service management. Serving agents and customer',
       'Implemented sockets for real-time communication among users',
@@ -80,7 +83,8 @@ const List<WorkExperience> kWorkExperiences = [
     techStack: 'Flutter , Micro Service, Firebase, Sockets',
     location: 'Dublin, County Dublin , Ireland ( Remote )',
     dateRange: 'Mar 2024 -  Aug 2025',
-    description: 'Global IT company based in Dublin, Ireland. Specialising in custom software and digital marketing.',
+    description:
+        'Global IT company based in Dublin, Ireland. Specialising in custom software and digital marketing.',
     achievements: [
       'Worked on paired saas apps (AT Service Portal & AT Customer Portal ) for field service management. Serving agents and customer',
       'Implemented sockets for real-time communication among users',
@@ -96,7 +100,8 @@ const List<WorkExperience> kWorkExperiences = [
     techStack: 'Flutter , Micro Service, Firebase, Sockets',
     location: 'Dublin, County Dublin , Ireland ( Remote )',
     dateRange: 'Mar 2024 -  Aug 2025',
-    description: 'Global IT company based in Dublin, Ireland. Specialising in custom software and digital marketing.',
+    description:
+        'Global IT company based in Dublin, Ireland. Specialising in custom software and digital marketing.',
     achievements: [
       'Worked on paired saas apps (AT Service Portal & AT Customer Portal ) for field service management. Serving agents and customer',
       'Implemented sockets for real-time communication among users',
@@ -118,7 +123,7 @@ const List<EducationItem> kEducationItems = [
     text: 'Bachelor Of Science  ( Class of 2018 )',
   ),
   EducationItem(
-    iconAsset:AppIcons.subjects,
+    iconAsset: AppIcons.subjects,
     text: 'Computer Science & Engineering',
   ),
   EducationItem(
