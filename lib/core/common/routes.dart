@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:myportfolioapp/features/blogs/presentation/pages/blogs_page.dart';
+import 'package:myportfolioapp/features/contact/presentation/pages/contact_page.dart';
 import 'package:myportfolioapp/features/home/presentation/pages/home_view.dart';
 import 'package:myportfolioapp/features/projects/presentation/pages/projects_page.dart';
 
@@ -32,8 +33,8 @@ final GoRouter router = GoRouter(
       pageBuilder: (context, state) => buildPage(state, BlogsPage()),
     ),
     GoRoute(
-      path: ProjectsPage.route,
-      pageBuilder: (context, state) => buildPage(state, ProjectsPage()),
+      path: ContactPage.route,
+      pageBuilder: (context, state) => buildPage(state, ContactPage()),
     ),
   ],
 );

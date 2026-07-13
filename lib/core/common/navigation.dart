@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 /// (Skills, Projects, Blogs, Contact...) get added incrementally.
 import 'package:go_router/go_router.dart';
 import 'package:myportfolioapp/features/blogs/presentation/pages/blogs_page.dart';
+import 'package:myportfolioapp/features/contact/presentation/pages/contact_page.dart';
 import 'package:myportfolioapp/features/projects/presentation/pages/projects_page.dart';
 
 import '../../features/career/presentation/pages/career_page.dart';
@@ -32,7 +33,7 @@ void navigateToSection(BuildContext context, String label) {
       context.go(BlogsPage.route);
       break;
     case 'Contact':
-      context.go(ProjectsPage.route);
+      context.go(ContactPage.route);
       break;
 
     default:
