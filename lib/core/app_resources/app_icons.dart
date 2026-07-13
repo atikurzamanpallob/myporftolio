@@ -21,6 +21,7 @@ class AppIcons {
   static const subjects = 'assets/icons/career/subjects.svg';
   static const university = 'assets/icons/career/university.svg';
   static const greentick = 'assets/icons/career/green_tick.svg';
+  static const companyIcon = 'assets/icons/career/company.svg';
 
   //skills icons
   static const skillLanguage = 'assets/icons/skills/language.svg';

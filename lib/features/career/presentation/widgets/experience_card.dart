@@ -51,7 +51,38 @@ class ExperienceCard extends StatelessWidget {
         ),
       ],
     );
-
+    final company = Padding(
+      padding: EdgeInsets.only(top: 5.h),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            experience.company,
+            style: TextStyle(
+              fontSize: isMobile ? 14.sp : 16.sp,
+              fontWeight: FontWeight.w600,
+              color: AppColors.green,
+            ),
+          ),
+          SizedBox(width: 4.w),
+          InkWell(
+            onTap: () {},
+            child: Container(
+              padding: const EdgeInsets.all(4.0),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(5.r),
+                border: Border.all(color: AppColors.primaryBlue, width: 1),
+              ),
+              child: Icon(
+                Icons.arrow_outward,
+                size: 15.r,
+                color: AppColors.primaryBlue,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
     final meta = Padding(
       padding: EdgeInsets.only(top: 10.h),
       child: Column(
@@ -79,7 +110,7 @@ class ExperienceCard extends StatelessWidget {
     final infoColumn = Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
-      children: [header, meta, description],
+      children: [header, company, meta, description],
     );
 
     final achievements = AchievementsList(items: experience.achievements);
@@ -109,9 +140,15 @@ class ExperienceCard extends StatelessWidget {
             children: [
               logo,
               SizedBox(width: 14.w),
-              Expanded(child: header),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: .start,
+                  children: [header, company],
+                ),
+              ),
             ],
           ),
+
           meta,
           description,
           SizedBox(height: 16.h),
