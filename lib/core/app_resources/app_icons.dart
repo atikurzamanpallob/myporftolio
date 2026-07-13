@@ -21,4 +21,30 @@ class AppIcons {
   static const subjects = 'assets/icons/career/subjects.svg';
   static const university = 'assets/icons/career/university.svg';
   static const greentick = 'assets/icons/career/green_tick.svg';
+
+  //skills icons
+  static const skillLanguage = 'assets/icons/skills/language.svg';
+  static const skillFramework = 'assets/icons/skills/framework.svg';
+  static const skillBackend = 'assets/icons/skills/backend.svg';
+  static const skillDatabase = 'assets/icons/skills/database.svg';
+  static const skillState = 'assets/icons/skills/state.svg';
+  static const skillTools = 'assets/icons/skills/tools.svg';
+  static const skillOther = 'assets/icons/skills/other.svg';
+  static const skillCommunication = 'assets/icons/skills/communication.svg';
+  static const skillTeamwork = 'assets/icons/skills/teamwork.svg';
+  static const skillTimeManagement = 'assets/icons/skills/timemanagement.svg';
+  static const skillAdapt = 'assets/icons/skills/adapt.svg';
+  static const skillProblem = 'assets/icons/skills/problem.svg';
+
+  //blog icons
+  static const minutesIcon = 'assets/icons/blogs/minute.svg';
+
+  //contact icons
+  static const communication = 'assets/icons/contact/communication.svg';
+  static const date = 'assets/icons/contact/date.svg';
+  static const email = 'assets/icons/contact/email.svg';
+  static const lightening = 'assets/icons/contact/lightening.svg';
+  static const phone = 'assets/icons/contact/phone.svg';
+  static const quality = 'assets/icons/contact/quality.svg';
+  static const whatsapp = 'assets/icons/contact/whatsapp.svg';
 }

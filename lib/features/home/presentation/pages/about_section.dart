@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:myportfolioapp/core/common/glass_card.dart';
 
 import '../../../../core/app_resources/app_colors.dart';
 import '../../../../core/app_resources/app_fonts.dart';
@@ -142,16 +143,16 @@ class AboutSection extends StatelessWidget {
       );
     }
 
-    return Container(
-      width: double.infinity,
-      margin: EdgeInsets.symmetric(horizontal: isMobile ? 16.w : 55.w),
-      padding: EdgeInsets.all(isMobile ? 15.r : 20.r),
-      decoration: BoxDecoration(
-        color: AppColors.cardBackground,
-        borderRadius: BorderRadius.circular(16.r),
-        border: Border.all(color: AppColors.divider, width: 1),
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: isMobile ? 16.w : 55.w),
+      child: GlassCard(
+        child: Container(
+          width: double.infinity,
+          padding: EdgeInsets.all(isMobile ? 15.r : 20.r),
+          decoration: BoxDecoration(borderRadius: BorderRadius.circular(8.r)),
+          child: content,
+        ),
       ),
-      child: content,
     );
   }
 
