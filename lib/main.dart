@@ -1,11 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'core/app_resources/app_colors.dart';
 import 'core/utils/responsive.dart';
 import 'core/common/routes.dart';
 
-void main() {
+late SupabaseClient client;
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await dotenv.load();
+  await Supabase.initialize(
+    url: dotenv.get("URL"),
+    publishableKey: dotenv.get("PUBLIC_KEY"),
+  );
   runApp(const PortfolioApp());
 }
 
@@ -18,7 +28,7 @@ class PortfolioApp extends StatelessWidget {
     // ScreenUtil "design size" adapts between mobile / tablet / desktop.
     final width = MediaQuery.sizeOf(context).width;
     final designSize = Responsive.designSizeFor(width);
-
+    client = Supabase.instance.client;
     return ScreenUtilInit(
       designSize: designSize,
       minTextAdapt: true,
