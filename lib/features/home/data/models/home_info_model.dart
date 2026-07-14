@@ -7,6 +7,7 @@ class HomeInfoModel extends HomeInfo {
     required super.resumeUrl,
     required super.totalExperience,
     required super.totalProjects,
+    required super.profileUrl,
     required super.clientSatisfaction,
   });
 
@@ -15,6 +16,7 @@ class HomeInfoModel extends HomeInfo {
       id: json['id'],
       description: json['description'],
       resumeUrl: json['resume_url'],
+      profileUrl: json['profile_url'],
       totalExperience: json['total_experience'],
       totalProjects: json['total_projects'],
       clientSatisfaction: json['client_satisfaction'],
@@ -24,6 +26,7 @@ class HomeInfoModel extends HomeInfo {
     id: id,
     description: description,
     resumeUrl: resumeUrl,
+    profileUrl: profileUrl,
     totalExperience: totalExperience,
     totalProjects: totalProjects,
     clientSatisfaction: clientSatisfaction,

@@ -1,6 +1,11 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:myportfolioapp/core/common/glass_card.dart';
+import 'package:myportfolioapp/features/home/domain/entity/home_info.dart';
+import 'package:myportfolioapp/features/home/presentation/bloc/home_bloc.dart';
+import 'package:myportfolioapp/features/home/presentation/bloc/home_state.dart';
 
 import '../../../../core/app_resources/app_colors.dart';
 import '../../../../core/app_resources/app_fonts.dart';
@@ -9,7 +14,7 @@ import '../../../../core/app_resources/app_images.dart';
 import '../../../../core/utils/responsive.dart';
 import '../widgets/stat_item.dart';
 
-const String _kBio =
+String kBio =
     "I'm a Flutter developer with over 5.5+ years of experience building "
     "high-performance, visually appealing, and scalable cross-platform "
     "applications. I specialize in creating pixel-perfect UI, efficient "
@@ -27,56 +32,97 @@ class AboutSection extends StatelessWidget {
   Widget build(BuildContext context) {
     final bool isDesktop = Responsive.isDesktop(context);
     final bool isMobile = Responsive.isMobile(context);
-
-    final photo = ClipRRect(
-      borderRadius: BorderRadius.circular(10.r),
-      child: Image.asset(
-        AppImages.profile,
-        width: isDesktop ? 220.w : (isMobile ? 320.w : 200.w),
-        height: isDesktop ? 270.h : (isMobile ? 245.h : 218.h),
-        fit: BoxFit.cover,
-      ),
+    final image = Image.asset(
+      AppImages.profile,
+      width: isDesktop ? 220.w : (isMobile ? 320.w : 200.w),
+      height: isDesktop ? 270.h : (isMobile ? 245.h : 218.h),
+      fit: BoxFit.cover,
+    );
+    final photo = BlocConsumer<HomeBloc, HomeState>(
+      listener: (context, state) {},
+      builder: (context, state) {
+        HomeInfo? info;
+        if (state is InfoLoaded) {
+          info = state.homeInfo;
+        }
+        return ClipRRect(
+          borderRadius: BorderRadius.circular(10.r),
+          child: CachedNetworkImage(
+            imageUrl: info?.profileUrl ?? "",
+            width: isDesktop ? 220.w : (isMobile ? 320.w : 200.w),
+            height: isDesktop ? 270.h : (isMobile ? 245.h : 218.h),
+            fit: BoxFit.cover,
+            errorWidget: (context, url, error) => image,
+            placeholder: (context, url) => image,
+          ),
+        );
+      },
     );
 
-    final bioText = Text(
-      _kBio,
-      textAlign: TextAlign.justify,
-      style: TextStyle(
-        fontSize: 12.sp,
-        color: AppColors.textSecondary,
-        height: 1.7,
-        letterSpacing: 0.3,
+    final bioText = BlocConsumer<HomeBloc, HomeState>(
+      listener: (context, state) {},
+      builder: (context, state) {
+        if (state is InfoLoaded) {
+          if (state.homeInfo?.description != null) {
+            kBio = state.homeInfo!.description;
+          }
+        }
+        return Text(
+          kBio,
+          textAlign: TextAlign.justify,
+          style: TextStyle(
+            fontSize: 12.sp,
+            color: AppColors.textSecondary,
+            height: 1.7,
+            letterSpacing: 0.3,
 
-        fontFamily: AppFonts.inter,
-        fontStyle: FontStyle.italic,
-      ),
+            fontFamily: AppFonts.inter,
+            fontStyle: FontStyle.italic,
+          ),
+        );
+      },
     );
 
-    final stats = Flex(
-      direction: isDesktop ? Axis.vertical : Axis.horizontal,
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      crossAxisAlignment: isDesktop
-          ? CrossAxisAlignment.start
-          : CrossAxisAlignment.center,
-      children: [
-        StatItem(
-          iconAsset: AppIcons.experience,
-          value: '5.5 +',
-          label: 'Years Of Experience',
-        ),
-        SizedBox(height: isDesktop ? 15.h : 0.0, width: isDesktop ? 0.0 : 12.w),
-        StatItem(
-          iconAsset: AppIcons.projects,
-          value: '15 +',
-          label: 'Projects Completed',
-        ),
-        SizedBox(height: isDesktop ? 15.h : 0.0, width: isDesktop ? 0.0 : 12.w),
-        StatItem(
-          iconAsset: AppIcons.client,
-          value: '100 %',
-          label: 'Client Satisfaction',
-        ),
-      ],
+    final stats = BlocConsumer<HomeBloc, HomeState>(
+      listener: (context, state) {},
+      builder: (context, state) {
+        HomeInfo? info;
+        if (state is InfoLoaded) {
+          info = state.homeInfo;
+        }
+        return Flex(
+          direction: isDesktop ? Axis.vertical : Axis.horizontal,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: isDesktop
+              ? CrossAxisAlignment.start
+              : CrossAxisAlignment.center,
+          children: [
+            StatItem(
+              iconAsset: AppIcons.experience,
+              value: info?.totalExperience ?? '5.5 +',
+              label: 'Years Of Experience',
+            ),
+            SizedBox(
+              height: isDesktop ? 15.h : 0.0,
+              width: isDesktop ? 0.0 : 12.w,
+            ),
+            StatItem(
+              iconAsset: AppIcons.projects,
+              value: info?.totalProjects ?? '15 +',
+              label: 'Projects Completed',
+            ),
+            SizedBox(
+              height: isDesktop ? 15.h : 0.0,
+              width: isDesktop ? 0.0 : 12.w,
+            ),
+            StatItem(
+              iconAsset: AppIcons.client,
+              value: info?.clientSatisfaction ?? '100 %',
+              label: 'Client Satisfaction',
+            ),
+          ],
+        );
+      },
     );
 
     Widget content;
@@ -111,32 +157,41 @@ class AboutSection extends StatelessWidget {
           Divider(color: AppColors.divider, thickness: 1),
           SizedBox(height: 20.h),
           isMobile
-              ? Column(
-                  children: [
-                    _wrapStat(
-                      StatItem(
-                        iconAsset: AppIcons.experience,
-                        value: '5.5 +',
-                        label: 'Years Of Experience',
-                      ),
-                    ),
-                    SizedBox(height: 15.h),
-                    _wrapStat(
-                      StatItem(
-                        iconAsset: AppIcons.projects,
-                        value: '15 +',
-                        label: 'Projects Completed',
-                      ),
-                    ),
-                    SizedBox(height: 15.h),
-                    _wrapStat(
-                      StatItem(
-                        iconAsset: AppIcons.client,
-                        value: '100 %',
-                        label: 'Client Satisfaction',
-                      ),
-                    ),
-                  ],
+              ? BlocConsumer<HomeBloc, HomeState>(
+                  listener: (context, state) {},
+                  builder: (context, state) {
+                    HomeInfo? info;
+                    if (state is InfoLoaded) {
+                      info = state.homeInfo;
+                    }
+                    return Column(
+                      children: [
+                        _wrapStat(
+                          StatItem(
+                            iconAsset: AppIcons.experience,
+                            value: info?.totalExperience ?? '5.5 +',
+                            label: 'Years Of Experience',
+                          ),
+                        ),
+                        SizedBox(height: 15.h),
+                        _wrapStat(
+                          StatItem(
+                            iconAsset: AppIcons.projects,
+                            value: info?.totalProjects ?? '15 +',
+                            label: 'Projects Completed',
+                          ),
+                        ),
+                        SizedBox(height: 15.h),
+                        _wrapStat(
+                          StatItem(
+                            iconAsset: AppIcons.client,
+                            value: info?.clientSatisfaction ?? '100 %',
+                            label: 'Client Satisfaction',
+                          ),
+                        ),
+                      ],
+                    );
+                  },
                 )
               : stats,
         ],

@@ -5,6 +5,8 @@ import 'package:myportfolioapp/features/home/domain/repository/home_repository.d
 import 'package:myportfolioapp/features/home/domain/usecase/get_home_data.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+import '../../features/home/presentation/bloc/home_bloc.dart';
+
 final getIt = GetIt.instance;
 
 Future<void> injectDependency() async {
@@ -12,4 +14,5 @@ Future<void> injectDependency() async {
   getIt.registerLazySingleton<HomeDatasource>(() => HomeDataSourceImp(getIt()));
   getIt.registerLazySingleton<HomeRepository>(() => HomeRepositoryImp(getIt()));
   getIt.registerLazySingleton(() => GetHomeData(getIt()));
+  getIt.registerFactory(() => HomeBloc(getIt()));
 }
