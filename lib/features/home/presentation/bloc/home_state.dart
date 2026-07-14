@@ -1,45 +1,47 @@
 import 'package:equatable/equatable.dart';
-import 'package:myportfolioapp/features/home/domain/entity/contact_info.dart';
-import 'package:myportfolioapp/features/home/domain/entity/home_info.dart';
 
-abstract class HomeState extends Equatable {}
+import '../../domain/entity/contact_info.dart';
+import '../../domain/entity/home_info.dart';
 
-class InfoLoading extends HomeState {
-  @override
-  List<Object?> get props => [];
-}
+class HomeState extends Equatable {
+  final bool isLoadingInfo;
+  final bool isLoadingContacts;
 
-class InfoLoaded extends HomeState {
   final HomeInfo? homeInfo;
-  InfoLoaded(this.homeInfo);
-  @override
-  List<Object?> get props => [homeInfo];
-  InfoLoaded copyWith({
-    required List<ContactInfo> contacts,
-    HomeInfo? homeInfo,
-  }) {
-    return InfoLoaded(homeInfo ?? this.homeInfo);
-  }
-}
-
-class ContactLoading extends HomeState {
-  @override
-  List<Object?> get props => [];
-}
-
-class ContactLoaded extends HomeState {
   final List<ContactInfo>? contacts;
-  ContactLoaded(this.contacts);
-  @override
-  List<Object?> get props => [contacts];
-  ContactLoaded copyWith({required List<ContactInfo> contacts}) {
-    return ContactLoaded(contacts);
-  }
-}
 
-class Failed extends HomeState {
-  final String? message;
-  Failed(this.message);
+  final String? error;
+
+  const HomeState({
+    this.isLoadingInfo = false,
+    this.isLoadingContacts = false,
+    this.homeInfo,
+    this.contacts,
+    this.error,
+  });
+
+  HomeState copyWith({
+    bool? isLoadingInfo,
+    bool? isLoadingContacts,
+    HomeInfo? homeInfo,
+    List<ContactInfo>? contacts,
+    String? error,
+  }) {
+    return HomeState(
+      isLoadingInfo: isLoadingInfo ?? this.isLoadingInfo,
+      isLoadingContacts: isLoadingContacts ?? this.isLoadingContacts,
+      homeInfo: homeInfo ?? this.homeInfo,
+      contacts: contacts ?? this.contacts,
+      error: error,
+    );
+  }
+
   @override
-  List<Object?> get props => [message];
+  List<Object?> get props => [
+    isLoadingInfo,
+    isLoadingContacts,
+    homeInfo,
+    contacts,
+    error,
+  ];
 }

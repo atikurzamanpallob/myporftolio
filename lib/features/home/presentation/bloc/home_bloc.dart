@@ -4,42 +4,48 @@ import 'package:myportfolioapp/features/home/presentation/bloc/home_event.dart';
 import 'package:myportfolioapp/features/home/presentation/bloc/home_state.dart';
 
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
-  GetHomeData homeData;
-  HomeBloc(this.homeData) : super(InfoLoading()) {
-    on<HomeInfoEvent>(fetchHomeInfo);
-    on<HomeContactEvent>(fetchContactInfo);
+  final GetHomeData homeData;
+
+  HomeBloc(this.homeData) : super(const HomeState()) {
+    on<HomeInfoEvent>(_fetchHomeInfo);
+    on<HomeContactEvent>(_fetchContactInfo);
+
+    add(HomeInfoEvent());
+    add(HomeContactEvent());
   }
 
-  Future<void> fetchHomeInfo(
+  Future<void> _fetchHomeInfo(
     HomeInfoEvent event,
     Emitter<HomeState> emit,
   ) async {
-    emit(InfoLoading());
+    emit(state.copyWith(isLoadingInfo: true, error: null));
 
-    var object = await homeData.getHomeInfo();
-    object.fold(
-      (homeinfo) {
-        emit(InfoLoaded(homeinfo));
-      },
+    final result = await homeData.getHomeInfo();
+
+    result.fold(
       (failure) {
-        emit(Failed(failure.message));
+        emit(state.copyWith(isLoadingInfo: false, error: failure.message));
+      },
+      (homeInfo) {
+        emit(state.copyWith(isLoadingInfo: false, homeInfo: homeInfo));
       },
     );
   }
 
-  Future<void> fetchContactInfo(
+  Future<void> _fetchContactInfo(
     HomeContactEvent event,
     Emitter<HomeState> emit,
   ) async {
-    emit(ContactLoading());
+    emit(state.copyWith(isLoadingContacts: true, error: null));
 
-    var object = await homeData.getContactInfo();
-    object.fold(
-      (contacts) {
-        emit(ContactLoaded(contacts));
-      },
+    final result = await homeData.getContactInfo();
+
+    result.fold(
       (failure) {
-        emit(Failed(failure.message));
+        emit(state.copyWith(isLoadingContacts: false, error: failure.message));
+      },
+      (contacts) {
+        emit(state.copyWith(isLoadingContacts: false, contacts: contacts));
       },
     );
   }

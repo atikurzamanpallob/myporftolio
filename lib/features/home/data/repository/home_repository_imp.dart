@@ -9,20 +9,20 @@ class HomeRepositoryImp implements HomeRepository {
   HomeDatasource datasource;
   HomeRepositoryImp(this.datasource);
   @override
-  Future<Either<List<ContactInfo>, Failure>> getContactInfo() async {
+  Future<Either<Failure, List<ContactInfo>>> getContactInfo() async {
     try {
-      return Left(await datasource.getContactInfo());
+      return Right(await datasource.getContactInfo());
     } catch (e) {
-      return Right(Failure(e.toString()));
+      return Left(Failure(e.toString()));
     }
   }
 
   @override
-  Future<Either<HomeInfo?, Failure>> getHomeInfo() async {
+  Future<Either<Failure, HomeInfo?>> getHomeInfo() async {
     try {
-      return Left(await datasource.getHomeInfo());
+      return Right(await datasource.getHomeInfo());
     } catch (e) {
-      return Right(Failure(e.toString()));
+      return Left(Failure(e.toString()));
     }
   }
 }

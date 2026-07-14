@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:myportfolioapp/features/home/presentation/bloc/home_bloc.dart';
-import 'package:myportfolioapp/features/home/presentation/bloc/home_event.dart';
 import '../../../../core/app_resources/app_colors.dart';
 import '../../../../core/common/navigation.dart';
 import '../../../../core/utils/responsive.dart';
@@ -25,8 +22,6 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    context.read<HomeBloc>().add(HomeContactEvent());
-    context.read<HomeBloc>().add(HomeInfoEvent());
   }
 
   @override

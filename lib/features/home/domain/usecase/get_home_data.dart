@@ -8,11 +8,11 @@ class GetHomeData {
   HomeRepository repository;
   GetHomeData(this.repository);
 
-  Future<Either<HomeInfo?, Failure>> getHomeInfo() async {
+  Future<Either<Failure, HomeInfo?>> getHomeInfo() async {
     return await repository.getHomeInfo();
   }
 
-  Future<Either<List<ContactInfo>?, Failure>> getContactInfo() async {
+  Future<Either<Failure, List<ContactInfo>?>> getContactInfo() async {
     return await repository.getContactInfo();
   }
 }

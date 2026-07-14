@@ -104,13 +104,11 @@ class _HeroText extends StatelessWidget {
         SizedBox(height: 15.h),
         _DownloadResumeButton(),
         SizedBox(height: 10.h),
-        BlocConsumer<HomeBloc, HomeState>(
-          listener: (ctx, state) {},
-          builder: (ctx, state) {
+        BlocBuilder<HomeBloc, HomeState>(
+          builder: (context, state) {
             List<ContactInfo> contacts = [];
-            if (state is ContactLoaded) {
-              contacts = state.contacts ?? [];
-            }
+            contacts = state.contacts ?? [];
+
             return Row(
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: centered
@@ -238,16 +236,13 @@ class _HeroText extends StatelessWidget {
 class _DownloadResumeButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<HomeBloc, HomeState>(
-      listener: (ctx, state) {},
+    return BlocBuilder<HomeBloc, HomeState>(
       builder: (context, state) => MouseRegion(
         cursor: SystemMouseCursors.click,
         child: GestureDetector(
           onTap: () {
-            if (state is InfoLoaded) {
-              HomeInfo? info = state.homeInfo;
-              launchUrl(Uri.parse(info?.resumeUrl ?? ""));
-            }
+            HomeInfo? info = state.homeInfo;
+            launchUrl(Uri.parse(info?.resumeUrl ?? ""));
           },
           child: Container(
             padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 7.h),
