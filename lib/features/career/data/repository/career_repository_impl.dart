@@ -2,6 +2,7 @@ import 'package:fpdart/fpdart.dart';
 import 'package:myportfolioapp/core/errors/failures.dart';
 import 'package:myportfolioapp/features/career/data/datasources/career_datasource.dart';
 import 'package:myportfolioapp/features/career/domain/entity/certificate_item.dart';
+import 'package:myportfolioapp/features/career/domain/entity/work_experience_item.dart';
 import 'package:myportfolioapp/features/career/domain/repository/career_repository.dart';
 
 class CareerRepositoryImpl implements CareerRepository {
@@ -11,6 +12,15 @@ class CareerRepositoryImpl implements CareerRepository {
   Future<Either<Failure, List<CertificationItem>>> getCertificates() async {
     try {
       return Right(await datasource.getCertificates());
+    } catch (e) {
+      return Left(Failure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<WorkExperienceItem>>> getExperience() async {
+    try {
+      return Right(await datasource.getExperiences());
     } catch (e) {
       return Left(Failure(e.toString()));
     }

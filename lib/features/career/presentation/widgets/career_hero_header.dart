@@ -56,20 +56,19 @@ class CareerHeroHeader extends StatelessWidget {
       child: isDesktop
           ? Stack(
               children: [
-                Expanded(child: illustration),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      title,
-                      SizedBox(height: 14.h),
-                      ConstrainedBox(
-                        constraints: BoxConstraints(maxWidth: 480.w),
-                        child: subtitle,
-                      ),
-                    ],
-                  ),
+                illustration,
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    title,
+                    SizedBox(height: 14.h),
+                    ConstrainedBox(
+                      constraints: BoxConstraints(maxWidth: 480.w),
+                      child: subtitle,
+                    ),
+                  ],
                 ),
+
                 SizedBox(width: 24.w),
               ],
             )

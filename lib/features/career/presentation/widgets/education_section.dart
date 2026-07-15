@@ -37,7 +37,6 @@ class EducationSection extends StatelessWidget {
               padding: EdgeInsets.all(10.r),
               width: double.infinity,
               decoration: BoxDecoration(
-                //   color: AppColors.cardBackground,
                 borderRadius: BorderRadius.circular(14.r),
                 border: Border.all(color: AppColors.divider, width: 1),
               ),

@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:myportfolioapp/features/career/domain/entity/work_experience_item.dart';
+import 'package:myportfolioapp/features/career/presentation/bloc/career_bloc.dart';
+import 'package:myportfolioapp/features/career/presentation/bloc/career_state.dart';
 
 import '../../../../core/app_resources/app_colors.dart';
 import '../../../../core/utils/responsive.dart';
-import '../../data/models/work_experience.dart';
 import 'experience_card.dart';
 
 class WorkTimeline extends StatelessWidget {
-  const WorkTimeline({super.key, required this.experiences});
-
-  final List<WorkExperience> experiences;
+  const WorkTimeline({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -17,40 +18,47 @@ class WorkTimeline extends StatelessWidget {
 
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: isMobile ? 16.w : 40.w),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'Work Experience',
-            style: TextStyle(
-              fontSize: 14.sp,
-              fontWeight: FontWeight.w600,
-              color: Colors.white,
-            ),
-          ),
-          SizedBox(height: 20.h),
-          for (int i = 0; i < experiences.length; i++)
-            isMobile
-                ? _MobileTimelineItem(
-                    experience: experiences[i],
-                    isLast: i == experiences.length - 1,
-                  )
-                : _RailTimelineItem(
-                    experience: experiences[i],
-                    isLast: i == experiences.length - 1,
-                  ),
-        ],
+      child: BlocBuilder<CareerBloc, CareerState>(
+        builder: (context, state) {
+          List<WorkExperienceItem> experiences =
+              (state.experiences?.isEmpty ?? false)
+              ? workExperiences
+              : state.experiences ?? workExperiences;
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Work Experience',
+                style: TextStyle(
+                  fontSize: 14.sp,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.white,
+                ),
+              ),
+              SizedBox(height: 20.h),
+
+              for (int i = 0; i < experiences.length; i++)
+                isMobile
+                    ? _MobileTimelineItem(
+                        experience: experiences[i],
+                        isLast: i == experiences.length - 1,
+                      )
+                    : _RailTimelineItem(
+                        experience: experiences[i],
+                        isLast: i == experiences.length - 1,
+                      ),
+            ],
+          );
+        },
       ),
     );
   }
 }
 
-/// Desktop/tablet: fixed-width year + dot + connecting-line rail on the
-/// left, card on the right.
 class _RailTimelineItem extends StatelessWidget {
   const _RailTimelineItem({required this.experience, required this.isLast});
 
-  final WorkExperience experience;
+  final WorkExperienceItem experience;
   final bool isLast;
 
   @override
@@ -103,7 +111,7 @@ class _RailTimelineItem extends StatelessWidget {
 class _MobileTimelineItem extends StatelessWidget {
   const _MobileTimelineItem({required this.experience, required this.isLast});
 
-  final WorkExperience experience;
+  final WorkExperienceItem experience;
   final bool isLast;
 
   @override

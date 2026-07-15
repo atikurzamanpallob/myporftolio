@@ -8,8 +8,8 @@ class CareerBloc extends Bloc<CareerEvent, CareerState> {
   CareerBloc(this.careerData) : super(CareerState()) {
     on<CertificateFetchEvent>(getCertificate);
     on<ExperienceFetchEvent>(getExperience);
-    add(ExperienceFetchEvent());
     add(CertificateFetchEvent());
+    add(ExperienceFetchEvent());
   }
 
   Future getCertificate(
@@ -40,5 +40,22 @@ class CareerBloc extends Bloc<CareerEvent, CareerState> {
   Future getExperience(
     ExperienceFetchEvent event,
     Emitter<CareerState> emit,
-  ) async {}
+  ) async {
+    emit(state.copyWith(isExperienceLoading: true));
+
+    final result = await careerData.getExperiences();
+
+    result.fold(
+      (failure) {
+        emit(
+          state.copyWith(isExperienceLoading: false, error: failure.message),
+        );
+      },
+      (experience) {
+        emit(
+          state.copyWith(isExperienceLoading: false, experiences: experience),
+        );
+      },
+    );
+  }
 }

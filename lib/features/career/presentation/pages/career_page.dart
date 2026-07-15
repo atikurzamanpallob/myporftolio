@@ -8,7 +8,6 @@ import '../../../../core/common/nav_bar.dart';
 import '../../../../core/common/navigation.dart';
 import '../../../../core/utils/responsive.dart';
 import '../../../home/presentation/pages/footer_section.dart';
-import '../../data/models/work_experience.dart';
 import '../widgets/career_hero_header.dart';
 import '../widgets/education_certification_row.dart';
 import '../widgets/work_timeline.dart';
@@ -22,7 +21,7 @@ class CareerPage extends StatelessWidget {
   List<Widget> items = [
     const CareerHeroHeader(),
     SizedBox(height: 8.h),
-    WorkTimeline(experiences: kWorkExperiences),
+    const WorkTimeline(),
     SizedBox(height: 32.h),
     const EducationCertificationRow(),
     SizedBox(height: 20.h),
@@ -45,6 +44,7 @@ class CareerPage extends StatelessWidget {
             )
           : null,
       body: ListView.builder(
+        padding: EdgeInsets.symmetric(horizontal: 20.w),
         itemCount: items.length,
         itemBuilder: (context, index) {
           return items[index];
