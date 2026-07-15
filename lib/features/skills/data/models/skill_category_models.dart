@@ -30,7 +30,7 @@ List<SkillCategory> kTechnicalSkills = [
     items: [
       SkillItem(name: 'Firebase', level: 85),
       SkillItem(name: 'REST API\'s', level: 95),
-      SkillItem(name: 'Supabase', level: 73),
+      SkillItem(name: 'Supabase', level: 80),
       SkillItem(name: 'Micro Service', level: 95),
     ],
   ),
