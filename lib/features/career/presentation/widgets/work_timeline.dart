@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:myportfolioapp/core/common/stagger_list_animation.dart';
 import 'package:myportfolioapp/features/career/domain/entity/work_experience_item.dart';
 import 'package:myportfolioapp/features/career/presentation/bloc/career_bloc.dart';
 import 'package:myportfolioapp/features/career/presentation/bloc/career_state.dart';
@@ -39,13 +40,19 @@ class WorkTimeline extends StatelessWidget {
 
               for (int i = 0; i < experiences.length; i++)
                 isMobile
-                    ? _MobileTimelineItem(
-                        experience: experiences[i],
-                        isLast: i == experiences.length - 1,
+                    ? StaggerListAnimation(
+                        index: i,
+                        item: _MobileTimelineItem(
+                          experience: experiences[i],
+                          isLast: i == experiences.length - 1,
+                        ),
                       )
-                    : _RailTimelineItem(
-                        experience: experiences[i],
-                        isLast: i == experiences.length - 1,
+                    : StaggerListAnimation(
+                        index: i,
+                        item: _RailTimelineItem(
+                          experience: experiences[i],
+                          isLast: i == experiences.length - 1,
+                        ),
                       ),
             ],
           );

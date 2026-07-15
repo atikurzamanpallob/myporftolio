@@ -2,13 +2,14 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:myportfolioapp/core/common/hero_header.dart';
 
 import '../../../../core/app_resources/app_colors.dart';
+import '../../../../core/app_resources/app_images.dart';
 import '../../../../core/common/nav_bar.dart';
 import '../../../../core/common/navigation.dart';
 import '../../../../core/utils/responsive.dart';
 import '../../../home/presentation/pages/footer_section.dart';
-import '../widgets/career_hero_header.dart';
 import '../widgets/education_certification_row.dart';
 import '../widgets/work_timeline.dart';
 
@@ -19,7 +20,15 @@ class CareerPage extends StatelessWidget {
   static const String route = "/career";
 
   List<Widget> items = [
-    const CareerHeroHeader(),
+    const HeroHeader(
+      heading1: 'Career ',
+      heading2: 'Summary',
+      bodyText:
+          'Building scalable mobile and web applications, collaborating with '
+          'teams ,turning idea into\n products and solve real world problems '
+          'with engineered solutions',
+      backgroundImage: AppImages.careerImage,
+    ),
     SizedBox(height: 8.h),
     const WorkTimeline(),
     SizedBox(height: 32.h),
