@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:myportfolioapp/features/contact/presentation/bloc/contact_bloc.dart';
+import 'package:myportfolioapp/features/contact/presentation/bloc/contact_event.dart';
 
 import '../../../../core/app_resources/app_colors.dart';
 import '../../../../core/app_resources/app_fonts.dart';
@@ -38,6 +41,14 @@ class _ContactFormState extends State<ContactForm> {
     Future.delayed(const Duration(milliseconds: 600), () {
       if (!mounted) return;
       setState(() => _submitting = false);
+      context.read<ContactBloc>().add(
+        ContactEmailSendEvent(
+          name: _nameController.text,
+          email: _emailController.text,
+          subject: _subjectController.text,
+          message: _messageController.text,
+        ),
+      );
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text("Thanks! I'll get back to you within 24 hours."),

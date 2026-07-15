@@ -49,25 +49,12 @@ const List<TrustBadge> kTrustBadges = [
   ),
 ];
 
-const List<ContactInfoItem> kContactInfo = [
-  ContactInfoItem(
-    iconAsset: AppIcons.email,
-    label: 'Email',
-    value: 'atikurzamanpallob@gmail.com',
-  ),
-  ContactInfoItem(
-    iconAsset: AppIcons.phone,
-    label: 'Phone',
-    value: '+8801745914445',
-  ),
-  ContactInfoItem(
-    iconAsset: AppIcons.whatsapp,
-    label: 'Whatsapp',
-    value: '+8801745914445',
-  ),
-  ContactInfoItem(
-    iconAsset: AppIcons.location,
-    label: 'Location',
-    value: 'Dhaka,Bangladesh',
-  ),
+List<String> icons = [
+  AppIcons.github,
+  AppIcons.linkedin,
+  AppIcons.hackerrank,
+  AppIcons.email,
+  AppIcons.phone,
+  AppIcons.whatsapp,
+  AppIcons.location,
 ];
