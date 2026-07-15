@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:myportfolioapp/core/app_resources/app_images.dart';
 import 'package:myportfolioapp/core/common/glass_card.dart';
 import 'package:myportfolioapp/features/career/domain/entity/certificate_item.dart';
 import 'package:myportfolioapp/features/career/presentation/bloc/career_bloc.dart';
@@ -148,7 +149,14 @@ class _CertificationChip extends StatelessWidget {
           ),
           SizedBox(height: 10.h),
           Expanded(
-            child: CachedNetworkImage(imageUrl: imageUrl, fit: BoxFit.fill),
+            child: CachedNetworkImage(
+              imageUrl: imageUrl,
+              fit: BoxFit.fill,
+              errorWidget: (context, url, error) =>
+                  Image.asset(AppImages.placehHolder, fit: BoxFit.fill),
+              placeholder: (context, url) =>
+                  Image.asset(AppImages.placehHolder, fit: BoxFit.fill),
+            ),
           ),
         ],
       ),

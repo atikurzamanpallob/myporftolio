@@ -6,4 +6,5 @@ class AppImages {
   static const projectImage = 'assets/images/project_image.jpg';
   static const blogImage = 'assets/images/blog_image.jpg';
   static const contactImage = 'assets/images/contact_image.jpg';
+  static const placehHolder = 'assets/images/placeholder.jpg';
 }
