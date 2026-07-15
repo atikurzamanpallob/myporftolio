@@ -6,7 +6,7 @@ import 'package:myportfolioapp/core/common/glass_card.dart';
 
 import '../../../../core/app_resources/app_colors.dart';
 import '../../../../core/utils/responsive.dart';
-import '../../data/models/work_experience.dart';
+import '../../data/models/education_lists.dart';
 
 class EducationSection extends StatelessWidget {
   const EducationSection({super.key});
@@ -37,7 +37,6 @@ class EducationSection extends StatelessWidget {
               padding: EdgeInsets.all(10.r),
               width: double.infinity,
               decoration: BoxDecoration(
-                //   color: AppColors.cardBackground,
                 borderRadius: BorderRadius.circular(14.r),
                 border: Border.all(color: AppColors.divider, width: 1),
               ),

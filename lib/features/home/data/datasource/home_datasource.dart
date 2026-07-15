@@ -18,7 +18,10 @@ class HomeDataSourceImp implements HomeDatasource {
   @override
   Future<List<ContactInfo>> getContactInfo() async {
     List<ContactInfo> list = [];
-    final response = await client.from('contacts').select();
+    final response = await client
+        .from('contacts')
+        .select()
+        .order('id', ascending: true);
     response.forEach((v) {
       final model = ContactModel.fromJson(v);
       list.add(model.toEntity());

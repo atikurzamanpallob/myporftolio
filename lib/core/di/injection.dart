@@ -1,4 +1,9 @@
 import 'package:get_it/get_it.dart';
+import 'package:myportfolioapp/features/career/data/datasources/career_datasource.dart';
+import 'package:myportfolioapp/features/career/data/repository/career_repository_impl.dart';
+import 'package:myportfolioapp/features/career/domain/repository/career_repository.dart';
+import 'package:myportfolioapp/features/career/domain/usecase/career_data.dart';
+import 'package:myportfolioapp/features/career/presentation/bloc/career_bloc.dart';
 import 'package:myportfolioapp/features/contact/data/datasource/contact_datasource.dart';
 import 'package:myportfolioapp/features/contact/data/repositories/contact_repositories_impl.dart';
 import 'package:myportfolioapp/features/contact/domain/repositories/contact_repository.dart';
@@ -32,4 +37,15 @@ Future<void> injectDependency() async {
   );
   getIt.registerLazySingleton(() => ContactData(getIt(), getIt()));
   getIt.registerFactory(() => ContactBloc(getIt()));
+
+  //career dependency
+
+  getIt.registerLazySingleton<CareerDatasource>(
+    () => CareerDatasourceImp(getIt()),
+  );
+  getIt.registerLazySingleton<CareerRepository>(
+    () => CareerRepositoryImpl(getIt()),
+  );
+  getIt.registerLazySingleton(() => CareerData(getIt()));
+  getIt.registerFactory(() => CareerBloc(getIt()));
 }

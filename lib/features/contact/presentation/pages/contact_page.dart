@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:myportfolioapp/core/common/glass_card.dart';
+import 'package:myportfolioapp/core/common/hero_header.dart';
 
 import '../../../../core/app_resources/app_colors.dart';
+import '../../../../core/app_resources/app_images.dart';
 import '../../../../core/common/nav_bar.dart';
 import '../../../../core/common/navigation.dart';
 import '../../../../core/utils/responsive.dart';
 import '../../../home/presentation/pages/footer_section.dart';
 import '../widgets/availability_card.dart';
 import '../widgets/contact_form.dart';
-import '../widgets/contact_hero_header.dart';
 import '../widgets/contact_info_card.dart';
 import '../widgets/trust_badges_column.dart';
 
@@ -37,8 +38,16 @@ class ContactPage extends StatelessWidget {
             )
           : null,
       body: ListView(
+        padding: EdgeInsets.symmetric(horizontal: 20.w),
         children: [
-          const ContactHeroHeader(),
+          const HeroHeader(
+            heading1: "Let's Build Amazing \nThings ",
+            heading2: 'Together',
+            bodyText:
+                'Have project in mind or just want to say Hi? I would love to hear from you.'
+                '\nLet’s turn your ideas into real products.',
+            backgroundImage: AppImages.contactImage,
+          ),
           SizedBox(height: 24.h),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: isMobile ? 16.w : 40.w),

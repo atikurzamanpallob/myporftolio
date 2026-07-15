@@ -43,10 +43,13 @@ class SoftSkillsSection extends StatelessWidget {
                 spacing: spacing,
                 runSpacing: spacing,
                 children: [
-                  for (final skill in kSoftSkills)
+                  for (int i = 0; i < kSoftSkills.length; i++)
                     SizedBox(
                       width: cardWidth,
-                      child: SoftSkillCard(skill: skill, isDesktop: isDesktop),
+                      child: SoftSkillCard(
+                        skill: kSoftSkills[i],
+                        isDesktop: isDesktop,
+                      ),
                     ),
                 ],
               );

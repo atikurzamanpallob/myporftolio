@@ -2,13 +2,14 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:myportfolioapp/core/app_resources/app_images.dart';
+import 'package:myportfolioapp/core/common/hero_header.dart';
 
 import '../../../../core/app_resources/app_colors.dart';
 import '../../../../core/common/nav_bar.dart';
 import '../../../../core/common/navigation.dart';
 import '../../../../core/utils/responsive.dart';
 import '../../../home/presentation/pages/footer_section.dart';
-import '../widgets/skills_hero_header.dart';
 import 'soft_skills_section.dart';
 import 'technical_skills_section.dart';
 
@@ -19,7 +20,14 @@ class SkillsPage extends StatelessWidget {
   static const String route = "/skills";
 
   List<Widget> items = [
-    const SkillsHeroHeader(),
+    const HeroHeader(
+      heading1: 'My ',
+      heading2: 'Skills',
+      bodyText:
+          'Here are the tools and technology that i use to design, build , ship high performance \nfrontend (web, mobile) and backend '
+          'applications.',
+      backgroundImage: AppImages.skillImage,
+    ),
     SizedBox(height: 8.h),
     const TechnicalSkillsSection(),
     SizedBox(height: 8.h),
@@ -45,6 +53,7 @@ class SkillsPage extends StatelessWidget {
             )
           : null,
       body: ListView.builder(
+        padding: EdgeInsets.symmetric(horizontal: 20.w),
         itemCount: items.length,
         itemBuilder: (context, index) {
           return items[index];

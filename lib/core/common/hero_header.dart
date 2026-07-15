@@ -3,11 +3,17 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/app_resources/app_colors.dart';
 import '../../../../core/app_resources/app_fonts.dart';
-import '../../../../core/app_resources/app_images.dart';
 import '../../../../core/utils/responsive.dart';
 
-class ProjectsHeroHeader extends StatelessWidget {
-  const ProjectsHeroHeader({super.key});
+class HeroHeader extends StatelessWidget {
+  const HeroHeader({
+    super.key,
+    required this.heading1,
+    required this.heading2,
+    required this.bodyText,
+    required this.backgroundImage,
+  });
+  final String heading1, heading2, bodyText, backgroundImage;
 
   @override
   Widget build(BuildContext context) {
@@ -16,16 +22,19 @@ class ProjectsHeroHeader extends StatelessWidget {
 
     return Stack(
       children: [
-        Container(
-          padding: EdgeInsets.symmetric(horizontal: 50.w),
-          width: double.infinity,
-          height: bannerHeight,
-          child: Image.asset(AppImages.projectImage, fit: BoxFit.fill),
+        Opacity(
+          opacity: isMobile ? 0.4 : 1,
+          child: Container(
+            padding: EdgeInsets.symmetric(horizontal: 50.w),
+            width: double.infinity,
+            height: bannerHeight,
+            child: Image.asset(backgroundImage, fit: BoxFit.fill),
+          ),
         ),
         Padding(
           padding: EdgeInsets.symmetric(
             horizontal: isMobile ? 16.w : 40.w,
-            vertical: isMobile ? 28.h : 40.h,
+            vertical: isMobile ? 28.h : 15.h,
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -33,15 +42,15 @@ class ProjectsHeroHeader extends StatelessWidget {
               Text.rich(
                 TextSpan(
                   style: TextStyle(
-                    fontSize: isMobile ? 30.sp : 36.sp,
-                    fontWeight: FontWeight.w600,
+                    fontSize: isMobile ? 26.sp : 34.sp,
+                    fontWeight: FontWeight.w700,
                     color: Colors.white,
-                    height: 1.15,
+                    height: 1.2,
                   ),
                   children: [
-                    const TextSpan(text: 'My '),
+                    TextSpan(text: heading1),
                     TextSpan(
-                      text: 'Projects',
+                      text: heading2,
                       style: TextStyle(color: AppColors.primaryBlue),
                     ),
                   ],
@@ -49,9 +58,7 @@ class ProjectsHeroHeader extends StatelessWidget {
               ),
               SizedBox(height: 14.h),
               Text(
-                'Here are the projects i have worked on so far . Each '
-                'projects reflects my focus on design , performance and '
-                'great user experience',
+                bodyText,
                 style: TextStyle(
                   fontSize: 12.sp,
                   fontFamily: AppFonts.inter,
