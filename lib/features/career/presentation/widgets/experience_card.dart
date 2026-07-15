@@ -64,7 +64,7 @@ class ExperienceCard extends StatelessWidget {
               color: AppColors.green,
             ),
           ),
-          SizedBox(width: 4.w),
+          SizedBox(width: 10.w),
           InkWell(
             onTap: () {},
             child: Container(

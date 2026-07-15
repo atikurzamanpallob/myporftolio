@@ -1,5 +1,3 @@
-import 'package:myportfolioapp/core/app_resources/app_icons.dart';
-
 /// What kind of logo to render for a [WorkExperience.company] when no real
 /// logo image asset is available yet (see [CompanyLogo] widget).
 enum LogoStyle { freelancer, initials }
@@ -109,38 +107,4 @@ const List<WorkExperience> kWorkExperiences = [
     ],
     logoStyle: LogoStyle.initials,
   ),
-];
-
-class EducationItem {
-  const EducationItem({required this.iconAsset, required this.text});
-  final String iconAsset;
-  final String text;
-}
-
-const List<EducationItem> kEducationItems = [
-  EducationItem(
-    iconAsset: AppIcons.education,
-    text: 'Bachelor Of Science  ( Class of 2018 )',
-  ),
-  EducationItem(
-    iconAsset: AppIcons.subjects,
-    text: 'Computer Science & Engineering',
-  ),
-  EducationItem(
-    iconAsset: AppIcons.university,
-    text: 'Rajshahi University Of Engineering & Technology',
-  ),
-];
-
-class CertificationItem {
-  const CertificationItem({required this.title, required this.issuer});
-  final String title;
-  final String issuer;
-}
-
-const List<CertificationItem> kCertifications = [
-  CertificationItem(title: 'Machine Learning', issuer: 'Coursera'),
-  CertificationItem(title: 'Problem Solving', issuer: 'Hacker Rank'),
-  CertificationItem(title: 'Java', issuer: 'Hacker Rank'),
-  CertificationItem(title: 'C++', issuer: 'Hacker Rank'),
 ];

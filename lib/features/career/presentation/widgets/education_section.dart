@@ -6,7 +6,7 @@ import 'package:myportfolioapp/core/common/glass_card.dart';
 
 import '../../../../core/app_resources/app_colors.dart';
 import '../../../../core/utils/responsive.dart';
-import '../../data/models/work_experience.dart';
+import '../../data/models/education_lists.dart';
 
 class EducationSection extends StatelessWidget {
   const EducationSection({super.key});
