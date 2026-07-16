@@ -6,6 +6,8 @@ import 'package:myportfolioapp/features/blogs/presentation/pages/blogs_page.dart
 import 'package:myportfolioapp/features/career/presentation/bloc/career_bloc.dart';
 import 'package:myportfolioapp/features/contact/presentation/bloc/contact_bloc.dart';
 import 'package:myportfolioapp/features/contact/presentation/pages/contact_page.dart';
+import 'package:myportfolioapp/features/dashboard/presentation/bloc/dashboard_bloc.dart';
+import 'package:myportfolioapp/features/dashboard/presentation/pages/dashboard_page.dart';
 import 'package:myportfolioapp/features/home/presentation/bloc/home_bloc.dart';
 import 'package:myportfolioapp/features/home/presentation/pages/home_view.dart';
 import 'package:myportfolioapp/features/projects/presentation/pages/projects_page.dart';
@@ -52,6 +54,24 @@ final GoRouter router = GoRouter(
           child: const ContactPage(),
         ),
       ),
+    ),
+    GoRoute(
+      path: DashboardPage.route,
+      pageBuilder: (context, state) {
+        final extra = state.extra as Map<String, dynamic>?;
+        final bool isLoggedIn = extra?['is_loggedin'] ?? true;
+        return buildPage(
+          state,
+          BlocProvider(
+            create: (_) => getIt<DashBoardBloc>(),
+            child: isLoggedIn
+                ? const DashboardPage()
+                : Scaffold(
+                    body: const Center(child: Text("Logged in to continue")),
+                  ),
+          ),
+        );
+      },
     ),
   ],
 );

@@ -32,4 +32,18 @@ class AppColors {
   // Borders / dividers
   static const Color divider = Color(0xFF23375A);
   static const Color buttonBorder = Color(0xFFFFFFFF);
+
+  static const bg = Color(0xFF0B1120); // page background
+  static const sidebar = Color(0xFF0D1424); // sidebar background
+  static const topbar = Color(0xFF0D1424);
+  static const card = Color(0xFF111A2E); // card / panel background
+  static const cardBorder = Color(0xFF1E2A45);
+  static const field = Color(0xFF0B1324); // input background
+  static const fieldBorder = Color(0xFF23304A);
+  static const accentBlue = Color(0xFF2F6FED);
+  static const accentBlueLight = Color(0xFF4C8DFF);
+  static const chipBg = Color(0xFF1A2438);
+  static const badgeBg = Color(0xFF2F6FED);
+  static const success = Color(0xFF22C55E);
+  static const danger = Color(0xFFEF4444);
 }
