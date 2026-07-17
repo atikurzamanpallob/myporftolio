@@ -14,6 +14,10 @@ import 'package:myportfolioapp/features/home/data/datasource/home_datasource.dar
 import 'package:myportfolioapp/features/home/data/repository/home_repository_imp.dart';
 import 'package:myportfolioapp/features/home/domain/repository/home_repository.dart';
 import 'package:myportfolioapp/features/home/domain/usecase/get_home_data.dart';
+import 'package:myportfolioapp/features/projects/data/datasource/project_datasource.dart';
+import 'package:myportfolioapp/features/projects/data/repository/project_repository_impl.dart';
+import 'package:myportfolioapp/features/projects/domain/repository/project_repository.dart';
+import 'package:myportfolioapp/features/projects/domain/usecase/project_data.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../features/home/presentation/bloc/home_bloc.dart';
@@ -50,7 +54,16 @@ Future<void> injectDependency() async {
   getIt.registerLazySingleton(() => CareerData(getIt()));
   getIt.registerFactory(() => CareerBloc(getIt()));
 
-  //dashboard
+  //project dependency
 
-  getIt.registerFactory(() => DashBoardBloc());
+  getIt.registerLazySingleton<ProjectDatasource>(
+    () => ProjectDatasourceImp(getIt()),
+  );
+  getIt.registerLazySingleton<ProjectRepository>(
+    () => ProjectRepositoryImpl(getIt()),
+  );
+  getIt.registerLazySingleton(() => ProjectData(getIt()));
+
+  //dashboard
+  getIt.registerFactory(() => DashBoardBloc(getIt()));
 }
