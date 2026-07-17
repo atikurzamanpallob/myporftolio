@@ -9,6 +9,7 @@ import 'package:myportfolioapp/features/contact/data/repositories/contact_reposi
 import 'package:myportfolioapp/features/contact/domain/repositories/contact_repository.dart';
 import 'package:myportfolioapp/features/contact/domain/usecase/contact_data.dart';
 import 'package:myportfolioapp/features/contact/presentation/bloc/contact_bloc.dart';
+import 'package:myportfolioapp/features/dashboard/domain/usecase/dashboard_data.dart';
 import 'package:myportfolioapp/features/dashboard/presentation/bloc/dashboard_bloc.dart';
 import 'package:myportfolioapp/features/home/data/datasource/home_datasource.dart';
 import 'package:myportfolioapp/features/home/data/repository/home_repository_imp.dart';
@@ -65,5 +66,6 @@ Future<void> injectDependency() async {
   getIt.registerLazySingleton(() => ProjectData(getIt()));
 
   //dashboard
+  getIt.registerLazySingleton(() => DashboardData(projectData: getIt()));
   getIt.registerFactory(() => DashBoardBloc(getIt()));
 }

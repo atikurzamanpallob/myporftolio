@@ -1,41 +1,55 @@
-// ignore_for_file: avoid_function_literals_in_foreach_calls
-
-import 'dart:io';
-
+// ignore_for_file: avoid_print, avoid_function_literals_in_foreach_calls
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:myportfolioapp/features/projects/data/models/project_item_models.dart';
+import 'package:myportfolioapp/features/projects/domain/entity/project_add_item.dart';
 import 'package:myportfolioapp/features/projects/domain/entity/project_item.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 abstract class ProjectDatasource {
-  Future<bool> addProject({required ProjectItemModels model});
+  Future<bool> addProject({required ProjectAddItem model});
   Future<List<ProjectItem>> getProjects();
 }
 
 class ProjectDatasourceImp extends ProjectDatasource {
   SupabaseClient client;
   ProjectDatasourceImp(this.client);
+  final storageUrl = dotenv.get("STORAGE_URL");
 
   @override
-  Future<bool> addProject({required ProjectItemModels model}) async {
+  Future<bool> addProject({required ProjectAddItem model}) async {
     List<String> imageUrls = [];
-    for (final path in model.images) {
-      final file = File(path);
-      String name = file.path.split('/').last;
-
-      final fileName = "${DateTime.now().millisecondsSinceEpoch}_$name}";
-
-      await Supabase.instance.client.storage
-          .from('project_images')
-          .upload(fileName, file);
-
-      imageUrls.add(
-        Supabase.instance.client.storage
+    try {
+      for (final file in model.files) {
+        final fileName =
+            "${DateTime.now().millisecondsSinceEpoch}_${sanitizeFileName(file.name)}";
+        var imageaddress = await client.storage
             .from('project_images')
-            .getPublicUrl(fileName),
-      );
+            .uploadBinary(
+              fileName,
+              file.bytes!,
+              fileOptions: FileOptions(contentType: "image/jpeg"),
+            );
+        imageUrls.add("$storageUrl/$imageaddress");
+      }
+
+      await client.from('projects').insert({
+        "index": model.index,
+        "name": model.name,
+        "type": model.type,
+        "link": model.link,
+        "description": model.description,
+        "technology": model.technology,
+        "images": imageUrls,
+      });
+    } on StorageException catch (e) {
+      print("Storage Error");
+      print(e.message);
+      print(e.statusCode);
+      print(e.error);
+    } catch (e) {
+      print(e);
     }
-    model.images = imageUrls;
-    await client.from('projects').insert(model.toJson());
+
     return true;
   }
 
@@ -52,5 +66,11 @@ class ProjectDatasourceImp extends ProjectDatasource {
       projects.add(project.toEntity());
     });
     return projects;
+  }
+
+  String sanitizeFileName(String name) {
+    return name
+        .replaceAll(RegExp(r'\s+'), '_')
+        .replaceAll(RegExp(r'[^a-zA-Z0-9._-]'), '');
   }
 }

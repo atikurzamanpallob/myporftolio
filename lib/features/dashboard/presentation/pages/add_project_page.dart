@@ -1,6 +1,14 @@
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:myportfolioapp/core/app_resources/app_colors.dart';
+import 'package:myportfolioapp/core/common/common_dialog.dart';
+import 'package:myportfolioapp/features/dashboard/presentation/bloc/dashboard_bloc.dart';
+import 'package:myportfolioapp/features/dashboard/presentation/bloc/dashboard_event.dart';
+import 'package:myportfolioapp/features/dashboard/presentation/bloc/dashboard_state.dart';
+import 'package:myportfolioapp/features/dashboard/presentation/widgets/progress_window.dart';
+import 'package:myportfolioapp/features/projects/domain/entity/project_add_item.dart';
 
 import '../widgets/section_widget.dart';
 
@@ -12,32 +20,64 @@ class AddProjectPage extends StatefulWidget {
 }
 
 class _AddProjectPageState extends State<AddProjectPage> {
-  final List<String> _technologies = [];
+  List<String> technologies = [];
+  List<PlatformFile> files = [];
   int option = -1;
+  var descriptionController = TextEditingController();
+  var projectNameController = TextEditingController();
+  var projectLinkController = TextEditingController();
+  var indexController = TextEditingController();
+
+  void clear() {
+    setState(() {
+      projectNameController.clear();
+      descriptionController.clear();
+      projectLinkController.clear();
+      option = -1;
+      technologies = [];
+      indexController.clear();
+      files.clear();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
     final isNarrow = width < 1000;
 
-    return Expanded(
-      child: Column(
-        children: [
-          Expanded(
-            child: SingleChildScrollView(
-              padding: const EdgeInsets.fromLTRB(32, 24, 32, 40),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  _buildHeader(context, isNarrow),
-                  const SizedBox(height: 24),
-                  isNarrow ? _buildStackedLayout() : _buildTwoColumnLayout(),
-                ],
+    return BlocConsumer<DashBoardBloc, DashboardState>(
+      listener: (context, state) {
+        if (state.isLoading == true) {
+          CommonDialog(child: ProgressWindow(), context: context);
+        }
+        if (state.isLoading == false) {
+          Navigator.pop(context);
+          clear();
+        }
+      },
+      builder: (context, state) {
+        return Expanded(
+          child: Column(
+            children: [
+              Expanded(
+                child: SingleChildScrollView(
+                  padding: const EdgeInsets.fromLTRB(32, 24, 32, 40),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      _buildHeader(context, isNarrow),
+                      const SizedBox(height: 24),
+                      isNarrow
+                          ? _buildStackedLayout()
+                          : _buildTwoColumnLayout(),
+                    ],
+                  ),
+                ),
               ),
-            ),
+            ],
           ),
-        ],
-      ),
+        );
+      },
     );
   }
 
@@ -66,7 +106,39 @@ class _AddProjectPageState extends State<AddProjectPage> {
       runSpacing: 12,
       children: [
         _ghostButton('Cancel', onTap: () {}),
-        _primaryButton('Publish Project', Icons.send_outlined, onTap: () {}),
+        _primaryButton(
+          'Publish Project',
+          Icons.send_outlined,
+          onTap: () {
+            if (projectNameController.text.isNotEmpty) {
+              if (option != -1) {
+                if (projectLinkController.text.isNotEmpty) {
+                  if (indexController.text.isNotEmpty) {
+                    if (descriptionController.text.isNotEmpty) {
+                      if (technologies.isNotEmpty) {
+                        if (files.isNotEmpty) {
+                          context.read<DashBoardBloc>().add(
+                            AddProjectEvent(
+                              model: ProjectAddItem(
+                                index: int.parse(indexController.text),
+                                name: projectNameController.text,
+                                type: option,
+                                description: descriptionController.text,
+                                link: projectLinkController.text,
+                                technology: technologies,
+                                files: files,
+                              ),
+                            ),
+                          );
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+        ),
       ],
     );
 
@@ -121,9 +193,11 @@ class _AddProjectPageState extends State<AddProjectPage> {
                     label: 'Project Title',
                     required: true,
                     hint: 'e.g. Shoply – E-commerce Mobile App',
+                    controller: projectNameController,
                   ),
                   LabeledDropdown(
                     label: 'Project Type',
+
                     onSelected: (option) {
                       setState(() {
                         this.option = option;
@@ -137,14 +211,24 @@ class _AddProjectPageState extends State<AddProjectPage> {
               const SizedBox(height: 16),
               ResponsiveFieldRow(
                 children: [
-                  const LabeledField(
+                  LabeledField(
                     label: 'Project Link',
                     hint: 'https://yourproject.com',
+                    controller: projectLinkController,
+                  ),
+                  LabeledField(
+                    label: 'Order Index',
+                    hint: '0',
+                    controller: indexController,
                   ),
                 ],
               ),
               const SizedBox(height: 16),
-              const ResponsiveFieldRow(children: [_ShortDescriptionField()]),
+              ResponsiveFieldRow(
+                children: [
+                  _ShortDescriptionField(controller: descriptionController),
+                ],
+              ),
             ],
           ),
         ),
@@ -153,9 +237,9 @@ class _AddProjectPageState extends State<AddProjectPage> {
           title: 'Technologies Used',
           child: ChipInputField(
             hint: 'Add technologies and press Enter...',
-            items: _technologies,
-            onRemove: (i) => setState(() => _technologies.removeAt(i)),
-            onAdd: (v) => setState(() => _technologies.add(v)),
+            items: technologies,
+            onRemove: (i) => setState(() => technologies.removeAt(i)),
+            onAdd: (v) => setState(() => technologies.add(v)),
           ),
         ),
       ],
@@ -171,13 +255,22 @@ class _AddProjectPageState extends State<AddProjectPage> {
             children: [
               const ScreenshotDropZone(),
               const SizedBox(height: 16),
-              const ScreenshotThumbnailGrid(),
+              ScreenshotThumbnailGrid(files: files),
               const SizedBox(height: 16),
               _outlinedIconButton(
                 'Add Images',
                 Icons.add,
                 fullWidth: true,
-                onTap: () {},
+                onTap: () async {
+                  FilePickerResult? results = await FilePicker.pickFiles(
+                    allowMultiple: true,
+                    type: FileType.custom,
+                    withData: true,
+                    allowedExtensions: ['jpg', 'jpeg', 'png'],
+                  );
+                  files = results?.files ?? [];
+                  setState(() {});
+                },
               ),
             ],
           ),
@@ -251,14 +344,14 @@ class _AddProjectPageState extends State<AddProjectPage> {
 }
 
 class _ShortDescriptionField extends StatefulWidget {
-  const _ShortDescriptionField();
+  final TextEditingController controller;
+  const _ShortDescriptionField({required this.controller});
 
   @override
   State<_ShortDescriptionField> createState() => _ShortDescriptionFieldState();
 }
 
 class _ShortDescriptionFieldState extends State<_ShortDescriptionField> {
-  final _controller = TextEditingController();
   int _len = 0;
   static const _max = 400;
 
@@ -270,7 +363,7 @@ class _ShortDescriptionFieldState extends State<_ShortDescriptionField> {
         const FieldLabel(label: 'Short Description', required: true),
         const SizedBox(height: 8),
         TextField(
-          controller: _controller,
+          controller: widget.controller,
           maxLength: _max,
           minLines: 1,
           maxLines: 4,

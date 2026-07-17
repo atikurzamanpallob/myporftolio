@@ -1,5 +1,6 @@
 // ignore_for_file: library_private_types_in_public_api
 
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:myportfolioapp/features/dashboard/domain/entity/project_type.dart';
 import '../../../../core/app_resources/app_colors.dart';
@@ -128,12 +129,13 @@ class LabeledField extends StatelessWidget {
   final String hint;
   final bool required;
   final int maxLines;
-
+  final TextEditingController controller;
   const LabeledField({
     super.key,
     required this.label,
     required this.hint,
     this.required = false,
+    required this.controller,
     this.maxLines = 1,
   });
 
@@ -146,6 +148,7 @@ class LabeledField extends StatelessWidget {
         const SizedBox(height: 8),
         TextField(
           maxLines: maxLines,
+          controller: controller,
           style: const TextStyle(color: AppColors.textPrimary, fontSize: 14),
           decoration: buildInputDecoration(hint),
         ),
@@ -292,7 +295,8 @@ class ScreenshotDropZone extends StatelessWidget {
 }
 
 class ScreenshotThumbnailGrid extends StatefulWidget {
-  const ScreenshotThumbnailGrid({super.key});
+  final List<PlatformFile> files;
+  const ScreenshotThumbnailGrid({super.key, required this.files});
 
   @override
   State<ScreenshotThumbnailGrid> createState() =>
@@ -300,14 +304,12 @@ class ScreenshotThumbnailGrid extends StatefulWidget {
 }
 
 class _ScreenshotThumbnailGridState extends State<ScreenshotThumbnailGrid> {
-  final List<Color> _placeholders = [];
-
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
-      itemCount: _placeholders.length,
+      itemCount: widget.files.length,
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 4,
         crossAxisSpacing: 8,
@@ -318,16 +320,14 @@ class _ScreenshotThumbnailGridState extends State<ScreenshotThumbnailGrid> {
         return Stack(
           children: [
             Container(
-              decoration: BoxDecoration(
-                color: _placeholders[i],
-                borderRadius: BorderRadius.circular(8),
-              ),
+              decoration: BoxDecoration(borderRadius: BorderRadius.circular(8)),
+              child: Image.memory(widget.files[i].bytes!),
             ),
             Positioned(
               top: 4,
               right: 4,
               child: GestureDetector(
-                onTap: () => setState(() => _placeholders.removeAt(i)),
+                onTap: () => setState(() => widget.files.removeAt(i)),
                 child: Container(
                   width: 18,
                   height: 18,

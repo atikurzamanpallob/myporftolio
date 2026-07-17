@@ -1,5 +1,5 @@
 import 'package:fpdart/fpdart.dart';
-import 'package:myportfolioapp/features/projects/data/models/project_item_models.dart';
+import 'package:myportfolioapp/features/projects/domain/entity/project_add_item.dart';
 import 'package:myportfolioapp/features/projects/domain/entity/project_item.dart';
 import 'package:myportfolioapp/features/projects/domain/repository/project_repository.dart';
 
@@ -14,7 +14,7 @@ class ProjectData {
   }
 
   Future<Either<Failure, bool>> addProject({
-    required ProjectItemModels models,
+    required ProjectAddItem models,
   }) async {
     return repository.addProject(models: models);
   }
