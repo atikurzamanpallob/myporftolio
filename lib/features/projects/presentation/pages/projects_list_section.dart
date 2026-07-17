@@ -47,8 +47,7 @@ class _ProjectsListSectionState extends State<ProjectsListSection> {
               SizedBox(height: 24.h),
               (state.isLoading ?? false)
                   ? Expanded(child: Center(child: CircularProgressIndicator()))
-                  : SizedBox.shrink(),
-              state.filtered.isEmpty
+                  : state.filtered.isEmpty
                   ? Padding(
                       padding: EdgeInsets.symmetric(vertical: 40.h),
                       child: Center(
