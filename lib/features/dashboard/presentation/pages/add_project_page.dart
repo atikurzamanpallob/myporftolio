@@ -27,6 +27,7 @@ class _AddProjectPageState extends State<AddProjectPage> {
   var projectNameController = TextEditingController();
   var projectLinkController = TextEditingController();
   var indexController = TextEditingController();
+  var companyName = TextEditingController();
 
   void clear() {
     setState(() {
@@ -114,22 +115,25 @@ class _AddProjectPageState extends State<AddProjectPage> {
               if (option != -1) {
                 if (projectLinkController.text.isNotEmpty) {
                   if (indexController.text.isNotEmpty) {
-                    if (descriptionController.text.isNotEmpty) {
-                      if (technologies.isNotEmpty) {
-                        if (files.isNotEmpty) {
-                          context.read<DashBoardBloc>().add(
-                            AddProjectEvent(
-                              model: ProjectAddItem(
-                                index: int.parse(indexController.text),
-                                name: projectNameController.text,
-                                type: option,
-                                description: descriptionController.text,
-                                link: projectLinkController.text,
-                                technology: technologies,
-                                files: files,
+                    if (companyName.text.isNotEmpty) {
+                      if (descriptionController.text.isNotEmpty) {
+                        if (technologies.isNotEmpty) {
+                          if (files.isNotEmpty) {
+                            context.read<DashBoardBloc>().add(
+                              AddProjectEvent(
+                                model: ProjectAddItem(
+                                  index: int.parse(indexController.text),
+                                  name: projectNameController.text,
+                                  type: option,
+                                  company: companyName.text,
+                                  description: descriptionController.text,
+                                  link: projectLinkController.text,
+                                  technology: technologies,
+                                  files: files,
+                                ),
                               ),
-                            ),
-                          );
+                            );
+                          }
                         }
                       }
                     }
@@ -220,6 +224,11 @@ class _AddProjectPageState extends State<AddProjectPage> {
                     label: 'Order Index',
                     hint: '0',
                     controller: indexController,
+                  ),
+                  LabeledField(
+                    label: 'Associated With',
+                    hint: 'eg. Personal',
+                    controller: companyName,
                   ),
                 ],
               ),

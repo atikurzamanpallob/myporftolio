@@ -10,6 +10,7 @@ class ProjectItemModels extends ProjectItem {
     required super.description,
     required super.technology,
     required super.images,
+    required super.company,
   });
 
   factory ProjectItemModels.fromJson(Map<String, dynamic> json) {
@@ -31,6 +32,7 @@ class ProjectItemModels extends ProjectItem {
       name: json['name'],
       link: json['link'],
       type: json['type'],
+      company: json['company'],
       description: json['description'],
       technology: technologies,
       images: images,
@@ -46,6 +48,7 @@ class ProjectItemModels extends ProjectItem {
     map['description'] = description;
     map['technology'] = technology;
     map['images'] = images;
+    map['company'] = company;
     return map;
   }
 
@@ -56,6 +59,7 @@ class ProjectItemModels extends ProjectItem {
       name: name,
       link: link,
       type: type,
+      company: company,
       description: description,
       technology: technology,
       images: images,

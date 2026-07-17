@@ -5,8 +5,15 @@ class ProjectType {
 }
 
 List<ProjectType> projectOptions = [
-  ProjectType(name: "Mobile App", type: 0),
-  ProjectType(name: "Backend App", type: 1),
-  ProjectType(name: "Web App", type: 2),
-  ProjectType(name: "UI/UX Design", type: 3),
+  ProjectType(name: "All", type: -1),
+  ProjectType(name: "Mobile ", type: 0),
+  ProjectType(name: "Backend", type: 1),
+  ProjectType(name: "Web", type: 2),
+  ProjectType(name: "UI/UX", type: 3),
+];
+List<ProjectType> dashboardProjectOptions = [
+  ProjectType(name: "Mobile ", type: 0),
+  ProjectType(name: "Backend", type: 1),
+  ProjectType(name: "Web", type: 2),
+  ProjectType(name: "UI/UX", type: 3),
 ];

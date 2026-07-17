@@ -10,6 +10,7 @@ import 'package:myportfolioapp/features/dashboard/presentation/bloc/dashboard_bl
 import 'package:myportfolioapp/features/dashboard/presentation/pages/dashboard_page.dart';
 import 'package:myportfolioapp/features/home/presentation/bloc/home_bloc.dart';
 import 'package:myportfolioapp/features/home/presentation/pages/home_view.dart';
+import 'package:myportfolioapp/features/projects/presentation/bloc/project_bloc.dart';
 import 'package:myportfolioapp/features/projects/presentation/pages/projects_page.dart';
 
 import '../../features/career/presentation/pages/career_page.dart';
@@ -39,7 +40,13 @@ final GoRouter router = GoRouter(
     ),
     GoRoute(
       path: ProjectsPage.route,
-      pageBuilder: (context, state) => buildPage(state, ProjectsPage()),
+      pageBuilder: (context, state) => buildPage(
+        state,
+        BlocProvider(
+          create: (_) => getIt<ProjectBloc>(),
+          child: ProjectsPage(),
+        ),
+      ),
     ),
     GoRoute(
       path: BlogsPage.route,

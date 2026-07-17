@@ -6,6 +6,7 @@ class ProjectAddItem {
   final int type;
   final String description;
   final String link;
+  final String company;
   final List<String> technology;
   final List<PlatformFile> files;
   ProjectAddItem({
@@ -14,6 +15,7 @@ class ProjectAddItem {
     required this.type,
     required this.description,
     required this.link,
+    required this.company,
     required this.technology,
     required this.files,
   });

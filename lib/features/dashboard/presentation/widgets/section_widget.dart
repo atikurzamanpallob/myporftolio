@@ -214,7 +214,7 @@ class _LabeledDropdownState extends State<LabeledDropdown> {
                 color: AppColors.textPrimary,
                 fontSize: 14,
               ),
-              items: projectOptions
+              items: dashboardProjectOptions
                   .map(
                     (project) => DropdownMenuItem(
                       value: project.type,

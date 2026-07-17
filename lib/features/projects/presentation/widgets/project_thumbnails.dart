@@ -1,20 +1,19 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:myportfolioapp/core/app_resources/app_images.dart';
 
 import '../../../../core/app_resources/app_colors.dart';
 
-/// A stylized pair of "phone screen" placeholders used until real project
-/// screenshots are available. Swap this out for `Image.asset`/`Image.network`
-/// once you have actual screenshots for each project.
 class ProjectThumbnails extends StatelessWidget {
   const ProjectThumbnails({
     super.key,
-    required this.icon,
+    required this.imageUrls,
     this.width = 130,
     this.height = 210,
   });
 
-  final IconData icon;
+  final List<String> imageUrls;
   final double width;
   final double height;
 
@@ -31,7 +30,7 @@ class ProjectThumbnails extends StatelessWidget {
             child: _PhoneFrame(
               width: width.w,
               height: height.h - 14.h,
-              icon: icon,
+              imageUrl: imageUrls.first,
               muted: true,
             ),
           ),
@@ -41,7 +40,7 @@ class ProjectThumbnails extends StatelessWidget {
             child: _PhoneFrame(
               width: width.w,
               height: height.h - 14.h,
-              icon: icon,
+              imageUrl: imageUrls.last,
               muted: false,
             ),
           ),
@@ -55,13 +54,13 @@ class _PhoneFrame extends StatelessWidget {
   const _PhoneFrame({
     required this.width,
     required this.height,
-    required this.icon,
+    required this.imageUrl,
     required this.muted,
   });
 
   final double width;
   final double height;
-  final IconData icon;
+  final String imageUrl;
   final bool muted;
 
   @override
@@ -96,11 +95,16 @@ class _PhoneFrame extends StatelessWidget {
                   ],
           ),
         ),
-        child: Center(
-          child: Icon(
-            icon,
-            color: Colors.white.withValues(alpha: muted ? 0.5 : 0.9),
-            size: 30.r,
+        child: CachedNetworkImage(
+          imageUrl: imageUrl,
+          errorWidget: (context, url, error) =>
+              Image.asset(AppImages.placehHolder),
+          placeholder: (context, url) => Stack(
+            alignment: AlignmentGeometry.center,
+            children: [
+              Image.asset(AppImages.placehHolder),
+              CircularProgressIndicator(),
+            ],
           ),
         ),
       ),

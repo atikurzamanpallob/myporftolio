@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:myportfolioapp/features/dashboard/domain/entity/project_type.dart';
 
 import '../../../../core/app_resources/app_colors.dart';
 import '../../../../core/app_resources/app_fonts.dart';
-import '../../data/models/project_models.dart';
 
 /// Row of filter pills (All, Mobile, Backend, Web, UI/UX). Wraps onto
 /// multiple lines on narrow screens instead of overflowing.
@@ -15,8 +15,8 @@ class ProjectFilterBar extends StatelessWidget {
     this.alignment = WrapAlignment.end,
   });
 
-  final ProjectCategory selected;
-  final ValueChanged<ProjectCategory> onSelected;
+  final int selected;
+  final ValueChanged<int> onSelected;
   final WrapAlignment alignment;
 
   @override
@@ -26,11 +26,11 @@ class ProjectFilterBar extends StatelessWidget {
       spacing: 10.w,
       runSpacing: 10.h,
       children: [
-        for (final category in ProjectCategory.values)
+        for (final project in projectOptions)
           _FilterPill(
-            label: category.label,
-            active: category == selected,
-            onTap: () => onSelected(category),
+            label: project.name,
+            active: project.type == selected,
+            onTap: () => onSelected(project.type),
           ),
       ],
     );

@@ -19,6 +19,7 @@ import 'package:myportfolioapp/features/projects/data/datasource/project_datasou
 import 'package:myportfolioapp/features/projects/data/repository/project_repository_impl.dart';
 import 'package:myportfolioapp/features/projects/domain/repository/project_repository.dart';
 import 'package:myportfolioapp/features/projects/domain/usecase/project_data.dart';
+import 'package:myportfolioapp/features/projects/presentation/bloc/project_bloc.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../features/home/presentation/bloc/home_bloc.dart';
@@ -64,6 +65,7 @@ Future<void> injectDependency() async {
     () => ProjectRepositoryImpl(getIt()),
   );
   getIt.registerLazySingleton(() => ProjectData(getIt()));
+  getIt.registerFactory(() => ProjectBloc(getIt()));
 
   //dashboard
   getIt.registerLazySingleton(() => DashboardData(projectData: getIt()));

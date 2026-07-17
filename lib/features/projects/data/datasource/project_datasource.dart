@@ -37,6 +37,7 @@ class ProjectDatasourceImp extends ProjectDatasource {
         "name": model.name,
         "type": model.type,
         "link": model.link,
+        "company": model.company,
         "description": model.description,
         "technology": model.technology,
         "images": imageUrls,
