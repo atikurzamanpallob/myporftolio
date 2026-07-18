@@ -1,0 +1,84 @@
+import 'package:flutter/material.dart';
+
+import '../../features/dashboard/domain/entity/category_list.dart';
+import '../app_resources/app_colors.dart';
+import 'field_label.dart';
+
+class LabeledDropdown extends StatefulWidget {
+  final String? label;
+  final String hint;
+  final bool required;
+  final List<Category> categoryList;
+  final Function(int) onSelected;
+
+  const LabeledDropdown({
+    super.key,
+    this.label,
+    required this.hint,
+    this.required = false,
+    required this.categoryList,
+    required this.onSelected,
+  });
+
+  @override
+  State<LabeledDropdown> createState() => _LabeledDropdownState();
+}
+
+class _LabeledDropdownState extends State<LabeledDropdown> {
+  int? _value;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        if (widget.label != null) ...[
+          FieldLabel(label: widget.label!, required: widget.required),
+          const SizedBox(height: 8),
+        ],
+        Container(
+          padding: const EdgeInsets.symmetric(horizontal: 14),
+          decoration: BoxDecoration(
+            color: AppColors.field,
+            borderRadius: BorderRadius.circular(8),
+            border: Border.all(color: AppColors.fieldBorder),
+          ),
+          child: DropdownButtonHideUnderline(
+            child: DropdownButton<int>(
+              value: _value,
+              isExpanded: true,
+              hint: Text(
+                widget.hint,
+                style: const TextStyle(
+                  color: AppColors.textMuted,
+                  fontSize: 13.5,
+                ),
+              ),
+              icon: const Icon(
+                Icons.keyboard_arrow_down,
+                color: AppColors.textMuted,
+              ),
+              dropdownColor: AppColors.card,
+              style: const TextStyle(
+                color: AppColors.textPrimary,
+                fontSize: 14,
+              ),
+              items: widget.categoryList
+                  .map(
+                    (project) => DropdownMenuItem(
+                      value: project.type,
+                      child: Text(project.name),
+                    ),
+                  )
+                  .toList(),
+              onChanged: (v) {
+                setState(() => _value = v);
+                widget.onSelected(v ?? 0);
+              },
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}

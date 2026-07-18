@@ -4,12 +4,18 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:myportfolioapp/core/app_resources/app_colors.dart';
 import 'package:myportfolioapp/core/common/common_dialog.dart';
+import 'package:myportfolioapp/features/dashboard/domain/entity/category_list.dart';
 import 'package:myportfolioapp/features/dashboard/presentation/bloc/dashboard_bloc.dart';
 import 'package:myportfolioapp/features/dashboard/presentation/bloc/dashboard_event.dart';
 import 'package:myportfolioapp/features/dashboard/presentation/bloc/dashboard_state.dart';
 import 'package:myportfolioapp/features/dashboard/presentation/widgets/progress_window.dart';
 import 'package:myportfolioapp/features/projects/domain/entity/project_add_item.dart';
 
+import '../../../../core/common/description_field.dart';
+import '../../../../core/common/label_field.dart' hide buildInputDecoration;
+import '../../../../core/common/labled_dropdown.dart';
+import '../../../../core/common/screen_shot_preview.dart';
+import '../widgets/chip_input_field.dart';
 import '../widgets/section_widget.dart';
 
 class AddProjectPage extends StatefulWidget {
@@ -201,7 +207,7 @@ class _AddProjectPageState extends State<AddProjectPage> {
                   ),
                   LabeledDropdown(
                     label: 'Project Type',
-
+                    categoryList: dashboardProjectOptions,
                     onSelected: (option) {
                       setState(() {
                         this.option = option;
@@ -234,23 +240,19 @@ class _AddProjectPageState extends State<AddProjectPage> {
               ),
               const SizedBox(height: 16),
               ResponsiveFieldRow(
-                children: [
-                  _ShortDescriptionField(controller: descriptionController),
-                ],
+                children: [DescriptionField(controller: descriptionController)],
+              ),
+              ChipInputField(
+                title: "Tecnnolgies Used",
+                hint: 'Add technologies and press Enter...',
+                items: technologies,
+                onRemove: (i) => setState(() => technologies.removeAt(i)),
+                onAdd: (v) => setState(() => technologies.add(v)),
               ),
             ],
           ),
         ),
         SizedBox(height: 20.h),
-        SectionCard(
-          title: 'Technologies Used',
-          child: ChipInputField(
-            hint: 'Add technologies and press Enter...',
-            items: technologies,
-            onRemove: (i) => setState(() => technologies.removeAt(i)),
-            onAdd: (v) => setState(() => technologies.add(v)),
-          ),
-        ),
       ],
     );
   }
@@ -262,8 +264,6 @@ class _AddProjectPageState extends State<AddProjectPage> {
           title: 'Thumbnails',
           child: Column(
             children: [
-              const ScreenshotDropZone(),
-              const SizedBox(height: 16),
               ScreenshotThumbnailGrid(files: files),
               const SizedBox(height: 16),
               _outlinedIconButton(
@@ -348,48 +348,6 @@ class _AddProjectPageState extends State<AddProjectPage> {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
         elevation: 0,
       ),
-    );
-  }
-}
-
-class _ShortDescriptionField extends StatefulWidget {
-  final TextEditingController controller;
-  const _ShortDescriptionField({required this.controller});
-
-  @override
-  State<_ShortDescriptionField> createState() => _ShortDescriptionFieldState();
-}
-
-class _ShortDescriptionFieldState extends State<_ShortDescriptionField> {
-  int _len = 0;
-  static const _max = 400;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const FieldLabel(label: 'Short Description', required: true),
-        const SizedBox(height: 8),
-        TextField(
-          controller: widget.controller,
-          maxLength: _max,
-          minLines: 1,
-          maxLines: 4,
-          onChanged: (v) => setState(() => _len = v.length),
-          style: const TextStyle(color: AppColors.textPrimary, fontSize: 14),
-          decoration: buildInputDecoration(
-            'A short summary of the project',
-          ).copyWith(counterText: ''),
-        ),
-        Align(
-          alignment: Alignment.centerRight,
-          child: Text(
-            '$_len/$_max',
-            style: const TextStyle(color: AppColors.textMuted, fontSize: 12),
-          ),
-        ),
-      ],
     );
   }
 }
