@@ -28,7 +28,7 @@ class AddProjectPage extends StatefulWidget {
 class _AddProjectPageState extends State<AddProjectPage> {
   List<String> technologies = [];
   List<PlatformFile> files = [];
-  int option = -1;
+  Category? category;
   var descriptionController = TextEditingController();
   var projectNameController = TextEditingController();
   var projectLinkController = TextEditingController();
@@ -40,7 +40,7 @@ class _AddProjectPageState extends State<AddProjectPage> {
       projectNameController.clear();
       descriptionController.clear();
       projectLinkController.clear();
-      option = -1;
+      category = null;
       technologies = [];
       indexController.clear();
       files.clear();
@@ -118,7 +118,7 @@ class _AddProjectPageState extends State<AddProjectPage> {
           Icons.send_outlined,
           onTap: () {
             if (projectNameController.text.isNotEmpty) {
-              if (option != -1) {
+              if (category != null) {
                 if (projectLinkController.text.isNotEmpty) {
                   if (indexController.text.isNotEmpty) {
                     if (companyName.text.isNotEmpty) {
@@ -130,7 +130,7 @@ class _AddProjectPageState extends State<AddProjectPage> {
                                 model: ProjectAddItem(
                                   index: int.parse(indexController.text),
                                   name: projectNameController.text,
-                                  type: option,
+                                  type: category?.id ?? 1,
                                   company: companyName.text,
                                   description: descriptionController.text,
                                   link: projectLinkController.text,
@@ -208,9 +208,9 @@ class _AddProjectPageState extends State<AddProjectPage> {
                   LabeledDropdown(
                     label: 'Project Type',
                     categoryList: dashboardProjectOptions,
-                    onSelected: (option) {
+                    onSelected: (category) {
                       setState(() {
-                        this.option = option;
+                        this.category = category;
                       });
                     },
                     required: true,

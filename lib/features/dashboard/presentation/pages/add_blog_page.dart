@@ -12,6 +12,7 @@ import '../../../../core/common/description_field.dart';
 import '../../../../core/common/label_field.dart' hide buildInputDecoration;
 import '../../../../core/common/labled_dropdown.dart';
 import '../../../../core/common/screen_shot_preview.dart';
+import '../../domain/entity/category_list.dart';
 import '../widgets/section_widget.dart';
 
 class AddBlogPage extends StatefulWidget {
@@ -23,7 +24,7 @@ class AddBlogPage extends StatefulWidget {
 
 class _AddBlogPageState extends State<AddBlogPage> {
   List<PlatformFile> files = [];
-  int option = -1;
+  Category? category;
 
   var titleController = TextEditingController();
   var indexController = TextEditingController();
@@ -31,7 +32,7 @@ class _AddBlogPageState extends State<AddBlogPage> {
 
   void clear() {
     setState(() {
-      option = -1;
+      category = null;
       indexController.clear();
       titleController.clear();
       shortDescriptionController.clear();
@@ -146,7 +147,6 @@ class _AddBlogPageState extends State<AddBlogPage> {
     return Column(
       children: [
         SectionCard(
-          title: 'Blogs Info',
           child: Column(
             children: [
               ResponsiveFieldRow(
@@ -154,7 +154,7 @@ class _AddBlogPageState extends State<AddBlogPage> {
                   LabeledField(
                     label: 'Title',
                     required: true,
-                    hint: 'e.g. How I Solve this Problem',
+                    hint: 'e.g. How I create a portfolio with flutter',
                     controller: titleController,
                   ),
                 ],
@@ -162,10 +162,13 @@ class _AddBlogPageState extends State<AddBlogPage> {
               const SizedBox(height: 16),
               ResponsiveFieldRow(
                 children: [
-                  DescriptionField(controller: shortDescriptionController),
+                  DescriptionField(
+                    minLines: 2,
+                    controller: shortDescriptionController,
+                    hints: "Short summary about the blog",
+                  ),
                 ],
               ),
-              const SizedBox(height: 16),
               ResponsiveFieldRow(
                 children: [
                   BlocBuilder<DashBoardBloc, DashboardState>(
@@ -176,9 +179,9 @@ class _AddBlogPageState extends State<AddBlogPage> {
                           LabeledDropdown(
                             label: 'Blog Type',
                             categoryList: state.category ?? [],
-                            onSelected: (option) {
+                            onSelected: (category) {
                               setState(() {
-                                this.option = option;
+                                this.category = category;
                               });
                             },
                             required: true,
@@ -214,15 +217,15 @@ class _AddBlogPageState extends State<AddBlogPage> {
           title: 'Thumbnails',
           child: Column(
             children: [
-              ScreenshotThumbnailGrid(files: files),
+              ScreenshotThumbnailGrid(files: files, column: 1),
               const SizedBox(height: 16),
               _outlinedIconButton(
-                'Add Images',
+                'Add Image',
                 Icons.add,
                 fullWidth: true,
                 onTap: () async {
                   FilePickerResult? results = await FilePicker.pickFiles(
-                    allowMultiple: true,
+                    allowMultiple: false,
                     type: FileType.custom,
                     withData: true,
                     allowedExtensions: ['jpg', 'jpeg', 'png'],

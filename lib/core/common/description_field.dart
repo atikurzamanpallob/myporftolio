@@ -6,7 +6,14 @@ import 'label_field.dart';
 
 class DescriptionField extends StatefulWidget {
   final TextEditingController controller;
-  const DescriptionField({required this.controller, super.key});
+  final String? hints;
+  final int? minLines;
+  const DescriptionField({
+    required this.controller,
+    super.key,
+    this.minLines,
+    this.hints,
+  });
 
   @override
   State<DescriptionField> createState() => DescriptionFieldState();
@@ -26,12 +33,12 @@ class DescriptionFieldState extends State<DescriptionField> {
         TextField(
           controller: widget.controller,
           maxLength: _max,
-          minLines: 1,
+          minLines: widget.minLines ?? 1,
           maxLines: 4,
           onChanged: (v) => setState(() => _len = v.length),
           style: const TextStyle(color: AppColors.textPrimary, fontSize: 14),
           decoration: buildInputDecoration(
-            'A short summary of the project',
+            widget.hints ?? 'A short summary of the project',
           ).copyWith(counterText: ''),
         ),
         Align(

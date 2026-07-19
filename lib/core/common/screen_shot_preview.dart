@@ -3,7 +3,12 @@ import 'package:flutter/material.dart';
 
 class ScreenshotThumbnailGrid extends StatefulWidget {
   final List<PlatformFile> files;
-  const ScreenshotThumbnailGrid({super.key, required this.files});
+  final int column;
+  const ScreenshotThumbnailGrid({
+    super.key,
+    required this.files,
+    this.column = 4,
+  });
 
   @override
   State<ScreenshotThumbnailGrid> createState() =>
@@ -17,8 +22,8 @@ class _ScreenshotThumbnailGridState extends State<ScreenshotThumbnailGrid> {
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
       itemCount: widget.files.length,
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 4,
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: widget.column,
         crossAxisSpacing: 8,
         mainAxisSpacing: 8,
         childAspectRatio: 1,

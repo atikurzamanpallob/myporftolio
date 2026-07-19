@@ -26,12 +26,11 @@ InputDecoration buildInputDecoration(String hint) {
   );
 }
 
-/// A numbered card container used for each form section.
 class SectionCard extends StatelessWidget {
-  final String title;
+  final String? title;
   final Widget child;
 
-  const SectionCard({super.key, required this.title, required this.child});
+  const SectionCard({super.key, this.title, required this.child});
 
   @override
   Widget build(BuildContext context) {
@@ -43,22 +42,24 @@ class SectionCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(12),
         border: Border.all(color: AppColors.cardBorder),
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            title,
-            style: const TextStyle(
-              color: AppColors.textPrimary,
-              fontSize: 16,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
+      child: title != null
+          ? Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  title ?? "",
+                  style: const TextStyle(
+                    color: AppColors.textPrimary,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
 
-          const SizedBox(height: 18),
-          child,
-        ],
-      ),
+                const SizedBox(height: 18),
+                child,
+              ],
+            )
+          : child,
     );
   }
 }

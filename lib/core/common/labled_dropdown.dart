@@ -9,7 +9,7 @@ class LabeledDropdown extends StatefulWidget {
   final String hint;
   final bool required;
   final List<Category> categoryList;
-  final Function(int) onSelected;
+  final Function(Category?) onSelected;
 
   const LabeledDropdown({
     super.key,
@@ -25,7 +25,7 @@ class LabeledDropdown extends StatefulWidget {
 }
 
 class _LabeledDropdownState extends State<LabeledDropdown> {
-  int? _value;
+  Category? _value;
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +44,7 @@ class _LabeledDropdownState extends State<LabeledDropdown> {
             border: Border.all(color: AppColors.fieldBorder),
           ),
           child: DropdownButtonHideUnderline(
-            child: DropdownButton<int>(
+            child: DropdownButton<Category?>(
               value: _value,
               isExpanded: true,
               hint: Text(
@@ -65,15 +65,15 @@ class _LabeledDropdownState extends State<LabeledDropdown> {
               ),
               items: widget.categoryList
                   .map(
-                    (project) => DropdownMenuItem(
-                      value: project.id,
-                      child: Text(project.name),
+                    (category) => DropdownMenuItem(
+                      value: category,
+                      child: Text(category.name),
                     ),
                   )
                   .toList(),
               onChanged: (v) {
                 setState(() => _value = v);
-                widget.onSelected(v ?? 0);
+                widget.onSelected(v);
               },
             ),
           ),
