@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:myportfolioapp/core/app_resources/app_colors.dart';
 import 'package:myportfolioapp/core/common/common_dialog.dart';
+import 'package:myportfolioapp/core/common/labled_date_field.dart';
 import 'package:myportfolioapp/features/dashboard/presentation/bloc/dashboard_bloc.dart';
 import 'package:myportfolioapp/features/dashboard/presentation/bloc/dashboard_state.dart';
 import 'package:myportfolioapp/features/dashboard/presentation/widgets/progress_window.dart';
@@ -29,7 +30,8 @@ class _AddBlogPageState extends State<AddBlogPage> {
   var titleController = TextEditingController();
   var indexController = TextEditingController();
   var shortDescriptionController = TextEditingController();
-
+  var readController = TextEditingController();
+  DateTime? selectedDate;
   void clear() {
     setState(() {
       category = null;
@@ -169,6 +171,7 @@ class _AddBlogPageState extends State<AddBlogPage> {
                   ),
                 ],
               ),
+
               ResponsiveFieldRow(
                 children: [
                   BlocBuilder<DashBoardBloc, DashboardState>(
@@ -202,10 +205,34 @@ class _AddBlogPageState extends State<AddBlogPage> {
                 ],
               ),
               const SizedBox(height: 16),
+              ResponsiveFieldRow(
+                children: [
+                  LabeledDateField(
+                    label: 'Pick Date',
+                    hint: "eg. 12 July 2026",
+                    selectedDate: selectedDate,
+                    onDateSelected: (date) {
+                      setState(() {
+                        selectedDate = date;
+                      });
+                    },
+                  ),
+                  LabeledField(
+                    label: 'Read Time',
+                    hint: '10 minutes read',
+                    controller: readController,
+                  ),
+                ],
+              ),
+              const SizedBox(height: 16),
             ],
           ),
         ),
         SizedBox(height: 20.h),
+        SectionCard(child: Column(children: [
+            
+          ],
+        )),
       ],
     );
   }
