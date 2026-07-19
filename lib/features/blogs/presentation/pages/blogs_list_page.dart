@@ -20,6 +20,19 @@ class BlogsListSection extends StatefulWidget {
 }
 
 class _BlogsListSectionState extends State<BlogsListSection> {
+  final scrollController = ScrollController();
+
+  @override
+  void initState() {
+    super.initState();
+    scrollController.addListener(() {
+      if (scrollController.position.pixels >=
+          scrollController.position.maxScrollExtent - 200) {
+        context.read<BlogBloc>().add(LoadMoreBlogEvent());
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final bool isMobile = Responsive.isMobile(context);
@@ -30,13 +43,13 @@ class _BlogsListSectionState extends State<BlogsListSection> {
       ),
       child: BlocBuilder<BlogBloc, BlogState>(
         builder: (context, state) {
-          List<BlogItem> list = state.blogs ?? [];
+          List<BlogItem> list = state.blogs;
 
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               BlogFilterBar(
-                selected: state.currentCategory ?? -1,
+                selected: state.currentCategory,
                 categoryList: state.category ?? [Category(name: "All", id: -1)],
                 alignment: isMobile ? WrapAlignment.start : WrapAlignment.end,
                 onSelected: (category) {
@@ -46,7 +59,7 @@ class _BlogsListSectionState extends State<BlogsListSection> {
                 },
               ),
               SizedBox(height: 24.h),
-              (state.isBlogLoading ?? false)
+              state.isBlogLoading
                   ? Expanded(child: Center(child: CircularProgressIndicator()))
                   : list.isEmpty
                   ? Expanded(
@@ -58,6 +71,7 @@ class _BlogsListSectionState extends State<BlogsListSection> {
                     )
                   : Expanded(
                       child: ListView.builder(
+                        controller: scrollController,
                         itemCount: list.length,
                         shrinkWrap: true,
                         itemBuilder: (ctx, i) {

@@ -25,3 +25,8 @@ class BlogFetchEvent extends BlogEvent {
   @override
   List<Object?> get props => [page, limit, categoryId];
 }
+
+class LoadMoreBlogEvent extends BlogEvent {
+  final int limit;
+  LoadMoreBlogEvent({this.limit = 10});
+}

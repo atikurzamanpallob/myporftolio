@@ -10,3 +10,5 @@ class AddProjectEvent extends DashboardEvent {
   final ProjectAddItem model;
   AddProjectEvent({required this.model});
 }
+
+class CategoryFetchEvent extends DashboardEvent {}

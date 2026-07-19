@@ -7,6 +7,8 @@ class DashBoardBloc extends Bloc<DashboardEvent, DashboardState> {
   DashboardData dashboardData;
   DashBoardBloc(this.dashboardData) : super(DashboardState()) {
     on<AddProjectEvent>(addProject);
+    on<CategoryFetchEvent>(fetchCategory);
+    add(CategoryFetchEvent());
   }
 
   Future<void> addProject(
@@ -25,5 +27,23 @@ class DashBoardBloc extends Bloc<DashboardEvent, DashboardState> {
       },
     );
     emit(state.copyWith(isLoading: false));
+  }
+
+  Future fetchCategory(
+    CategoryFetchEvent event,
+    Emitter<DashboardState> emit,
+  ) async {
+    emit(state.copyWith(isCategoryLoading: true));
+
+    final result = await dashboardData.getCategoryList();
+
+    result.fold(
+      (failure) {
+        emit(state.copyWith(isCategoryLoading: false, error: failure.message));
+      },
+      (categories) {
+        emit(state.copyWith(isCategoryLoading: false, category: categories));
+      },
+    );
   }
 }

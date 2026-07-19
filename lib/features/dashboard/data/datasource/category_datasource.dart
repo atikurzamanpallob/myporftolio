@@ -17,7 +17,7 @@ class CategoryDatasourceImp extends CategoryDatasource {
     var response = await client
         .from('category')
         .select()
-        .order('id', ascending: false);
+        .order('id', ascending: true);
 
     response.forEach((v) {
       final category = CategoryModel.fromJson(v);

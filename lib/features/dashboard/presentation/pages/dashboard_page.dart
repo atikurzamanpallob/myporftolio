@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:myportfolioapp/features/dashboard/presentation/pages/add_blog_page.dart';
 import 'package:myportfolioapp/features/dashboard/presentation/pages/add_project_page.dart';
 import '../../../../core/app_resources/app_colors.dart';
 import '../widgets/sidebar.dart';
@@ -43,7 +44,7 @@ class _DashboardPageState extends State<DashboardPage> {
       case 0:
         return AddProjectPage();
       default:
-        return Container();
+        return AddBlogPage();
     }
   }
 }

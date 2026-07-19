@@ -1,51 +1,52 @@
 // ignore_for_file: must_be_immutable
-
-import 'package:equatable/equatable.dart';
 import 'package:myportfolioapp/features/blogs/domain/entity/blog_item.dart';
 
 import '../../../dashboard/domain/entity/category_list.dart';
 
-class BlogState extends Equatable {
-  bool? isCategoryLoading;
-  List<Category>? category;
-  bool? isBlogLoading;
-  List<BlogItem>? blogs;
-  int? currentCategory;
-  String? error;
+class BlogState {
+  final bool isCategoryLoading;
+  final bool isBlogLoading;
+  final bool isLoadMoreLoading;
+  final List<Category>? category;
+  final List<BlogItem> blogs;
+  final int currentCategory;
+  final int currentPage;
+  final bool hasReachedMax;
+  final String? error;
+
   BlogState({
+    this.isCategoryLoading = false,
+    this.isBlogLoading = false,
+    this.isLoadMoreLoading = false,
     this.category,
-    this.isCategoryLoading,
-    this.blogs,
-    this.isBlogLoading,
-    this.currentCategory,
+    this.blogs = const [],
+    this.currentCategory = -1,
+    this.currentPage = 1,
+    this.hasReachedMax = false,
     this.error,
   });
 
   BlogState copyWith({
     bool? isCategoryLoading,
-    List<Category>? category,
     bool? isBlogLoading,
+    bool? isLoadMoreLoading,
+    List<Category>? category,
     List<BlogItem>? blogs,
     int? currentCategory,
+    int? currentPage,
+    bool? hasReachedMax,
     String? error,
   }) {
     return BlogState(
+      isCategoryLoading: isCategoryLoading ?? this.isCategoryLoading,
+      isBlogLoading: isBlogLoading ?? this.isBlogLoading,
+      isLoadMoreLoading: isLoadMoreLoading ?? this.isLoadMoreLoading,
       category: category ?? this.category,
       blogs: blogs ?? this.blogs,
-      isBlogLoading: isBlogLoading ?? this.isBlogLoading,
-      isCategoryLoading: isCategoryLoading ?? this.isCategoryLoading,
       currentCategory: currentCategory ?? this.currentCategory,
-      error: error ?? this.error,
+      currentPage: currentPage ?? this.currentPage,
+      hasReachedMax: hasReachedMax ?? this.hasReachedMax,
+      error: error,
     );
   }
-
-  @override
-  List<Object?> get props => [
-    isCategoryLoading,
-    category,
-    isBlogLoading,
-    blogs,
-    currentCategory,
-    error,
-  ];
 }

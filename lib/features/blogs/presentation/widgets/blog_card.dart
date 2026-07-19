@@ -84,30 +84,33 @@ class BlogCard extends StatelessWidget {
     );
 
     final readMore = InkWell(
-      onTap: () {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Full blog post coming soon')),
-        );
-      },
-      borderRadius: BorderRadius.circular(6.r),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(
-            'Read More',
-            style: TextStyle(
-              fontSize: 13.sp,
-              fontWeight: FontWeight.w600,
+      onTap: () {},
+      child: Container(
+        padding: EdgeInsets.all(8.0),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10.r),
+          border: Border.all(color: AppColors.primaryBlue, width: 0.3),
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              'Read More',
+              style: TextStyle(
+                fontSize: 12.sp,
+                fontFamily: AppFonts.inter,
+                fontWeight: FontWeight.w500,
+                color: AppColors.primaryBlue,
+              ),
+            ),
+            SizedBox(width: 10.w),
+            Icon(
+              Icons.arrow_forward_ios,
+              size: 15.r,
               color: AppColors.primaryBlue,
             ),
-          ),
-          SizedBox(width: 4.w),
-          Icon(
-            Icons.chevron_right_rounded,
-            size: 25.r,
-            color: AppColors.primaryBlue,
-          ),
-        ],
+          ],
+        ),
       ),
     );
 

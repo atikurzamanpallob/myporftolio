@@ -1,0 +1,303 @@
+import 'package:file_picker/file_picker.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:myportfolioapp/core/app_resources/app_colors.dart';
+import 'package:myportfolioapp/core/common/common_dialog.dart';
+import 'package:myportfolioapp/features/dashboard/presentation/bloc/dashboard_bloc.dart';
+import 'package:myportfolioapp/features/dashboard/presentation/bloc/dashboard_state.dart';
+import 'package:myportfolioapp/features/dashboard/presentation/widgets/progress_window.dart';
+
+import '../../../../core/common/description_field.dart';
+import '../../../../core/common/label_field.dart' hide buildInputDecoration;
+import '../../../../core/common/labled_dropdown.dart';
+import '../../../../core/common/screen_shot_preview.dart';
+import '../widgets/section_widget.dart';
+
+class AddBlogPage extends StatefulWidget {
+  const AddBlogPage({super.key});
+
+  @override
+  State<AddBlogPage> createState() => _AddBlogPageState();
+}
+
+class _AddBlogPageState extends State<AddBlogPage> {
+  List<PlatformFile> files = [];
+  int option = -1;
+
+  var titleController = TextEditingController();
+  var indexController = TextEditingController();
+  var shortDescriptionController = TextEditingController();
+
+  void clear() {
+    setState(() {
+      option = -1;
+      indexController.clear();
+      titleController.clear();
+      shortDescriptionController.clear();
+      files.clear();
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
+    final isNarrow = width < 1000;
+
+    return BlocConsumer<DashBoardBloc, DashboardState>(
+      listener: (context, state) {
+        if (state.isLoading == true) {
+          CommonDialog(child: ProgressWindow(), context: context);
+        }
+        if (state.isLoading == false) {
+          Navigator.pop(context);
+          clear();
+        }
+      },
+      builder: (context, state) {
+        return Expanded(
+          child: Column(
+            children: [
+              Expanded(
+                child: SingleChildScrollView(
+                  padding: const EdgeInsets.fromLTRB(32, 24, 32, 40),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      _buildHeader(context, isNarrow),
+                      const SizedBox(height: 24),
+                      isNarrow
+                          ? _buildStackedLayout()
+                          : _buildTwoColumnLayout(),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _buildHeader(BuildContext context, bool isNarrow) {
+    final titleBlock = Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text(
+          'Create New Blogs',
+          style: TextStyle(
+            color: AppColors.textPrimary,
+            fontSize: 28,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
+      ],
+    );
+
+    final actions = Wrap(
+      spacing: 12,
+      runSpacing: 12,
+      children: [
+        _ghostButton('Cancel', onTap: () {}),
+        _primaryButton('Publish', Icons.send_outlined, onTap: () {}),
+      ],
+    );
+
+    if (isNarrow) {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [titleBlock, const SizedBox(height: 16), actions],
+      );
+    }
+
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Expanded(child: titleBlock),
+        actions,
+      ],
+    );
+  }
+
+  Widget _buildTwoColumnLayout() {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Expanded(flex: 2, child: _buildLeftColumn()),
+        const SizedBox(width: 24),
+        Expanded(flex: 1, child: _buildRightColumn()),
+      ],
+    );
+  }
+
+  Widget _buildStackedLayout() {
+    return Column(
+      children: [
+        _buildLeftColumn(),
+        const SizedBox(height: 24),
+        _buildRightColumn(),
+      ],
+    );
+  }
+
+  Widget _buildLeftColumn() {
+    return Column(
+      children: [
+        SectionCard(
+          title: 'Blogs Info',
+          child: Column(
+            children: [
+              ResponsiveFieldRow(
+                children: [
+                  LabeledField(
+                    label: 'Title',
+                    required: true,
+                    hint: 'e.g. How I Solve this Problem',
+                    controller: titleController,
+                  ),
+                ],
+              ),
+              const SizedBox(height: 16),
+              ResponsiveFieldRow(
+                children: [
+                  DescriptionField(controller: shortDescriptionController),
+                ],
+              ),
+              const SizedBox(height: 16),
+              ResponsiveFieldRow(
+                children: [
+                  BlocBuilder<DashBoardBloc, DashboardState>(
+                    builder: (context, state) {
+                      return Stack(
+                        alignment: Alignment.center,
+                        children: [
+                          LabeledDropdown(
+                            label: 'Blog Type',
+                            categoryList: state.category ?? [],
+                            onSelected: (option) {
+                              setState(() {
+                                this.option = option;
+                              });
+                            },
+                            required: true,
+                            hint: 'Select Blog Type',
+                          ),
+                          (state.isCategoryLoading ?? false)
+                              ? CircularProgressIndicator()
+                              : const SizedBox.shrink(),
+                        ],
+                      );
+                    },
+                  ),
+                  LabeledField(
+                    label: 'Order Index',
+                    hint: '0',
+                    controller: indexController,
+                  ),
+                ],
+              ),
+              const SizedBox(height: 16),
+            ],
+          ),
+        ),
+        SizedBox(height: 20.h),
+      ],
+    );
+  }
+
+  Widget _buildRightColumn() {
+    return Column(
+      children: [
+        SectionCard(
+          title: 'Thumbnails',
+          child: Column(
+            children: [
+              ScreenshotThumbnailGrid(files: files),
+              const SizedBox(height: 16),
+              _outlinedIconButton(
+                'Add Images',
+                Icons.add,
+                fullWidth: true,
+                onTap: () async {
+                  FilePickerResult? results = await FilePicker.pickFiles(
+                    allowMultiple: true,
+                    type: FileType.custom,
+                    withData: true,
+                    allowedExtensions: ['jpg', 'jpeg', 'png'],
+                  );
+                  files = results?.files ?? [];
+                  setState(() {});
+                },
+              ),
+            ],
+          ),
+        ),
+        const SizedBox(height: 24),
+      ],
+    );
+  }
+
+  Widget _ghostButton(String label, {required VoidCallback onTap}) {
+    return OutlinedButton(
+      onPressed: onTap,
+      style: OutlinedButton.styleFrom(
+        foregroundColor: AppColors.textSecondary,
+        side: const BorderSide(color: AppColors.fieldBorder),
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+      ),
+      child: Text(label, style: const TextStyle(fontWeight: FontWeight.w500)),
+    );
+  }
+
+  Widget _outlinedIconButton(
+    String label,
+    IconData icon, {
+    required VoidCallback onTap,
+    bool fullWidth = false,
+  }) {
+    final button = OutlinedButton.icon(
+      onPressed: onTap,
+      icon: Icon(icon, size: 16, color: AppColors.accentBlueLight),
+      label: Text(
+        label,
+        style: const TextStyle(
+          color: AppColors.accentBlueLight,
+          fontWeight: FontWeight.w600,
+        ),
+      ),
+      style: OutlinedButton.styleFrom(
+        side: const BorderSide(color: AppColors.accentBlueLight),
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+      ),
+    );
+    return fullWidth ? SizedBox(width: double.infinity, child: button) : button;
+  }
+
+  Widget _primaryButton(
+    String label,
+    IconData icon, {
+    required VoidCallback onTap,
+  }) {
+    return ElevatedButton.icon(
+      onPressed: onTap,
+      icon: Icon(icon, size: 16, color: Colors.white),
+      label: Text(
+        label,
+        style: const TextStyle(
+          fontWeight: FontWeight.w600,
+          color: Colors.white,
+        ),
+      ),
+      style: ElevatedButton.styleFrom(
+        backgroundColor: AppColors.accentBlue,
+        padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 14),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+        elevation: 0,
+      ),
+    );
+  }
+}
