@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:myportfolioapp/features/dashboard/domain/entity/category_list.dart';
 
 import '../../../../core/app_resources/app_colors.dart';
 import '../../../../core/app_resources/app_fonts.dart';
-import '../../data/models/blog_models.dart';
 
-/// Row of filter pills (All, Flutter, Firebase, Node, Problem Solving).
-/// Wraps onto multiple lines on narrow screens instead of overflowing.
 class BlogFilterBar extends StatelessWidget {
   const BlogFilterBar({
     super.key,
     required this.selected,
     required this.onSelected,
+    required this.categoryList,
     this.alignment = WrapAlignment.start,
   });
 
-  final BlogCategory selected;
-  final ValueChanged<BlogCategory> onSelected;
+  final int selected;
+  final List<Category> categoryList;
+  final ValueChanged<int> onSelected;
   final WrapAlignment alignment;
 
   @override
@@ -26,11 +26,11 @@ class BlogFilterBar extends StatelessWidget {
       spacing: 10.w,
       runSpacing: 10.h,
       children: [
-        for (final category in BlogCategory.values)
+        for (final category in categoryList)
           _FilterPill(
-            label: category.label,
-            active: category == selected,
-            onTap: () => onSelected(category),
+            label: category.name,
+            active: category.id == selected,
+            onTap: () => onSelected(category.id),
           ),
       ],
     );

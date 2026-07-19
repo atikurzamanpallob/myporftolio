@@ -1,18 +1,20 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:myportfolioapp/core/app_resources/app_icons.dart';
 import 'package:myportfolioapp/core/common/glass_card.dart';
+import 'package:myportfolioapp/features/blogs/domain/entity/blog_item.dart';
 
 import '../../../../core/app_resources/app_colors.dart';
 import '../../../../core/app_resources/app_fonts.dart';
+import '../../../../core/app_resources/app_images.dart';
 import '../../../../core/utils/responsive.dart';
-import '../../data/models/blog_models.dart';
 
 class BlogCard extends StatelessWidget {
   const BlogCard({super.key, required this.post});
 
-  final BlogPost post;
+  final BlogItem post;
 
   @override
   Widget build(BuildContext context) {
@@ -21,15 +23,17 @@ class BlogCard extends StatelessWidget {
     final thumbnail = Container(
       width: isMobile ? double.infinity : 330.w,
       height: isMobile ? 160.h : 170.h,
-      decoration: BoxDecoration(
-        color: AppColors.iconCircleFill,
-        borderRadius: BorderRadius.circular(4.r),
-        border: Border.all(color: AppColors.divider, width: 1),
-      ),
-      child: Center(
-        child: SvgPicture.asset(
-          post.thumbnailIcon,
-          width: isMobile ? 90.w : 110.w,
+      decoration: BoxDecoration(borderRadius: BorderRadius.circular(4.r)),
+      child: CachedNetworkImage(
+        imageUrl: post.thumbnail,
+        errorWidget: (context, url, error) =>
+            Image.asset(AppImages.placehHolder),
+        placeholder: (context, url) => Stack(
+          alignment: AlignmentGeometry.center,
+          children: [
+            Image.asset(AppImages.placehHolder),
+            CircularProgressIndicator(),
+          ],
         ),
       ),
     );
@@ -39,7 +43,7 @@ class BlogCard extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         Text(
-          post.category.label,
+          post.categoryName,
           style: TextStyle(
             fontSize: 13.sp,
             fontWeight: FontWeight.w600,
@@ -58,7 +62,7 @@ class BlogCard extends StatelessWidget {
         ),
         SizedBox(height: 8.h),
         Text(
-          post.excerpt,
+          post.shortDescription,
           style: TextStyle(
             fontSize: 12.5.sp,
             fontFamily: AppFonts.inter,

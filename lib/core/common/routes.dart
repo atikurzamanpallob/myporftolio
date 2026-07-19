@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:myportfolioapp/core/di/injection.dart';
+import 'package:myportfolioapp/features/blogs/presentation/bloc/blog_bloc.dart';
 import 'package:myportfolioapp/features/blogs/presentation/pages/blogs_page.dart';
 import 'package:myportfolioapp/features/career/presentation/bloc/career_bloc.dart';
 import 'package:myportfolioapp/features/contact/presentation/bloc/contact_bloc.dart';
@@ -50,7 +51,10 @@ final GoRouter router = GoRouter(
     ),
     GoRoute(
       path: BlogsPage.route,
-      pageBuilder: (context, state) => buildPage(state, BlogsPage()),
+      pageBuilder: (context, state) => buildPage(
+        state,
+        BlocProvider(create: (_) => getIt<BlogBloc>(), child: BlogsPage()),
+      ),
     ),
     GoRoute(
       path: ContactPage.route,

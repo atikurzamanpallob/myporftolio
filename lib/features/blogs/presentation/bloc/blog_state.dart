@@ -10,12 +10,14 @@ class BlogState extends Equatable {
   List<Category>? category;
   bool? isBlogLoading;
   List<BlogItem>? blogs;
+  int? currentCategory;
   String? error;
   BlogState({
     this.category,
     this.isCategoryLoading,
     this.blogs,
     this.isBlogLoading,
+    this.currentCategory,
     this.error,
   });
 
@@ -24,6 +26,7 @@ class BlogState extends Equatable {
     List<Category>? category,
     bool? isBlogLoading,
     List<BlogItem>? blogs,
+    int? currentCategory,
     String? error,
   }) {
     return BlogState(
@@ -31,6 +34,7 @@ class BlogState extends Equatable {
       blogs: blogs ?? this.blogs,
       isBlogLoading: isBlogLoading ?? this.isBlogLoading,
       isCategoryLoading: isCategoryLoading ?? this.isCategoryLoading,
+      currentCategory: currentCategory ?? this.currentCategory,
       error: error ?? this.error,
     );
   }
@@ -41,6 +45,7 @@ class BlogState extends Equatable {
     category,
     isBlogLoading,
     blogs,
+    currentCategory,
     error,
   ];
 }
