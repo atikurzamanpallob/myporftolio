@@ -5,8 +5,6 @@ import 'package:myportfolioapp/features/dashboard/domain/entity/category_list.da
 import '../../../../core/app_resources/app_colors.dart';
 import '../../../../core/app_resources/app_fonts.dart';
 
-/// Row of filter pills (All, Mobile, Backend, Web, UI/UX). Wraps onto
-/// multiple lines on narrow screens instead of overflowing.
 class ProjectFilterBar extends StatelessWidget {
   const ProjectFilterBar({
     super.key,
@@ -29,8 +27,8 @@ class ProjectFilterBar extends StatelessWidget {
         for (final project in projectOptions)
           _FilterPill(
             label: project.name,
-            active: project.type == selected,
-            onTap: () => onSelected(project.type),
+            active: project.id == selected,
+            onTap: () => onSelected(project.id),
           ),
       ],
     );

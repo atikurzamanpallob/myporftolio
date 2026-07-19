@@ -66,7 +66,7 @@ class _LabeledDropdownState extends State<LabeledDropdown> {
               items: widget.categoryList
                   .map(
                     (project) => DropdownMenuItem(
-                      value: project.type,
+                      value: project.id,
                       child: Text(project.name),
                     ),
                   )

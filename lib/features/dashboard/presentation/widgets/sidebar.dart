@@ -42,16 +42,10 @@ class _AppSidebarState extends State<AppSidebar> {
                   ),
 
                   _NavItem(
-                    icon: Icons.description_outlined,
-                    label: 'Add Case Studies',
-                    selected: widget.currentOption == 1,
-                    onTap: () => widget.onTap(1),
-                  ),
-                  _NavItem(
                     icon: Icons.article_outlined,
                     label: 'Create Blogs',
-                    selected: widget.currentOption == 2,
-                    onTap: () => widget.onTap(2),
+                    selected: widget.currentOption == 1,
+                    onTap: () => widget.onTap(1),
                   ),
                 ],
               ),
