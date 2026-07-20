@@ -77,25 +77,23 @@ class BlogDatasourceImp extends BlogDatasource {
       }
 
       for (final element in item.descriptionItems) {
-        String? url;
-
-        if (element.file != null) {
-          url = await getFileUrls(
-            id: id,
-            file: element.file,
-            contentType: element.type == AppConstants.Video
-                ? "video/mp4"
-                : "image/jpeg",
-          );
-          blogDetails.add({
-            'blog_id': id,
-            'type': element.type,
-            'text': element.text,
-            'file': url,
-            'width': element.width,
-            'height': element.height,
-          });
-        }
+        String? url = element.file != null
+            ? await getFileUrls(
+                id: id,
+                file: element.file,
+                contentType: element.type == AppConstants.Video
+                    ? "video/mp4"
+                    : "image/jpeg",
+              )
+            : null;
+        blogDetails.add({
+          'blog_id': id,
+          'type': element.type,
+          'text': element.text,
+          'file': url,
+          'width': element.width,
+          'height': element.height,
+        });
       }
       await client.from('blog_details').insert(blogDetails);
     } on StorageException catch (e) {
