@@ -10,6 +10,7 @@ import 'package:myportfolioapp/features/blogs/domain/entity/blog_details_item.da
 import 'package:myportfolioapp/features/blogs/presentation/bloc/blog_details_bloc.dart';
 import 'package:myportfolioapp/features/blogs/presentation/bloc/blog_state.dart';
 import '../../../home/presentation/pages/footer_section.dart';
+import '../widgets/description_item_card.dart';
 import '../widgets/side_bar.dart';
 import '../widgets/top_hero_banner.dart';
 
@@ -63,7 +64,7 @@ class BlogDetailBody extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(height: 24.h),
+                SizedBox(height: 10.h),
                 BackButton(),
                 SizedBox(height: 20.h),
                 if (isDesktop)
@@ -126,18 +127,18 @@ class ContentSections extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: sections.map((s) {
-        return Padding(padding: EdgeInsets.only(bottom: 18.h));
-      }).toList(),
+    bool isMobile = Responsive.isMobile(context);
+    bool isTab = Responsive.isTablet(context);
+    return ListView.builder(
+      shrinkWrap: true,
+      itemCount: sections.length,
+      itemBuilder: (context, index) {
+        return DescriptionItemCard(
+          element: sections[index],
+          isMobile: isMobile,
+          isTab: isTab,
+        );
+      },
     );
   }
 }
-
-// void _copy() async {
-//   await Clipboard.setData(ClipboardData(text: widget.code));
-//   setState(() => _copied = true);
-//   await Future.delayed(const Duration(seconds: 2));
-//   if (mounted) setState(() => _copied = false);
-// }

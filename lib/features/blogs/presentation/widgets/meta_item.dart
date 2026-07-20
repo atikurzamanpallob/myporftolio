@@ -15,7 +15,7 @@ class MetaItem extends StatelessWidget {
       mainAxisSize: .min,
       crossAxisAlignment: .center,
       children: [
-        SvgPicture.asset(icon, height: 25.h, width: 25.w),
+        SvgPicture.asset(icon, height: 20.h, width: 25.w),
         SizedBox(width: 6.w),
         Text(
           label,

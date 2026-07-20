@@ -19,12 +19,11 @@ class HeroBanner extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bool isMobile = Responsive.isMobile(context);
-
     return GlassCard(
       child: ClipRRect(
         borderRadius: BorderRadius.circular(10.r),
         child: SizedBox(
-          height: isMobile ? 240.h : 390.h,
+          height: isMobile ? 250.h : 360.h,
           child: Stack(
             fit: StackFit.expand,
             children: [
@@ -77,7 +76,7 @@ class HeroBanner extends StatelessWidget {
                       child: Text(
                         detail?.title ?? "",
                         style: TextStyle(
-                          fontSize: isMobile ? 20.sp : 28.sp,
+                          fontSize: isMobile ? 16.sp : 20.sp,
                           fontWeight: FontWeight.w700,
                           color: Colors.white,
                           height: 1.25,
@@ -90,17 +89,17 @@ class HeroBanner extends StatelessWidget {
                       width: isMobile ? double.infinity : 550.w,
                       child: Text(
                         detail?.shortDescription ?? "",
-                        maxLines: 5,
+                        maxLines: 3,
                         textAlign: TextAlign.justify,
                         style: TextStyle(
-                          fontSize: 12.5.sp,
+                          fontSize: isMobile ? 10.sp : 14.sp,
                           color: AppColors.textSecondary,
                           fontFamily: AppFonts.inter,
                           height: 1.5,
                         ),
                       ),
                     ),
-                    SizedBox(height: 18.h),
+                    SizedBox(height: isMobile ? 10.h : 18.h),
                     Wrap(
                       spacing: 20.w,
                       runSpacing: 8.h,
