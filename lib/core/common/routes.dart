@@ -3,6 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:myportfolioapp/core/di/injection.dart';
 import 'package:myportfolioapp/features/blogs/presentation/bloc/blog_bloc.dart';
+import 'package:myportfolioapp/features/blogs/presentation/bloc/blog_details_bloc.dart';
+import 'package:myportfolioapp/features/blogs/presentation/bloc/blog_event.dart';
+import 'package:myportfolioapp/features/blogs/presentation/pages/blog_details_page.dart';
 import 'package:myportfolioapp/features/blogs/presentation/pages/blogs_page.dart';
 import 'package:myportfolioapp/features/career/presentation/bloc/career_bloc.dart';
 import 'package:myportfolioapp/features/contact/presentation/bloc/contact_bloc.dart';
@@ -65,6 +68,21 @@ final GoRouter router = GoRouter(
           child: const ContactPage(),
         ),
       ),
+    ),
+    GoRoute(
+      path: BlogDetailsPage.route,
+      pageBuilder: (context, state) {
+        final id = int.tryParse(state.pathParameters['id'] ?? '') ?? 0;
+        return buildPage(
+          state,
+          BlocProvider(
+            create: (_) => getIt<BlogDetailsBloc>()
+              ..add(SectionFetchEvent(blogId: id))
+              ..add(DetailsFetchEvent(blogId: id)),
+            child: BlogDetailsPage(blogId: id),
+          ),
+        );
+      },
     ),
     GoRoute(
       path: DashboardPage.route,

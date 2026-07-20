@@ -15,7 +15,7 @@ class BlogItemModels extends BlogItem {
 
   factory BlogItemModels.fromJson(Map<String, dynamic> json) {
     return BlogItemModels(
-      id: json['id'],
+      id: int.tryParse(json['id'].toString()) ?? 0,
       index: json['index'],
       title: json['title'],
       shortDescription: json['short_description'],

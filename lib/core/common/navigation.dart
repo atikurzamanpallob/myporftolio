@@ -31,7 +31,6 @@ void navigateToSection(BuildContext context, String label) {
       break;
     case 'Blogs':
       context.go(BlogsPage.route);
-      break;
     case 'Contact':
       context.go(ContactPage.route);
       break;

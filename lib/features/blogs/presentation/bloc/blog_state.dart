@@ -1,4 +1,5 @@
 // ignore_for_file: must_be_immutable
+import 'package:myportfolioapp/features/blogs/domain/entity/blog_details_item.dart';
 import 'package:myportfolioapp/features/blogs/domain/entity/blog_item.dart';
 
 import '../../../dashboard/domain/entity/category_list.dart';
@@ -32,6 +33,7 @@ class BlogState {
     bool? isLoadMoreLoading,
     List<Category>? category,
     List<BlogItem>? blogs,
+    List<BlogDetailsItem>? blogSections,
     int? currentCategory,
     int? currentPage,
     bool? hasReachedMax,
@@ -47,6 +49,38 @@ class BlogState {
       currentPage: currentPage ?? this.currentPage,
       hasReachedMax: hasReachedMax ?? this.hasReachedMax,
       error: error,
+    );
+  }
+}
+
+class BlogDetailsState {
+  final List<Category>? category;
+  final BlogItem? blog;
+  final List<BlogItem>? recentPosts;
+  final List<BlogDetailsItem>? sections;
+  final String? error;
+
+  BlogDetailsState({
+    this.category,
+    this.recentPosts,
+    this.sections,
+    this.blog,
+    this.error,
+  });
+
+  BlogDetailsState copyWith({
+    List<Category>? category,
+    BlogItem? blog,
+    List<BlogItem>? recentPosts,
+    List<BlogDetailsItem>? sections,
+    String? error,
+  }) {
+    return BlogDetailsState(
+      category: category ?? this.category,
+      blog: blog ?? this.blog,
+      recentPosts: recentPosts ?? this.recentPosts,
+      sections: sections ?? this.sections,
+      error: error ?? this.error,
     );
   }
 }

@@ -30,3 +30,19 @@ class LoadMoreBlogEvent extends BlogEvent {
   final int limit;
   LoadMoreBlogEvent({this.limit = 10});
 }
+
+class DetailsFetchEvent extends BlogEvent {
+  final int blogId;
+  DetailsFetchEvent({required this.blogId});
+  @override
+  List<Object?> get props => [blogId];
+}
+
+class SectionFetchEvent extends BlogEvent {
+  final int blogId;
+  SectionFetchEvent({required this.blogId});
+  @override
+  List<Object?> get props => [blogId];
+}
+
+class RecentPostFetchEvent extends BlogEvent {}

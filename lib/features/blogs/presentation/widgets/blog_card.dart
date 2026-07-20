@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:myportfolioapp/core/app_resources/app_icons.dart';
 import 'package:myportfolioapp/core/common/glass_card.dart';
 import 'package:myportfolioapp/features/blogs/domain/entity/blog_item.dart';
@@ -10,6 +10,8 @@ import '../../../../core/app_resources/app_colors.dart';
 import '../../../../core/app_resources/app_fonts.dart';
 import '../../../../core/app_resources/app_images.dart';
 import '../../../../core/utils/responsive.dart';
+import '../pages/blog_details_page.dart';
+import 'meta_item.dart';
 
 class BlogCard extends StatelessWidget {
   const BlogCard({super.key, required this.post});
@@ -83,15 +85,17 @@ class BlogCard extends StatelessWidget {
           runSpacing: 8.h,
           crossAxisAlignment: WrapCrossAlignment.center,
           children: [
-            _MetaItem(icon: AppIcons.calender, label: post.date),
-            _MetaItem(icon: AppIcons.minutesIcon, label: post.readTime),
+            MetaItem(icon: AppIcons.calender, label: post.date),
+            MetaItem(icon: AppIcons.minutesIcon, label: post.readTime),
           ],
         ),
       ],
     );
 
     final readMore = InkWell(
-      onTap: () {},
+      onTap: () {
+        context.push(BlogDetailsPage.routeFor(post.id));
+      },
       child: Container(
         padding: EdgeInsets.all(8.0),
         decoration: BoxDecoration(
@@ -154,32 +158,6 @@ class BlogCard extends StatelessWidget {
                 ),
         ),
       ),
-    );
-  }
-}
-
-class _MetaItem extends StatelessWidget {
-  const _MetaItem({required this.icon, required this.label});
-  final String icon;
-  final String label;
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisSize: .min,
-      crossAxisAlignment: .center,
-      children: [
-        SvgPicture.asset(icon, height: 20.h, width: 20.w),
-        SizedBox(width: 6.w),
-        Text(
-          label,
-          style: TextStyle(
-            fontSize: 12.sp,
-            fontFamily: AppFonts.inter,
-            color: AppColors.textSecondary,
-          ),
-        ),
-      ],
     );
   }
 }
