@@ -60,16 +60,6 @@ final GoRouter router = GoRouter(
       ),
     ),
     GoRoute(
-      path: ContactPage.route,
-      pageBuilder: (context, state) => buildPage(
-        state,
-        BlocProvider(
-          create: (_) => getIt<ContactBloc>(),
-          child: const ContactPage(),
-        ),
-      ),
-    ),
-    GoRoute(
       path: BlogDetailsPage.route,
       pageBuilder: (context, state) {
         final id = int.tryParse(state.pathParameters['id'] ?? '') ?? 0;
@@ -83,6 +73,16 @@ final GoRouter router = GoRouter(
           ),
         );
       },
+    ),
+    GoRoute(
+      path: ContactPage.route,
+      pageBuilder: (context, state) => buildPage(
+        state,
+        BlocProvider(
+          create: (_) => getIt<ContactBloc>(),
+          child: const ContactPage(),
+        ),
+      ),
     ),
     GoRoute(
       path: DashboardPage.route,

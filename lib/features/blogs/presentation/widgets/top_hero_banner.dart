@@ -19,11 +19,12 @@ class HeroBanner extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bool isMobile = Responsive.isMobile(context);
+    bool isTab = Responsive.isTablet(context);
     return GlassCard(
       child: ClipRRect(
         borderRadius: BorderRadius.circular(10.r),
         child: SizedBox(
-          height: isMobile ? 250.h : 360.h,
+          height: isMobile ? 270.h : 330.h,
           child: Stack(
             fit: StackFit.expand,
             children: [
@@ -67,38 +68,48 @@ class HeroBanner extends StatelessWidget {
                 padding: EdgeInsets.all(20.r),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    CategoryChip(label: detail?.categoryName ?? ""),
-                    SizedBox(height: 14.h),
-                    SizedBox(
-                      width: isMobile ? double.infinity : 550.w,
-                      child: Text(
-                        detail?.title ?? "",
-                        style: TextStyle(
-                          fontSize: isMobile ? 16.sp : 20.sp,
-                          fontWeight: FontWeight.w700,
-                          color: Colors.white,
-                          height: 1.25,
-                          letterSpacing: -0.3,
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        CategoryChip(label: detail?.categoryName ?? ""),
+                        SizedBox(height: 15.h),
+                        SizedBox(
+                          width: isMobile ? double.infinity : 550.w,
+                          child: Text(
+                            detail?.title ?? "",
+                            style: TextStyle(
+                              fontSize: isMobile ? 14.sp : 20.sp,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.white,
+                              height: 1,
+                              letterSpacing: -0.3,
+                            ),
+                          ),
                         ),
-                      ),
-                    ),
-                    SizedBox(height: 10.h),
-                    SizedBox(
-                      width: isMobile ? double.infinity : 550.w,
-                      child: Text(
-                        detail?.shortDescription ?? "",
-                        maxLines: 3,
-                        textAlign: TextAlign.justify,
-                        style: TextStyle(
-                          fontSize: isMobile ? 10.sp : 14.sp,
-                          color: AppColors.textSecondary,
-                          fontFamily: AppFonts.inter,
-                          height: 1.5,
+                        SizedBox(height: 10.h),
+                        SizedBox(
+                          width: isMobile ? double.infinity : 550.w,
+                          child: Text(
+                            detail?.shortDescription ?? "",
+                            maxLines: 3,
+                            textAlign: TextAlign.justify,
+                            style: TextStyle(
+                              fontSize: isMobile
+                                  ? 10.sp
+                                  : isTab
+                                  ? 12.sp
+                                  : 14.sp,
+                              color: AppColors.textSecondary,
+                              fontFamily: AppFonts.inter,
+                              height: 1.5,
+                            ),
+                          ),
                         ),
-                      ),
+                      ],
                     ),
+
                     SizedBox(height: isMobile ? 10.h : 18.h),
                     Wrap(
                       spacing: 20.w,
@@ -108,10 +119,12 @@ class HeroBanner extends StatelessWidget {
                         MetaItem(
                           icon: AppIcons.calender,
                           label: detail?.date ?? "",
+                          isMobile: isMobile,
                         ),
                         MetaItem(
                           icon: AppIcons.minutesIcon,
                           label: detail?.readTime ?? "",
+                          isMobile: isMobile,
                         ),
                       ],
                     ),

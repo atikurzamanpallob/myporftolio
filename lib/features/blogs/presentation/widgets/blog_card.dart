@@ -94,7 +94,7 @@ class BlogCard extends StatelessWidget {
 
     final readMore = InkWell(
       onTap: () {
-        context.push(BlogDetailsPage.routeFor(post.id));
+        context.go(BlogDetailsPage.routeFor(post.id));
       },
       child: Container(
         padding: EdgeInsets.all(8.0),

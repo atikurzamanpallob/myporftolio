@@ -9,6 +9,7 @@ import 'package:myportfolioapp/core/utils/responsive.dart';
 import 'package:myportfolioapp/features/blogs/domain/entity/blog_details_item.dart';
 import 'package:myportfolioapp/features/blogs/presentation/bloc/blog_details_bloc.dart';
 import 'package:myportfolioapp/features/blogs/presentation/bloc/blog_state.dart';
+import 'package:myportfolioapp/features/blogs/presentation/widgets/back_button.dart';
 import '../../../home/presentation/pages/footer_section.dart';
 import '../widgets/description_item_card.dart';
 import '../widgets/side_bar.dart';
@@ -65,7 +66,7 @@ class BlogDetailBody extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(height: 10.h),
-                BackButton(),
+                BlogBackButton(),
                 SizedBox(height: 20.h),
                 if (isDesktop)
                   Row(

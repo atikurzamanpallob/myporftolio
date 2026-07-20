@@ -22,7 +22,7 @@ class CategoryChip extends StatelessWidget {
       child: Text(
         label,
         style: TextStyle(
-          fontSize: 11.sp,
+          fontSize: 10.sp,
           fontWeight: FontWeight.w600,
           color: AppColors.primaryBlue,
           fontFamily: AppFonts.inter,

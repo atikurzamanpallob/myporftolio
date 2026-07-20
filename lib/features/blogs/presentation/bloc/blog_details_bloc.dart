@@ -39,6 +39,7 @@ class BlogDetailsBloc extends Bloc<BlogEvent, BlogDetailsState> {
     Emitter<BlogDetailsState> emit,
   ) async {
     final result = await blogDetailsData.getSections(blogId: event.blogId);
+
     result.fold(
       (failure) {
         emit(state.copyWith(error: failure.message));

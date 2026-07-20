@@ -4,16 +4,19 @@ import 'package:go_router/go_router.dart';
 import 'package:myportfolioapp/core/app_resources/app_fonts.dart';
 
 import '../../../../core/app_resources/app_colors.dart';
+import '../pages/blogs_page.dart';
 
-class BackButton extends StatelessWidget {
-  const BackButton({super.key});
+class BlogBackButton extends StatelessWidget {
+  const BlogBackButton({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MouseRegion(
       cursor: SystemMouseCursors.click,
       child: GestureDetector(
-        onTap: () => context.pop(),
+        onTap: () {
+          context.go(BlogsPage.route);
+        },
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
