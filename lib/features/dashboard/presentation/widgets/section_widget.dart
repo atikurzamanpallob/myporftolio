@@ -28,9 +28,10 @@ InputDecoration buildInputDecoration(String hint) {
 
 class SectionCard extends StatelessWidget {
   final String? title;
+  final Function? onAdd;
   final Widget child;
 
-  const SectionCard({super.key, this.title, required this.child});
+  const SectionCard({super.key, this.title, this.onAdd, required this.child});
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +60,29 @@ class SectionCard extends StatelessWidget {
                 child,
               ],
             )
-          : child,
+          : Column(
+              children: [
+                onAdd != null
+                    ? Row(
+                        mainAxisAlignment: .end,
+                        children: [
+                          InkWell(
+                            onTap: () {
+                              onAdd!();
+                            },
+                            child: Row(
+                              children: [
+                                Text("Add"),
+                                Icon(Icons.add, color: AppColors.textPrimary),
+                              ],
+                            ),
+                          ),
+                        ],
+                      )
+                    : SizedBox.shrink(),
+                child,
+              ],
+            ),
     );
   }
 }

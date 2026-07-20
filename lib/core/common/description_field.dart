@@ -7,12 +7,17 @@ import 'label_field.dart';
 class DescriptionField extends StatefulWidget {
   final TextEditingController controller;
   final String? hints;
-  final int? minLines;
+  final int? minLines, maxLines;
+  final String? label;
+  final bool hasLimit;
   const DescriptionField({
     required this.controller,
     super.key,
+    this.label,
     this.minLines,
+    this.maxLines,
     this.hints,
+    this.hasLimit = true,
   });
 
   @override
@@ -28,26 +33,31 @@ class DescriptionFieldState extends State<DescriptionField> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const FieldLabel(label: 'Short Description', required: true),
+        FieldLabel(label: widget.label ?? 'Short Description', required: true),
         const SizedBox(height: 8),
         TextField(
           controller: widget.controller,
-          maxLength: _max,
+          maxLength: widget.hasLimit ? _max : null,
           minLines: widget.minLines ?? 1,
-          maxLines: 4,
+          maxLines: widget.maxLines ?? 4,
           onChanged: (v) => setState(() => _len = v.length),
           style: const TextStyle(color: AppColors.textPrimary, fontSize: 14),
           decoration: buildInputDecoration(
             widget.hints ?? 'A short summary of the project',
           ).copyWith(counterText: ''),
         ),
-        Align(
-          alignment: Alignment.centerRight,
-          child: Text(
-            '$_len/$_max',
-            style: const TextStyle(color: AppColors.textMuted, fontSize: 12),
-          ),
-        ),
+        widget.hasLimit
+            ? Align(
+                alignment: Alignment.centerRight,
+                child: Text(
+                  '$_len/$_max',
+                  style: const TextStyle(
+                    color: AppColors.textMuted,
+                    fontSize: 12,
+                  ),
+                ),
+              )
+            : SizedBox.shrink(),
       ],
     );
   }

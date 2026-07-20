@@ -5,8 +5,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:myportfolioapp/core/app_resources/app_colors.dart';
 import 'package:myportfolioapp/core/common/common_dialog.dart';
 import 'package:myportfolioapp/core/common/labled_date_field.dart';
+import 'package:myportfolioapp/features/dashboard/domain/entity/description_elements.dart';
 import 'package:myportfolioapp/features/dashboard/presentation/bloc/dashboard_bloc.dart';
 import 'package:myportfolioapp/features/dashboard/presentation/bloc/dashboard_state.dart';
+import 'package:myportfolioapp/features/dashboard/presentation/widgets/description_card.dart';
+import 'package:myportfolioapp/features/dashboard/presentation/widgets/element_add_window.dart';
 import 'package:myportfolioapp/features/dashboard/presentation/widgets/progress_window.dart';
 
 import '../../../../core/common/description_field.dart';
@@ -31,12 +34,16 @@ class _AddBlogPageState extends State<AddBlogPage> {
   var indexController = TextEditingController();
   var shortDescriptionController = TextEditingController();
   var readController = TextEditingController();
+  List<DescriptionItem> listItems = [];
   DateTime? selectedDate;
   void clear() {
     setState(() {
       category = null;
       indexController.clear();
       titleController.clear();
+      listItems.clear();
+      selectedDate = null;
+      readController.clear();
       shortDescriptionController.clear();
       files.clear();
     });
@@ -229,10 +236,27 @@ class _AddBlogPageState extends State<AddBlogPage> {
           ),
         ),
         SizedBox(height: 20.h),
-        SectionCard(child: Column(children: [
-            
-          ],
-        )),
+        SectionCard(
+          onAdd: () {
+            CommonDialog(
+              context: context,
+              child: ElementAddWindow(
+                onAddElement: (element) {
+                  setState(() {
+                    listItems.add(element);
+                  });
+                },
+              ),
+            );
+          },
+          child: ListView.builder(
+            shrinkWrap: true,
+            itemCount: listItems.length,
+            itemBuilder: (context, index) {
+              return DescriptionCard(element: listItems[index]);
+            },
+          ),
+        ),
       ],
     );
   }
