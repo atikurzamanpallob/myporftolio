@@ -1,6 +1,7 @@
 class BlogItem {
   const BlogItem({
     required this.id,
+    required this.index,
     required this.title,
     required this.shortDescription,
     required this.categoryName,
@@ -10,6 +11,7 @@ class BlogItem {
     required this.thumbnail,
   });
   final int id;
+  final int index;
   final String title;
   final String shortDescription;
   final String categoryName;

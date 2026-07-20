@@ -27,6 +27,7 @@ class BlogDatasourceImp extends BlogDatasource {
     required int limit,
     int? categoryId,
   }) async {
+    List<BlogItem> blogs = [];
     final from = (page - 1) * limit;
     final to = from + limit - 1;
 
@@ -42,10 +43,18 @@ class BlogDatasourceImp extends BlogDatasource {
               .select()
               .order('index', ascending: false)
               .range(from, to);
+    print(response);
 
-    return response
-        .map<BlogItem>((e) => BlogItemModels.fromJson(e).toEntity())
-        .toList();
+    response.forEach((element) {
+      try {
+        var blog = BlogItemModels.fromJson(element);
+        blogs.add(blog.toEntity());
+      } catch (e, stack) {
+        print(e.toString());
+        print(stack);
+      }
+    });
+    return blogs;
   }
 
   @override

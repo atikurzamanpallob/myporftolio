@@ -9,8 +9,9 @@ class BlogBloc extends Bloc<BlogEvent, BlogState> {
   BlogBloc(this.blogData) : super(BlogState()) {
     on<CategoryFetchEvent>(fetchCategory);
     on<BlogFetchEvent>(fetchBlogs);
-    on<LoadMoreBlogEvent>(loadMoreBlogs); // NEW
+    on<LoadMoreBlogEvent>(loadMoreBlogs);
     add(CategoryFetchEvent());
+    add(BlogFetchEvent(page: 1, limit: 10, categoryId: -1));
   }
 
   Future fetchCategory(

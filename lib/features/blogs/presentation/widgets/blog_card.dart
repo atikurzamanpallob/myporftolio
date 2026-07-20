@@ -22,18 +22,25 @@ class BlogCard extends StatelessWidget {
 
     final thumbnail = Container(
       width: isMobile ? double.infinity : 330.w,
-      height: isMobile ? 160.h : 170.h,
-      decoration: BoxDecoration(borderRadius: BorderRadius.circular(4.r)),
-      child: CachedNetworkImage(
-        imageUrl: post.thumbnail,
-        errorWidget: (context, url, error) =>
-            Image.asset(AppImages.placehHolder),
-        placeholder: (context, url) => Stack(
-          alignment: AlignmentGeometry.center,
-          children: [
-            Image.asset(AppImages.placehHolder),
-            CircularProgressIndicator(),
-          ],
+      height: isMobile ? 160.h : 210.h,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10.r),
+        border: Border.all(color: AppColors.primaryBlue, width: 0.4),
+      ),
+      child: ClipRRect(
+        borderRadius: BorderRadiusGeometry.circular(10.r),
+        child: CachedNetworkImage(
+          imageUrl: post.thumbnail,
+          fit: BoxFit.cover,
+          errorWidget: (context, url, error) =>
+              Image.asset(AppImages.placehHolder),
+          placeholder: (context, url) => Stack(
+            alignment: AlignmentGeometry.center,
+            children: [
+              Image.asset(AppImages.placehHolder),
+              CircularProgressIndicator(),
+            ],
+          ),
         ),
       ),
     );
@@ -134,7 +141,8 @@ class BlogCard extends StatelessWidget {
                 )
               : IntrinsicHeight(
                   child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+
                     children: [
                       thumbnail,
                       SizedBox(width: 24.w),

@@ -44,7 +44,6 @@ class _BlogsListSectionState extends State<BlogsListSection> {
       child: BlocBuilder<BlogBloc, BlogState>(
         builder: (context, state) {
           List<BlogItem> list = state.blogs;
-
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

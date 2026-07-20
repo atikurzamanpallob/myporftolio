@@ -3,6 +3,7 @@ import 'package:myportfolioapp/features/blogs/domain/entity/blog_item.dart';
 class BlogItemModels extends BlogItem {
   BlogItemModels({
     required super.id,
+    required super.index,
     required super.title,
     required super.shortDescription,
     required super.categoryName,
@@ -15,19 +16,21 @@ class BlogItemModels extends BlogItem {
   factory BlogItemModels.fromJson(Map<String, dynamic> json) {
     return BlogItemModels(
       id: json['id'],
+      index: json['index'],
       title: json['title'],
       shortDescription: json['short_description'],
       categoryId: json['category_id'],
       categoryName: json['category_name'],
       date: json['date'],
       readTime: json['read_time'],
-      thumbnail: json['description'],
+      thumbnail: json['thumbnail'],
     );
   }
 
   BlogItem toEntity() {
     return BlogItem(
       id: id,
+      index: index,
       title: title,
       shortDescription: shortDescription,
       categoryName: categoryName,
