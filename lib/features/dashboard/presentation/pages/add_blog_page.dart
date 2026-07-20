@@ -5,8 +5,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:myportfolioapp/core/app_resources/app_colors.dart';
 import 'package:myportfolioapp/core/common/common_dialog.dart';
 import 'package:myportfolioapp/core/common/labled_date_field.dart';
+import 'package:myportfolioapp/core/utils/time_formatter.dart';
+import 'package:myportfolioapp/features/blogs/domain/entity/blog_add_item.dart';
 import 'package:myportfolioapp/features/dashboard/domain/entity/description_elements.dart';
 import 'package:myportfolioapp/features/dashboard/presentation/bloc/dashboard_bloc.dart';
+import 'package:myportfolioapp/features/dashboard/presentation/bloc/dashboard_event.dart';
 import 'package:myportfolioapp/features/dashboard/presentation/bloc/dashboard_state.dart';
 import 'package:myportfolioapp/features/dashboard/presentation/widgets/description_card.dart';
 import 'package:myportfolioapp/features/dashboard/presentation/widgets/element_add_window.dart';
@@ -117,7 +120,27 @@ class _AddBlogPageState extends State<AddBlogPage> {
           'Publish',
           Icons.send_outlined,
           onTap: () {
-            if (formKey.currentState?.validate() ?? false) {}
+            if (formKey.currentState?.validate() ?? false) {
+              if (listItems.isNotEmpty) {
+                context.read<DashBoardBloc>().add(
+                  AddBlogEvent(
+                    item: BlogAddItem(
+                      index: int.parse(indexController.text),
+                      categoryId: category!.id,
+                      categoryName: category!.name,
+                      title: titleController.text,
+                      shortDescription: shortDescriptionController.text,
+                      thumbnail: files.first,
+                      date: TimeFormatter.getFormattedDate(
+                        selectedDate ?? DateTime.now(),
+                      ),
+                      readTime: "${readController.text} minutes read",
+                      descriptionItems: listItems,
+                    ),
+                  ),
+                );
+              }
+            }
           },
         ),
       ],
@@ -238,8 +261,8 @@ class _AddBlogPageState extends State<AddBlogPage> {
                     },
                   ),
                   LabeledField(
-                    label: 'Read Time',
-                    hint: '10 minutes read',
+                    label: 'Read Time (minutes)',
+                    hint: '10',
                     required: true,
                     controller: readController,
                   ),
