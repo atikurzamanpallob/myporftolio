@@ -1,5 +1,6 @@
 import 'package:fpdart/fpdart.dart';
 import 'package:myportfolioapp/core/errors/failures.dart';
+import 'package:myportfolioapp/features/blogs/domain/entity/blog_add_item.dart';
 import 'package:myportfolioapp/features/blogs/domain/entity/blog_item.dart';
 import 'package:myportfolioapp/features/blogs/domain/repository/blog_repository.dart';
 import 'package:myportfolioapp/features/dashboard/domain/entity/category_list.dart';
@@ -22,5 +23,9 @@ class BlogData {
 
   Future<Either<Failure, List<Category>>> getCategories() async {
     return repository.getCategoryList();
+  }
+
+  Future<Either<Failure, bool>> addBlog(BlogAddItem item) async {
+    return repository.addBlog(item: item);
   }
 }

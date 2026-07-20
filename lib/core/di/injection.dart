@@ -75,6 +75,14 @@ Future<void> injectDependency() async {
   getIt.registerLazySingleton(() => ProjectData(getIt()));
   getIt.registerFactory(() => ProjectBloc(getIt()));
 
+  //blogs dependency
+  getIt.registerLazySingleton<BlogDatasource>(() => BlogDatasourceImp(getIt()));
+  getIt.registerLazySingleton<BlogRepository>(
+    () => BlogRepositoryImpl(getIt(), getIt()),
+  );
+  getIt.registerLazySingleton(() => BlogData(getIt()));
+  getIt.registerFactory(() => BlogBloc(getIt()));
+
   //dashboard
   getIt.registerLazySingleton<CategoryDatasource>(
     () => CategoryDatasourceImp(getIt()),
@@ -85,13 +93,5 @@ Future<void> injectDependency() async {
   getIt.registerLazySingleton(
     () => DashboardData(projectData: getIt(), repository: getIt()),
   );
-  getIt.registerFactory(() => DashBoardBloc(getIt()));
-
-  //blogs dependency
-  getIt.registerLazySingleton<BlogDatasource>(() => BlogDatasourceImp(getIt()));
-  getIt.registerLazySingleton<BlogRepository>(
-    () => BlogRepositoryImpl(getIt(), getIt()),
-  );
-  getIt.registerLazySingleton(() => BlogData(getIt()));
-  getIt.registerFactory(() => BlogBloc(getIt()));
+  getIt.registerFactory(() => DashBoardBloc(getIt(), getIt()));
 }

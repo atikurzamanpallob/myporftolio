@@ -10,6 +10,7 @@ class DescriptionField extends StatefulWidget {
   final int? minLines, maxLines;
   final String? label;
   final bool hasLimit;
+  final bool isRequired;
   const DescriptionField({
     required this.controller,
     super.key,
@@ -17,6 +18,7 @@ class DescriptionField extends StatefulWidget {
     this.minLines,
     this.maxLines,
     this.hints,
+    this.isRequired = true,
     this.hasLimit = true,
   });
 
@@ -35,11 +37,18 @@ class DescriptionFieldState extends State<DescriptionField> {
       children: [
         FieldLabel(label: widget.label ?? 'Short Description', required: true),
         const SizedBox(height: 8),
-        TextField(
+        TextFormField(
           controller: widget.controller,
           maxLength: widget.hasLimit ? _max : null,
           minLines: widget.minLines ?? 1,
           maxLines: widget.maxLines ?? 4,
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              return "This field is required";
+            } else {
+              return null;
+            }
+          },
           onChanged: (v) => setState(() => _len = v.length),
           style: const TextStyle(color: AppColors.textPrimary, fontSize: 14),
           decoration: buildInputDecoration(

@@ -1,6 +1,7 @@
 import 'package:fpdart/fpdart.dart';
 import 'package:myportfolioapp/core/errors/failures.dart';
 import 'package:myportfolioapp/features/blogs/data/datasource/blog_datasource.dart';
+import 'package:myportfolioapp/features/blogs/domain/entity/blog_add_item.dart';
 import 'package:myportfolioapp/features/blogs/domain/entity/blog_item.dart';
 import 'package:myportfolioapp/features/blogs/domain/repository/blog_repository.dart';
 import 'package:myportfolioapp/features/dashboard/data/datasource/category_datasource.dart';
@@ -34,6 +35,15 @@ class BlogRepositoryImpl extends BlogRepository {
   Future<Either<Failure, List<Category>>> getCategoryList() async {
     try {
       return Right(await categoryDatasource.getCategoryList());
+    } catch (e) {
+      return Left(Failure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, bool>> addBlog({required BlogAddItem item}) async {
+    try {
+      return Right(await datasource.addBlogs(item: item));
     } catch (e) {
       return Left(Failure(e.toString()));
     }

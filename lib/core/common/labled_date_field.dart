@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
+import 'package:myportfolioapp/core/app_resources/app_fonts.dart';
 
 import '../app_resources/app_colors.dart';
 import 'field_label.dart';
@@ -29,7 +31,10 @@ class LabeledDateField extends StatelessWidget {
     return DateFormat("dd MMM yyyy").format(date);
   }
 
-  Future<void> _pickDate(BuildContext context) async {
+  Future<void> _pickDate(
+    BuildContext context,
+    FormFieldState<DateTime?> field,
+  ) async {
     final picked = await showDatePicker(
       context: context,
       initialDate: selectedDate ?? DateTime.now(),
@@ -50,6 +55,7 @@ class LabeledDateField extends StatelessWidget {
       },
     );
     if (picked != null) {
+      field.didChange(picked);
       onDateSelected(picked);
     }
   }
@@ -61,30 +67,69 @@ class LabeledDateField extends StatelessWidget {
       children: [
         FieldLabel(label: label, required: required),
         const SizedBox(height: 8),
-        InkWell(
-          borderRadius: BorderRadius.circular(8),
-          onTap: () => _pickDate(context),
-          child: InputDecorator(
-            decoration: buildInputDecoration(hint),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  selectedDate != null ? _formatDate(selectedDate!) : hint,
-                  style: TextStyle(
-                    color: selectedDate != null
-                        ? AppColors.textPrimary
-                        : AppColors.textMuted,
-                    fontSize: selectedDate != null ? 14 : 13.5,
+        FormField<DateTime?>(
+          validator: (value) {
+            if (required) {
+              if (value == null) {
+                return "This field is required";
+              } else {
+                return null;
+              }
+            } else {
+              return null;
+            }
+          },
+          builder: (field) => Column(
+            crossAxisAlignment: .start,
+            children: [
+              InkWell(
+                borderRadius: BorderRadius.circular(8),
+                onTap: () {
+                  _pickDate(context, field);
+                },
+                child: InputDecorator(
+                  decoration: buildInputDecoration(
+                    hint,
+                    hasError: field.hasError,
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        selectedDate != null
+                            ? _formatDate(selectedDate!)
+                            : hint,
+                        style: TextStyle(
+                          color: selectedDate != null
+                              ? AppColors.textPrimary
+                              : AppColors.textMuted,
+                          fontSize: selectedDate != null ? 14 : 13.5,
+                        ),
+                      ),
+                      const Icon(
+                        Icons.calendar_today_outlined,
+                        size: 18,
+                        color: AppColors.textMuted,
+                      ),
+                    ],
                   ),
                 ),
-                const Icon(
-                  Icons.calendar_today_outlined,
-                  size: 18,
-                  color: AppColors.textMuted,
-                ),
-              ],
-            ),
+              ),
+              field.hasError
+                  ? Padding(
+                      padding: const EdgeInsets.only(left: 20),
+                      child: Text(
+                        field.errorText ?? "",
+
+                        style: TextStyle(
+                          color: AppColors.danger,
+                          fontSize: 12.sp,
+                          fontFamily: AppFonts.inter,
+                        ),
+                      ),
+                    )
+                  : const SizedBox.shrink(),
+            ],
           ),
         ),
       ],

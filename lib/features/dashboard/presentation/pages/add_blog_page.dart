@@ -12,6 +12,7 @@ import 'package:myportfolioapp/features/dashboard/presentation/widgets/descripti
 import 'package:myportfolioapp/features/dashboard/presentation/widgets/element_add_window.dart';
 import 'package:myportfolioapp/features/dashboard/presentation/widgets/progress_window.dart';
 
+import '../../../../core/app_resources/app_fonts.dart';
 import '../../../../core/common/description_field.dart';
 import '../../../../core/common/label_field.dart' hide buildInputDecoration;
 import '../../../../core/common/labled_dropdown.dart';
@@ -29,7 +30,7 @@ class AddBlogPage extends StatefulWidget {
 class _AddBlogPageState extends State<AddBlogPage> {
   List<PlatformFile> files = [];
   Category? category;
-
+  var formKey = GlobalKey<FormState>();
   var titleController = TextEditingController();
   var indexController = TextEditingController();
   var shortDescriptionController = TextEditingController();
@@ -71,15 +72,18 @@ class _AddBlogPageState extends State<AddBlogPage> {
               Expanded(
                 child: SingleChildScrollView(
                   padding: const EdgeInsets.fromLTRB(32, 24, 32, 40),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      _buildHeader(context, isNarrow),
-                      const SizedBox(height: 24),
-                      isNarrow
-                          ? _buildStackedLayout()
-                          : _buildTwoColumnLayout(),
-                    ],
+                  child: Form(
+                    key: formKey,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        _buildHeader(context, isNarrow),
+                        const SizedBox(height: 24),
+                        isNarrow
+                            ? _buildStackedLayout()
+                            : _buildTwoColumnLayout(),
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -109,8 +113,13 @@ class _AddBlogPageState extends State<AddBlogPage> {
       spacing: 12,
       runSpacing: 12,
       children: [
-        _ghostButton('Cancel', onTap: () {}),
-        _primaryButton('Publish', Icons.send_outlined, onTap: () {}),
+        _primaryButton(
+          'Publish',
+          Icons.send_outlined,
+          onTap: () {
+            if (formKey.currentState?.validate() ?? false) {}
+          },
+        ),
       ],
     );
 
@@ -173,6 +182,7 @@ class _AddBlogPageState extends State<AddBlogPage> {
                 children: [
                   DescriptionField(
                     minLines: 2,
+                    isRequired: true,
                     controller: shortDescriptionController,
                     hints: "Short summary about the blog",
                   ),
@@ -188,6 +198,7 @@ class _AddBlogPageState extends State<AddBlogPage> {
                         children: [
                           LabeledDropdown(
                             label: 'Blog Type',
+
                             categoryList: state.category ?? [],
                             onSelected: (category) {
                               setState(() {
@@ -205,6 +216,7 @@ class _AddBlogPageState extends State<AddBlogPage> {
                     },
                   ),
                   LabeledField(
+                    required: true,
                     label: 'Order Index',
                     hint: '0',
                     controller: indexController,
@@ -217,6 +229,7 @@ class _AddBlogPageState extends State<AddBlogPage> {
                   LabeledDateField(
                     label: 'Pick Date',
                     hint: "eg. 12 July 2026",
+                    required: true,
                     selectedDate: selectedDate,
                     onDateSelected: (date) {
                       setState(() {
@@ -227,6 +240,7 @@ class _AddBlogPageState extends State<AddBlogPage> {
                   LabeledField(
                     label: 'Read Time',
                     hint: '10 minutes read',
+                    required: true,
                     controller: readController,
                   ),
                 ],
@@ -266,43 +280,52 @@ class _AddBlogPageState extends State<AddBlogPage> {
       children: [
         SectionCard(
           title: 'Thumbnails',
-          child: Column(
-            children: [
-              ScreenshotThumbnailGrid(files: files, column: 1),
-              const SizedBox(height: 16),
-              _outlinedIconButton(
-                'Add Image',
-                Icons.add,
-                fullWidth: true,
-                onTap: () async {
-                  FilePickerResult? results = await FilePicker.pickFiles(
-                    allowMultiple: false,
-                    type: FileType.custom,
-                    withData: true,
-                    allowedExtensions: ['jpg', 'jpeg', 'png'],
-                  );
-                  files = results?.files ?? [];
-                  setState(() {});
-                },
-              ),
-            ],
+          child: FormField<int>(
+            validator: (value) {
+              if (value == null) {
+                return "This field is required";
+              } else {
+                return null;
+              }
+            },
+            builder: (field) => Column(
+              crossAxisAlignment: .start,
+              children: [
+                ScreenshotThumbnailGrid(files: files, column: 1),
+                const SizedBox(height: 16),
+                _outlinedIconButton(
+                  'Add Image',
+                  Icons.add,
+                  fullWidth: true,
+                  onTap: () async {
+                    FilePickerResult? results = await FilePicker.pickFiles(
+                      allowMultiple: false,
+                      type: FileType.custom,
+                      withData: true,
+                      allowedExtensions: ['jpg', 'jpeg', 'png'],
+                    );
+                    files = results?.files ?? [];
+                    if (files.isNotEmpty) {
+                      field.didChange(1);
+                    }
+                    setState(() {});
+                  },
+                ),
+                field.hasError
+                    ? Text(
+                        field.errorText ?? "",
+                        style: TextStyle(
+                          color: AppColors.danger,
+                          fontSize: 12.sp,
+                          fontFamily: AppFonts.inter,
+                        ),
+                      )
+                    : const SizedBox.shrink(),
+              ],
+            ),
           ),
         ),
-        const SizedBox(height: 24),
       ],
-    );
-  }
-
-  Widget _ghostButton(String label, {required VoidCallback onTap}) {
-    return OutlinedButton(
-      onPressed: onTap,
-      style: OutlinedButton.styleFrom(
-        foregroundColor: AppColors.textSecondary,
-        side: const BorderSide(color: AppColors.fieldBorder),
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-      ),
-      child: Text(label, style: const TextStyle(fontWeight: FontWeight.w500)),
     );
   }
 
