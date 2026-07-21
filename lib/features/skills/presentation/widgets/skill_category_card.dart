@@ -4,7 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:linear_progress_bar/linear_progress_bar.dart';
 import 'package:myportfolioapp/core/common/glass_card.dart';
 
-import '../../../../core/app_resources/app_colors.dart';
+import '../../../../core/themes/app_colors.dart';
 import '../../../../core/app_resources/app_fonts.dart';
 import '../../domain/entity/skill_category.dart';
 

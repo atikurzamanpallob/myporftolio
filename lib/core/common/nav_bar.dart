@@ -6,7 +6,7 @@ import 'package:myportfolioapp/core/common/common_dialog.dart';
 import 'package:myportfolioapp/features/dashboard/presentation/pages/dashboard_page.dart';
 import 'package:myportfolioapp/features/dashboard/presentation/pages/login_window.dart';
 
-import '../app_resources/app_colors.dart';
+import '../themes/app_colors.dart';
 import '../app_resources/app_icons.dart';
 import '../utils/responsive.dart';
 

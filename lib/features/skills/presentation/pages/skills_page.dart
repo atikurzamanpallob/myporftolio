@@ -5,7 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:myportfolioapp/core/app_resources/app_images.dart';
 import 'package:myportfolioapp/core/common/hero_header.dart';
 
-import '../../../../core/app_resources/app_colors.dart';
+import '../../../../core/themes/app_colors.dart';
 import '../../../../core/common/nav_bar.dart';
 import '../../../../core/common/navigation.dart';
 import '../../../../core/utils/responsive.dart';

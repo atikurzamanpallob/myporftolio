@@ -5,7 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:myportfolioapp/core/common/glass_card.dart';
 import 'package:myportfolioapp/features/home/domain/entity/home_info.dart';
 
-import '../../../../core/app_resources/app_colors.dart';
+import '../../../../core/themes/app_colors.dart';
 import '../../../../core/app_resources/app_fonts.dart';
 import '../../../../core/app_resources/app_icons.dart';
 import '../../../../core/app_resources/app_images.dart';

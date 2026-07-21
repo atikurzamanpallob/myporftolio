@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:myportfolioapp/core/app_resources/app_images.dart';
 import 'package:myportfolioapp/core/utils/size_helper.dart';
 
-import '../../../../core/app_resources/app_colors.dart';
+import '../../../../core/themes/app_colors.dart';
 import '../../../../core/app_resources/app_fonts.dart';
 import '../../../../core/common/glass_card.dart';
 import '../../../../core/utils/responsive.dart';
@@ -66,7 +66,10 @@ class AuthorCard extends StatelessWidget {
                       Text(
                         "Software Engineer",
                         style: TextStyle(
-                          fontSize: 11.sp,
+                          fontSize: SizeHelper.getBodyFontSize2(
+                            isMobile: isMobile,
+                            isTab: isTab,
+                          ),
                           fontWeight: FontWeight.w600,
                           color: AppColors.accentGreen,
                           fontFamily: AppFonts.inter,
@@ -76,7 +79,7 @@ class AuthorCard extends StatelessWidget {
                       Text(
                         "Turning ideas into seamless software solutions",
                         style: TextStyle(
-                          fontSize: SizeHelper.getBodyFontSize(
+                          fontSize: SizeHelper.getBodyFontSize2(
                             isMobile: isMobile,
                             isTab: isTab,
                           ),

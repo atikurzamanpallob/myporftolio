@@ -8,7 +8,7 @@ import 'package:myportfolioapp/core/common/labled_dropdown.dart';
 import 'package:myportfolioapp/features/dashboard/domain/entity/category_list.dart';
 import 'package:myportfolioapp/features/dashboard/domain/entity/description_elements.dart';
 
-import '../../../../core/app_resources/app_colors.dart';
+import '../../../../core/themes/app_colors.dart';
 import '../../../../core/common/glass_card.dart';
 import '../../../../core/common/screen_shot_preview.dart';
 import 'section_widget.dart';

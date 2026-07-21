@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:myportfolioapp/core/app_resources/app_fonts.dart';
 
-import '../app_resources/app_colors.dart';
+import '../themes/app_colors.dart';
 import 'field_label.dart';
 import 'label_field.dart';
 

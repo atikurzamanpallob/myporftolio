@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:myportfolioapp/features/blogs/presentation/pages/blog_details_page.dart';
 
-import '../../../../core/app_resources/app_colors.dart';
+import '../../../../core/themes/app_colors.dart';
 import '../../../../core/app_resources/app_fonts.dart';
 import '../../../../core/app_resources/app_images.dart';
 import '../../../../core/common/glass_card.dart';

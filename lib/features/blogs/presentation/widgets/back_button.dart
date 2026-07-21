@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:myportfolioapp/core/app_resources/app_fonts.dart';
 
-import '../../../../core/app_resources/app_colors.dart';
+import '../../../../core/themes/app_colors.dart';
 import '../pages/blogs_page.dart';
 
 class BlogBackButton extends StatelessWidget {

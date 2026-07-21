@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:myportfolioapp/features/dashboard/presentation/pages/add_blog_page.dart';
 import 'package:myportfolioapp/features/dashboard/presentation/pages/add_project_page.dart';
-import '../../../../core/app_resources/app_colors.dart';
+import '../../../../core/themes/app_colors.dart';
 import '../widgets/sidebar.dart';
 
 class DashboardPage extends StatefulWidget {

@@ -10,7 +10,7 @@ import 'package:myportfolioapp/features/home/presentation/bloc/home_bloc.dart';
 import 'package:myportfolioapp/features/home/presentation/bloc/home_state.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../../../../core/app_resources/app_colors.dart';
+import '../../../../core/themes/app_colors.dart';
 import '../../../../core/app_resources/app_images.dart';
 import '../../../../core/utils/responsive.dart';
 import '../widgets/circle_icon_button.dart';

@@ -9,7 +9,7 @@ import 'package:myportfolioapp/features/career/presentation/bloc/career_bloc.dar
 import 'package:myportfolioapp/features/career/presentation/bloc/career_state.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../../../../core/app_resources/app_colors.dart';
+import '../../../../core/themes/app_colors.dart';
 import '../../../../core/utils/responsive.dart';
 
 class CertificationSection extends StatelessWidget {

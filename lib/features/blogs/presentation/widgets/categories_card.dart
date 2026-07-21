@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:myportfolioapp/core/app_resources/app_colors.dart';
+import 'package:myportfolioapp/core/themes/app_colors.dart';
 import 'package:myportfolioapp/core/app_resources/app_fonts.dart';
 import 'package:myportfolioapp/core/common/glass_card.dart';
+import 'package:myportfolioapp/core/utils/size_helper.dart';
 
+import '../../../../core/utils/responsive.dart';
 import '../../../dashboard/domain/entity/category_list.dart';
 
 class CategoriesCard extends StatelessWidget {
@@ -13,6 +15,8 @@ class CategoriesCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bool isMobile = Responsive.isMobile(context);
+    final bool istab = Responsive.isTablet(context);
     return GlassCard(
       child: Padding(
         padding: EdgeInsets.all(20.r),
@@ -44,7 +48,10 @@ class CategoriesCard extends StatelessWidget {
                             child: Text(
                               entry.value.name,
                               style: TextStyle(
-                                fontSize: 13.sp,
+                                fontSize: SizeHelper.getBodyFontSize2(
+                                  isMobile: isMobile,
+                                  isTab: istab,
+                                ),
                                 color: AppColors.textSecondary,
                                 fontFamily: AppFonts.inter,
                               ),

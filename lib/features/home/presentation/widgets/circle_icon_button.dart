@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import '../../../../core/app_resources/app_colors.dart';
+import '../../../../core/themes/app_colors.dart';
 
 /// A circular badge containing an svg icon, used for the "Let's connect"
 /// social row (GitHub, LinkedIn, Gmail, HackerRank).

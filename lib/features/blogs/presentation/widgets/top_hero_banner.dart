@@ -8,7 +8,7 @@ import 'package:myportfolioapp/core/utils/size_helper.dart';
 import 'package:myportfolioapp/features/blogs/domain/entity/blog_item.dart';
 import 'package:myportfolioapp/features/blogs/presentation/widgets/meta_item.dart';
 
-import '../../../../core/app_resources/app_colors.dart';
+import '../../../../core/themes/app_colors.dart';
 import '../../../../core/common/glass_card.dart';
 import '../../../../core/utils/responsive.dart';
 import 'category_chip.dart';
@@ -122,14 +122,10 @@ class HeroBanner extends StatelessWidget {
                           MetaItem(
                             icon: AppIcons.calender,
                             label: detail?.date ?? "",
-                            isMobile: isMobile,
-                            isTab: isTab,
                           ),
                           MetaItem(
                             icon: AppIcons.minutesIcon,
                             label: detail?.readTime ?? "",
-                            isMobile: isMobile,
-                            isTab: isTab,
                           ),
                         ],
                       ),

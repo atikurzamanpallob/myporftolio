@@ -7,7 +7,7 @@ import 'package:myportfolioapp/features/contact/presentation/bloc/contact_bloc.d
 import 'package:myportfolioapp/features/contact/presentation/bloc/contact_state.dart';
 import 'package:myportfolioapp/features/home/domain/entity/contact_info.dart';
 
-import '../../../../core/app_resources/app_colors.dart';
+import '../../../../core/themes/app_colors.dart';
 import '../../../../core/app_resources/app_fonts.dart';
 
 class ContactInfoCard extends StatelessWidget {

@@ -7,7 +7,7 @@ import 'package:myportfolioapp/core/common/glass_card.dart';
 import 'package:myportfolioapp/core/utils/size_helper.dart';
 import 'package:myportfolioapp/features/blogs/domain/entity/blog_item.dart';
 
-import '../../../../core/app_resources/app_colors.dart';
+import '../../../../core/themes/app_colors.dart';
 import '../../../../core/app_resources/app_fonts.dart';
 import '../../../../core/app_resources/app_images.dart';
 import '../../../../core/utils/responsive.dart';
@@ -75,7 +75,7 @@ class BlogCard extends StatelessWidget {
           post.shortDescription,
           maxLines: 2,
           style: TextStyle(
-            fontSize: SizeHelper.getBodyFontSize(
+            fontSize: SizeHelper.getBodyFontSize2(
               isMobile: isMobile,
               isTab: istab,
             ),

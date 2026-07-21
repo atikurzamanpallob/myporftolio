@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../app_resources/app_colors.dart';
+import '../themes/app_colors.dart';
 
 class FieldLabel extends StatelessWidget {
   final String label;

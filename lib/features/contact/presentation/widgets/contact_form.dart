@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:myportfolioapp/features/contact/presentation/bloc/contact_bloc.dart';
 import 'package:myportfolioapp/features/contact/presentation/bloc/contact_event.dart';
 
-import '../../../../core/app_resources/app_colors.dart';
+import '../../../../core/themes/app_colors.dart';
 import '../../../../core/app_resources/app_fonts.dart';
 
 class ContactForm extends StatefulWidget {

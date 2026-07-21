@@ -6,7 +6,7 @@ import 'package:myportfolioapp/features/career/domain/entity/work_experience_ite
 import 'package:myportfolioapp/features/career/presentation/bloc/career_bloc.dart';
 import 'package:myportfolioapp/features/career/presentation/bloc/career_state.dart';
 
-import '../../../../core/app_resources/app_colors.dart';
+import '../../../../core/themes/app_colors.dart';
 import '../../../../core/utils/responsive.dart';
 import 'experience_card.dart';
 
