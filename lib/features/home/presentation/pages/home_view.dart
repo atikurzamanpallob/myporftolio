@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:myportfolioapp/features/home/presentation/pages/top_section.dart';
+import 'package:myportfolioapp/features/home/presentation/pages/extra_section.dart';
 import '../../../../core/app_resources/app_images.dart';
 import '../../../../core/common/hero_header.dart';
 import '../../../../core/themes/app_colors.dart';

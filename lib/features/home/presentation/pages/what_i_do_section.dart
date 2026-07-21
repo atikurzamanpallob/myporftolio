@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../core/themes/app_colors.dart';
 import '../../../../core/app_resources/app_icons.dart';
+import '../../../../core/themes/responsive_text_theme.dart';
 import '../../../../core/utils/responsive.dart';
 import '../widgets/service_card.dart';
 
@@ -48,8 +49,7 @@ class WhatIDoSection extends StatelessWidget {
         children: [
           Text(
             'WHAT I DO',
-            style: TextStyle(
-              fontSize: 14.sp,
+            style: context.fontStyle.titleSmall?.copyWith(
               fontWeight: FontWeight.w600,
               color: AppColors.textPrimary,
             ),

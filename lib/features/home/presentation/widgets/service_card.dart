@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:myportfolioapp/core/app_resources/app_fonts.dart';
 import 'package:myportfolioapp/core/common/glass_card.dart';
 
 import '../../../../core/themes/app_colors.dart';
+import '../../../../core/themes/responsive_text_theme.dart';
 
 class ServiceCard extends StatelessWidget {
   const ServiceCard({
@@ -50,8 +50,7 @@ class ServiceCard extends StatelessWidget {
                 children: [
                   Text(
                     title,
-                    style: TextStyle(
-                      fontSize: 16.sp,
+                    style: context.fontStyle.bodyLarge?.copyWith(
                       fontWeight: FontWeight.w600,
                       color: AppColors.textPrimary,
                     ),
@@ -61,12 +60,9 @@ class ServiceCard extends StatelessWidget {
                     description,
                     maxLines: 3,
                     overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                      fontSize: 12.sp,
-                      fontFamily: AppFonts.inter,
-                      fontWeight: FontWeight.w400,
+                    style: context.fontStyle.bodySmall?.copyWith(
                       color: AppColors.textSecondary,
-                      height: 1.4,
+                      height: 1.1,
                     ),
                   ),
                 ],

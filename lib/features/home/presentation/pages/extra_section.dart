@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:myportfolioapp/core/app_resources/app_icons.dart';
+import 'package:myportfolioapp/core/themes/responsive_text_theme.dart';
 import 'package:myportfolioapp/features/home/domain/entity/contact_info.dart';
 import 'package:myportfolioapp/features/home/domain/entity/home_info.dart';
 import 'package:myportfolioapp/features/home/presentation/bloc/home_bloc.dart';
@@ -19,9 +20,7 @@ class ExtraSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     bool centered = !Responsive.isDesktop(context);
-    final crossAlign = centered
-        ? CrossAxisAlignment.center
-        : CrossAxisAlignment.start;
+    final crossAlign = CrossAxisAlignment.start;
     return Column(
       crossAxisAlignment: crossAlign,
       children: [
@@ -40,8 +39,7 @@ class ExtraSection extends StatelessWidget {
               children: [
                 Text(
                   "Let's connect",
-                  style: TextStyle(
-                    fontSize: 12.sp,
+                  style: context.fontStyle.bodySmall?.copyWith(
                     color: AppColors.textPrimary,
                   ),
                 ),
@@ -109,9 +107,8 @@ class ExtraSection extends StatelessWidget {
                               children: [
                                 SelectableText(
                                   email ?? "",
-                                  style: TextStyle(
+                                  style: context.fontStyle.bodySmall?.copyWith(
                                     color: AppColors.textPrimary,
-                                    fontSize: 12.sp,
                                   ),
                                 ),
                                 InkWell(
@@ -170,7 +167,7 @@ class _DownloadResumeButton extends StatelessWidget {
           child: Container(
             padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 7.h),
             decoration: BoxDecoration(
-              border: Border.all(color: Colors.white, width: 0.7),
+              border: Border.all(color: Colors.white, width: 0.8),
               borderRadius: BorderRadius.circular(8.r),
             ),
             child: Row(
@@ -178,10 +175,8 @@ class _DownloadResumeButton extends StatelessWidget {
               children: [
                 Text(
                   'Download Resume',
-                  style: TextStyle(
-                    fontSize: 12.sp,
-                    fontWeight: FontWeight.w400,
-                    color: Colors.white,
+                  style: context.fontStyle.bodySmall?.copyWith(
+                    color: AppColors.textPrimary,
                   ),
                 ),
                 SizedBox(width: 10.w),

@@ -6,9 +6,9 @@ import 'package:myportfolioapp/core/common/glass_card.dart';
 import 'package:myportfolioapp/features/home/domain/entity/home_info.dart';
 
 import '../../../../core/themes/app_colors.dart';
-import '../../../../core/app_resources/app_fonts.dart';
 import '../../../../core/app_resources/app_icons.dart';
 import '../../../../core/app_resources/app_images.dart';
+import '../../../../core/themes/responsive_text_theme.dart';
 import '../../../../core/utils/responsive.dart';
 import '../bloc/home_bloc.dart';
 import '../bloc/home_state.dart';
@@ -33,16 +33,53 @@ class AboutSection extends StatelessWidget {
             builder: (context, state) {
               final info = state.homeInfo;
               if (isDesktop) {
-                return desktopView(
-                  info: info,
-                  isMobile: isMobile,
-                  isDesktop: isDesktop,
+                return IntrinsicHeight(
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      profileImage(
+                        info: info,
+                        isMobile: isMobile,
+                        isDesktop: isDesktop,
+                      ),
+                      SizedBox(width: 28.w),
+                      Expanded(
+                        child: descriptionText(info: info, context: context),
+                      ),
+                      SizedBox(width: 28.w),
+                      VerticalDivider(
+                        color: AppColors.textPrimary,
+                        thickness: 5,
+                        width: 10,
+                        radius: BorderRadius.circular(10.r),
+                      ),
+                      SizedBox(width: 28.w),
+                      Expanded(
+                        child: stats(
+                          info: info,
+                          isMobile: isMobile,
+                          isDesktop: isDesktop,
+                        ),
+                      ),
+                    ],
+                  ),
                 );
               } else {
-                return mobileView(
-                  info: info,
-                  isMobile: isMobile,
-                  isDesktop: isDesktop,
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    profileImage(
+                      info: info,
+                      isMobile: isMobile,
+                      isDesktop: isDesktop,
+                    ),
+                    SizedBox(height: 10.h),
+                    descriptionText(info: info, context: context),
+                    SizedBox(height: 24.h),
+                    Divider(color: AppColors.divider, thickness: 1),
+                    SizedBox(height: 20.h),
+                    stats(isMobile: isMobile, isDesktop: isDesktop),
+                  ],
                 );
               }
             },
@@ -54,53 +91,6 @@ class AboutSection extends StatelessWidget {
 
   Widget _wrapStat(Widget child) =>
       Align(alignment: Alignment.centerLeft, child: child);
-
-  Widget desktopView({
-    HomeInfo? info,
-    required bool isMobile,
-    required bool isDesktop,
-  }) {
-    return IntrinsicHeight(
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          profileImage(info: info, isMobile: isMobile, isDesktop: isDesktop),
-          SizedBox(width: 28.w),
-          Expanded(child: descriptionText(info: info)),
-          SizedBox(width: 28.w),
-          VerticalDivider(
-            color: AppColors.textPrimary,
-            thickness: 5,
-            width: 10,
-            radius: BorderRadius.circular(10.r),
-          ),
-          SizedBox(width: 28.w),
-          Expanded(
-            child: stats(info: info, isMobile: isMobile, isDesktop: isDesktop),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget mobileView({
-    HomeInfo? info,
-    required bool isMobile,
-    required bool isDesktop,
-  }) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        profileImage(info: info, isMobile: isMobile, isDesktop: isDesktop),
-        SizedBox(height: 10.h),
-        descriptionText(info: info),
-        SizedBox(height: 24.h),
-        Divider(color: AppColors.divider, thickness: 1),
-        SizedBox(height: 20.h),
-        stats(isMobile: isMobile, isDesktop: isDesktop),
-      ],
-    );
-  }
 
   Widget profileImage({
     HomeInfo? info,
@@ -127,17 +117,14 @@ class AboutSection extends StatelessWidget {
     );
   }
 
-  Widget descriptionText({HomeInfo? info}) {
+  Widget descriptionText({HomeInfo? info, required BuildContext context}) {
     return Text(
       info?.description ?? kBio,
       textAlign: TextAlign.justify,
-      style: TextStyle(
-        fontSize: 12.sp,
+      style: context.fontStyle.bodySmall?.copyWith(
         color: AppColors.textSecondary,
         height: 1.7,
         letterSpacing: 0.3,
-
-        fontFamily: AppFonts.inter,
         fontStyle: FontStyle.italic,
       ),
     );
