@@ -9,7 +9,7 @@ import '../../../../core/app_resources/app_images.dart';
 import '../../../../core/common/nav_bar.dart';
 import '../../../../core/common/navigation.dart';
 import '../../../../core/utils/responsive.dart';
-import '../../../home/presentation/pages/footer_section.dart';
+import '../../../../core/common/footer_section.dart';
 import '../widgets/education_certification_row.dart';
 import '../widgets/work_timeline.dart';
 
@@ -34,7 +34,6 @@ class CareerPage extends StatelessWidget {
     SizedBox(height: 32.h),
     const EducationCertificationRow(),
     SizedBox(height: 20.h),
-    const FooterSection(),
   ];
   @override
   Widget build(BuildContext context) {
@@ -52,6 +51,7 @@ class CareerPage extends StatelessWidget {
               onItemTap: (item) => navigateToSection(context, item),
             )
           : null,
+      bottomNavigationBar: const FooterSection(),
       body: ListView.builder(
         padding: EdgeInsets.symmetric(horizontal: 20.w),
         itemCount: items.length,

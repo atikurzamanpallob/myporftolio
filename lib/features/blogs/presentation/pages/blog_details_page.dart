@@ -10,7 +10,7 @@ import 'package:myportfolioapp/features/blogs/domain/entity/blog_details_item.da
 import 'package:myportfolioapp/features/blogs/presentation/bloc/blog_details_bloc.dart';
 import 'package:myportfolioapp/features/blogs/presentation/bloc/blog_state.dart';
 import 'package:myportfolioapp/features/blogs/presentation/widgets/back_button.dart';
-import '../../../home/presentation/pages/footer_section.dart';
+import '../../../../core/common/footer_section.dart';
 import '../widgets/description_item_card.dart';
 import '../widgets/side_bar.dart';
 import '../widgets/top_hero_banner.dart';

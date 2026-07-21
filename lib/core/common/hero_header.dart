@@ -62,7 +62,7 @@ class HeroHeader extends StatelessWidget {
               ),
               extraWidget != null
                   ? Padding(
-                      padding: EdgeInsets.only(top: 15.h),
+                      padding: EdgeInsets.only(top: 20.h),
                       child: extraWidget,
                     )
                   : SizedBox.shrink(),

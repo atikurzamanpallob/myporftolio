@@ -40,7 +40,7 @@ class WhatIDoSection extends StatelessWidget {
 
     return Padding(
       padding: EdgeInsets.symmetric(
-        horizontal: isMobile ? 16.w : 55.w,
+        horizontal: isMobile ? 16.w : 40.w,
         vertical: 5.h,
       ),
       child: Column(

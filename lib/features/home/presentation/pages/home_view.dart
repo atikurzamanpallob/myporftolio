@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:myportfolioapp/features/home/presentation/pages/top_section.dart';
 import '../../../../core/app_resources/app_images.dart';
 import '../../../../core/common/hero_header.dart';
 import '../../../../core/themes/app_colors.dart';
 import '../../../../core/common/navigation.dart';
 import '../../../../core/utils/responsive.dart';
 import 'about_section.dart';
-import 'footer_section.dart';
+import '../../../../core/common/footer_section.dart';
 import '../../../../core/common/nav_bar.dart';
 import 'what_i_do_section.dart';
 
@@ -41,6 +42,7 @@ class _HomePageState extends State<HomePage> {
               onItemTap: (item) => navigateToSection(context, item),
             )
           : null,
+      bottomNavigationBar: const FooterSection(),
       body: ListView(
         padding: EdgeInsets.symmetric(horizontal: 20.w),
         children: [
@@ -51,13 +53,12 @@ class _HomePageState extends State<HomePage> {
                 'I create cross-platform applications that are fast, scalable '
                 '\n& provide smooth user experience.',
             backgroundImage: AppImages.homeImage,
+            extraWidget: ExtraSection(),
           ),
-          // const TopSection(),
           SizedBox(height: 7.h),
           const AboutSection(),
           SizedBox(height: 20.h),
           const WhatIDoSection(),
-          const FooterSection(),
         ],
       ),
     );

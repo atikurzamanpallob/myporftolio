@@ -9,7 +9,7 @@ import '../../../../core/themes/app_colors.dart';
 import '../../../../core/common/nav_bar.dart';
 import '../../../../core/common/navigation.dart';
 import '../../../../core/utils/responsive.dart';
-import '../../../home/presentation/pages/footer_section.dart';
+import '../../../../core/common/footer_section.dart';
 import 'soft_skills_section.dart';
 import 'technical_skills_section.dart';
 
@@ -33,7 +33,6 @@ class SkillsPage extends StatelessWidget {
     SizedBox(height: 8.h),
     const SoftSkillsSection(),
     SizedBox(height: 20.h),
-    const FooterSection(),
   ];
 
   @override
@@ -52,6 +51,7 @@ class SkillsPage extends StatelessWidget {
               onItemTap: (item) => navigateToSection(context, item),
             )
           : null,
+      bottomNavigationBar: const FooterSection(),
       body: ListView.builder(
         padding: EdgeInsets.symmetric(horizontal: 20.w),
         itemCount: items.length,

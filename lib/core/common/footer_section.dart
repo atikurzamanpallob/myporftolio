@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:myportfolioapp/core/app_resources/app_fonts.dart';
+import 'package:myportfolioapp/core/themes/responsive_text_theme.dart';
 
-import '../../../../core/themes/app_colors.dart';
-import '../../../../core/app_resources/app_icons.dart';
+import '../themes/app_colors.dart';
+import '../app_resources/app_icons.dart';
 
 class FooterSection extends StatelessWidget {
   const FooterSection({super.key});
@@ -18,14 +18,21 @@ class FooterSection extends StatelessWidget {
         children: [
           Text(
             'Powered By',
-            style: TextStyle(
-              fontSize: 12.sp,
-              fontFamily: AppFonts.inter,
-              color: AppColors.textMuted,
+            style: context.fontStyle.bodySmall?.copyWith(
+              color: Colors.cyanAccent,
             ),
           ),
           SizedBox(width: 8.w),
           SvgPicture.asset(AppIcons.flutter, width: 22.r, height: 22.r),
+          SizedBox(width: 8.w),
+          Text(
+            'Crafted With',
+            style: context.fontStyle.bodySmall?.copyWith(
+              color: AppColors.primaryBlue,
+            ),
+          ),
+          SizedBox(width: 8.w),
+          Icon(Icons.favorite, color: Colors.redAccent, size: 22.r),
         ],
       ),
     );

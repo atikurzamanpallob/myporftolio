@@ -7,7 +7,7 @@ import '../../../../core/app_resources/app_images.dart';
 import '../../../../core/common/nav_bar.dart';
 import '../../../../core/common/navigation.dart';
 import '../../../../core/utils/responsive.dart';
-import '../../../home/presentation/pages/footer_section.dart';
+import '../../../../core/common/footer_section.dart';
 import 'projects_list_section.dart';
 
 class ProjectsPage extends StatelessWidget {

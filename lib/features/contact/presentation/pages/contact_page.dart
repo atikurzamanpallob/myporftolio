@@ -8,7 +8,7 @@ import '../../../../core/app_resources/app_images.dart';
 import '../../../../core/common/nav_bar.dart';
 import '../../../../core/common/navigation.dart';
 import '../../../../core/utils/responsive.dart';
-import '../../../home/presentation/pages/footer_section.dart';
+import '../../../../core/common/footer_section.dart';
 import '../widgets/availability_card.dart';
 import '../widgets/contact_form.dart';
 import '../widgets/contact_info_card.dart';
@@ -37,6 +37,7 @@ class ContactPage extends StatelessWidget {
               onItemTap: (item) => navigateToSection(context, item),
             )
           : null,
+      bottomNavigationBar: const FooterSection(),
       body: ListView(
         padding: EdgeInsets.symmetric(horizontal: 20.w),
         children: [
@@ -95,7 +96,6 @@ class ContactPage extends StatelessWidget {
                   ),
           ),
           SizedBox(height: 20.h),
-          const FooterSection(),
         ],
       ),
     );

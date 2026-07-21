@@ -8,7 +8,7 @@ import '../../../../core/themes/app_colors.dart';
 import '../../../../core/common/nav_bar.dart';
 import '../../../../core/common/navigation.dart';
 import '../../../../core/utils/responsive.dart';
-import '../../../home/presentation/pages/footer_section.dart';
+import '../../../../core/common/footer_section.dart';
 
 class BlogsPage extends StatelessWidget {
   const BlogsPage({super.key});
@@ -32,6 +32,7 @@ class BlogsPage extends StatelessWidget {
               onItemTap: (item) => navigateToSection(context, item),
             )
           : null,
+      bottomNavigationBar: const FooterSection(),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 20.w),
         child: Column(
@@ -47,7 +48,6 @@ class BlogsPage extends StatelessWidget {
             SizedBox(height: 8.h),
             Expanded(child: BlogsListSection()),
             SizedBox(height: 20.h),
-            const FooterSection(),
           ],
         ),
       ),
