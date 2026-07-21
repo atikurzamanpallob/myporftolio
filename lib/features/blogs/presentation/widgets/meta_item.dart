@@ -25,7 +25,7 @@ class MetaItem extends StatelessWidget {
         Text(
           label,
 
-          style: context.fontStyle.titleSmall?.copyWith(color: AppColors.green),
+          style: context.fontStyle.labelLarge?.copyWith(color: AppColors.green),
         ),
       ],
     );

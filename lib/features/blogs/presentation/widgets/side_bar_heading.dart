@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:myportfolioapp/core/app_resources/app_fonts.dart';
 import 'package:myportfolioapp/core/themes/app_colors.dart';
+import 'package:myportfolioapp/core/themes/responsive_text_theme.dart';
 
 class SidebarHeading extends StatelessWidget {
   const SidebarHeading({super.key, required this.title});
@@ -21,10 +23,10 @@ class SidebarHeading extends StatelessWidget {
         ),
         Text(
           title,
-          style: TextStyle(
-            fontSize: 14.sp,
-            fontWeight: FontWeight.w700,
-            color: Colors.white,
+          style: context.fontStyle.headlineSmall?.copyWith(
+            color: AppColors.textPrimary,
+            fontFamily: AppFonts.roboto,
+            fontWeight: FontWeight.w600,
           ),
         ),
       ],

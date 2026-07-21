@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:myportfolioapp/core/app_resources/app_images.dart';
+import 'package:myportfolioapp/core/themes/responsive_text_theme.dart';
 import 'package:myportfolioapp/core/utils/size_helper.dart';
 
 import '../../../../core/themes/app_colors.dart';
@@ -55,24 +56,17 @@ class AuthorCard extends StatelessWidget {
                     children: [
                       Text(
                         "Atikur Zaman Pallob",
-                        style: TextStyle(
-                          fontSize: 13.sp,
-                          fontWeight: FontWeight.w700,
-                          color: Colors.white,
-                          height: 1.2,
+                        style: context.fontStyle.headlineSmall?.copyWith(
+                          color: AppColors.textPrimary,
+                          height: 1.5,
                         ),
                       ),
                       SizedBox(height: 3.h),
                       Text(
                         "Software Engineer",
-                        style: TextStyle(
-                          fontSize: SizeHelper.getBodyFontSize2(
-                            isMobile: isMobile,
-                            isTab: isTab,
-                          ),
+                        style: context.fontStyle.titleSmall?.copyWith(
+                          color: AppColors.green,
                           fontWeight: FontWeight.w600,
-                          color: AppColors.accentGreen,
-                          fontFamily: AppFonts.inter,
                         ),
                       ),
                       SizedBox(height: 8.h),

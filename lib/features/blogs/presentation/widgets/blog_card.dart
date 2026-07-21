@@ -4,11 +4,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:myportfolioapp/core/app_resources/app_icons.dart';
 import 'package:myportfolioapp/core/common/glass_card.dart';
-import 'package:myportfolioapp/core/utils/size_helper.dart';
+import 'package:myportfolioapp/core/themes/responsive_text_theme.dart';
 import 'package:myportfolioapp/features/blogs/domain/entity/blog_item.dart';
 
 import '../../../../core/themes/app_colors.dart';
-import '../../../../core/app_resources/app_fonts.dart';
 import '../../../../core/app_resources/app_images.dart';
 import '../../../../core/utils/responsive.dart';
 import '../pages/blog_details_page.dart';
@@ -22,7 +21,6 @@ class BlogCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bool isMobile = Responsive.isMobile(context);
-    final bool istab = Responsive.isTablet(context);
     final thumbnail = Container(
       width: isMobile ? double.infinity : 330.w,
       height: isMobile ? 160.h : 210.h,
@@ -52,37 +50,19 @@ class BlogCard extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
       children: [
-        Text(
-          post.categoryName,
-          style: TextStyle(
-            fontSize: 13.sp,
-            fontWeight: FontWeight.w600,
-            color: AppColors.primaryBlue,
-          ),
-        ),
+        Text(post.categoryName, style: context.fontStyle.bodyMedium),
         SizedBox(height: 8.h),
         Text(
           post.title,
-          style: TextStyle(
-            fontSize: isMobile ? 17.sp : 20.sp,
-            fontWeight: FontWeight.w700,
-            color: Colors.white,
-            height: 1.25,
+          style: context.fontStyle.titleMedium?.copyWith(
+            color: AppColors.textPrimary,
           ),
         ),
         SizedBox(height: 8.h),
         Text(
           post.shortDescription,
           maxLines: 2,
-          style: TextStyle(
-            fontSize: SizeHelper.getBodyFontSize2(
-              isMobile: isMobile,
-              isTab: istab,
-            ),
-            fontFamily: AppFonts.inter,
-            color: AppColors.textSecondary,
-            height: 1.4,
-          ),
+          style: context.fontStyle.bodySmall,
         ),
         SizedBox(height: 16.h),
         Wrap(
@@ -112,9 +92,7 @@ class BlogCard extends StatelessWidget {
           children: [
             Text(
               'Read More',
-              style: TextStyle(
-                fontSize: 12.sp,
-                fontFamily: AppFonts.inter,
+              style: context.fontStyle.bodySmall?.copyWith(
                 fontWeight: FontWeight.w500,
                 color: AppColors.primaryBlue,
               ),

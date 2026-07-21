@@ -6,7 +6,6 @@ import 'package:myportfolioapp/core/common/glass_card.dart';
 
 import '../../../../core/themes/app_colors.dart';
 
-/// A card in the "What I Do" grid: icon, title, description.
 class ServiceCard extends StatelessWidget {
   const ServiceCard({
     super.key,

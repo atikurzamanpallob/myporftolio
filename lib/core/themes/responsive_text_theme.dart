@@ -17,9 +17,7 @@ extension ResponsiveTextTheme on BuildContext {
 
     TextStyle? scale(TextStyle? style) {
       if (style == null) return null;
-      return style.copyWith(
-        fontSize: style.fontSize! * factor.clamp(0.85, 1.2),
-      );
+      return style.copyWith(fontSize: style.fontSize! * factor.clamp(0.2, 1.2));
     }
 
     return theme.copyWith(
