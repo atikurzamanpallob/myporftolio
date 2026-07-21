@@ -11,6 +11,7 @@ import 'package:myportfolioapp/core/app_resources/app_images.dart';
 import 'package:myportfolioapp/features/blogs/domain/entity/blog_details_item.dart';
 import 'package:flutter_code_view/flutter_code_view.dart';
 
+import '../../../../core/utils/size_helper.dart';
 import '../../../../core/utils/toast.dart';
 
 class DescriptionItemCard extends StatelessWidget {
@@ -43,7 +44,10 @@ class DescriptionItemCard extends StatelessWidget {
         return Text(
           element?.text ?? "",
           style: TextStyle(
-            fontSize: isMobile ? 12.sp : 14.sp,
+            fontSize: SizeHelper.getBodyFontSize(
+              isMobile: isMobile,
+              isTab: isTab,
+            ),
             fontFamily: AppFonts.inter,
             fontWeight: FontWeight.w400,
             color: AppColors.textSecondary,
@@ -81,7 +85,10 @@ class DescriptionItemCard extends StatelessWidget {
               source: element?.text ?? "",
               themeType: ThemeType.atomOneDark,
               language: Languages.dart,
-              fontSize: isMobile ? 10.sp : 14.sp,
+              fontSize: SizeHelper.getBodyFontSize(
+                isMobile: isMobile,
+                isTab: isTab,
+              ),
               borderRadiusCodeView: BorderRadius.circular(10.r),
               paddingBorder: EdgeInsets.all(1),
               padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
@@ -112,7 +119,10 @@ class DescriptionItemCard extends StatelessWidget {
               source: element?.text ?? "",
               themeType: ThemeType.atomOneDark,
               language: Languages.javascript,
-              fontSize: isMobile ? 10.sp : 14.sp,
+              fontSize: SizeHelper.getBodyFontSize(
+                isMobile: isMobile,
+                isTab: isTab,
+              ),
               borderRadiusCodeView: BorderRadius.circular(10.r),
               paddingBorder: EdgeInsets.all(1),
               padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),

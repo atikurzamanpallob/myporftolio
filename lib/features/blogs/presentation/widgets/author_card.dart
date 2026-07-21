@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:myportfolioapp/core/app_resources/app_images.dart';
+import 'package:myportfolioapp/core/utils/size_helper.dart';
 
 import '../../../../core/app_resources/app_colors.dart';
 import '../../../../core/app_resources/app_fonts.dart';
 import '../../../../core/common/glass_card.dart';
+import '../../../../core/utils/responsive.dart';
 import 'side_bar_heading.dart';
 
 class AuthorCard extends StatelessWidget {
@@ -12,6 +14,9 @@ class AuthorCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bool isMobile = Responsive.isMobile(context);
+    final bool isTab = Responsive.isTablet(context);
+
     return GlassCard(
       child: Padding(
         padding: EdgeInsets.all(20.r),
@@ -71,7 +76,10 @@ class AuthorCard extends StatelessWidget {
                       Text(
                         "Turning ideas into seamless software solutions",
                         style: TextStyle(
-                          fontSize: 12.sp,
+                          fontSize: SizeHelper.getBodyFontSize(
+                            isMobile: isMobile,
+                            isTab: isTab,
+                          ),
                           color: AppColors.textSecondary,
                           fontFamily: AppFonts.inter,
                           height: 1.6,

@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:myportfolioapp/core/app_resources/app_icons.dart';
 import 'package:myportfolioapp/core/common/glass_card.dart';
+import 'package:myportfolioapp/core/utils/size_helper.dart';
 import 'package:myportfolioapp/features/blogs/domain/entity/blog_item.dart';
 
 import '../../../../core/app_resources/app_colors.dart';
@@ -21,7 +22,7 @@ class BlogCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bool isMobile = Responsive.isMobile(context);
-
+    final bool istab = Responsive.isTablet(context);
     final thumbnail = Container(
       width: isMobile ? double.infinity : 330.w,
       height: isMobile ? 160.h : 210.h,
@@ -72,8 +73,12 @@ class BlogCard extends StatelessWidget {
         SizedBox(height: 8.h),
         Text(
           post.shortDescription,
+          maxLines: 2,
           style: TextStyle(
-            fontSize: 12.5.sp,
+            fontSize: SizeHelper.getBodyFontSize(
+              isMobile: isMobile,
+              isTab: istab,
+            ),
             fontFamily: AppFonts.inter,
             color: AppColors.textSecondary,
             height: 1.4,
@@ -127,35 +132,38 @@ class BlogCard extends StatelessWidget {
 
     return Padding(
       padding: const EdgeInsets.only(top: 10),
-      child: GlassCard(
-        child: Container(
-          width: double.infinity,
-          padding: EdgeInsets.all(isMobile ? 16.r : 24.r),
-          decoration: BoxDecoration(borderRadius: BorderRadius.circular(8.r)),
-          child: isMobile
-              ? Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    thumbnail,
-                    SizedBox(height: 16.h),
-                    info,
-                    SizedBox(height: 16.h),
-                    Align(alignment: Alignment.centerRight, child: readMore),
-                  ],
-                )
-              : IntrinsicHeight(
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-
+      child: Hero(
+        tag: 'blog-thumbnail',
+        child: GlassCard(
+          child: Container(
+            width: double.infinity,
+            padding: EdgeInsets.all(isMobile ? 16.r : 24.r),
+            decoration: BoxDecoration(borderRadius: BorderRadius.circular(8.r)),
+            child: isMobile
+                ? Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       thumbnail,
-                      SizedBox(width: 24.w),
-                      Expanded(child: info),
-                      SizedBox(width: 16.w),
-                      Align(alignment: Alignment.topRight, child: readMore),
+                      SizedBox(height: 16.h),
+                      info,
+                      SizedBox(height: 16.h),
+                      Align(alignment: Alignment.centerRight, child: readMore),
                     ],
+                  )
+                : IntrinsicHeight(
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+
+                      children: [
+                        thumbnail,
+                        SizedBox(width: 24.w),
+                        Expanded(child: info),
+                        SizedBox(width: 16.w),
+                        Align(alignment: Alignment.topRight, child: readMore),
+                      ],
+                    ),
                   ),
-                ),
+          ),
         ),
       ),
     );

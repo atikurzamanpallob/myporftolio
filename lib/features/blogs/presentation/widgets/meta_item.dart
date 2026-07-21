@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:myportfolioapp/core/app_resources/app_colors.dart';
 import 'package:myportfolioapp/core/app_resources/app_fonts.dart';
+import 'package:myportfolioapp/core/utils/size_helper.dart';
 
 class MetaItem extends StatelessWidget {
   const MetaItem({
@@ -10,10 +11,12 @@ class MetaItem extends StatelessWidget {
     required this.icon,
     required this.label,
     this.isMobile = false,
+    this.isTab = false,
   });
   final String icon;
   final String label;
   final bool isMobile;
+  final bool isTab;
 
   @override
   Widget build(BuildContext context) {
@@ -25,16 +28,16 @@ class MetaItem extends StatelessWidget {
           icon,
           height: 20.h,
           width: 25.w,
-          colorFilter: ColorFilter.mode(
-            AppColors.accentBlueLight,
-            BlendMode.srcIn,
-          ),
+          colorFilter: ColorFilter.mode(AppColors.primaryBlue, BlendMode.srcIn),
         ),
         SizedBox(width: 6.w),
         Text(
           label,
           style: TextStyle(
-            fontSize: isMobile ? 10.sp : 12.sp,
+            fontSize: SizeHelper.getBodyFontSize(
+              isMobile: isMobile,
+              isTab: isTab,
+            ),
             fontFamily: AppFonts.inter,
             color: AppColors.green,
           ),
