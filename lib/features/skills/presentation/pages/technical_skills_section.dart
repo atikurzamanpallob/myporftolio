@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../../core/themes/app_colors.dart';
+import '../../../../core/themes/responsive_text_theme.dart';
 import '../../../../core/utils/responsive.dart';
 import '../../data/models/skill_category_models.dart';
 import '../widgets/skill_category_card.dart';
@@ -27,10 +29,9 @@ class TechnicalSkillsSection extends StatelessWidget {
         children: [
           Text(
             'Technical Skills',
-            style: TextStyle(
-              fontSize: 14.sp,
+            style: context.fontStyle.bodyLarge?.copyWith(
               fontWeight: FontWeight.w600,
-              color: Colors.white,
+              color: AppColors.textPrimary,
             ),
           ),
           SizedBox(height: 16.h),

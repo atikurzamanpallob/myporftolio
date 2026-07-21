@@ -4,10 +4,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:myportfolioapp/core/common/glass_card.dart';
 
 import '../../../../core/themes/app_colors.dart';
-import '../../../../core/app_resources/app_fonts.dart';
+import '../../../../core/themes/responsive_text_theme.dart';
 import '../../domain/entity/soft_skill.dart';
 
-/// A card in the "Soft Skills" row: colored icon tile, title + description.
 class SoftSkillCard extends StatelessWidget {
   const SoftSkillCard({
     super.key,
@@ -41,10 +40,9 @@ class SoftSkillCard extends StatelessWidget {
                 Expanded(
                   child: Text(
                     skill.title,
-                    style: TextStyle(
-                      fontSize: 13.sp,
-                      fontWeight: FontWeight.w700,
-                      color: Colors.white,
+                    style: context.fontStyle.bodyMedium?.copyWith(
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.textPrimary,
                     ),
                   ),
                 ),
@@ -53,12 +51,9 @@ class SoftSkillCard extends StatelessWidget {
             SizedBox(height: 10.h),
             Text(
               skill.description,
-              style: TextStyle(
-                fontSize: 11.5.sp,
-                fontFamily: AppFonts.inter,
-                fontWeight: FontWeight.w400,
-                color: AppColors.textSecondary,
+              style: context.fontStyle.bodySmall?.copyWith(
                 height: 1.4,
+                color: AppColors.textSecondary,
               ),
             ),
           ],

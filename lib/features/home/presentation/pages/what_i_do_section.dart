@@ -49,7 +49,7 @@ class WhatIDoSection extends StatelessWidget {
         children: [
           Text(
             'WHAT I DO',
-            style: context.fontStyle.titleSmall?.copyWith(
+            style: context.fontStyle.bodyLarge?.copyWith(
               fontWeight: FontWeight.w600,
               color: AppColors.textPrimary,
             ),

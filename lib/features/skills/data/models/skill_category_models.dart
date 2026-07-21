@@ -86,7 +86,6 @@ List<SkillCategory> kTechnicalSkills = [
       SkillItem(name: 'MVVM', level: 85),
       SkillItem(name: 'Unit Test', level: 77),
       SkillItem(name: 'Widget Test', level: 70),
-      SkillItem(name: 'Unit Test', level: 77),
       SkillItem(name: 'Problem Solving', level: 80),
     ],
   ),
