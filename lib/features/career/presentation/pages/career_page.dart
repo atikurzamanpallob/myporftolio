@@ -25,7 +25,7 @@ class CareerPage extends StatelessWidget {
       heading2: 'Summary',
       bodyText:
           'Building scalable mobile and web applications, collaborating with '
-          'teams ,turning idea into\n products and solve real world problems '
+          'teams ,turning idea into\nproducts and solve real world problems '
           'with engineered solutions',
       backgroundImage: AppImages.careerImage,
     ),

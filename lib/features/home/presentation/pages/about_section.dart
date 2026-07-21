@@ -23,7 +23,7 @@ class AboutSection extends StatelessWidget {
     final bool isMobile = Responsive.isMobile(context);
 
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: isMobile ? 16.w : 55.w),
+      padding: EdgeInsets.symmetric(horizontal: isMobile ? 16.w : 40.w),
       child: GlassCard(
         child: Container(
           width: double.infinity,

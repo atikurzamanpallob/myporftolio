@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:myportfolioapp/core/app_resources/app_fonts.dart';
 import 'package:myportfolioapp/core/app_resources/app_icons.dart';
 import 'package:myportfolioapp/features/home/domain/entity/contact_info.dart';
 import 'package:myportfolioapp/features/home/domain/entity/home_info.dart';
@@ -36,7 +35,6 @@ class TopSection extends StatelessWidget {
       );
     }
 
-    // Tablet / Mobile: stacked layout, image on top for visual impact.
     return Padding(
       padding: EdgeInsets.symmetric(
         horizontal: Responsive.isMobile(context) ? 20.w : 40.w,
@@ -62,46 +60,9 @@ class _HeroText extends StatelessWidget {
     final crossAlign = centered
         ? CrossAxisAlignment.center
         : CrossAxisAlignment.start;
-    final textAlign = centered ? TextAlign.center : TextAlign.start;
-    final bool isMobile = Responsive.isMobile(context);
-
     return Column(
       crossAxisAlignment: crossAlign,
       children: [
-        Text.rich(
-          TextSpan(
-            style: TextStyle(
-              fontSize: isMobile ? 30.sp : 36.sp,
-              fontWeight: FontWeight.w600,
-              color: Colors.white,
-              height: 1.1,
-            ),
-            children: [
-              const TextSpan(
-                text: 'I Build Beautiful & \nHigh Performance\nApps With ',
-              ),
-              TextSpan(
-                text: 'Flutter',
-                style: TextStyle(color: AppColors.primaryBlue),
-              ),
-            ],
-          ),
-          textAlign: textAlign,
-        ),
-        SizedBox(height: 20.h),
-        Text(
-          'I create cross-platform applications that are fast, scalable '
-          '\n& provide smooth user experience.',
-          textAlign: textAlign,
-          style: TextStyle(
-            fontSize: 12.sp,
-            color: AppColors.textSecondary,
-            fontFamily: AppFonts.inter,
-            fontStyle: FontStyle.normal,
-            height: 1.2,
-          ),
-        ),
-        SizedBox(height: 15.h),
         _DownloadResumeButton(),
         SizedBox(height: 10.h),
         BlocBuilder<HomeBloc, HomeState>(

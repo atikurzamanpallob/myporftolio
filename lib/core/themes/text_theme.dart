@@ -73,4 +73,24 @@ const textTheme = TextTheme(
     fontFamily: AppFonts.roboto,
     fontWeight: FontWeight.w600,
   ),
+
+  displaySmall: TextStyle(
+    fontSize: 22,
+    fontFamily: AppFonts.roboto,
+    fontWeight: FontWeight.w700,
+    color: AppColors.textPrimary,
+  ),
+  displayMedium: TextStyle(
+    fontSize: 28,
+    fontFamily: AppFonts.roboto,
+    fontWeight: FontWeight.w700,
+    color: AppColors.textPrimary,
+  ),
+
+  displayLarge: TextStyle(
+    fontSize: 34,
+    fontFamily: AppFonts.roboto,
+    fontWeight: FontWeight.w700,
+    color: AppColors.textPrimary,
+  ),
 );

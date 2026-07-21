@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:myportfolioapp/core/themes/responsive_text_theme.dart';
 
 import '../themes/app_colors.dart';
-import '../../../../core/app_resources/app_fonts.dart';
 import '../../../../core/utils/responsive.dart';
 
 class HeroHeader extends StatelessWidget {
@@ -12,8 +12,10 @@ class HeroHeader extends StatelessWidget {
     required this.heading2,
     required this.bodyText,
     required this.backgroundImage,
+    this.extraWidget,
   });
   final String heading1, heading2, bodyText, backgroundImage;
+  final Widget? extraWidget;
 
   @override
   Widget build(BuildContext context) {
@@ -41,12 +43,7 @@ class HeroHeader extends StatelessWidget {
             children: [
               Text.rich(
                 TextSpan(
-                  style: TextStyle(
-                    fontSize: isMobile ? 26.sp : 34.sp,
-                    fontWeight: FontWeight.w700,
-                    color: Colors.white,
-                    height: 1.2,
-                  ),
+                  style: context.fontStyle.displaySmall,
                   children: [
                     TextSpan(text: heading1),
                     TextSpan(
@@ -59,13 +56,16 @@ class HeroHeader extends StatelessWidget {
               SizedBox(height: 14.h),
               Text(
                 bodyText,
-                style: TextStyle(
-                  fontSize: 12.sp,
-                  fontFamily: AppFonts.inter,
+                style: context.fontStyle.bodyMedium?.copyWith(
                   color: AppColors.textSecondary,
-                  height: 1.4,
                 ),
               ),
+              extraWidget != null
+                  ? Padding(
+                      padding: EdgeInsets.only(top: 15.h),
+                      child: extraWidget,
+                    )
+                  : SizedBox.shrink(),
             ],
           ),
         ),

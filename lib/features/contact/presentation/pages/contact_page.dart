@@ -41,8 +41,8 @@ class ContactPage extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: 20.w),
         children: [
           const HeroHeader(
-            heading1: "Let's Build Amazing \nThings ",
-            heading2: 'Together',
+            heading1: "Let's Build Amazing Things ",
+            heading2: '\nTogether',
             bodyText:
                 'Have project in mind or just want to say Hi? I would love to hear from you.'
                 '\nLet’s turn your ideas into real products.',

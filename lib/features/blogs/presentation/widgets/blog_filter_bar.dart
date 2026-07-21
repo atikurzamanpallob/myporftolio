@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:myportfolioapp/core/themes/responsive_text_theme.dart';
 import 'package:myportfolioapp/features/dashboard/domain/entity/category_list.dart';
 
 import '../../../../core/themes/app_colors.dart';
-import '../../../../core/app_resources/app_fonts.dart';
 
 class BlogFilterBar extends StatelessWidget {
   const BlogFilterBar({
@@ -66,10 +66,7 @@ class _FilterPill extends StatelessWidget {
         ),
         child: Text(
           label,
-          style: TextStyle(
-            fontSize: 13.sp,
-            fontFamily: AppFonts.inter,
-            fontWeight: FontWeight.w600,
+          style: context.fontStyle.bodyMedium?.copyWith(
             color: active ? Colors.white : AppColors.textSecondary,
           ),
         ),
