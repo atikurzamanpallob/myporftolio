@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
+import 'package:myportfolioapp/core/common/common_dialog.dart';
+import 'package:myportfolioapp/features/dashboard/presentation/pages/dashboard_page.dart';
+import 'package:myportfolioapp/features/dashboard/presentation/pages/login_window.dart';
 
 import '../app_resources/app_colors.dart';
 import '../app_resources/app_icons.dart';
@@ -69,7 +73,19 @@ class _Logo extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        SvgPicture.asset(AppIcons.flutter, width: 34.r, height: 34.r),
+        InkWell(
+          onLongPress: () {
+            CommonDialog(
+              context: context,
+              child: LoginWindow(
+                onLoggedIn: () {
+                  context.go(DashboardPage.route, extra: {"is_loggedin": true});
+                },
+              ),
+            );
+          },
+          child: SvgPicture.asset(AppIcons.flutter, width: 34.r, height: 34.r),
+        ),
         SizedBox(width: 10.w),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,

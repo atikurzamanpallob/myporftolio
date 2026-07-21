@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:myportfolioapp/core/app_resources/app_icons.dart';
 import 'package:myportfolioapp/core/common/glass_card.dart';
+import 'package:myportfolioapp/features/projects/domain/entity/project_item.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../core/app_resources/app_colors.dart';
 import '../../../../core/app_resources/app_fonts.dart';
 import '../../../../core/utils/responsive.dart';
-import '../../data/models/project_models.dart';
 import 'project_thumbnails.dart';
 
 class ProjectCard extends StatelessWidget {
   const ProjectCard({super.key, required this.project});
 
-  final Project project;
+  final ProjectItem project;
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +38,7 @@ class ProjectCard extends StatelessWidget {
 
 class _WideLayout extends StatelessWidget {
   const _WideLayout({required this.project});
-  final Project project;
+  final ProjectItem project;
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +46,7 @@ class _WideLayout extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          ProjectThumbnails(icon: project.iconGlyph),
+          ProjectThumbnails(imageUrls: project.images),
           SizedBox(width: 28.w),
           Expanded(child: _ProjectInfo(project: project)),
           SizedBox(width: 20.w),
@@ -61,14 +64,14 @@ class _WideLayout extends StatelessWidget {
 
 class _MobileLayout extends StatelessWidget {
   const _MobileLayout({required this.project});
-  final Project project;
+  final ProjectItem project;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Center(child: ProjectThumbnails(icon: project.iconGlyph)),
+        Center(child: ProjectThumbnails(imageUrls: project.images)),
         SizedBox(height: 16.h),
         _ProjectInfo(project: project),
         SizedBox(height: 16.h),
@@ -82,7 +85,7 @@ class _MobileLayout extends StatelessWidget {
 
 class _ProjectInfo extends StatelessWidget {
   const _ProjectInfo({required this.project});
-  final Project project;
+  final ProjectItem project;
 
   @override
   Widget build(BuildContext context) {
@@ -91,7 +94,7 @@ class _ProjectInfo extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         Text(
-          project.title,
+          project.name,
           style: TextStyle(
             fontSize: 20.sp,
             fontWeight: FontWeight.w700,
@@ -113,7 +116,39 @@ class _ProjectInfo extends StatelessWidget {
           spacing: 10.w,
           runSpacing: 10.h,
           children: [
-            for (final tech in project.techStack) _TechChip(label: tech),
+            SvgPicture.asset(
+              AppIcons.stack,
+              height: 30.h,
+              colorFilter: ColorFilter.mode(
+                AppColors.starYellow,
+                BlendMode.srcIn,
+              ),
+            ),
+            for (final tech in project.technology) _TechChip(label: tech),
+          ],
+        ),
+        SizedBox(height: 16.h),
+        Row(
+          children: [
+            SvgPicture.asset(
+              AppIcons.companyIcon,
+              height: 25.h,
+              colorFilter: ColorFilter.mode(
+                AppColors.starYellow,
+                BlendMode.srcIn,
+              ),
+            ),
+            SizedBox(width: 15.w),
+            Text(
+              project.company,
+              style: TextStyle(
+                fontSize: 14.sp,
+                fontFamily: AppFonts.inter,
+                fontWeight: FontWeight.w600,
+                color: AppColors.textSecondary,
+                height: 1.5,
+              ),
+            ),
           ],
         ),
       ],
@@ -149,47 +184,69 @@ class _TechChip extends StatelessWidget {
 class _ProjectSideActions extends StatelessWidget {
   const _ProjectSideActions({required this.project, this.horizontal = false});
 
-  final Project project;
+  final ProjectItem project;
   final bool horizontal;
 
   @override
   Widget build(BuildContext context) {
-    final caseStudy = project.caseStudyUrl == null
-        ? const SizedBox.shrink()
-        : InkWell(
-            onTap: () {},
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  'Case Study',
-                  style: TextStyle(
-                    fontSize: 13.sp,
-                    fontFamily: AppFonts.inter,
-                    fontWeight: FontWeight.w600,
-                    color: AppColors.primaryBlue,
-                  ),
-                ),
-                SizedBox(width: 4.w),
-                Icon(
-                  Icons.arrow_outward,
-                  size: 15.r,
-                  color: AppColors.primaryBlue,
-                ),
-              ],
+    final caseStudy = InkWell(
+      onTap: () {},
+      child: Container(
+        padding: EdgeInsets.all(8.0),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10.r),
+          border: Border.all(color: AppColors.primaryBlue, width: 0.3),
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              'Case Study',
+              style: TextStyle(
+                fontSize: 12.sp,
+                fontFamily: AppFonts.inter,
+                fontWeight: FontWeight.w500,
+                color: AppColors.primaryBlue,
+              ),
             ),
-          );
+            SizedBox(width: 10.w),
+            Icon(
+              Icons.arrow_forward_ios,
+              size: 15.r,
+              color: AppColors.primaryBlue,
+            ),
+          ],
+        ),
+      ),
+    );
 
-    final platforms = Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        if (project.androidAvailable) ...[
-          _PlatformBadge(icon: Icons.android, iconColor: AppColors.accentGreen),
-          SizedBox(width: 10.w),
-        ],
-        if (project.iosAvailable)
-          _PlatformBadge(icon: Icons.apple, iconColor: Colors.white),
-      ],
+    final platforms = InkWell(
+      onTap: () {
+        launchUrl(Uri.parse(project.link));
+      },
+      child: Container(
+        padding: EdgeInsets.all(8.0),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10.r),
+          border: Border.all(color: AppColors.primaryBlue, width: 0.3),
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              "Project Link",
+              style: TextStyle(
+                fontSize: 12.sp,
+                fontFamily: AppFonts.inter,
+                fontWeight: FontWeight.w500,
+                color: AppColors.primaryBlue,
+              ),
+            ),
+            SizedBox(width: 10.w),
+            Icon(Icons.arrow_outward, size: 15.r, color: AppColors.primaryBlue),
+          ],
+        ),
+      ),
     );
 
     if (horizontal) {
@@ -203,25 +260,6 @@ class _ProjectSideActions extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.end,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [caseStudy, platforms],
-    );
-  }
-}
-
-class _PlatformBadge extends StatelessWidget {
-  const _PlatformBadge({required this.icon, required this.iconColor});
-  final IconData icon;
-  final Color iconColor;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 34.r,
-      height: 34.r,
-      decoration: const BoxDecoration(
-        color: AppColors.iconCircleFill,
-        shape: BoxShape.circle,
-      ),
-      child: Icon(icon, size: 18.r, color: iconColor),
     );
   }
 }

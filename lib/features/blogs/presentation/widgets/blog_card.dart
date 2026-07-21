@@ -1,18 +1,22 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:myportfolioapp/core/app_resources/app_icons.dart';
 import 'package:myportfolioapp/core/common/glass_card.dart';
+import 'package:myportfolioapp/features/blogs/domain/entity/blog_item.dart';
 
 import '../../../../core/app_resources/app_colors.dart';
 import '../../../../core/app_resources/app_fonts.dart';
+import '../../../../core/app_resources/app_images.dart';
 import '../../../../core/utils/responsive.dart';
-import '../../data/models/blog_models.dart';
+import '../pages/blog_details_page.dart';
+import 'meta_item.dart';
 
 class BlogCard extends StatelessWidget {
   const BlogCard({super.key, required this.post});
 
-  final BlogPost post;
+  final BlogItem post;
 
   @override
   Widget build(BuildContext context) {
@@ -20,16 +24,25 @@ class BlogCard extends StatelessWidget {
 
     final thumbnail = Container(
       width: isMobile ? double.infinity : 330.w,
-      height: isMobile ? 160.h : 170.h,
+      height: isMobile ? 160.h : 210.h,
       decoration: BoxDecoration(
-        color: AppColors.iconCircleFill,
-        borderRadius: BorderRadius.circular(4.r),
-        border: Border.all(color: AppColors.divider, width: 1),
+        borderRadius: BorderRadius.circular(10.r),
+        border: Border.all(color: AppColors.primaryBlue, width: 0.4),
       ),
-      child: Center(
-        child: SvgPicture.asset(
-          post.thumbnailIcon,
-          width: isMobile ? 90.w : 110.w,
+      child: ClipRRect(
+        borderRadius: BorderRadiusGeometry.circular(10.r),
+        child: CachedNetworkImage(
+          imageUrl: post.thumbnail,
+          fit: BoxFit.cover,
+          errorWidget: (context, url, error) =>
+              Image.asset(AppImages.placehHolder),
+          placeholder: (context, url) => Stack(
+            alignment: AlignmentGeometry.center,
+            children: [
+              Image.asset(AppImages.placehHolder),
+              CircularProgressIndicator(),
+            ],
+          ),
         ),
       ),
     );
@@ -39,7 +52,7 @@ class BlogCard extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         Text(
-          post.category.label,
+          post.categoryName,
           style: TextStyle(
             fontSize: 13.sp,
             fontWeight: FontWeight.w600,
@@ -58,7 +71,7 @@ class BlogCard extends StatelessWidget {
         ),
         SizedBox(height: 8.h),
         Text(
-          post.excerpt,
+          post.shortDescription,
           style: TextStyle(
             fontSize: 12.5.sp,
             fontFamily: AppFonts.inter,
@@ -72,8 +85,8 @@ class BlogCard extends StatelessWidget {
           runSpacing: 8.h,
           crossAxisAlignment: WrapCrossAlignment.center,
           children: [
-            _MetaItem(icon: AppIcons.calender, label: post.date),
-            _MetaItem(icon: AppIcons.minutesIcon, label: post.readTime),
+            MetaItem(icon: AppIcons.calender, label: post.date),
+            MetaItem(icon: AppIcons.minutesIcon, label: post.readTime),
           ],
         ),
       ],
@@ -81,29 +94,34 @@ class BlogCard extends StatelessWidget {
 
     final readMore = InkWell(
       onTap: () {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Full blog post coming soon')),
-        );
+        context.go(BlogDetailsPage.routeFor(post.id));
       },
-      borderRadius: BorderRadius.circular(6.r),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(
-            'Read More',
-            style: TextStyle(
-              fontSize: 13.sp,
-              fontWeight: FontWeight.w600,
+      child: Container(
+        padding: EdgeInsets.all(8.0),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10.r),
+          border: Border.all(color: AppColors.primaryBlue, width: 0.3),
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              'Read More',
+              style: TextStyle(
+                fontSize: 12.sp,
+                fontFamily: AppFonts.inter,
+                fontWeight: FontWeight.w500,
+                color: AppColors.primaryBlue,
+              ),
+            ),
+            SizedBox(width: 10.w),
+            Icon(
+              Icons.arrow_forward_ios,
+              size: 15.r,
               color: AppColors.primaryBlue,
             ),
-          ),
-          SizedBox(width: 4.w),
-          Icon(
-            Icons.chevron_right_rounded,
-            size: 25.r,
-            color: AppColors.primaryBlue,
-          ),
-        ],
+          ],
+        ),
       ),
     );
 
@@ -127,7 +145,8 @@ class BlogCard extends StatelessWidget {
                 )
               : IntrinsicHeight(
                   child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+
                     children: [
                       thumbnail,
                       SizedBox(width: 24.w),
@@ -139,32 +158,6 @@ class BlogCard extends StatelessWidget {
                 ),
         ),
       ),
-    );
-  }
-}
-
-class _MetaItem extends StatelessWidget {
-  const _MetaItem({required this.icon, required this.label});
-  final String icon;
-  final String label;
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisSize: .min,
-      crossAxisAlignment: .center,
-      children: [
-        SvgPicture.asset(icon, height: 20.h, width: 20.w),
-        SizedBox(width: 6.w),
-        Text(
-          label,
-          style: TextStyle(
-            fontSize: 12.sp,
-            fontFamily: AppFonts.inter,
-            color: AppColors.textSecondary,
-          ),
-        ),
-      ],
     );
   }
 }
