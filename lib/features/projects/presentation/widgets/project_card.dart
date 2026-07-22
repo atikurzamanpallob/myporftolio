@@ -25,14 +25,18 @@ class ProjectCard extends StatelessWidget {
 
     return Padding(
       padding: const EdgeInsets.only(top: 10),
-      child: GlassCard(
-        child: Container(
-          width: double.infinity,
-          padding: EdgeInsets.all(isMobile ? 16.r : 24.r),
-          decoration: BoxDecoration(borderRadius: BorderRadius.circular(8.r)),
-          child: isMobile
-              ? _MobileLayout(project: project)
-              : _WideLayout(project: project),
+      child: Hero(
+        tag: "project_hero",
+        transitionOnUserGestures: true,
+        child: GlassCard(
+          child: Container(
+            width: double.infinity,
+            padding: EdgeInsets.all(isMobile ? 16.r : 24.r),
+            decoration: BoxDecoration(borderRadius: BorderRadius.circular(8.r)),
+            child: isMobile
+                ? _MobileLayout(project: project)
+                : _WideLayout(project: project),
+          ),
         ),
       ),
     );

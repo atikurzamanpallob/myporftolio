@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:myportfolioapp/features/projects/presentation/widgets/page_contents_card.dart';
 import 'package:myportfolioapp/features/projects/presentation/widgets/project_back_button.dart';
+import 'package:myportfolioapp/features/projects/presentation/pages/project_details_item_list.dart';
 import 'package:myportfolioapp/features/projects/presentation/widgets/project_hero_section.dart';
 
 import '../../../../core/common/footer_section.dart';
@@ -8,6 +10,15 @@ import '../../../../core/common/nav_bar.dart';
 import '../../../../core/common/navigation.dart';
 import '../../../../core/themes/app_colors.dart';
 import '../../../../core/utils/responsive.dart';
+
+List<String> items = [
+  "Overview",
+  "Key Features",
+  "Tech Stacks",
+  "Challenge",
+  "Approach",
+  "Solutions",
+];
 
 class ProjectDetailsPage extends StatelessWidget {
   const ProjectDetailsPage({super.key, required this.projectId});
@@ -62,10 +73,36 @@ class ProjectBody extends StatelessWidget {
             ProjectBackButton(),
             SizedBox(height: 20.h),
             ProjectHeroSection(),
+            SizedBox(height: 20.h),
+            isMobile ? mobileContent() : desktopContent(),
             SizedBox(height: 48.h),
           ],
         ),
       ),
+    );
+  }
+
+  Widget desktopContent() {
+    return Row(
+      crossAxisAlignment: .start,
+      children: [
+        SizedBox(
+          width: 150.w,
+          child: PageContentsCard(contents: items),
+        ),
+        SizedBox(width: 10.w),
+        Expanded(child: ProjectDetailsItemList()),
+      ],
+    );
+  }
+
+  Widget mobileContent() {
+    return Column(
+      children: [
+        PageContentsCard(contents: items),
+        SizedBox(height: 20.h),
+        ProjectDetailsItemList(),
+      ],
     );
   }
 }

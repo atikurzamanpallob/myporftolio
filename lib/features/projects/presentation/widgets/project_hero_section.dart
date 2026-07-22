@@ -15,7 +15,7 @@ class ProjectHeroSection extends StatelessWidget {
   Widget build(BuildContext context) {
     final bool isMobile = Responsive.isMobile(context);
     return Hero(
-      tag: 'project-thumbnail',
+      tag: 'project_hero',
       child: Container(
         padding: EdgeInsets.all(20.r),
         decoration: BoxDecoration(
