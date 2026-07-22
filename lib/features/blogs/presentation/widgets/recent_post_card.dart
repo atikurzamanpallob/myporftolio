@@ -2,10 +2,10 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:myportfolioapp/core/themes/responsive_text_theme.dart';
 import 'package:myportfolioapp/features/blogs/presentation/pages/blog_details_page.dart';
 
 import '../../../../core/themes/app_colors.dart';
-import '../../../../core/app_resources/app_fonts.dart';
 import '../../../../core/app_resources/app_images.dart';
 import '../../../../core/common/glass_card.dart';
 import '../../domain/entity/blog_item.dart';
@@ -89,12 +89,8 @@ class RecentPostItem extends StatelessWidget {
                       post.title,
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                        fontSize: 12.sp,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.white,
-                        height: 1.35,
-                        fontFamily: AppFonts.inter,
+                      style: context.fontStyle.labelLarge?.copyWith(
+                        color: AppColors.textPrimary,
                       ),
                     ),
                     SizedBox(height: 5.h),
@@ -106,14 +102,7 @@ class RecentPostItem extends StatelessWidget {
                           color: AppColors.textMuted,
                         ),
                         SizedBox(width: 4.w),
-                        Text(
-                          post.date,
-                          style: TextStyle(
-                            fontSize: 10.sp,
-                            color: AppColors.textMuted,
-                            fontFamily: AppFonts.inter,
-                          ),
-                        ),
+                        Text(post.date, style: context.fontStyle.labelSmall),
                       ],
                     ),
                   ],

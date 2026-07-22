@@ -23,7 +23,7 @@ class SidebarHeading extends StatelessWidget {
         ),
         Text(
           title,
-          style: context.fontStyle.headlineSmall?.copyWith(
+          style: context.fontStyle.bodySmall?.copyWith(
             color: AppColors.textPrimary,
             fontFamily: AppFonts.roboto,
             fontWeight: FontWeight.w600,

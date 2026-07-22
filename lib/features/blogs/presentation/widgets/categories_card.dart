@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:myportfolioapp/core/themes/app_colors.dart';
-import 'package:myportfolioapp/core/app_resources/app_fonts.dart';
 import 'package:myportfolioapp/core/common/glass_card.dart';
-import 'package:myportfolioapp/core/utils/size_helper.dart';
+import 'package:myportfolioapp/core/themes/responsive_text_theme.dart';
 
-import '../../../../core/utils/responsive.dart';
 import '../../../dashboard/domain/entity/category_list.dart';
+import 'side_bar_heading.dart';
 
 class CategoriesCard extends StatelessWidget {
   final List<Category> categories;
@@ -15,15 +14,13 @@ class CategoriesCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bool isMobile = Responsive.isMobile(context);
-    final bool istab = Responsive.isTablet(context);
     return GlassCard(
       child: Padding(
         padding: EdgeInsets.all(20.r),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _SidebarHeading(title: 'Categories'),
+            SidebarHeading(title: 'Categories'),
             SizedBox(height: 12.h),
             ...categories.asMap().entries.map((entry) {
               final isLast = entry.key == categories.length - 1;
@@ -47,13 +44,8 @@ class CategoriesCard extends StatelessWidget {
                           Expanded(
                             child: Text(
                               entry.value.name,
-                              style: TextStyle(
-                                fontSize: SizeHelper.getBodyFontSize2(
-                                  isMobile: isMobile,
-                                  isTab: istab,
-                                ),
+                              style: context.fontStyle.labelMedium?.copyWith(
                                 color: AppColors.textSecondary,
-                                fontFamily: AppFonts.inter,
                               ),
                             ),
                           ),
@@ -77,36 +69,6 @@ class CategoriesCard extends StatelessWidget {
           ],
         ),
       ),
-    );
-  }
-}
-
-class _SidebarHeading extends StatelessWidget {
-  const _SidebarHeading({required this.title});
-  final String title;
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Container(
-          width: 3.w,
-          height: 16.h,
-          margin: EdgeInsets.only(right: 8.w),
-          decoration: BoxDecoration(
-            color: AppColors.primaryBlue,
-            borderRadius: BorderRadius.circular(2.r),
-          ),
-        ),
-        Text(
-          title,
-          style: TextStyle(
-            fontSize: 14.sp,
-            fontWeight: FontWeight.w700,
-            color: Colors.white,
-          ),
-        ),
-      ],
     );
   }
 }

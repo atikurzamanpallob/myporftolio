@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import 'package:myportfolioapp/core/app_resources/app_fonts.dart';
+import 'package:myportfolioapp/core/themes/responsive_text_theme.dart';
 
 import '../../../../core/themes/app_colors.dart';
 import '../pages/blogs_page.dart';
@@ -34,15 +34,7 @@ class BlogBackButton extends StatelessWidget {
               ),
             ),
             SizedBox(width: 10.w),
-            Text(
-              'Back to Blogs',
-              style: TextStyle(
-                fontSize: 13.sp,
-                color: AppColors.textSecondary,
-                fontWeight: FontWeight.w500,
-                fontFamily: AppFonts.inter,
-              ),
-            ),
+            Text('Back to Blogs', style: context.fontStyle.bodyMedium),
           ],
         ),
       ),

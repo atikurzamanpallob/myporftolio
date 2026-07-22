@@ -1,10 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:myportfolioapp/core/app_resources/app_fonts.dart';
 import 'package:myportfolioapp/core/app_resources/app_icons.dart';
 import 'package:myportfolioapp/core/app_resources/app_images.dart';
-import 'package:myportfolioapp/core/utils/size_helper.dart';
+import 'package:myportfolioapp/core/themes/responsive_text_theme.dart';
 import 'package:myportfolioapp/features/blogs/domain/entity/blog_item.dart';
 import 'package:myportfolioapp/features/blogs/presentation/widgets/meta_item.dart';
 
@@ -20,7 +19,6 @@ class HeroBanner extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bool isMobile = Responsive.isMobile(context);
-    bool isTab = Responsive.isTablet(context);
     return Hero(
       tag: 'blog-thumbnail',
       child: GlassCard(
@@ -83,11 +81,9 @@ class HeroBanner extends StatelessWidget {
                             width: isMobile ? double.infinity : 550.w,
                             child: Text(
                               detail?.title ?? "",
-                              style: TextStyle(
-                                fontSize: isMobile ? 14.sp : 20.sp,
+                              style: context.fontStyle.headlineLarge?.copyWith(
                                 fontWeight: FontWeight.w600,
-                                color: Colors.white,
-                                height: 1,
+                                color: AppColors.textPrimary,
                                 letterSpacing: -0.3,
                               ),
                             ),
@@ -98,16 +94,7 @@ class HeroBanner extends StatelessWidget {
                             child: Text(
                               detail?.shortDescription ?? "",
                               maxLines: 2,
-                              textAlign: TextAlign.justify,
-                              style: TextStyle(
-                                fontSize: SizeHelper.getBodyFontSize(
-                                  isMobile: isMobile,
-                                  isTab: isTab,
-                                ),
-                                color: AppColors.textSecondary,
-                                fontFamily: AppFonts.inter,
-                                height: 1.5,
-                              ),
+                              style: context.fontStyle.bodySmall,
                             ),
                           ),
                         ],

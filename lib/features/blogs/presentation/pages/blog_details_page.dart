@@ -128,17 +128,11 @@ class ContentSections extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool isMobile = Responsive.isMobile(context);
-    bool isTab = Responsive.isTablet(context);
     return ListView.builder(
       shrinkWrap: true,
       itemCount: sections.length,
       itemBuilder: (context, index) {
-        return DescriptionItemCard(
-          element: sections[index],
-          isMobile: isMobile,
-          isTab: isTab,
-        );
+        return DescriptionItemCard(element: sections[index]);
       },
     );
   }
