@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:myportfolioapp/core/common/glass_card.dart';
+import 'package:myportfolioapp/core/themes/responsive_text_theme.dart';
 import 'package:myportfolioapp/features/career/domain/entity/work_experience_item.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -30,22 +31,37 @@ class ExperienceCard extends StatelessWidget {
           border: Border.all(color: AppColors.divider, width: 1),
         ),
         child: isDesktop
-            ? desktop(isMobile: isMobile, isDesktop: isDesktop)
+            ? desktop(
+                isMobile: isMobile,
+                isDesktop: isDesktop,
+                context: context,
+              )
             : isMobile
-            ? mobile(isMobile: isMobile, isDesktop: isDesktop)
-            : tablet(isMobile: isMobile, isDesktop: isDesktop),
+            ? mobile(isMobile: isMobile, isDesktop: isDesktop, context: context)
+            : tablet(
+                isMobile: isMobile,
+                isDesktop: isDesktop,
+                context: context,
+              ),
       ),
     );
   }
 
-  Widget desktop({required bool isMobile, required bool isDesktop}) {
+  Widget desktop({
+    required bool isMobile,
+    required bool isDesktop,
+    required BuildContext context,
+  }) {
     return IntrinsicHeight(
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           logo(isMobile: isMobile, isDesktop: isDesktop),
           SizedBox(width: 20.w),
-          Expanded(flex: 6, child: infoColumn(isMobile: isMobile)),
+          Expanded(
+            flex: 6,
+            child: infoColumn(isMobile: isMobile, context: context),
+          ),
           SizedBox(width: 20.w),
           VerticalDivider(color: AppColors.divider, thickness: 1, width: 1),
           SizedBox(width: 20.w),
@@ -58,7 +74,11 @@ class ExperienceCard extends StatelessWidget {
     );
   }
 
-  Widget mobile({required bool isMobile, required bool isDesktop}) {
+  Widget mobile({
+    required bool isMobile,
+    required bool isDesktop,
+    required BuildContext context,
+  }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -71,8 +91,8 @@ class ExperienceCard extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: .start,
                 children: [
-                  header(isMobile: isMobile),
-                  company(isMobile: isMobile),
+                  header(isMobile: isMobile, context: context),
+                  company(isMobile: isMobile, context: context),
                 ],
               ),
             ),
@@ -80,7 +100,7 @@ class ExperienceCard extends StatelessWidget {
         ),
 
         meta(),
-        description(),
+        description(context),
         SizedBox(height: 16.h),
         Divider(color: AppColors.divider, thickness: 1),
         SizedBox(height: 12.h),
@@ -89,7 +109,11 @@ class ExperienceCard extends StatelessWidget {
     );
   }
 
-  Widget tablet({required bool isMobile, required bool isDesktop}) {
+  Widget tablet({
+    required bool isMobile,
+    required bool isDesktop,
+    required BuildContext context,
+  }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -98,7 +122,9 @@ class ExperienceCard extends StatelessWidget {
           children: [
             logo(isMobile: isMobile, isDesktop: isDesktop),
             SizedBox(width: 18.w),
-            Expanded(child: infoColumn(isMobile: isMobile)),
+            Expanded(
+              child: infoColumn(isMobile: isMobile, context: context),
+            ),
           ],
         ),
         SizedBox(height: 16.h),
@@ -109,15 +135,15 @@ class ExperienceCard extends StatelessWidget {
     );
   }
 
-  Widget infoColumn({required bool isMobile}) {
+  Widget infoColumn({required bool isMobile, required BuildContext context}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
       children: [
-        header(isMobile: isMobile),
-        company(isMobile: isMobile),
+        header(isMobile: isMobile, context: context),
+        company(isMobile: isMobile, context: context),
         meta(),
-        description(),
+        description(context),
       ],
     );
   }
@@ -129,7 +155,7 @@ class ExperienceCard extends StatelessWidget {
     );
   }
 
-  Widget header({required bool isMobile}) {
+  Widget header({required bool isMobile, required BuildContext context}) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -139,14 +165,7 @@ class ExperienceCard extends StatelessWidget {
             spacing: 10.w,
             runSpacing: 6.h,
             children: [
-              Text(
-                experience.role,
-                style: TextStyle(
-                  fontSize: isMobile ? 16.sp : 18.sp,
-                  fontWeight: FontWeight.w700,
-                  color: Colors.white,
-                ),
-              ),
+              Text(experience.role, style: context.fontStyle.headlineMedium),
               EmploymentBadge(label: experience.employmentType),
             ],
           ),
@@ -155,7 +174,7 @@ class ExperienceCard extends StatelessWidget {
     );
   }
 
-  Widget company({required bool isMobile}) {
+  Widget company({required bool isMobile, required BuildContext context}) {
     return Padding(
       padding: EdgeInsets.only(top: 5.h),
       child: Row(
@@ -163,9 +182,7 @@ class ExperienceCard extends StatelessWidget {
         children: [
           Text(
             experience.companyName,
-            style: TextStyle(
-              fontSize: isMobile ? 14.sp : 16.sp,
-              fontWeight: FontWeight.w600,
+            style: context.fontStyle.bodyMedium?.copyWith(
               color: AppColors.green,
             ),
           ),
@@ -209,13 +226,12 @@ class ExperienceCard extends StatelessWidget {
     );
   }
 
-  Widget description() {
+  Widget description(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(top: 4.h),
       child: Text(
         experience.description ?? "",
-        style: TextStyle(
-          fontSize: 13.5.sp,
+        style: context.fontStyle.bodyLarge?.copyWith(
           color: AppColors.textSecondary,
           height: 1.55,
         ),

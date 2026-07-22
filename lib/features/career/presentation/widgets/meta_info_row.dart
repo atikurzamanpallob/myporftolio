@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:myportfolioapp/core/themes/responsive_text_theme.dart';
 
 import '../../../../core/themes/app_colors.dart';
 import '../../../../core/utils/responsive.dart';
@@ -24,16 +25,19 @@ class MetaInfoRow extends StatelessWidget {
             padding: EdgeInsets.only(top: isDesktop ? 2.h : 0.h),
             child: SvgPicture.asset(
               iconAsset,
-              width: isDesktop ? 20.w : 14.w,
-              height: isDesktop ? 20.h : 14.h,
+              width: isDesktop ? 22.w : 15.w,
+              height: isDesktop ? 22.h : 15.h,
+              colorFilter: ColorFilter.mode(
+                AppColors.primaryBlue,
+                BlendMode.srcIn,
+              ),
             ),
           ),
           SizedBox(width: 8.w),
           Expanded(
             child: Text(
               text,
-              style: TextStyle(
-                fontSize: 13.sp,
+              style: context.fontStyle.bodyMedium?.copyWith(
                 color: AppColors.textSecondary,
                 height: 1.4,
               ),

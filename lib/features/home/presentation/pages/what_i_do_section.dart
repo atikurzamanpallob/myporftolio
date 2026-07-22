@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../../../core/themes/app_colors.dart';
 import '../../../../core/app_resources/app_icons.dart';
 import '../../../../core/themes/responsive_text_theme.dart';
 import '../../../../core/utils/responsive.dart';
@@ -47,13 +46,7 @@ class WhatIDoSection extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            'WHAT I DO',
-            style: context.fontStyle.bodyLarge?.copyWith(
-              fontWeight: FontWeight.w600,
-              color: AppColors.textPrimary,
-            ),
-          ),
+          Text('What I Do', style: context.fontStyle.headlineSmall),
           SizedBox(height: 10.h),
           GridView.builder(
             shrinkWrap: true,

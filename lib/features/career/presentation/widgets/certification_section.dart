@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:myportfolioapp/core/app_resources/app_images.dart';
 import 'package:myportfolioapp/core/common/glass_card.dart';
+import 'package:myportfolioapp/core/themes/responsive_text_theme.dart';
 import 'package:myportfolioapp/features/career/domain/entity/certificate_item.dart';
 import 'package:myportfolioapp/features/career/presentation/bloc/career_bloc.dart';
 import 'package:myportfolioapp/features/career/presentation/bloc/career_state.dart';
@@ -24,14 +25,7 @@ class CertificationSection extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Certifications',
-          style: TextStyle(
-            fontSize: 14.sp,
-            fontWeight: FontWeight.w600,
-            color: Colors.white,
-          ),
-        ),
+        Text('Certifications', style: context.fontStyle.headlineSmall),
         SizedBox(height: 16.h),
         Padding(
           padding: EdgeInsets.only(
@@ -110,14 +104,7 @@ class _CertificationChip extends StatelessWidget {
         children: [
           Row(
             children: [
-              Text(
-                title,
-                style: TextStyle(
-                  fontSize: 14.sp,
-                  fontWeight: FontWeight.w700,
-                  color: Colors.white,
-                ),
-              ),
+              Text(title, style: context.fontStyle.bodyLarge),
               SizedBox(width: 15.w),
               InkWell(
                 onTap: () {

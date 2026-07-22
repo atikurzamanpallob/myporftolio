@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:myportfolioapp/core/app_resources/app_fonts.dart';
 import 'package:myportfolioapp/core/common/glass_card.dart';
+import 'package:myportfolioapp/core/themes/responsive_text_theme.dart';
 
 import '../../../../core/themes/app_colors.dart';
 import '../../../../core/utils/responsive.dart';
@@ -18,14 +18,7 @@ class EducationSection extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Educations',
-          style: TextStyle(
-            fontSize: 14.sp,
-            fontWeight: FontWeight.w600,
-            color: Colors.white,
-          ),
-        ),
+        Text('Educations', style: context.fontStyle.headlineSmall),
         SizedBox(height: 16.h),
         Padding(
           padding: EdgeInsets.only(
@@ -68,11 +61,9 @@ class EducationSection extends StatelessWidget {
                               children: [
                                 Text(
                                   item.text,
-                                  style: TextStyle(
-                                    fontSize: 12.sp,
+                                  style: context.fontStyle.bodySmall?.copyWith(
                                     fontWeight: FontWeight.w600,
-                                    color: Colors.white,
-                                    fontFamily: AppFonts.inter,
+                                    color: AppColors.textPrimary,
                                     height: 1.4,
                                   ),
                                 ),

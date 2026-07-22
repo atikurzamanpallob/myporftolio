@@ -59,17 +59,19 @@ const textTheme = TextTheme(
   ),
 
   headlineSmall: TextStyle(
-    fontSize: 16,
+    fontSize: 14,
     fontFamily: AppFonts.roboto,
     fontWeight: FontWeight.w600,
+    color: AppColors.textPrimary,
   ),
   headlineMedium: TextStyle(
-    fontSize: 17,
+    fontSize: 15,
     fontFamily: AppFonts.roboto,
     fontWeight: FontWeight.w600,
+    color: AppColors.textPrimary,
   ),
   headlineLarge: TextStyle(
-    fontSize: 18,
+    fontSize: 16,
     fontFamily: AppFonts.roboto,
     fontWeight: FontWeight.w600,
   ),
