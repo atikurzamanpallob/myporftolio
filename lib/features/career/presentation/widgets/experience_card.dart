@@ -178,7 +178,7 @@ class ExperienceCard extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.only(top: 5.h),
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(
             experience.companyName,
@@ -191,17 +191,10 @@ class ExperienceCard extends StatelessWidget {
             onTap: () {
               launchUrl(Uri.parse(experience.companyUrl ?? ""));
             },
-            child: Container(
-              padding: const EdgeInsets.all(4.0),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(5.r),
-                border: Border.all(color: AppColors.primaryBlue, width: 1),
-              ),
-              child: Icon(
-                Icons.arrow_outward,
-                size: 15.r,
-                color: AppColors.primaryBlue,
-              ),
+            child: Icon(
+              Icons.open_in_new,
+              size: 20.r,
+              color: AppColors.primaryBlue,
             ),
           ),
         ],

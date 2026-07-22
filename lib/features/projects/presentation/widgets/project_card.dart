@@ -3,11 +3,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:myportfolioapp/core/app_resources/app_icons.dart';
 import 'package:myportfolioapp/core/common/glass_card.dart';
+import 'package:myportfolioapp/core/themes/responsive_text_theme.dart';
 import 'package:myportfolioapp/features/projects/domain/entity/project_item.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../core/themes/app_colors.dart';
-import '../../../../core/app_resources/app_fonts.dart';
 import '../../../../core/utils/responsive.dart';
 import 'project_thumbnails.dart';
 
@@ -95,22 +95,12 @@ class _ProjectInfo extends StatelessWidget {
       children: [
         Text(
           project.name,
-          style: TextStyle(
-            fontSize: 20.sp,
+          style: context.fontStyle.headlineSmall?.copyWith(
             fontWeight: FontWeight.w700,
-            color: Colors.white,
           ),
         ),
         SizedBox(height: 10.h),
-        Text(
-          project.description,
-          style: TextStyle(
-            fontSize: 13.sp,
-            fontFamily: AppFonts.inter,
-            color: AppColors.textSecondary,
-            height: 1.5,
-          ),
-        ),
+        Text(project.description, style: context.fontStyle.bodySmall),
         SizedBox(height: 16.h),
         Wrap(
           spacing: 10.w,
@@ -141,12 +131,9 @@ class _ProjectInfo extends StatelessWidget {
             SizedBox(width: 15.w),
             Text(
               project.company,
-              style: TextStyle(
-                fontSize: 14.sp,
-                fontFamily: AppFonts.inter,
+              style: context.fontStyle.bodyLarge?.copyWith(
                 fontWeight: FontWeight.w600,
                 color: AppColors.textSecondary,
-                height: 1.5,
               ),
             ),
           ],
@@ -170,11 +157,9 @@ class _TechChip extends StatelessWidget {
       ),
       child: Text(
         label,
-        style: TextStyle(
-          fontSize: 11.5.sp,
-          fontFamily: AppFonts.inter,
+        style: context.fontStyle.labelMedium?.copyWith(
           fontWeight: FontWeight.w500,
-          color: Colors.white,
+          color: AppColors.green,
         ),
       ),
     );
@@ -202,9 +187,7 @@ class _ProjectSideActions extends StatelessWidget {
           children: [
             Text(
               'Case Study',
-              style: TextStyle(
-                fontSize: 12.sp,
-                fontFamily: AppFonts.inter,
+              style: context.fontStyle.labelMedium?.copyWith(
                 fontWeight: FontWeight.w500,
                 color: AppColors.primaryBlue,
               ),
@@ -235,15 +218,13 @@ class _ProjectSideActions extends StatelessWidget {
           children: [
             Text(
               "Project Link",
-              style: TextStyle(
-                fontSize: 12.sp,
-                fontFamily: AppFonts.inter,
+              style: context.fontStyle.labelMedium?.copyWith(
                 fontWeight: FontWeight.w500,
                 color: AppColors.primaryBlue,
               ),
             ),
             SizedBox(width: 10.w),
-            Icon(Icons.arrow_outward, size: 15.r, color: AppColors.primaryBlue),
+            Icon(Icons.open_in_new, size: 15.r, color: AppColors.primaryBlue),
           ],
         ),
       ),

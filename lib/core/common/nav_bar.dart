@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:myportfolioapp/core/common/common_dialog.dart';
+import 'package:myportfolioapp/core/themes/responsive_text_theme.dart';
 import 'package:myportfolioapp/features/dashboard/presentation/pages/dashboard_page.dart';
 import 'package:myportfolioapp/features/dashboard/presentation/pages/login_window.dart';
 
@@ -94,20 +95,17 @@ class _Logo extends StatelessWidget {
           children: [
             Text(
               'Pallob',
-              style: TextStyle(
-                fontSize: 16.sp,
-                fontWeight: FontWeight.w700,
-                color: Colors.white,
+              style: context.fontStyle.bodyLarge?.copyWith(
                 height: 1.1,
+                fontWeight: FontWeight.w700,
               ),
             ),
             Text(
               'Flutter Developer',
-              style: TextStyle(
-                fontSize: 10.sp,
+              style: context.fontStyle.labelSmall?.copyWith(
+                height: 1.1,
                 fontWeight: FontWeight.w500,
                 color: AppColors.accentGreen,
-                height: 1.1,
               ),
             ),
           ],
@@ -145,10 +143,10 @@ class _NavItem extends StatelessWidget {
             children: [
               Text(
                 label,
-                style: TextStyle(
-                  fontSize: 12.sp,
-                  fontWeight: FontWeight.w400,
-                  color: isActive ? AppColors.primaryBlue : Colors.white,
+                style: context.fontStyle.bodySmall?.copyWith(
+                  color: isActive
+                      ? AppColors.primaryBlue
+                      : AppColors.textPrimary,
                 ),
               ),
               SizedBox(height: 4.h),
