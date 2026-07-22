@@ -61,7 +61,7 @@ class EducationSection extends StatelessWidget {
                               children: [
                                 Text(
                                   item.text,
-                                  style: context.fontStyle.bodySmall?.copyWith(
+                                  style: context.fontStyle.bodyMedium?.copyWith(
                                     fontWeight: FontWeight.w600,
                                     color: AppColors.textPrimary,
                                     height: 1.4,

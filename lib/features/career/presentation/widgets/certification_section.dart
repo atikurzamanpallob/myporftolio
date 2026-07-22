@@ -128,8 +128,7 @@ class _CertificationChip extends StatelessWidget {
           SizedBox(height: 4.h),
           Text(
             issuer,
-            style: TextStyle(
-              fontSize: 12.sp,
+            style: context.fontStyle.labelLarge?.copyWith(
               fontWeight: FontWeight.w600,
               color: AppColors.accentGreen,
             ),

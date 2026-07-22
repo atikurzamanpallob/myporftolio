@@ -31,9 +31,11 @@ class WorkTimeline extends StatelessWidget {
             children: [
               Text('Work Experience', style: context.fontStyle.headlineSmall),
               SizedBox(height: 20.h),
-
-              for (int i = 0; i < experiences.length; i++)
-                isMobile
+              ListView.builder(
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+                itemCount: experiences.length,
+                itemBuilder: (context, i) => isMobile
                     ? StaggerListAnimation(
                         index: i,
                         item: _MobileTimelineItem(
@@ -48,6 +50,7 @@ class WorkTimeline extends StatelessWidget {
                           isLast: i == experiences.length - 1,
                         ),
                       ),
+              ),
             ],
           );
         },
@@ -76,11 +79,8 @@ class _RailTimelineItem extends StatelessWidget {
                 children: [
                   Text(
                     experience.year,
-                    style: TextStyle(
-                      fontSize: 15.sp,
+                    style: context.fontStyle.headlineSmall?.copyWith(
                       fontStyle: FontStyle.italic,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.white,
                     ),
                   ),
                   SizedBox(height: 10.h),
