@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:myportfolioapp/core/app_resources/app_icons.dart';
+import 'package:myportfolioapp/core/common/custom_outlined_button.dart';
 import 'package:myportfolioapp/core/common/glass_card.dart';
 import 'package:myportfolioapp/core/themes/responsive_text_theme.dart';
 import 'package:myportfolioapp/features/blogs/domain/entity/blog_item.dart';
@@ -77,35 +78,11 @@ class BlogCard extends StatelessWidget {
       ],
     );
 
-    final readMore = InkWell(
+    final readMore = CustomOutlinedButton(
       onTap: () {
         context.go(BlogDetailsPage.routeFor(post.id));
       },
-      child: Container(
-        padding: EdgeInsets.all(8.0),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10.r),
-          border: Border.all(color: AppColors.primaryBlue, width: 0.3),
-        ),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(
-              'Read More',
-              style: context.fontStyle.labelMedium?.copyWith(
-                fontWeight: FontWeight.w500,
-                color: AppColors.primaryBlue,
-              ),
-            ),
-            SizedBox(width: 10.w),
-            Icon(
-              Icons.arrow_forward_ios,
-              size: 15.r,
-              color: AppColors.primaryBlue,
-            ),
-          ],
-        ),
-      ),
+      label: 'Read More',
     );
 
     return Padding(

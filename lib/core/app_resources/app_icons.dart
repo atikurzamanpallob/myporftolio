@@ -48,4 +48,7 @@ class AppIcons {
   static const phone = 'assets/icons/contact/phone.svg';
   static const quality = 'assets/icons/contact/quality.svg';
   static const whatsapp = 'assets/icons/contact/whatsapp.svg';
+
+  //project icons
+  static const persons = 'assets/icons/projects/team.svg';
 }

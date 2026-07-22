@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:myportfolioapp/core/app_resources/app_icons.dart';
+import 'package:myportfolioapp/core/common/custom_outlined_button.dart';
 import 'package:myportfolioapp/core/common/glass_card.dart';
 import 'package:myportfolioapp/core/themes/responsive_text_theme.dart';
 import 'package:myportfolioapp/features/projects/domain/entity/project_item.dart';
@@ -176,62 +177,18 @@ class _ProjectSideActions extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final caseStudy = InkWell(
+    final caseStudy = CustomOutlinedButton(
       onTap: () {
         context.go(ProjectDetailsPage.routeFor(project.id));
       },
-      child: Container(
-        padding: EdgeInsets.all(8.0),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10.r),
-          border: Border.all(color: AppColors.primaryBlue, width: 0.3),
-        ),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(
-              'Case Study',
-              style: context.fontStyle.labelMedium?.copyWith(
-                fontWeight: FontWeight.w500,
-                color: AppColors.primaryBlue,
-              ),
-            ),
-            SizedBox(width: 10.w),
-            Icon(
-              Icons.arrow_forward_ios,
-              size: 15.r,
-              color: AppColors.primaryBlue,
-            ),
-          ],
-        ),
-      ),
+      label: 'Case Study',
     );
-
-    final platforms = InkWell(
+    final platforms = CustomOutlinedButton(
+      iconData: Icons.open_in_new,
       onTap: () {
         launchUrl(Uri.parse(project.link));
       },
-      child: Container(
-        padding: EdgeInsets.all(8.0),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10.r),
-          border: Border.all(color: AppColors.primaryBlue, width: 0.3),
-        ),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(
-              "Project Link",
-              style: context.fontStyle.labelMedium?.copyWith(
-                fontWeight: FontWeight.w500,
-                color: AppColors.primaryBlue,
-              ),
-            ),
-            SizedBox(width: 10.w),
-            Icon(Icons.open_in_new, size: 15.r, color: AppColors.primaryBlue),
-          ],
-        ),
-      ),
+      label: 'Project Link',
     );
 
     if (horizontal) {

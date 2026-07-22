@@ -39,6 +39,8 @@ class BlogDetailsPage extends StatelessWidget {
               onItemTap: (item) => navigateToSection(context, item),
             )
           : null,
+      bottomNavigationBar: const FooterSection(),
+
       body: BlogDetailBody(),
     );
   }
@@ -87,7 +89,6 @@ class BlogDetailBody extends StatelessWidget {
                     ],
                   ),
                 SizedBox(height: 48.h),
-                const FooterSection(),
               ],
             ),
           ),
