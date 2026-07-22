@@ -54,8 +54,8 @@ class BlogCard extends StatelessWidget {
         SizedBox(height: 8.h),
         Text(
           post.title,
-          style: context.fontStyle.titleMedium?.copyWith(
-            color: AppColors.textPrimary,
+          style: context.fontStyle.headlineSmall?.copyWith(
+            fontWeight: FontWeight.w700,
           ),
         ),
         SizedBox(height: 8.h),
@@ -92,7 +92,7 @@ class BlogCard extends StatelessWidget {
           children: [
             Text(
               'Read More',
-              style: context.fontStyle.bodySmall?.copyWith(
+              style: context.fontStyle.labelMedium?.copyWith(
                 fontWeight: FontWeight.w500,
                 color: AppColors.primaryBlue,
               ),
