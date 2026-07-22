@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:myportfolioapp/core/themes/responsive_text_theme.dart';
 
 import '../../../../core/themes/app_colors.dart';
 import '../../../../core/app_resources/app_fonts.dart';
@@ -54,17 +55,15 @@ class _TrustBadgeTile extends StatelessWidget {
             children: [
               Text(
                 badge.title,
-                style: TextStyle(
-                  fontSize: 15.sp,
-                  fontWeight: FontWeight.w700,
-                  color: Colors.white,
+                style: context.fontStyle.bodyLarge?.copyWith(
+                  fontWeight: FontWeight.w600,
+                  color: AppColors.textPrimary,
                 ),
               ),
               SizedBox(height: 4.h),
               Text(
                 badge.description,
-                style: TextStyle(
-                  fontSize: 12.sp,
+                style: context.fontStyle.bodySmall?.copyWith(
                   fontFamily: AppFonts.inter,
                   color: AppColors.textSecondary,
                   height: 1.35,

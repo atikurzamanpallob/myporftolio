@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:myportfolioapp/core/themes/responsive_text_theme.dart';
 import 'package:myportfolioapp/features/contact/presentation/bloc/contact_bloc.dart';
 import 'package:myportfolioapp/features/contact/presentation/bloc/contact_event.dart';
 
 import '../../../../core/themes/app_colors.dart';
-import '../../../../core/app_resources/app_fonts.dart';
 
 class ContactForm extends StatefulWidget {
   const ContactForm({super.key});
@@ -37,7 +37,6 @@ class _ContactFormState extends State<ContactForm> {
 
     setState(() => _submitting = true);
 
-    // No backend is wired up yet — simulate a send and let the user know.
     Future.delayed(const Duration(milliseconds: 600), () {
       if (!mounted) return;
       setState(() => _submitting = false);
@@ -71,14 +70,7 @@ class _ContactFormState extends State<ContactForm> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              'Send Me a Message',
-              style: TextStyle(
-                fontSize: 18.sp,
-                fontWeight: FontWeight.w700,
-                color: Colors.white,
-              ),
-            ),
+            Text('Send Me a Message', style: context.fontStyle.headlineMedium),
             SizedBox(height: 18.h),
             _FormField(
               controller: _nameController,
@@ -148,13 +140,22 @@ class _ContactFormState extends State<ContactForm> {
                           color: Colors.white,
                         ),
                       )
-                    : Text(
-                        'Send Message',
-                        style: TextStyle(
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w700,
-                          color: Colors.white,
-                        ),
+                    : Row(
+                        mainAxisAlignment: .center,
+                        children: [
+                          Text(
+                            'Send Message',
+                            style: context.fontStyle.bodyLarge?.copyWith(
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                          SizedBox(width: 10.w),
+                          Icon(
+                            Icons.send_rounded,
+                            color: AppColors.textPrimary,
+                            size: 20.r,
+                          ),
+                        ],
                       ),
               ),
             ),
@@ -189,20 +190,14 @@ class _FormField extends StatelessWidget {
       validator: validator,
       keyboardType: keyboardType,
       maxLines: maxLines,
-      style: TextStyle(
-        color: Colors.white,
-        fontSize: 13.sp,
-        fontFamily: AppFonts.inter,
-      ),
+      style: context.fontStyle.bodySmall,
 
       cursorColor: AppColors.primaryBlue,
       decoration: InputDecoration(
         hintText: hint,
         prefixIcon: prefixIcon != null ? Icon(prefixIcon) : null,
-        hintStyle: TextStyle(
+        hintStyle: context.fontStyle.bodySmall?.copyWith(
           color: AppColors.textMuted,
-          fontSize: 13.sp,
-          fontFamily: AppFonts.inter,
         ),
         filled: true,
         fillColor: AppColors.cardBackground,

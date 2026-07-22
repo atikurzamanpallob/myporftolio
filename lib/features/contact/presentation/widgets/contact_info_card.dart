@@ -8,7 +8,7 @@ import 'package:myportfolioapp/features/contact/presentation/bloc/contact_state.
 import 'package:myportfolioapp/features/home/domain/entity/contact_info.dart';
 
 import '../../../../core/themes/app_colors.dart';
-import '../../../../core/app_resources/app_fonts.dart';
+import '../../../../core/themes/responsive_text_theme.dart';
 
 class ContactInfoCard extends StatelessWidget {
   const ContactInfoCard({super.key});
@@ -24,14 +24,7 @@ class ContactInfoCard extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                'Get In Touch',
-                style: TextStyle(
-                  fontSize: 18.sp,
-                  fontWeight: FontWeight.w700,
-                  color: Colors.white,
-                ),
-              ),
+              Text('Get In Touch', style: context.fontStyle.headlineMedium),
               SizedBox(height: 18.h),
               for (final item in contacts)
                 Padding(
@@ -84,21 +77,16 @@ class _ContactInfoRow extends StatelessWidget {
               children: [
                 Text(
                   item.contactType,
-                  style: TextStyle(
-                    fontSize: 14.sp,
-                    fontWeight: FontWeight.w700,
-                    color: Colors.white,
+                  style: context.fontStyle.bodyMedium?.copyWith(
+                    color: AppColors.textSecondary,
                   ),
                 ),
                 SizedBox(height: 3.h),
-                Text(
+                SelectableText(
                   item.contactValue,
-                  style: TextStyle(
-                    fontSize: 12.5.sp,
-                    fontFamily: AppFonts.inter,
-                    color: AppColors.textSecondary,
+                  style: context.fontStyle.bodySmall?.copyWith(
+                    color: AppColors.textPrimary,
                   ),
-                  overflow: TextOverflow.ellipsis,
                 ),
               ],
             ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:myportfolioapp/core/common/glass_card.dart';
+import 'package:myportfolioapp/core/themes/responsive_text_theme.dart';
 
 import '../../../../core/themes/app_colors.dart';
 import '../../../../core/app_resources/app_fonts.dart';
@@ -44,19 +45,14 @@ class AvailabilityCard extends StatelessWidget {
                 children: [
                   Text(
                     "I'm Available for new projects",
-                    style: TextStyle(
-                      fontSize: isMobile ? 16.sp : 18.sp,
-                      fontWeight: FontWeight.w700,
-                      color: Colors.white,
-                    ),
+                    style: context.fontStyle.headlineSmall,
                   ),
                   SizedBox(height: 8.h),
                   Text(
                     "I'm currently available for freelance projects and "
                     "full-time opportunities Let's discuss how can i help "
                     "you achieve your goal",
-                    style: TextStyle(
-                      fontSize: 12.5.sp,
+                    style: context.fontStyle.bodySmall?.copyWith(
                       fontFamily: AppFonts.inter,
                       color: AppColors.textSecondary,
                       height: 1.45,

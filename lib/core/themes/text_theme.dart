@@ -37,6 +37,7 @@ const textTheme = TextTheme(
     fontFamily: AppFonts.inter,
     fontWeight: FontWeight.w400,
     height: 1.4,
+    color: AppColors.textPrimary,
   ),
 
   titleSmall: TextStyle(
@@ -74,6 +75,7 @@ const textTheme = TextTheme(
     fontSize: 16,
     fontFamily: AppFonts.roboto,
     fontWeight: FontWeight.w600,
+    color: AppColors.textPrimary,
   ),
 
   displaySmall: TextStyle(
