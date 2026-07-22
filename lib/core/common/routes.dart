@@ -15,6 +15,7 @@ import 'package:myportfolioapp/features/dashboard/presentation/pages/dashboard_p
 import 'package:myportfolioapp/features/home/presentation/bloc/home_bloc.dart';
 import 'package:myportfolioapp/features/home/presentation/pages/home_view.dart';
 import 'package:myportfolioapp/features/projects/presentation/bloc/project_bloc.dart';
+import 'package:myportfolioapp/features/projects/presentation/pages/project_details_page.dart';
 import 'package:myportfolioapp/features/projects/presentation/pages/projects_page.dart';
 
 import '../../features/career/presentation/pages/career_page.dart';
@@ -51,6 +52,13 @@ final GoRouter router = GoRouter(
           child: ProjectsPage(),
         ),
       ),
+    ),
+    GoRoute(
+      path: ProjectDetailsPage.route,
+      pageBuilder: (context, state) {
+        final id = int.tryParse(state.pathParameters['id'] ?? '') ?? 0;
+        return buildPage(state, ProjectDetailsPage(projectId: id));
+      },
     ),
     GoRoute(
       path: BlogsPage.route,

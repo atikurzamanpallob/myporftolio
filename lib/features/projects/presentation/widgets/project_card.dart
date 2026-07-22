@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:myportfolioapp/core/app_resources/app_icons.dart';
 import 'package:myportfolioapp/core/common/glass_card.dart';
 import 'package:myportfolioapp/core/themes/responsive_text_theme.dart';
 import 'package:myportfolioapp/features/projects/domain/entity/project_item.dart';
+import 'package:myportfolioapp/features/projects/presentation/pages/project_details_page.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../core/themes/app_colors.dart';
@@ -175,7 +177,9 @@ class _ProjectSideActions extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final caseStudy = InkWell(
-      onTap: () {},
+      onTap: () {
+        context.go(ProjectDetailsPage.routeFor(project.id));
+      },
       child: Container(
         padding: EdgeInsets.all(8.0),
         decoration: BoxDecoration(
