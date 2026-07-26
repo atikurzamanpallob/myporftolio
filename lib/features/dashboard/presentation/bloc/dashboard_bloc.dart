@@ -89,14 +89,15 @@ class DashBoardBloc extends Bloc<DashboardEvent, DashboardState> {
     FetchTechStacksEvent event,
     Emitter<DashboardState> emit,
   ) async {
+    emit(state.copyWith(isTechStackLoading: true));
     final result = await dashboardData.getTechStacks();
 
     result.fold(
       (failure) {
-        emit(state.copyWith(error: failure.message));
+        emit(state.copyWith(isTechStackLoading: false, error: failure.message));
       },
       (techStacks) {
-        emit(state.copyWith(techStacks: techStacks));
+        emit(state.copyWith(isTechStackLoading: false, techStacks: techStacks));
       },
     );
   }

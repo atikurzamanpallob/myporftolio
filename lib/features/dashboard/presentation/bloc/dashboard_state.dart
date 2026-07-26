@@ -5,12 +5,14 @@ import 'package:myportfolioapp/features/projects/domain/entity/project_tech_stac
 class DashboardState extends Equatable {
   final bool? isLoading;
   final bool? isCategoryLoading;
+  final bool? isTechStackLoading;
   final List<Category>? category;
   final List<ProjectTechStack>? techStacks;
   final String? error;
   const DashboardState({
     this.isLoading,
     this.isCategoryLoading,
+    this.isTechStackLoading,
     this.error,
     this.category,
     this.techStacks,
@@ -19,6 +21,7 @@ class DashboardState extends Equatable {
   DashboardState copyWith({
     bool? isLoading,
     bool? isCategoryLoading,
+    bool? isTechStackLoading,
     String? error,
     List<Category>? category,
     List<ProjectTechStack>? techStacks,
@@ -26,6 +29,7 @@ class DashboardState extends Equatable {
     return DashboardState(
       isLoading: isLoading ?? this.isLoading,
       isCategoryLoading: isCategoryLoading ?? this.isCategoryLoading,
+      isTechStackLoading: isTechStackLoading ?? this.isTechStackLoading,
       error: error ?? this.error,
       category: category ?? this.category,
       techStacks: techStacks ?? this.techStacks,
@@ -36,6 +40,7 @@ class DashboardState extends Equatable {
   List<Object?> get props => [
     isLoading,
     isCategoryLoading,
+    isTechStackLoading,
     error,
     category,
     techStacks,

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:myportfolioapp/features/dashboard/presentation/pages/add_blog_page.dart';
-import 'package:myportfolioapp/features/dashboard/presentation/pages/add_option_page.dart';
+import 'package:myportfolioapp/features/dashboard/presentation/pages/add_techstack_page.dart';
 import 'package:myportfolioapp/features/dashboard/presentation/pages/add_project_page.dart';
 import '../../../../core/themes/app_colors.dart';
 import '../widgets/sidebar.dart';
@@ -47,7 +47,7 @@ class _DashboardPageState extends State<DashboardPage> {
       case 1:
         return AddBlogPage();
       default:
-        return AddOptionPage();
+        return AddTechStackPage();
     }
   }
 }

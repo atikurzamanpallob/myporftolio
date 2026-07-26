@@ -6,6 +6,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:myportfolioapp/core/common/custom_form_filed.dart';
 import 'package:myportfolioapp/core/themes/app_colors.dart';
 import 'package:myportfolioapp/core/themes/responsive_size.dart';
+import 'package:myportfolioapp/core/themes/responsive_text_theme.dart';
 import 'package:myportfolioapp/features/dashboard/domain/entity/tech_add_entity.dart';
 import 'package:myportfolioapp/features/dashboard/presentation/bloc/dashboard_event.dart';
 import 'package:myportfolioapp/features/dashboard/presentation/widgets/section_widget.dart';
@@ -15,14 +16,14 @@ import '../bloc/dashboard_bloc.dart';
 import '../bloc/dashboard_state.dart';
 import '../widgets/progress_window.dart';
 
-class AddOptionPage extends StatefulWidget {
-  const AddOptionPage({super.key});
+class AddTechStackPage extends StatefulWidget {
+  const AddTechStackPage({super.key});
 
   @override
-  State<AddOptionPage> createState() => _AddOptionPageState();
+  State<AddTechStackPage> createState() => _AddTechStackPageState();
 }
 
-class _AddOptionPageState extends State<AddOptionPage> {
+class _AddTechStackPageState extends State<AddTechStackPage> {
   List<TechAddEntity> techs = [];
   var formKey = GlobalKey<FormState>();
 
@@ -49,6 +50,58 @@ class _AddOptionPageState extends State<AddOptionPage> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      SectionCard(
+                        title: "Available Stacks",
+                        child: state.isTechStackLoading == true
+                            ? CircularProgressIndicator()
+                            : GridView.builder(
+                                gridDelegate:
+                                    SliverGridDelegateWithFixedCrossAxisCount(
+                                      mainAxisExtent: 100.h,
+
+                                      crossAxisCount: context.isDesktop
+                                          ? 4
+                                          : context.isTablet
+                                          ? 3
+                                          : 1,
+                                    ),
+                                shrinkWrap: true,
+                                itemCount: state.techStacks?.length ?? 0,
+                                itemBuilder: (context, index) {
+                                  var ob = state.techStacks?[index];
+                                  return Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Row(
+                                      children: [
+                                        Container(
+                                          padding: EdgeInsets.all(10.0),
+                                          decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(
+                                              5,
+                                            ),
+                                            border: Border.all(
+                                              width: 0.2,
+                                              color: AppColors.textPrimary,
+                                            ),
+                                          ),
+                                          child: SvgPicture.network(
+                                            ob?.iconUrl ?? "",
+                                          ),
+                                        ),
+                                        SizedBox(width: 10.w),
+                                        Expanded(
+                                          child: Text(
+                                            ob?.name ?? "",
+                                            style: context.fontStyle.bodyMedium,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                },
+                              ),
+                      ),
+                      SizedBox(height: 10),
                       Form(
                         key: formKey,
                         child: SectionCard(
