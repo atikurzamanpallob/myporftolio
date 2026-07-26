@@ -1,5 +1,7 @@
 import 'package:myportfolioapp/features/projects/domain/entity/project_item.dart';
 
+import 'project_techstack_models.dart';
+
 class ProjectItemModels extends ProjectItem {
   ProjectItemModels({
     required super.id,
@@ -14,10 +16,11 @@ class ProjectItemModels extends ProjectItem {
   });
 
   factory ProjectItemModels.fromJson(Map<String, dynamic> json) {
-    List<String> technologies = [], images = [];
+    List<ProjectTechstackModels> technologies = [];
+    List<String> images = [];
     if (json['technology'] != null) {
       json['technology'].forEach((v) {
-        technologies.add(v.toString());
+        technologies.add(ProjectTechstackModels.fromJson(v));
       });
     }
 
@@ -26,6 +29,7 @@ class ProjectItemModels extends ProjectItem {
         images.add(v.toString());
       });
     }
+
     return ProjectItemModels(
       id: json['id'],
       index: json['index'],
@@ -66,3 +70,5 @@ class ProjectItemModels extends ProjectItem {
     );
   }
 }
+
+class Technology {}

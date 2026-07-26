@@ -6,10 +6,10 @@ import 'package:flutter_svg/svg.dart';
 import 'package:myportfolioapp/core/common/custom_form_filed.dart';
 import 'package:myportfolioapp/core/themes/app_colors.dart';
 import 'package:myportfolioapp/core/themes/responsive_size.dart';
-import 'package:myportfolioapp/core/themes/responsive_text_theme.dart';
 import 'package:myportfolioapp/features/dashboard/domain/entity/tech_add_entity.dart';
 import 'package:myportfolioapp/features/dashboard/presentation/bloc/dashboard_event.dart';
 import 'package:myportfolioapp/features/dashboard/presentation/widgets/section_widget.dart';
+import 'package:myportfolioapp/features/dashboard/presentation/widgets/tech_stacks_preview.dart';
 
 import '../../../../core/common/common_dialog.dart';
 import '../bloc/dashboard_bloc.dart';
@@ -50,57 +50,11 @@ class _AddTechStackPageState extends State<AddTechStackPage> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      SectionCard(
+                      TechStacksPreview(
                         title: "Available Stacks",
-                        child: state.isTechStackLoading == true
-                            ? CircularProgressIndicator()
-                            : GridView.builder(
-                                gridDelegate:
-                                    SliverGridDelegateWithFixedCrossAxisCount(
-                                      mainAxisExtent: 100.h,
-
-                                      crossAxisCount: context.isDesktop
-                                          ? 4
-                                          : context.isTablet
-                                          ? 3
-                                          : 1,
-                                    ),
-                                shrinkWrap: true,
-                                itemCount: state.techStacks?.length ?? 0,
-                                itemBuilder: (context, index) {
-                                  var ob = state.techStacks?[index];
-                                  return Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Row(
-                                      children: [
-                                        Container(
-                                          padding: EdgeInsets.all(10.0),
-                                          decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.circular(
-                                              5,
-                                            ),
-                                            border: Border.all(
-                                              width: 0.2,
-                                              color: AppColors.textPrimary,
-                                            ),
-                                          ),
-                                          child: SvgPicture.network(
-                                            ob?.iconUrl ?? "",
-                                          ),
-                                        ),
-                                        SizedBox(width: 10.w),
-                                        Expanded(
-                                          child: Text(
-                                            ob?.name ?? "",
-                                            style: context.fontStyle.bodyMedium,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  );
-                                },
-                              ),
+                        techs: state.techStacks ?? [],
                       ),
+
                       SizedBox(height: 10),
                       Form(
                         key: formKey,

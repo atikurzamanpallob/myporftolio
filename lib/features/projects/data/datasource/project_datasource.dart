@@ -36,6 +36,14 @@ class ProjectDatasourceImp extends ProjectDatasource {
             );
         imageUrls.add("$storageUrl/$imageaddress");
       }
+      List<Map<String, dynamic>> techList = [];
+      model.technology.forEach((tech) {
+        techList.add({
+          "id": tech.id,
+          "name": tech.name,
+          "icon_url": tech.iconUrl,
+        });
+      });
 
       await client.from('projects').insert({
         "index": model.index,
@@ -44,7 +52,7 @@ class ProjectDatasourceImp extends ProjectDatasource {
         "link": model.link,
         "company": model.company,
         "description": model.description,
-        "technology": model.technology,
+        "technology": techList,
         "images": imageUrls,
       });
     } on StorageException catch (e) {

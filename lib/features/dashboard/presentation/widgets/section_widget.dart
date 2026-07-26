@@ -55,14 +55,16 @@ class SectionCard extends StatelessWidget {
           Row(
             mainAxisAlignment: .spaceBetween,
             children: [
-              Text(
-                title ?? "",
-                style: const TextStyle(
-                  color: AppColors.textPrimary,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
+              title != null
+                  ? Text(
+                      title ?? "",
+                      style: const TextStyle(
+                        color: AppColors.textPrimary,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    )
+                  : SizedBox.shrink(),
 
               onAdd != null
                   ? InkWell(
@@ -88,7 +90,7 @@ class SectionCard extends StatelessWidget {
                   : SizedBox.shrink(),
             ],
           ),
-          SizedBox(height: 10),
+          SizedBox(height: 5),
           child,
           submit != null
               ? Column(

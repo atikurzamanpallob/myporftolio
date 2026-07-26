@@ -1,4 +1,5 @@
 import 'package:file_picker/file_picker.dart';
+import 'package:myportfolioapp/features/projects/domain/entity/project_tech_stack.dart';
 
 class ProjectAddItem {
   final int index;
@@ -7,7 +8,7 @@ class ProjectAddItem {
   final String description;
   final String link;
   final String company;
-  final List<String> technology;
+  final List<ProjectTechStack> technology;
   final List<PlatformFile> files;
   ProjectAddItem({
     required this.index,

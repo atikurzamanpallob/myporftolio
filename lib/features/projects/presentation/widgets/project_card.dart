@@ -7,6 +7,7 @@ import 'package:myportfolioapp/core/common/custom_outlined_button.dart';
 import 'package:myportfolioapp/core/common/glass_card.dart';
 import 'package:myportfolioapp/core/themes/responsive_text_theme.dart';
 import 'package:myportfolioapp/features/projects/domain/entity/project_item.dart';
+import 'package:myportfolioapp/features/projects/domain/entity/project_tech_stack.dart';
 import 'package:myportfolioapp/features/projects/presentation/pages/project_details_page.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -113,15 +114,7 @@ class _ProjectInfo extends StatelessWidget {
           spacing: 10.w,
           runSpacing: 10.h,
           children: [
-            SvgPicture.asset(
-              AppIcons.stack,
-              height: 30.h,
-              colorFilter: ColorFilter.mode(
-                AppColors.starYellow,
-                BlendMode.srcIn,
-              ),
-            ),
-            for (final tech in project.technology) _TechChip(label: tech),
+            for (final tech in project.technology) _TechChip(techStack: tech),
           ],
         ),
         SizedBox(height: 16.h),
@@ -151,23 +144,31 @@ class _ProjectInfo extends StatelessWidget {
 }
 
 class _TechChip extends StatelessWidget {
-  const _TechChip({required this.label});
-  final String label;
+  const _TechChip({required this.techStack});
+  final ProjectTechStack techStack;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 8.h),
+      padding: EdgeInsets.all(8),
       decoration: BoxDecoration(
         border: Border.all(color: AppColors.divider, width: 1),
         borderRadius: BorderRadius.circular(8.r),
       ),
-      child: Text(
-        label,
-        style: context.fontStyle.labelMedium?.copyWith(
-          fontWeight: FontWeight.w500,
-          color: AppColors.green,
-        ),
+      child: Row(
+        mainAxisSize: .min,
+        children: [
+          SvgPicture.network(techStack.iconUrl, width: 35.r, height: 35.r),
+
+          SizedBox(width: 10.w),
+          Text(
+            techStack.name,
+            style: context.fontStyle.labelMedium?.copyWith(
+              fontWeight: FontWeight.w500,
+              color: AppColors.green,
+            ),
+          ),
+        ],
       ),
     );
   }

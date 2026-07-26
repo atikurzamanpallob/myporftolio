@@ -6,16 +6,17 @@ import 'package:myportfolioapp/core/themes/app_colors.dart';
 import 'package:myportfolioapp/core/common/common_dialog.dart';
 import 'package:myportfolioapp/features/dashboard/domain/entity/category_list.dart';
 import 'package:myportfolioapp/features/dashboard/presentation/bloc/dashboard_bloc.dart';
-import 'package:myportfolioapp/features/dashboard/presentation/bloc/dashboard_event.dart';
 import 'package:myportfolioapp/features/dashboard/presentation/bloc/dashboard_state.dart';
 import 'package:myportfolioapp/features/dashboard/presentation/widgets/progress_window.dart';
-import 'package:myportfolioapp/features/projects/domain/entity/project_add_item.dart';
+import 'package:myportfolioapp/features/dashboard/presentation/widgets/tech_stacks_preview.dart';
+import 'package:myportfolioapp/features/projects/domain/entity/project_tech_stack.dart';
 
 import '../../../../core/common/description_field.dart';
 import '../../../../core/common/label_field.dart' hide buildInputDecoration;
 import '../../../../core/common/labled_dropdown.dart';
 import '../../../../core/common/screen_shot_preview.dart';
-import '../widgets/chip_input_field.dart';
+import '../../../projects/domain/entity/project_add_item.dart';
+import '../bloc/dashboard_event.dart';
 import '../widgets/section_widget.dart';
 
 class AddProjectPage extends StatefulWidget {
@@ -26,7 +27,6 @@ class AddProjectPage extends StatefulWidget {
 }
 
 class _AddProjectPageState extends State<AddProjectPage> {
-  List<String> technologies = [];
   List<PlatformFile> files = [];
   Category? category;
   var descriptionController = TextEditingController();
@@ -34,6 +34,7 @@ class _AddProjectPageState extends State<AddProjectPage> {
   var projectLinkController = TextEditingController();
   var indexController = TextEditingController();
   var companyName = TextEditingController();
+  var formKey = GlobalKey<FormState>();
 
   void clear() {
     setState(() {
@@ -41,11 +42,13 @@ class _AddProjectPageState extends State<AddProjectPage> {
       descriptionController.clear();
       projectLinkController.clear();
       category = null;
-      technologies = [];
+      techStacks = [];
       indexController.clear();
       files.clear();
     });
   }
+
+  List<ProjectTechStack> techStacks = [], mainList = [];
 
   @override
   Widget build(BuildContext context) {
@@ -63,6 +66,7 @@ class _AddProjectPageState extends State<AddProjectPage> {
         }
       },
       builder: (context, state) {
+        mainList = state.techStacks ?? [];
         return Expanded(
           child: Column(
             children: [
@@ -117,35 +121,23 @@ class _AddProjectPageState extends State<AddProjectPage> {
           'Publish Project',
           Icons.send_outlined,
           onTap: () {
-            if (projectNameController.text.isNotEmpty) {
-              if (category != null) {
-                if (projectLinkController.text.isNotEmpty) {
-                  if (indexController.text.isNotEmpty) {
-                    if (companyName.text.isNotEmpty) {
-                      if (descriptionController.text.isNotEmpty) {
-                        if (technologies.isNotEmpty) {
-                          if (files.isNotEmpty) {
-                            context.read<DashBoardBloc>().add(
-                              AddProjectEvent(
-                                model: ProjectAddItem(
-                                  index: int.parse(indexController.text),
-                                  name: projectNameController.text,
-                                  type: category?.id ?? 1,
-                                  company: companyName.text,
-                                  description: descriptionController.text,
-                                  link: projectLinkController.text,
-                                  technology: technologies,
-                                  files: files,
-                                ),
-                              ),
-                            );
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              }
+            if (formKey.currentState?.validate() ?? false) {
+              if (techStacks.isNotEmpty && files.isNotEmpty) {
+                context.read<DashBoardBloc>().add(
+                  AddProjectEvent(
+                    model: ProjectAddItem(
+                      index: int.parse(indexController.text),
+                      name: projectNameController.text,
+                      type: category?.id ?? 1,
+                      company: companyName.text,
+                      description: descriptionController.text,
+                      link: projectLinkController.text,
+                      technology: techStacks,
+                      files: files,
+                    ),
+                  ),
+                );
+              } else {}
             }
           },
         ),
@@ -193,66 +185,88 @@ class _AddProjectPageState extends State<AddProjectPage> {
   Widget _buildLeftColumn() {
     return Column(
       children: [
-        SectionCard(
-          title: 'Basic Information',
-          child: Column(
-            children: [
-              ResponsiveFieldRow(
-                children: [
-                  LabeledField(
-                    label: 'Project Title',
-                    required: true,
-                    hint: 'e.g. Shoply – E-commerce Mobile App',
-                    controller: projectNameController,
-                  ),
-                  LabeledDropdown(
-                    label: 'Project Type',
-                    categoryList: dashboardProjectOptions,
-                    onSelected: (category) {
-                      setState(() {
-                        this.category = category;
-                      });
-                    },
-                    required: true,
-                    hint: 'Select project type',
-                  ),
-                ],
-              ),
-              const SizedBox(height: 16),
-              ResponsiveFieldRow(
-                children: [
-                  LabeledField(
-                    label: 'Project Link',
-                    hint: 'https://yourproject.com',
-                    controller: projectLinkController,
-                  ),
-                  LabeledField(
-                    label: 'Order Index',
-                    hint: '0',
-                    controller: indexController,
-                  ),
-                  LabeledField(
-                    label: 'Associated With',
-                    hint: 'eg. Personal',
-                    controller: companyName,
-                  ),
-                ],
-              ),
-              const SizedBox(height: 16),
-              ResponsiveFieldRow(
-                children: [DescriptionField(controller: descriptionController)],
-              ),
-              ChipInputField(
-                title: "Tecnnolgies Used",
-                hint: 'Add technologies and press Enter...',
-                items: technologies,
-                onRemove: (i) => setState(() => technologies.removeAt(i)),
-                onAdd: (v) => setState(() => technologies.add(v)),
-              ),
-            ],
+        Form(
+          key: formKey,
+          child: SectionCard(
+            child: Column(
+              children: [
+                ResponsiveFieldRow(
+                  children: [
+                    LabeledField(
+                      label: 'Project Title',
+                      required: true,
+                      hint: 'e.g. Shoply – E-commerce Mobile App',
+                      controller: projectNameController,
+                    ),
+                    LabeledDropdown(
+                      label: 'Project Type',
+                      categoryList: dashboardProjectOptions,
+                      onSelected: (category) {
+                        setState(() {
+                          this.category = category;
+                        });
+                      },
+                      required: true,
+                      hint: 'Select project type',
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 16),
+                ResponsiveFieldRow(
+                  children: [
+                    LabeledField(
+                      label: 'Project Link',
+                      hint: 'https://yourproject.com',
+                      controller: projectLinkController,
+                    ),
+                    LabeledField(
+                      label: 'Order Index',
+                      hint: '0',
+                      controller: indexController,
+                    ),
+                    LabeledField(
+                      label: 'Associated With',
+                      hint: 'eg. Personal',
+                      controller: companyName,
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 16),
+                ResponsiveFieldRow(
+                  children: [
+                    DescriptionField(controller: descriptionController),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
         SizedBox(height: 20.h),
+        TechStacksPreview(
+          title: "Techstacks",
+          techs: techStacks,
+
+          onAdd: () {
+            CommonDialog(
+              child: TechStacksPreview(
+                isSelection: true,
+                onSelected: (list) {
+                  setState(() {
+                    techStacks = list;
+                  });
+                },
+                title: "Select",
+                techs: mainList,
+              ),
+              context: context,
+            );
+          },
+          onRemove: (i) {
+            setState(() {
+              techStacks.removeAt(i);
+            });
+          },
+        ),
       ],
     );
   }
