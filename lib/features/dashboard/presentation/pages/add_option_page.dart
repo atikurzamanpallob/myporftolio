@@ -62,14 +62,26 @@ class _AddOptionPageState extends State<AddOptionPage> {
                               }
                             }
                           },
-                          onAdd: () {
-                            setState(() {
-                              techs.add(
-                                TechAddEntity(
-                                  controller: TextEditingController(),
-                                ),
-                              );
-                            });
+                          onAdd: () async {
+                            FilePickerResult? results =
+                                await FilePicker.pickFiles(
+                                  allowMultiple: true,
+                                  type: FileType.custom,
+                                  withData: true,
+                                  allowedExtensions: ['svg'],
+                                );
+                            if (results?.files.isNotEmpty ?? false) {
+                              setState(() {
+                                results?.files.forEach((file) {
+                                  techs.add(
+                                    TechAddEntity(
+                                      controller: TextEditingController(),
+                                      icon: file,
+                                    ),
+                                  );
+                                });
+                              });
+                            }
                           },
                           child: GridView.builder(
                             gridDelegate:
@@ -87,64 +99,50 @@ class _AddOptionPageState extends State<AddOptionPage> {
                             itemBuilder: (context, index) {
                               return Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: Row(
+                                child: Stack(
+                                  alignment: .topRight,
                                   children: [
-                                    techs[index].icon == null
-                                        ? InkWell(
-                                            onTap: () async {
-                                              FilePickerResult? results =
-                                                  await FilePicker.pickFiles(
-                                                    allowMultiple: false,
-                                                    type: FileType.custom,
-                                                    withData: true,
-                                                    allowedExtensions: ['svg'],
-                                                  );
-                                              if (results?.files.isNotEmpty ??
-                                                  false) {
-                                                setState(() {
-                                                  techs[index].icon =
-                                                      results?.files.first;
-                                                });
-                                              }
-                                            },
-                                            child: Container(
-                                              padding: EdgeInsets.all(10.0),
-                                              decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(5),
-                                                border: Border.all(
-                                                  width: 0.2,
-                                                  color: AppColors.textPrimary,
-                                                ),
-                                              ),
-                                              child: Icon(
-                                                Icons.upload_file_outlined,
-                                                size: 35.r,
-                                              ),
+                                    Row(
+                                      children: [
+                                        Container(
+                                          padding: EdgeInsets.all(10.0),
+                                          decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(
+                                              5,
                                             ),
-                                          )
-                                        : Container(
-                                            padding: EdgeInsets.all(10.0),
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(5),
-                                              border: Border.all(
-                                                width: 0.2,
-                                                color: AppColors.textPrimary,
-                                              ),
-                                            ),
-                                            child: SvgPicture.memory(
-                                              techs[index].icon!.bytes!,
-                                              width: 35.r,
-                                              height: 35.r,
+                                            border: Border.all(
+                                              width: 0.2,
+                                              color: AppColors.textPrimary,
                                             ),
                                           ),
-                                    SizedBox(width: 10.w),
-                                    Expanded(
-                                      child: CustomFormFiled(
-                                        controller: techs[index].controller,
+                                          child: SvgPicture.memory(
+                                            techs[index].icon!.bytes!,
+                                            width: 35.r,
+                                            height: 35.r,
+                                          ),
+                                        ),
+                                        SizedBox(width: 10.w),
+                                        Expanded(
+                                          child: CustomFormFiled(
+                                            controller: techs[index].controller,
 
-                                        hints: "Write",
+                                            hints: "Write",
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 5),
+                                      child: IconButton(
+                                        onPressed: () {
+                                          setState(() {
+                                            techs.removeAt(index);
+                                          });
+                                        },
+                                        icon: Icon(
+                                          Icons.close,
+                                          color: AppColors.danger,
+                                        ),
                                       ),
                                     ),
                                   ],
