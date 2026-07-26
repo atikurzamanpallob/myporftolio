@@ -21,9 +21,6 @@ class Responsive {
   static bool isDesktop(BuildContext context) =>
       MediaQuery.sizeOf(context).width >= tabletMax;
 
-  /// Returns the ScreenUtil design size to use based on current window width.
-  /// This lets flutter_screenutil scale fonts/spacing appropriately whether
-  /// the app is being viewed on a phone, tablet, or desktop browser window.
   static Size designSizeFor(double width) {
     if (width >= tabletMax) {
       return const Size(1440, 1024); // desktop design reference

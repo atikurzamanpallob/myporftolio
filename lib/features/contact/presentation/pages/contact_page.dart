@@ -3,12 +3,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:myportfolioapp/core/common/glass_card.dart';
 import 'package:myportfolioapp/core/common/hero_header.dart';
 
-import '../../../../core/app_resources/app_colors.dart';
+import '../../../../core/themes/app_colors.dart';
 import '../../../../core/app_resources/app_images.dart';
 import '../../../../core/common/nav_bar.dart';
 import '../../../../core/common/navigation.dart';
 import '../../../../core/utils/responsive.dart';
-import '../../../home/presentation/pages/footer_section.dart';
+import '../../../../core/common/footer_section.dart';
 import '../widgets/availability_card.dart';
 import '../widgets/contact_form.dart';
 import '../widgets/contact_info_card.dart';
@@ -37,12 +37,13 @@ class ContactPage extends StatelessWidget {
               onItemTap: (item) => navigateToSection(context, item),
             )
           : null,
+      bottomNavigationBar: const FooterSection(),
       body: ListView(
         padding: EdgeInsets.symmetric(horizontal: 20.w),
         children: [
           const HeroHeader(
-            heading1: "Let's Build Amazing \nThings ",
-            heading2: 'Together',
+            heading1: "Let's Build Amazing Things ",
+            heading2: '\nTogether',
             bodyText:
                 'Have project in mind or just want to say Hi? I would love to hear from you.'
                 '\nLet’s turn your ideas into real products.',
@@ -95,7 +96,6 @@ class ContactPage extends StatelessWidget {
                   ),
           ),
           SizedBox(height: 20.h),
-          const FooterSection(),
         ],
       ),
     );

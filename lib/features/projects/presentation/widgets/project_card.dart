@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:myportfolioapp/core/app_resources/app_icons.dart';
+import 'package:myportfolioapp/core/common/custom_outlined_button.dart';
 import 'package:myportfolioapp/core/common/glass_card.dart';
+import 'package:myportfolioapp/core/themes/responsive_text_theme.dart';
 import 'package:myportfolioapp/features/projects/domain/entity/project_item.dart';
+import 'package:myportfolioapp/features/projects/presentation/pages/project_details_page.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../../../../core/app_resources/app_colors.dart';
-import '../../../../core/app_resources/app_fonts.dart';
+import '../../../../core/themes/app_colors.dart';
 import '../../../../core/utils/responsive.dart';
 import 'project_thumbnails.dart';
 
@@ -22,14 +25,18 @@ class ProjectCard extends StatelessWidget {
 
     return Padding(
       padding: const EdgeInsets.only(top: 10),
-      child: GlassCard(
-        child: Container(
-          width: double.infinity,
-          padding: EdgeInsets.all(isMobile ? 16.r : 24.r),
-          decoration: BoxDecoration(borderRadius: BorderRadius.circular(8.r)),
-          child: isMobile
-              ? _MobileLayout(project: project)
-              : _WideLayout(project: project),
+      child: Hero(
+        tag: "project_hero",
+        transitionOnUserGestures: true,
+        child: GlassCard(
+          child: Container(
+            width: double.infinity,
+            padding: EdgeInsets.all(isMobile ? 16.r : 24.r),
+            decoration: BoxDecoration(borderRadius: BorderRadius.circular(8.r)),
+            child: isMobile
+                ? _MobileLayout(project: project)
+                : _WideLayout(project: project),
+          ),
         ),
       ),
     );
@@ -95,22 +102,12 @@ class _ProjectInfo extends StatelessWidget {
       children: [
         Text(
           project.name,
-          style: TextStyle(
-            fontSize: 20.sp,
+          style: context.fontStyle.headlineSmall?.copyWith(
             fontWeight: FontWeight.w700,
-            color: Colors.white,
           ),
         ),
         SizedBox(height: 10.h),
-        Text(
-          project.description,
-          style: TextStyle(
-            fontSize: 13.sp,
-            fontFamily: AppFonts.inter,
-            color: AppColors.textSecondary,
-            height: 1.5,
-          ),
-        ),
+        Text(project.description, style: context.fontStyle.bodySmall),
         SizedBox(height: 16.h),
         Wrap(
           spacing: 10.w,
@@ -141,12 +138,9 @@ class _ProjectInfo extends StatelessWidget {
             SizedBox(width: 15.w),
             Text(
               project.company,
-              style: TextStyle(
-                fontSize: 14.sp,
-                fontFamily: AppFonts.inter,
+              style: context.fontStyle.bodyLarge?.copyWith(
                 fontWeight: FontWeight.w600,
                 color: AppColors.textSecondary,
-                height: 1.5,
               ),
             ),
           ],
@@ -170,11 +164,9 @@ class _TechChip extends StatelessWidget {
       ),
       child: Text(
         label,
-        style: TextStyle(
-          fontSize: 11.5.sp,
-          fontFamily: AppFonts.inter,
+        style: context.fontStyle.labelMedium?.copyWith(
           fontWeight: FontWeight.w500,
-          color: Colors.white,
+          color: AppColors.green,
         ),
       ),
     );
@@ -189,64 +181,18 @@ class _ProjectSideActions extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final caseStudy = InkWell(
-      onTap: () {},
-      child: Container(
-        padding: EdgeInsets.all(8.0),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10.r),
-          border: Border.all(color: AppColors.primaryBlue, width: 0.3),
-        ),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(
-              'Case Study',
-              style: TextStyle(
-                fontSize: 12.sp,
-                fontFamily: AppFonts.inter,
-                fontWeight: FontWeight.w500,
-                color: AppColors.primaryBlue,
-              ),
-            ),
-            SizedBox(width: 10.w),
-            Icon(
-              Icons.arrow_forward_ios,
-              size: 15.r,
-              color: AppColors.primaryBlue,
-            ),
-          ],
-        ),
-      ),
+    final caseStudy = CustomOutlinedButton(
+      onTap: () {
+        context.go(ProjectDetailsPage.routeFor(project.id));
+      },
+      label: 'Case Study',
     );
-
-    final platforms = InkWell(
+    final platforms = CustomOutlinedButton(
+      iconData: Icons.open_in_new,
       onTap: () {
         launchUrl(Uri.parse(project.link));
       },
-      child: Container(
-        padding: EdgeInsets.all(8.0),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10.r),
-          border: Border.all(color: AppColors.primaryBlue, width: 0.3),
-        ),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(
-              "Project Link",
-              style: TextStyle(
-                fontSize: 12.sp,
-                fontFamily: AppFonts.inter,
-                fontWeight: FontWeight.w500,
-                color: AppColors.primaryBlue,
-              ),
-            ),
-            SizedBox(width: 10.w),
-            Icon(Icons.arrow_outward, size: 15.r, color: AppColors.primaryBlue),
-          ],
-        ),
-      ),
+      label: 'Project Link',
     );
 
     if (horizontal) {

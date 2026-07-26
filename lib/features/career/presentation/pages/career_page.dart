@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:myportfolioapp/core/common/hero_header.dart';
 
-import '../../../../core/app_resources/app_colors.dart';
+import '../../../../core/themes/app_colors.dart';
 import '../../../../core/app_resources/app_images.dart';
 import '../../../../core/common/nav_bar.dart';
 import '../../../../core/common/navigation.dart';
 import '../../../../core/utils/responsive.dart';
-import '../../../home/presentation/pages/footer_section.dart';
+import '../../../../core/common/footer_section.dart';
 import '../widgets/education_certification_row.dart';
 import '../widgets/work_timeline.dart';
 
@@ -25,7 +25,7 @@ class CareerPage extends StatelessWidget {
       heading2: 'Summary',
       bodyText:
           'Building scalable mobile and web applications, collaborating with '
-          'teams ,turning idea into\n products and solve real world problems '
+          'teams ,turning idea into\nproducts and solve real world problems '
           'with engineered solutions',
       backgroundImage: AppImages.careerImage,
     ),
@@ -34,7 +34,6 @@ class CareerPage extends StatelessWidget {
     SizedBox(height: 32.h),
     const EducationCertificationRow(),
     SizedBox(height: 20.h),
-    const FooterSection(),
   ];
   @override
   Widget build(BuildContext context) {
@@ -52,6 +51,7 @@ class CareerPage extends StatelessWidget {
               onItemTap: (item) => navigateToSection(context, item),
             )
           : null,
+      bottomNavigationBar: const FooterSection(),
       body: ListView.builder(
         padding: EdgeInsets.symmetric(horizontal: 20.w),
         itemCount: items.length,

@@ -4,25 +4,18 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:myportfolioapp/core/app_resources/app_colors.dart';
+import 'package:myportfolioapp/core/themes/app_colors.dart';
 import 'package:myportfolioapp/core/app_resources/app_constants.dart';
-import 'package:myportfolioapp/core/app_resources/app_fonts.dart';
 import 'package:myportfolioapp/core/app_resources/app_images.dart';
 import 'package:myportfolioapp/features/blogs/domain/entity/blog_details_item.dart';
 import 'package:flutter_code_view/flutter_code_view.dart';
 
+import '../../../../core/themes/responsive_text_theme.dart';
 import '../../../../core/utils/toast.dart';
 
 class DescriptionItemCard extends StatelessWidget {
   final BlogDetailsItem? element;
-  final bool isMobile;
-  final bool isTab;
-  const DescriptionItemCard({
-    super.key,
-    this.element,
-    required this.isMobile,
-    required this.isTab,
-  });
+  const DescriptionItemCard({super.key, this.element});
 
   @override
   Widget build(BuildContext context) {
@@ -32,23 +25,13 @@ class DescriptionItemCard extends StatelessWidget {
       case AppConstants.Heading:
         return Text(
           element?.text ?? "",
-          style: TextStyle(
-            fontSize: isMobile ? 16.sp : 20.sp,
-            fontWeight: FontWeight.w600,
+          style: context.fontStyle.headlineMedium?.copyWith(
             color: AppColors.textPrimary,
           ),
         );
 
       case AppConstants.Body:
-        return Text(
-          element?.text ?? "",
-          style: TextStyle(
-            fontSize: isMobile ? 12.sp : 14.sp,
-            fontFamily: AppFonts.inter,
-            fontWeight: FontWeight.w400,
-            color: AppColors.textSecondary,
-          ),
-        );
+        return Text(element?.text ?? "", style: context.fontStyle.bodySmall);
       case AppConstants.Spacer:
         return SizedBox(height: height * (element?.height ?? 1));
       case AppConstants.Image:
@@ -81,7 +64,7 @@ class DescriptionItemCard extends StatelessWidget {
               source: element?.text ?? "",
               themeType: ThemeType.atomOneDark,
               language: Languages.dart,
-              fontSize: isMobile ? 10.sp : 14.sp,
+              fontSize: context.fontStyle.bodySmall?.fontSize,
               borderRadiusCodeView: BorderRadius.circular(10.r),
               paddingBorder: EdgeInsets.all(1),
               padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
@@ -112,7 +95,7 @@ class DescriptionItemCard extends StatelessWidget {
               source: element?.text ?? "",
               themeType: ThemeType.atomOneDark,
               language: Languages.javascript,
-              fontSize: isMobile ? 10.sp : 14.sp,
+              fontSize: context.fontStyle.bodySmall?.fontSize,
               borderRadiusCodeView: BorderRadius.circular(10.r),
               paddingBorder: EdgeInsets.all(1),
               padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),

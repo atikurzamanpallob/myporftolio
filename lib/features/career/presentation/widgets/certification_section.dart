@@ -4,12 +4,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:myportfolioapp/core/app_resources/app_images.dart';
 import 'package:myportfolioapp/core/common/glass_card.dart';
+import 'package:myportfolioapp/core/themes/responsive_text_theme.dart';
 import 'package:myportfolioapp/features/career/domain/entity/certificate_item.dart';
 import 'package:myportfolioapp/features/career/presentation/bloc/career_bloc.dart';
 import 'package:myportfolioapp/features/career/presentation/bloc/career_state.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../../../../core/app_resources/app_colors.dart';
+import '../../../../core/themes/app_colors.dart';
 import '../../../../core/utils/responsive.dart';
 
 class CertificationSection extends StatelessWidget {
@@ -24,14 +25,7 @@ class CertificationSection extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Certifications',
-          style: TextStyle(
-            fontSize: 14.sp,
-            fontWeight: FontWeight.w600,
-            color: Colors.white,
-          ),
-        ),
+        Text('Certifications', style: context.fontStyle.headlineSmall),
         SizedBox(height: 16.h),
         Padding(
           padding: EdgeInsets.only(
@@ -110,30 +104,16 @@ class _CertificationChip extends StatelessWidget {
         children: [
           Row(
             children: [
-              Text(
-                title,
-                style: TextStyle(
-                  fontSize: 14.sp,
-                  fontWeight: FontWeight.w700,
-                  color: Colors.white,
-                ),
-              ),
+              Text(title, style: context.fontStyle.bodyLarge),
               SizedBox(width: 15.w),
               InkWell(
                 onTap: () {
                   launchUrl(Uri.parse(certificateurl));
                 },
-                child: Container(
-                  padding: const EdgeInsets.all(4.0),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(5.r),
-                    border: Border.all(color: AppColors.primaryBlue, width: 1),
-                  ),
-                  child: Icon(
-                    Icons.arrow_outward,
-                    size: 15.r,
-                    color: AppColors.primaryBlue,
-                  ),
+                child: Icon(
+                  Icons.open_in_new,
+                  size: 20.r,
+                  color: AppColors.primaryBlue,
                 ),
               ),
             ],
@@ -141,8 +121,7 @@ class _CertificationChip extends StatelessWidget {
           SizedBox(height: 4.h),
           Text(
             issuer,
-            style: TextStyle(
-              fontSize: 12.sp,
+            style: context.fontStyle.labelLarge?.copyWith(
               fontWeight: FontWeight.w600,
               color: AppColors.accentGreen,
             ),

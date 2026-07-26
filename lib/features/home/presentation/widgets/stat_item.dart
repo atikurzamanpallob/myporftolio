@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:myportfolioapp/core/themes/responsive_text_theme.dart';
 
-import '../../../../core/app_resources/app_colors.dart';
+import '../../../../core/themes/app_colors.dart';
 
 /// One row inside the "About" card: icon in a circle + big number + label.
 class StatItem extends StatelessWidget {
@@ -44,20 +45,18 @@ class StatItem extends StatelessWidget {
           children: [
             Text(
               value,
-              style: TextStyle(
-                fontSize: 20.sp,
-                fontWeight: FontWeight.w600,
-                color: AppColors.accentGreen,
+              style: context.fontStyle.titleLarge?.copyWith(
                 height: 1.1,
+                color: AppColors.green,
+                fontWeight: FontWeight.w600,
               ),
             ),
             SizedBox(height: 1.h),
             Text(
               label,
-              style: TextStyle(
-                fontSize: 14.sp,
-                fontWeight: FontWeight.w600,
-                color: AppColors.textPrimary,
+              style: context.fontStyle.bodyMedium?.copyWith(
+                color: AppColors.textSecondary,
+                fontWeight: FontWeight.w400,
               ),
             ),
           ],

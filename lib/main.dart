@@ -3,8 +3,9 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:myportfolioapp/core/di/injection.dart';
 import 'package:myportfolioapp/core/supabase/supabase_client.dart';
+import 'package:myportfolioapp/core/themes/text_theme.dart';
 
-import 'core/app_resources/app_colors.dart';
+import 'core/themes/app_colors.dart';
 import 'core/utils/responsive.dart';
 import 'core/common/routes.dart';
 
@@ -41,6 +42,7 @@ class PortfolioApp extends StatelessWidget {
               seedColor: AppColors.primaryBlue,
               brightness: Brightness.dark,
             ),
+            textTheme: textTheme,
             useMaterial3: true,
           ),
         );

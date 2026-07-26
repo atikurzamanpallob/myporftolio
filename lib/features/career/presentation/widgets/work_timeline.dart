@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:myportfolioapp/core/common/stagger_list_animation.dart';
+import 'package:myportfolioapp/core/themes/responsive_text_theme.dart';
 import 'package:myportfolioapp/features/career/domain/entity/work_experience_item.dart';
 import 'package:myportfolioapp/features/career/presentation/bloc/career_bloc.dart';
 import 'package:myportfolioapp/features/career/presentation/bloc/career_state.dart';
 
-import '../../../../core/app_resources/app_colors.dart';
+import '../../../../core/themes/app_colors.dart';
 import '../../../../core/utils/responsive.dart';
 import 'experience_card.dart';
 
@@ -28,18 +29,13 @@ class WorkTimeline extends StatelessWidget {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                'Work Experience',
-                style: TextStyle(
-                  fontSize: 14.sp,
-                  fontWeight: FontWeight.w600,
-                  color: Colors.white,
-                ),
-              ),
+              Text('Work Experience', style: context.fontStyle.headlineSmall),
               SizedBox(height: 20.h),
-
-              for (int i = 0; i < experiences.length; i++)
-                isMobile
+              ListView.builder(
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+                itemCount: experiences.length,
+                itemBuilder: (context, i) => isMobile
                     ? StaggerListAnimation(
                         index: i,
                         item: _MobileTimelineItem(
@@ -54,6 +50,7 @@ class WorkTimeline extends StatelessWidget {
                           isLast: i == experiences.length - 1,
                         ),
                       ),
+              ),
             ],
           );
         },
@@ -82,11 +79,8 @@ class _RailTimelineItem extends StatelessWidget {
                 children: [
                   Text(
                     experience.year,
-                    style: TextStyle(
-                      fontSize: 15.sp,
+                    style: context.fontStyle.headlineSmall?.copyWith(
                       fontStyle: FontStyle.italic,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.white,
                     ),
                   ),
                   SizedBox(height: 10.h),

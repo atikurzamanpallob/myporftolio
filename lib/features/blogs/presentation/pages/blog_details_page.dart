@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:myportfolioapp/core/app_resources/app_colors.dart';
+import 'package:myportfolioapp/core/themes/app_colors.dart';
 import 'package:myportfolioapp/core/common/glass_card.dart';
 import 'package:myportfolioapp/core/common/nav_bar.dart';
 import 'package:myportfolioapp/core/common/navigation.dart';
@@ -10,7 +10,7 @@ import 'package:myportfolioapp/features/blogs/domain/entity/blog_details_item.da
 import 'package:myportfolioapp/features/blogs/presentation/bloc/blog_details_bloc.dart';
 import 'package:myportfolioapp/features/blogs/presentation/bloc/blog_state.dart';
 import 'package:myportfolioapp/features/blogs/presentation/widgets/back_button.dart';
-import '../../../home/presentation/pages/footer_section.dart';
+import '../../../../core/common/footer_section.dart';
 import '../widgets/description_item_card.dart';
 import '../widgets/side_bar.dart';
 import '../widgets/top_hero_banner.dart';
@@ -39,6 +39,8 @@ class BlogDetailsPage extends StatelessWidget {
               onItemTap: (item) => navigateToSection(context, item),
             )
           : null,
+      bottomNavigationBar: const FooterSection(),
+
       body: BlogDetailBody(),
     );
   }
@@ -87,7 +89,6 @@ class BlogDetailBody extends StatelessWidget {
                     ],
                   ),
                 SizedBox(height: 48.h),
-                const FooterSection(),
               ],
             ),
           ),
@@ -128,17 +129,11 @@ class ContentSections extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool isMobile = Responsive.isMobile(context);
-    bool isTab = Responsive.isTablet(context);
     return ListView.builder(
       shrinkWrap: true,
       itemCount: sections.length,
       itemBuilder: (context, index) {
-        return DescriptionItemCard(
-          element: sections[index],
-          isMobile: isMobile,
-          isTab: isTab,
-        );
+        return DescriptionItemCard(element: sections[index]);
       },
     );
   }

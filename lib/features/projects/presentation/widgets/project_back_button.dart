@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:myportfolioapp/core/themes/responsive_text_theme.dart';
+import 'package:myportfolioapp/features/projects/presentation/pages/projects_page.dart';
 
 import '../../../../core/themes/app_colors.dart';
-import '../pages/blogs_page.dart';
 
-class BlogBackButton extends StatelessWidget {
-  const BlogBackButton({super.key});
+class ProjectBackButton extends StatelessWidget {
+  const ProjectBackButton({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +15,7 @@ class BlogBackButton extends StatelessWidget {
       cursor: SystemMouseCursors.click,
       child: GestureDetector(
         onTap: () {
-          context.go(BlogsPage.route);
+          context.go(ProjectsPage.route);
         },
         child: Row(
           mainAxisSize: MainAxisSize.min,
@@ -34,7 +34,7 @@ class BlogBackButton extends StatelessWidget {
               ),
             ),
             SizedBox(width: 10.w),
-            Text('Back to Blogs', style: context.fontStyle.bodyMedium),
+            Text('Back to Projects', style: context.fontStyle.bodyMedium),
           ],
         ),
       ),

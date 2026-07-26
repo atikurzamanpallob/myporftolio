@@ -3,11 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:myportfolioapp/core/app_resources/app_icons.dart';
+import 'package:myportfolioapp/core/common/custom_outlined_button.dart';
 import 'package:myportfolioapp/core/common/glass_card.dart';
+import 'package:myportfolioapp/core/themes/responsive_text_theme.dart';
 import 'package:myportfolioapp/features/blogs/domain/entity/blog_item.dart';
 
-import '../../../../core/app_resources/app_colors.dart';
-import '../../../../core/app_resources/app_fonts.dart';
+import '../../../../core/themes/app_colors.dart';
 import '../../../../core/app_resources/app_images.dart';
 import '../../../../core/utils/responsive.dart';
 import '../pages/blog_details_page.dart';
@@ -21,7 +22,6 @@ class BlogCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bool isMobile = Responsive.isMobile(context);
-
     final thumbnail = Container(
       width: isMobile ? double.infinity : 330.w,
       height: isMobile ? 160.h : 210.h,
@@ -51,33 +51,19 @@ class BlogCard extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
       children: [
-        Text(
-          post.categoryName,
-          style: TextStyle(
-            fontSize: 13.sp,
-            fontWeight: FontWeight.w600,
-            color: AppColors.primaryBlue,
-          ),
-        ),
+        Text(post.categoryName, style: context.fontStyle.bodyMedium),
         SizedBox(height: 8.h),
         Text(
           post.title,
-          style: TextStyle(
-            fontSize: isMobile ? 17.sp : 20.sp,
+          style: context.fontStyle.headlineSmall?.copyWith(
             fontWeight: FontWeight.w700,
-            color: Colors.white,
-            height: 1.25,
           ),
         ),
         SizedBox(height: 8.h),
         Text(
           post.shortDescription,
-          style: TextStyle(
-            fontSize: 12.5.sp,
-            fontFamily: AppFonts.inter,
-            color: AppColors.textSecondary,
-            height: 1.4,
-          ),
+          maxLines: 2,
+          style: context.fontStyle.bodySmall,
         ),
         SizedBox(height: 16.h),
         Wrap(
@@ -92,70 +78,47 @@ class BlogCard extends StatelessWidget {
       ],
     );
 
-    final readMore = InkWell(
+    final readMore = CustomOutlinedButton(
       onTap: () {
         context.go(BlogDetailsPage.routeFor(post.id));
       },
-      child: Container(
-        padding: EdgeInsets.all(8.0),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10.r),
-          border: Border.all(color: AppColors.primaryBlue, width: 0.3),
-        ),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(
-              'Read More',
-              style: TextStyle(
-                fontSize: 12.sp,
-                fontFamily: AppFonts.inter,
-                fontWeight: FontWeight.w500,
-                color: AppColors.primaryBlue,
-              ),
-            ),
-            SizedBox(width: 10.w),
-            Icon(
-              Icons.arrow_forward_ios,
-              size: 15.r,
-              color: AppColors.primaryBlue,
-            ),
-          ],
-        ),
-      ),
+      label: 'Read More',
     );
 
     return Padding(
       padding: const EdgeInsets.only(top: 10),
-      child: GlassCard(
-        child: Container(
-          width: double.infinity,
-          padding: EdgeInsets.all(isMobile ? 16.r : 24.r),
-          decoration: BoxDecoration(borderRadius: BorderRadius.circular(8.r)),
-          child: isMobile
-              ? Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    thumbnail,
-                    SizedBox(height: 16.h),
-                    info,
-                    SizedBox(height: 16.h),
-                    Align(alignment: Alignment.centerRight, child: readMore),
-                  ],
-                )
-              : IntrinsicHeight(
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-
+      child: Hero(
+        tag: 'blog-thumbnail',
+        child: GlassCard(
+          child: Container(
+            width: double.infinity,
+            padding: EdgeInsets.all(isMobile ? 16.r : 24.r),
+            decoration: BoxDecoration(borderRadius: BorderRadius.circular(8.r)),
+            child: isMobile
+                ? Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       thumbnail,
-                      SizedBox(width: 24.w),
-                      Expanded(child: info),
-                      SizedBox(width: 16.w),
-                      Align(alignment: Alignment.topRight, child: readMore),
+                      SizedBox(height: 16.h),
+                      info,
+                      SizedBox(height: 16.h),
+                      Align(alignment: Alignment.centerRight, child: readMore),
                     ],
+                  )
+                : IntrinsicHeight(
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+
+                      children: [
+                        thumbnail,
+                        SizedBox(width: 24.w),
+                        Expanded(child: info),
+                        SizedBox(width: 16.w),
+                        Align(alignment: Alignment.topRight, child: readMore),
+                      ],
+                    ),
                   ),
-                ),
+          ),
         ),
       ),
     );

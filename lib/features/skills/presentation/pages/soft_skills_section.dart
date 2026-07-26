@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../../core/themes/responsive_text_theme.dart';
 import '../../../../core/utils/responsive.dart';
 import '../../data/models/skill_category_models.dart';
 import '../widgets/soft_skill_card.dart';
@@ -26,14 +27,7 @@ class SoftSkillsSection extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            'Soft Skills',
-            style: TextStyle(
-              fontSize: 14.sp,
-              fontWeight: FontWeight.w600,
-              color: Colors.white,
-            ),
-          ),
+          Text('Soft Skills', style: context.fontStyle.headlineSmall),
           SizedBox(height: 16.h),
           LayoutBuilder(
             builder: (context, constraints) {

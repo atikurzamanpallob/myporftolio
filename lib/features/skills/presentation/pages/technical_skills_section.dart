@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../../core/themes/responsive_text_theme.dart';
 import '../../../../core/utils/responsive.dart';
 import '../../data/models/skill_category_models.dart';
 import '../widgets/skill_category_card.dart';
@@ -18,21 +19,11 @@ class TechnicalSkillsSection extends StatelessWidget {
     final double spacing = 16.w;
 
     return Padding(
-      padding: EdgeInsets.symmetric(
-        horizontal: isMobile ? 16.w : 40.w,
-        vertical: 10.h,
-      ),
+      padding: EdgeInsets.symmetric(horizontal: isMobile ? 16.w : 40.w),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            'Technical Skills',
-            style: TextStyle(
-              fontSize: 14.sp,
-              fontWeight: FontWeight.w600,
-              color: Colors.white,
-            ),
-          ),
+          Text('Technical Skills', style: context.fontStyle.headlineSmall),
           SizedBox(height: 16.h),
           LayoutBuilder(
             builder: (context, constraints) {

@@ -7,7 +7,7 @@ import 'package:myportfolioapp/features/projects/presentation/bloc/project_event
 import 'package:myportfolioapp/features/projects/presentation/bloc/project_state.dart';
 
 import '../../../../core/app_resources/app_fonts.dart';
-import '../../../../core/app_resources/app_colors.dart';
+import '../../../../core/themes/app_colors.dart';
 import '../../../../core/utils/responsive.dart';
 import '../widgets/project_card.dart';
 import '../widgets/project_filter_bar.dart';

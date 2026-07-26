@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../../../core/app_resources/app_colors.dart';
 import '../../../../core/app_resources/app_icons.dart';
+import '../../../../core/themes/responsive_text_theme.dart';
 import '../../../../core/utils/responsive.dart';
 import '../widgets/service_card.dart';
 
@@ -40,20 +40,13 @@ class WhatIDoSection extends StatelessWidget {
 
     return Padding(
       padding: EdgeInsets.symmetric(
-        horizontal: isMobile ? 16.w : 55.w,
+        horizontal: isMobile ? 16.w : 40.w,
         vertical: 5.h,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            'WHAT I DO',
-            style: TextStyle(
-              fontSize: 14.sp,
-              fontWeight: FontWeight.w600,
-              color: AppColors.textPrimary,
-            ),
-          ),
+          Text('What I Do', style: context.fontStyle.headlineSmall),
           SizedBox(height: 10.h),
           GridView.builder(
             shrinkWrap: true,

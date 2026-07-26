@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../app_resources/app_colors.dart';
+import '../themes/app_colors.dart';
 import '../app_resources/app_fonts.dart';
 import 'field_label.dart';
 
