@@ -29,9 +29,16 @@ InputDecoration buildInputDecoration(String hint) {
 class SectionCard extends StatelessWidget {
   final String? title;
   final Function? onAdd;
+  final Function? submit;
   final Widget child;
 
-  const SectionCard({super.key, this.title, this.onAdd, required this.child});
+  const SectionCard({
+    super.key,
+    this.title,
+    this.onAdd,
+    required this.child,
+    this.submit,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -43,46 +50,92 @@ class SectionCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(12),
         border: Border.all(color: AppColors.cardBorder),
       ),
-      child: title != null
-          ? Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  title ?? "",
-                  style: const TextStyle(
-                    color: AppColors.textPrimary,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                  ),
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: .spaceBetween,
+            children: [
+              Text(
+                title ?? "",
+                style: const TextStyle(
+                  color: AppColors.textPrimary,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
                 ),
+              ),
 
-                const SizedBox(height: 18),
-                child,
-              ],
-            )
-          : Column(
-              children: [
-                onAdd != null
-                    ? Row(
-                        mainAxisAlignment: .end,
+              onAdd != null
+                  ? InkWell(
+                      onTap: () {
+                        if (onAdd != null) {
+                          onAdd!();
+                        }
+                      },
+                      child: Row(
                         children: [
-                          InkWell(
-                            onTap: () {
-                              onAdd!();
-                            },
-                            child: Row(
-                              children: [
-                                Text("Add"),
-                                Icon(Icons.add, color: AppColors.textPrimary),
-                              ],
+                          Text(
+                            "Add",
+                            style: const TextStyle(
+                              color: AppColors.textPrimary,
+                              fontSize: 12,
+                              fontWeight: FontWeight.w600,
                             ),
                           ),
+                          Icon(Icons.add, color: AppColors.textPrimary),
                         ],
-                      )
-                    : SizedBox.shrink(),
-                child,
-              ],
-            ),
+                      ),
+                    )
+                  : SizedBox.shrink(),
+            ],
+          ),
+          SizedBox(height: 10),
+          child,
+          submit != null
+              ? Column(
+                  mainAxisAlignment: .center,
+                  crossAxisAlignment: .end,
+                  children: [
+                    SizedBox(height: 10),
+                    InkWell(
+                      onTap: () {
+                        if (submit != null) {
+                          submit!();
+                        }
+                      },
+                      child: Container(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 10,
+                          vertical: 5,
+                        ),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(6),
+                          border: Border.all(
+                            width: 0.5,
+                            color: AppColors.primaryBlue,
+                          ),
+                        ),
+                        child: Row(
+                          mainAxisSize: .min,
+                          children: [
+                            Text(
+                              "Submit",
+                              style: const TextStyle(
+                                color: AppColors.textPrimary,
+                                fontSize: 12,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                            SizedBox(width: 10),
+                            Icon(Icons.send, color: AppColors.primaryBlue),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                )
+              : SizedBox.shrink(),
+        ],
+      ),
     );
   }
 }
