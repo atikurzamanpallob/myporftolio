@@ -2,18 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:myportfolioapp/core/app_resources/app_icons.dart';
 import 'package:myportfolioapp/core/app_resources/app_images.dart';
-import 'package:myportfolioapp/core/common/custom_outlined_button.dart';
 import 'package:myportfolioapp/core/themes/app_colors.dart';
+import 'package:myportfolioapp/core/themes/responsive_size.dart';
 import 'package:myportfolioapp/features/blogs/presentation/widgets/meta_item.dart';
+import '../../../../core/common/custom_outlined_button.dart';
 import '../../../../core/themes/responsive_text_theme.dart';
-import '../../../../core/utils/responsive.dart';
 
 class ProjectHeroSection extends StatelessWidget {
   const ProjectHeroSection({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final bool isMobile = Responsive.isMobile(context);
     return Hero(
       tag: 'project_hero',
       child: Container(
@@ -22,7 +21,7 @@ class ProjectHeroSection extends StatelessWidget {
           borderRadius: BorderRadius.circular(10),
           border: Border.all(width: 0.05, color: AppColors.primaryBlue),
         ),
-        child: isMobile ? mobile(context) : desktop(context),
+        child: context.isMobile ? mobile(context) : desktop(context),
       ),
     );
   }
@@ -48,23 +47,16 @@ class ProjectHeroSection extends StatelessWidget {
   }
 
   Widget heroImage() {
-    return Column(
-      children: [
-        Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            border: Border.all(width: 0.3, color: AppColors.primaryBlue),
-          ),
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(10),
-            child: Image.asset(
-              AppImages.projectImage,
-              height: 260.h,
-              fit: BoxFit.cover,
-            ),
-          ),
-        ),
-      ],
+    return Container(
+      height: 250.h,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+        border: Border.all(width: 0.3, color: AppColors.primaryBlue),
+      ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(10),
+        child: Image.asset(AppImages.projectImage, fit: BoxFit.cover),
+      ),
     );
   }
 
@@ -99,7 +91,7 @@ class ProjectHeroSection extends StatelessWidget {
             MetaItem(icon: AppIcons.persons, label: "Personal"),
           ],
         ),
-        SizedBox(height: 30.h),
+        SizedBox(height: 20.h),
         CustomOutlinedButton(
           onTap: () {},
           label: "Project Link",

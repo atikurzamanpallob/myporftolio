@@ -4,12 +4,12 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:myportfolioapp/core/app_resources/app_icons.dart';
 import 'package:myportfolioapp/core/common/glass_card.dart';
 import 'package:myportfolioapp/core/themes/app_colors.dart';
-
-import '../../../../core/themes/responsive_text_theme.dart';
+import 'package:myportfolioapp/features/projects/domain/entity/project_tech_stack.dart';
+import 'package:myportfolioapp/features/projects/presentation/widgets/tech_chip.dart';
 import '../../../blogs/presentation/widgets/side_bar_heading.dart';
 
 class TechStacks extends StatelessWidget {
-  final List<String> techStacks;
+  final List<ProjectTechStack> techStacks;
   const TechStacks({super.key, required this.techStacks});
 
   @override
@@ -51,21 +51,7 @@ class TechStacks extends StatelessWidget {
                 alignment: WrapAlignment.start,
                 children: [
                   for (int i = 0; i < techStacks.length; i++)
-                    Container(
-                      padding: EdgeInsets.all(5),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5.r),
-                        color: AppColors.primaryBlue,
-                      ),
-
-                      child: Text(
-                        techStacks[i],
-                        overflow: TextOverflow.ellipsis,
-                        style: context.fontStyle.labelMedium?.copyWith(
-                          color: AppColors.textPrimary,
-                        ),
-                      ),
-                    ),
+                    TechChip(techStack: techStacks[i]),
                 ],
               ),
             ),

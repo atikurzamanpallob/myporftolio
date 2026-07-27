@@ -10,7 +10,7 @@ class ProjectDetailsItemList extends StatelessWidget {
       itemCount: 6,
       shrinkWrap: true,
       itemBuilder: (ctx, i) {
-        return TechStacks(techStacks: ["Flutter", "Dart", "Java", "Node"]);
+        return TechStacks(techStacks: []);
       },
     );
   }

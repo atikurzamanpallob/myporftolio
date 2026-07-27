@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:myportfolioapp/core/themes/responsive_size.dart';
 import 'package:myportfolioapp/features/projects/presentation/widgets/page_contents_card.dart';
 import 'package:myportfolioapp/features/projects/presentation/widgets/project_back_button.dart';
 import 'package:myportfolioapp/features/projects/presentation/pages/project_details_item_list.dart';
@@ -56,11 +57,9 @@ class ProjectBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bool isMobile = Responsive.isMobile(context);
-    final bool isDesktop = Responsive.isDesktop(context);
-    final double hPad = isMobile
+    final double hPad = context.isMobile
         ? 16
-        : isDesktop
+        : context.isDesktop
         ? 80
         : 40;
     return SingleChildScrollView(
@@ -74,7 +73,7 @@ class ProjectBody extends StatelessWidget {
             SizedBox(height: 20.h),
             ProjectHeroSection(),
             SizedBox(height: 20.h),
-            isMobile ? mobileContent() : desktopContent(),
+            context.isMobile ? mobileContent() : desktopContent(),
             SizedBox(height: 48.h),
           ],
         ),

@@ -7,13 +7,13 @@ import 'package:myportfolioapp/core/common/custom_outlined_button.dart';
 import 'package:myportfolioapp/core/common/glass_card.dart';
 import 'package:myportfolioapp/core/themes/responsive_text_theme.dart';
 import 'package:myportfolioapp/features/projects/domain/entity/project_item.dart';
-import 'package:myportfolioapp/features/projects/domain/entity/project_tech_stack.dart';
 import 'package:myportfolioapp/features/projects/presentation/pages/project_details_page.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../core/themes/app_colors.dart';
 import '../../../../core/utils/responsive.dart';
 import 'project_thumbnails.dart';
+import 'tech_chip.dart';
 
 class ProjectCard extends StatelessWidget {
   const ProjectCard({super.key, required this.project});
@@ -114,7 +114,7 @@ class _ProjectInfo extends StatelessWidget {
           spacing: 10.w,
           runSpacing: 10.h,
           children: [
-            for (final tech in project.technology) _TechChip(techStack: tech),
+            for (final tech in project.technology) TechChip(techStack: tech),
           ],
         ),
         SizedBox(height: 16.h),
@@ -139,37 +139,6 @@ class _ProjectInfo extends StatelessWidget {
           ],
         ),
       ],
-    );
-  }
-}
-
-class _TechChip extends StatelessWidget {
-  const _TechChip({required this.techStack});
-  final ProjectTechStack techStack;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(8),
-      decoration: BoxDecoration(
-        border: Border.all(color: AppColors.divider, width: 1),
-        borderRadius: BorderRadius.circular(8.r),
-      ),
-      child: Row(
-        mainAxisSize: .min,
-        children: [
-          SvgPicture.network(techStack.iconUrl, width: 35.r, height: 35.r),
-
-          SizedBox(width: 10.w),
-          Text(
-            techStack.name,
-            style: context.fontStyle.labelMedium?.copyWith(
-              fontWeight: FontWeight.w500,
-              color: AppColors.green,
-            ),
-          ),
-        ],
-      ),
     );
   }
 }
