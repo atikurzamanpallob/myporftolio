@@ -2,28 +2,23 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class ScreenshotThumbnailGrid extends StatefulWidget {
+class ThumbnailPreview extends StatefulWidget {
   final List<PlatformFile> files;
   final int column;
-  const ScreenshotThumbnailGrid({
-    super.key,
-    required this.files,
-    this.column = 4,
-  });
+  const ThumbnailPreview({super.key, required this.files, this.column = 4});
 
   @override
-  State<ScreenshotThumbnailGrid> createState() =>
-      _ScreenshotThumbnailGridState();
+  State<ThumbnailPreview> createState() => _ThumbnailPreviewState();
 }
 
-class _ScreenshotThumbnailGridState extends State<ScreenshotThumbnailGrid> {
+class _ThumbnailPreviewState extends State<ThumbnailPreview> {
   @override
   Widget build(BuildContext context) {
     return widget.column == 1
         ? widget.files.isNotEmpty
               ? Container(
-                  width: 200.w,
-                  height: 200.h,
+                  width: 250.w,
+                  height: 250.h,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8),
                   ),

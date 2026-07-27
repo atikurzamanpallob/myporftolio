@@ -52,7 +52,7 @@ class CustomOutlinedButton extends StatelessWidget {
               SizedBox(width: 10.w),
               Icon(
                 iconData ?? Icons.arrow_forward_ios,
-                size: 15.r,
+                size: 17.r,
                 color: textColor ?? AppColors.primaryBlue,
               ),
             ],

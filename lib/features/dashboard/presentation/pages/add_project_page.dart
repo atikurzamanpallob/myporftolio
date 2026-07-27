@@ -2,6 +2,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:myportfolioapp/core/common/custom_outlined_button.dart';
 import 'package:myportfolioapp/core/themes/app_colors.dart';
 import 'package:myportfolioapp/core/common/common_dialog.dart';
 import 'package:myportfolioapp/features/dashboard/domain/entity/category_list.dart';
@@ -14,7 +15,7 @@ import 'package:myportfolioapp/features/projects/domain/entity/project_tech_stac
 import '../../../../core/common/description_field.dart';
 import '../../../../core/common/label_field.dart' hide buildInputDecoration;
 import '../../../../core/common/labled_dropdown.dart';
-import '../../../../core/common/screen_shot_preview.dart';
+import '../../../../core/common/thumbnail_preview.dart';
 import '../../../projects/domain/entity/project_add_item.dart';
 import '../bloc/dashboard_event.dart';
 import '../widgets/section_widget.dart';
@@ -93,7 +94,36 @@ class _AddProjectPageState extends State<AddProjectPage> {
   }
 
   Widget _buildHeader(BuildContext context, bool isNarrow) {
-    final titleBlock = Column(
+    if (isNarrow) {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [titleBlock(), const SizedBox(height: 16), actions()],
+      );
+    } else {
+      return Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Expanded(child: titleBlock()),
+          actions(),
+        ],
+      );
+    }
+  }
+
+  Widget _buildTwoColumnLayout() {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Expanded(flex: 2, child: _buildLeftColumn()),
+        const SizedBox(width: 24),
+        Expanded(flex: 1, child: _buildRightColumn()),
+      ],
+    );
+  }
+
+  Widget titleBlock() {
+    return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const Text(
@@ -111,8 +141,10 @@ class _AddProjectPageState extends State<AddProjectPage> {
         ),
       ],
     );
+  }
 
-    final actions = Wrap(
+  Widget actions() {
+    return Wrap(
       spacing: 12,
       runSpacing: 12,
       children: [
@@ -141,33 +173,6 @@ class _AddProjectPageState extends State<AddProjectPage> {
             }
           },
         ),
-      ],
-    );
-
-    if (isNarrow) {
-      return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [titleBlock, const SizedBox(height: 16), actions],
-      );
-    }
-
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Expanded(child: titleBlock),
-        actions,
-      ],
-    );
-  }
-
-  Widget _buildTwoColumnLayout() {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Expanded(flex: 2, child: _buildLeftColumn()),
-        const SizedBox(width: 24),
-        Expanded(flex: 1, child: _buildRightColumn()),
       ],
     );
   }
@@ -277,13 +282,11 @@ class _AddProjectPageState extends State<AddProjectPage> {
         SectionCard(
           title: 'Thumbnails',
           child: Column(
+            crossAxisAlignment: .center,
             children: [
-              ScreenshotThumbnailGrid(files: files),
+              ThumbnailPreview(files: files),
               const SizedBox(height: 16),
-              _outlinedIconButton(
-                'Add Images',
-                Icons.add,
-                fullWidth: true,
+              CustomOutlinedButton(
                 onTap: () async {
                   FilePickerResult? results = await FilePicker.pickFiles(
                     allowMultiple: true,
@@ -294,11 +297,27 @@ class _AddProjectPageState extends State<AddProjectPage> {
                   files = results?.files ?? [];
                   setState(() {});
                 },
+                label: "Add Images",
+                iconData: Icons.add_photo_alternate_outlined,
               ),
             ],
           ),
         ),
         const SizedBox(height: 24),
+        SectionCard(
+          title: 'Screenshots',
+          child: Column(
+            crossAxisAlignment: .center,
+            children: [
+              const SizedBox(height: 16),
+              CustomOutlinedButton(
+                onTap: () {},
+                label: "Add Screenshots",
+                iconData: Icons.screenshot,
+              ),
+            ],
+          ),
+        ),
       ],
     );
   }
@@ -314,31 +333,6 @@ class _AddProjectPageState extends State<AddProjectPage> {
       ),
       child: Text(label, style: const TextStyle(fontWeight: FontWeight.w500)),
     );
-  }
-
-  Widget _outlinedIconButton(
-    String label,
-    IconData icon, {
-    required VoidCallback onTap,
-    bool fullWidth = false,
-  }) {
-    final button = OutlinedButton.icon(
-      onPressed: onTap,
-      icon: Icon(icon, size: 16, color: AppColors.accentBlueLight),
-      label: Text(
-        label,
-        style: const TextStyle(
-          color: AppColors.accentBlueLight,
-          fontWeight: FontWeight.w600,
-        ),
-      ),
-      style: OutlinedButton.styleFrom(
-        side: const BorderSide(color: AppColors.accentBlueLight),
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-      ),
-    );
-    return fullWidth ? SizedBox(width: double.infinity, child: button) : button;
   }
 
   Widget _primaryButton(

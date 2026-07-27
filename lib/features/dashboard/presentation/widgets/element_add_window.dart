@@ -5,12 +5,12 @@ import 'package:myportfolioapp/core/app_resources/app_constants.dart';
 import 'package:myportfolioapp/core/common/description_field.dart';
 import 'package:myportfolioapp/core/common/label_field.dart';
 import 'package:myportfolioapp/core/common/labled_dropdown.dart';
+import 'package:myportfolioapp/core/common/thumbnail_preview.dart';
 import 'package:myportfolioapp/features/dashboard/domain/entity/category_list.dart';
 import 'package:myportfolioapp/features/dashboard/domain/entity/description_elements.dart';
 
 import '../../../../core/themes/app_colors.dart';
 import '../../../../core/common/glass_card.dart';
-import '../../../../core/common/screen_shot_preview.dart';
 import 'section_widget.dart';
 
 class ElementAddWindow extends StatefulWidget {
@@ -150,10 +150,7 @@ class _ElementAddWindowState extends State<ElementAddWindow> {
               ],
             ),
             const SizedBox(height: 16),
-            ScreenshotThumbnailGrid(
-              files: file != null ? [file!] : [],
-              column: 1,
-            ),
+            ThumbnailPreview(files: file != null ? [file!] : [], column: 1),
             const SizedBox(height: 16),
             _outlinedIconButton(
               'Add Image',
