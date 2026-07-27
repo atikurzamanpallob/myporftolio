@@ -1,4 +1,5 @@
 // ignore_for_file: avoid_print, avoid_function_literals_in_foreach_calls
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:myportfolioapp/features/dashboard/domain/entity/tech_add_entity.dart';
 import 'package:myportfolioapp/features/projects/data/models/project_item_models.dart';
@@ -18,25 +19,12 @@ abstract class ProjectDatasource {
 class ProjectDatasourceImp extends ProjectDatasource {
   SupabaseClient client;
   ProjectDatasourceImp(this.client);
-  final storageUrl = dotenv.get("STORAGE_URL");
 
   @override
   Future<bool> addProject({required ProjectAddItem model}) async {
-    List<String> imageUrls = [];
+    List<String> imageUrls = [], solutions = [], screenshots = [];
+    List<Map<String, dynamic>> techList = [], keyFeatures = [];
     try {
-      for (final file in model.files) {
-        final fileName =
-            "${DateTime.now().millisecondsSinceEpoch}_${sanitizeFileName(file.name)}";
-        var imageaddress = await client.storage
-            .from('project_images')
-            .uploadBinary(
-              fileName,
-              file.bytes!,
-              fileOptions: FileOptions(contentType: "image/jpeg"),
-            );
-        imageUrls.add("$storageUrl/$imageaddress");
-      }
-      List<Map<String, dynamic>> techList = [];
       model.technology.forEach((tech) {
         techList.add({
           "id": tech.id,
@@ -45,15 +33,63 @@ class ProjectDatasourceImp extends ProjectDatasource {
         });
       });
 
-      await client.from('projects').insert({
-        "index": model.index,
-        "name": model.name,
-        "type": model.type,
-        "link": model.link,
-        "company": model.company,
-        "description": model.description,
-        "technology": techList,
-        "images": imageUrls,
+      model.keyFeatures.forEach((feature) {
+        keyFeatures.add({
+          "title": feature.title.text,
+          "description": feature.value.text,
+        });
+      });
+      model.solutions.forEach((solution) {
+        solutions.add(solution.text);
+      });
+
+      var project = await client
+          .from('projects')
+          .insert({
+            "index": model.index,
+            "name": model.name,
+            "type": model.type,
+            "link": model.link,
+            "company": model.company,
+            "description": model.description,
+            "technology": techList,
+          })
+          .select()
+          .single();
+      int projectId = project['id'];
+      print(projectId);
+
+      if (model.files.isNotEmpty) {
+        await Future.forEach(model.files, (file) async {
+          String? url = await getFileUrls(file: file, id: projectId);
+          if (url != null) {
+            imageUrls.add(url);
+          }
+        });
+        await client
+            .from('projects')
+            .update({'images': imageUrls})
+            .eq('id', projectId);
+      }
+
+      if (model.screenshots.isNotEmpty) {
+        await Future.forEach(model.screenshots, (file) async {
+          String? url = await getFileUrls(file: file, id: projectId);
+          if (url != null) {
+            screenshots.add(url);
+          }
+        });
+      }
+
+      await client.from('project_details').insert({
+        "project_id": project['id'],
+        "role": model.role,
+        "platform": model.platform,
+        "overview": model.overview,
+        "key_features": keyFeatures,
+        "challenges": model.challenges,
+        "solutions": solutions,
+        "screenshots": screenshots,
       });
     } on StorageException catch (e) {
       print("Storage Error");
@@ -83,13 +119,12 @@ class ProjectDatasourceImp extends ProjectDatasource {
   }
 
   String sanitizeFileName(String name) {
-    return name
-        .replaceAll(RegExp(r'\s+'), '_')
-        .replaceAll(RegExp(r'[^a-zA-Z0-9._-]'), '');
+    return "${DateTime.now().millisecondsSinceEpoch}_${name.replaceAll(RegExp(r'\s+'), '_').replaceAll(RegExp(r'[^a-zA-Z0-9._-]'), '')}";
   }
 
   @override
   Future<bool> addTechStacks({required List<TechAddEntity> techStacks}) async {
+    final storageUrl = dotenv.get("STORAGE_URL");
     List<Map<String, dynamic>> techMaps = [];
 
     await Future.forEach(techStacks, (tech) async {
@@ -126,5 +161,27 @@ class ProjectDatasourceImp extends ProjectDatasource {
       techStacks.add(tech.toEntity());
     });
     return techStacks;
+  }
+
+  Future<String?> getFileUrls({
+    required PlatformFile? file,
+    required int id,
+    String contentType = "image/jpeg",
+  }) async {
+    final storageUrl = dotenv.get("STORAGE_URL");
+
+    if (file != null) {
+      final fileName = sanitizeFileName(file.name);
+      var upLocation = await client.storage
+          .from('projects/$id')
+          .uploadBinary(
+            fileName,
+            file.bytes!,
+            fileOptions: FileOptions(contentType: contentType),
+          );
+      return "$storageUrl/$upLocation";
+    } else {
+      return null;
+    }
   }
 }

@@ -30,7 +30,7 @@ class ProjectThumbnails extends StatelessWidget {
             child: _PhoneFrame(
               width: width.w,
               height: height.h - 14.h,
-              imageUrl: imageUrls.first,
+              imageUrl: imageUrls.isNotEmpty ? imageUrls.first : "",
               muted: true,
             ),
           ),
@@ -40,7 +40,7 @@ class ProjectThumbnails extends StatelessWidget {
             child: _PhoneFrame(
               width: width.w,
               height: height.h - 14.h,
-              imageUrl: imageUrls.last,
+              imageUrl: imageUrls.isNotEmpty ? imageUrls.last : "",
               muted: false,
             ),
           ),

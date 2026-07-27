@@ -42,27 +42,34 @@ class _AddProjectPageState extends State<AddProjectPage> {
   var projectLinkController = TextEditingController();
   var projectPlatformController = TextEditingController();
   var projectRoleController = TextEditingController();
+  var challengesController = TextEditingController();
   var problemController = TextEditingController();
   var indexController = TextEditingController();
   var companyName = TextEditingController();
   var formKey = GlobalKey<FormState>();
 
-  void clear() {
-    setState(() {
-      projectNameController.clear();
-      descriptionController.clear();
-      projectLinkController.clear();
-      projectPlatformController.clear();
-      projectRoleController.clear();
-      overviewController.clear();
-      category = null;
-      techStacks = [];
-      indexController.clear();
-      files.clear();
-    });
-  }
-
   List<ProjectTechStack> techStacks = [], mainList = [];
+
+  @override
+  void dispose() {
+    super.dispose();
+    descriptionController.dispose();
+    overviewController.dispose();
+    projectNameController.dispose();
+    problemController.dispose();
+    projectLinkController.dispose();
+    projectPlatformController.dispose();
+    projectRoleController.dispose();
+    challengesController.dispose();
+    indexController.dispose();
+    companyName.dispose();
+    techStacks.clear();
+    mainList.clear();
+    solutions.clear();
+    keyFeatures.clear();
+    files.clear();
+    screenShots.clear();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -76,7 +83,6 @@ class _AddProjectPageState extends State<AddProjectPage> {
         }
         if (state.isLoading == false) {
           Navigator.pop(context);
-          clear();
         }
       },
       builder: (context, state) {
@@ -179,6 +185,13 @@ class _AddProjectPageState extends State<AddProjectPage> {
                       link: projectLinkController.text,
                       technology: techStacks,
                       files: files,
+                      role: projectRoleController.text,
+                      platform: projectPlatformController.text,
+                      overview: overviewController.text,
+                      challenges: challengesController.text,
+                      solutions: solutions,
+                      keyFeatures: keyFeatures,
+                      screenshots: screenShots,
                     ),
                   ),
                 );
@@ -271,20 +284,23 @@ class _AddProjectPageState extends State<AddProjectPage> {
                     ),
                   ],
                 ),
-                ResponsiveFieldRow(
-                  children: [
-                    DescriptionField(
-                      label: "Add Overview",
-                      hints: "write here..",
-                      hasLimit: false,
-                      controller: overviewController,
-                      minLines: 4,
-                      maxLines: 4,
-                    ),
-                  ],
-                ),
               ],
             ),
+          ),
+        ),
+        SizedBox(height: 20.h),
+        SectionCard(
+          title: "Overview",
+          child: ResponsiveFieldRow(
+            children: [
+              DescriptionField(
+                hints: "write here..",
+                hasLimit: false,
+                controller: overviewController,
+                minLines: 4,
+                maxLines: 4,
+              ),
+            ],
           ),
         ),
         SizedBox(height: 20.h),
@@ -331,6 +347,21 @@ class _AddProjectPageState extends State<AddProjectPage> {
             });
           },
           keyFeatures: keyFeatures,
+        ),
+        SizedBox(height: 20.h),
+        SectionCard(
+          title: "Challenges",
+          child: ResponsiveFieldRow(
+            children: [
+              DescriptionField(
+                hints: "write here..",
+                hasLimit: false,
+                controller: challengesController,
+                minLines: 4,
+                maxLines: 4,
+              ),
+            ],
+          ),
         ),
         SizedBox(height: 20.h),
         SolutionApproachWidget(

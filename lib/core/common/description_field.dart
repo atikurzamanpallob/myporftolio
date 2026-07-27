@@ -35,8 +35,10 @@ class DescriptionFieldState extends State<DescriptionField> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        FieldLabel(label: widget.label ?? 'Short Description', required: true),
-        const SizedBox(height: 8),
+        widget.label != null
+            ? FieldLabel(label: widget.label!, required: true)
+            : SizedBox.shrink(),
+        widget.label != null ? const SizedBox(height: 8) : SizedBox.shrink(),
         TextFormField(
           controller: widget.controller,
           maxLength: widget.hasLimit ? _max : null,
