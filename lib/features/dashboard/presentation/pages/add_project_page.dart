@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:myportfolioapp/core/common/custom_outlined_button.dart';
+import 'package:myportfolioapp/core/common/screen_shot_preview.dart';
 import 'package:myportfolioapp/core/themes/app_colors.dart';
 import 'package:myportfolioapp/core/common/common_dialog.dart';
 import 'package:myportfolioapp/features/dashboard/domain/entity/category_list.dart';
@@ -28,7 +29,7 @@ class AddProjectPage extends StatefulWidget {
 }
 
 class _AddProjectPageState extends State<AddProjectPage> {
-  List<PlatformFile> files = [];
+  List<PlatformFile> files = [], screenShots = [];
   Category? category;
   var descriptionController = TextEditingController();
   var projectNameController = TextEditingController();
@@ -309,10 +310,20 @@ class _AddProjectPageState extends State<AddProjectPage> {
           child: Column(
             crossAxisAlignment: .center,
             children: [
+              ScreenShotPreview(files: screenShots),
               const SizedBox(height: 16),
               CustomOutlinedButton(
-                onTap: () {},
-                label: "Add Screenshots",
+                onTap: () async {
+                  FilePickerResult? results = await FilePicker.pickFiles(
+                    allowMultiple: true,
+                    type: FileType.custom,
+                    withData: true,
+                    allowedExtensions: ['jpg', 'jpeg', 'png'],
+                  );
+                  screenShots = results?.files ?? [];
+                  setState(() {});
+                },
+                label: "Add Images",
                 iconData: Icons.screenshot,
               ),
             ],

@@ -60,7 +60,7 @@ class _ThumbnailPreviewState extends State<ThumbnailPreview> {
                         child: const Icon(
                           Icons.close,
                           size: 12,
-                          color: Colors.white,
+                          color: Colors.red,
                         ),
                       ),
                     ),
