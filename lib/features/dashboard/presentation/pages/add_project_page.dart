@@ -7,15 +7,17 @@ import 'package:myportfolioapp/core/common/screen_shot_preview.dart';
 import 'package:myportfolioapp/core/themes/app_colors.dart';
 import 'package:myportfolioapp/core/common/common_dialog.dart';
 import 'package:myportfolioapp/features/dashboard/domain/entity/category_list.dart';
+import 'package:myportfolioapp/features/dashboard/domain/entity/key_feature_entity.dart';
 import 'package:myportfolioapp/features/dashboard/presentation/bloc/dashboard_bloc.dart';
 import 'package:myportfolioapp/features/dashboard/presentation/bloc/dashboard_state.dart';
-import 'package:myportfolioapp/features/dashboard/presentation/widgets/add_overview.dart';
+import 'package:myportfolioapp/features/dashboard/presentation/widgets/key_feature_widget.dart';
 import 'package:myportfolioapp/features/dashboard/presentation/widgets/progress_window.dart';
+import 'package:myportfolioapp/features/dashboard/presentation/widgets/solution_approach_widget.dart';
 import 'package:myportfolioapp/features/dashboard/presentation/widgets/tech_stacks_preview.dart';
 import 'package:myportfolioapp/features/projects/domain/entity/project_tech_stack.dart';
 
 import '../../../../core/common/description_field.dart';
-import '../../../../core/common/label_field.dart' hide buildInputDecoration;
+import '../../../../core/common/label_field.dart';
 import '../../../../core/common/labled_dropdown.dart';
 import '../../../../core/common/thumbnail_preview.dart';
 import '../../../projects/domain/entity/project_add_item.dart';
@@ -31,10 +33,16 @@ class AddProjectPage extends StatefulWidget {
 
 class _AddProjectPageState extends State<AddProjectPage> {
   List<PlatformFile> files = [], screenShots = [];
+  List<KeyFeatureEntity> keyFeatures = [];
+  List<TextEditingController> solutions = [];
   Category? category;
   var descriptionController = TextEditingController();
+  var overviewController = TextEditingController();
   var projectNameController = TextEditingController();
   var projectLinkController = TextEditingController();
+  var projectPlatformController = TextEditingController();
+  var projectRoleController = TextEditingController();
+  var problemController = TextEditingController();
   var indexController = TextEditingController();
   var companyName = TextEditingController();
   var formKey = GlobalKey<FormState>();
@@ -44,6 +52,9 @@ class _AddProjectPageState extends State<AddProjectPage> {
       projectNameController.clear();
       descriptionController.clear();
       projectLinkController.clear();
+      projectPlatformController.clear();
+      projectRoleController.clear();
+      overviewController.clear();
       category = null;
       techStacks = [];
       indexController.clear();
@@ -195,7 +206,6 @@ class _AddProjectPageState extends State<AddProjectPage> {
         Form(
           key: formKey,
           child: SectionCard(
-            title: "Basic Info",
             child: Column(
               children: [
                 ResponsiveFieldRow(
@@ -217,6 +227,11 @@ class _AddProjectPageState extends State<AddProjectPage> {
                       required: true,
                       hint: 'Select project type',
                     ),
+                    LabeledField(
+                      label: 'Role',
+                      hint: 'eg. Developer',
+                      controller: projectRoleController,
+                    ),
                   ],
                 ),
                 const SizedBox(height: 16),
@@ -233,6 +248,11 @@ class _AddProjectPageState extends State<AddProjectPage> {
                       controller: indexController,
                     ),
                     LabeledField(
+                      label: 'Platform',
+                      hint: 'eg. Android, IOS , Web',
+                      controller: projectPlatformController,
+                    ),
+                    LabeledField(
                       label: 'Associated With',
                       hint: 'eg. Personal',
                       controller: companyName,
@@ -242,15 +262,31 @@ class _AddProjectPageState extends State<AddProjectPage> {
                 const SizedBox(height: 16),
                 ResponsiveFieldRow(
                   children: [
-                    DescriptionField(controller: descriptionController),
+                    DescriptionField(
+                      label: "Short Description",
+                      hints: "write here..",
+                      minLines: 2,
+                      maxLines: 2,
+                      controller: descriptionController,
+                    ),
+                  ],
+                ),
+                ResponsiveFieldRow(
+                  children: [
+                    DescriptionField(
+                      label: "Add Overview",
+                      hints: "write here..",
+                      hasLimit: false,
+                      controller: overviewController,
+                      minLines: 4,
+                      maxLines: 4,
+                    ),
                   ],
                 ),
               ],
             ),
           ),
         ),
-        SizedBox(height: 20.h),
-        AddOverview(),
         SizedBox(height: 20.h),
         TechStacksPreview(
           title: "Techstacks",
@@ -274,6 +310,39 @@ class _AddProjectPageState extends State<AddProjectPage> {
           onRemove: (i) {
             setState(() {
               techStacks.removeAt(i);
+            });
+          },
+        ),
+        SizedBox(height: 20.h),
+        KeyFeatureWidget(
+          onRemove: (i) {
+            setState(() {
+              keyFeatures.removeAt(i);
+            });
+          },
+          onAdd: () {
+            setState(() {
+              keyFeatures.add(
+                KeyFeatureEntity(
+                  title: TextEditingController(),
+                  value: TextEditingController(),
+                ),
+              );
+            });
+          },
+          keyFeatures: keyFeatures,
+        ),
+        SizedBox(height: 20.h),
+        SolutionApproachWidget(
+          solution: solutions,
+          onAdd: () {
+            setState(() {
+              solutions.add(TextEditingController());
+            });
+          },
+          onRemove: (index) {
+            setState(() {
+              solutions.removeAt(index);
             });
           },
         ),
