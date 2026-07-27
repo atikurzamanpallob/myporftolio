@@ -44,7 +44,7 @@ class SectionCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.all(20),
+      padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
         color: AppColors.card,
         borderRadius: BorderRadius.circular(12),
@@ -90,7 +90,7 @@ class SectionCard extends StatelessWidget {
                   : SizedBox.shrink(),
             ],
           ),
-          SizedBox(height: 5),
+          SizedBox(height: 10),
           child,
           submit != null
               ? Column(

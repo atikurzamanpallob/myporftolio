@@ -188,6 +188,7 @@ class _AddBlogPageState extends State<AddBlogPage> {
     return Column(
       children: [
         SectionCard(
+          title: "Basic Info",
           child: Column(
             children: [
               ResponsiveFieldRow(
@@ -274,6 +275,7 @@ class _AddBlogPageState extends State<AddBlogPage> {
         ),
         SizedBox(height: 20.h),
         SectionCard(
+          title: "Add Contents",
           onAdd: () {
             CommonDialog(
               context: context,

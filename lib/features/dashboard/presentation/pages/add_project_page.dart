@@ -9,6 +9,7 @@ import 'package:myportfolioapp/core/common/common_dialog.dart';
 import 'package:myportfolioapp/features/dashboard/domain/entity/category_list.dart';
 import 'package:myportfolioapp/features/dashboard/presentation/bloc/dashboard_bloc.dart';
 import 'package:myportfolioapp/features/dashboard/presentation/bloc/dashboard_state.dart';
+import 'package:myportfolioapp/features/dashboard/presentation/widgets/add_overview.dart';
 import 'package:myportfolioapp/features/dashboard/presentation/widgets/progress_window.dart';
 import 'package:myportfolioapp/features/dashboard/presentation/widgets/tech_stacks_preview.dart';
 import 'package:myportfolioapp/features/projects/domain/entity/project_tech_stack.dart';
@@ -194,6 +195,7 @@ class _AddProjectPageState extends State<AddProjectPage> {
         Form(
           key: formKey,
           child: SectionCard(
+            title: "Basic Info",
             child: Column(
               children: [
                 ResponsiveFieldRow(
@@ -247,6 +249,8 @@ class _AddProjectPageState extends State<AddProjectPage> {
             ),
           ),
         ),
+        SizedBox(height: 20.h),
+        AddOverview(),
         SizedBox(height: 20.h),
         TechStacksPreview(
           title: "Techstacks",
