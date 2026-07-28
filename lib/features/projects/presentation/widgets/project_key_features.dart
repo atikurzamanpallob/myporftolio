@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:myportfolioapp/core/common/glass_card.dart';
+import 'package:myportfolioapp/core/themes/app_colors.dart';
 
 import '../../../../core/app_resources/app_icons.dart';
 import '../bloc/project_bloc.dart';
@@ -19,7 +20,11 @@ class ProjectKeyFeatures extends StatelessWidget {
         child: Column(
           crossAxisAlignment: .start,
           children: [
-            ContentsHeader(icon: AppIcons.features, title: "Key Features"),
+            ContentsHeader(
+              icon: AppIcons.features,
+              title: "Key Features",
+              iconColor: AppColors.starYellow,
+            ),
             SizedBox(height: 20.h),
             Padding(
               padding: const EdgeInsets.only(left: 40),

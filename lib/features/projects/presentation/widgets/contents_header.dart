@@ -7,7 +7,13 @@ import '../../../blogs/presentation/widgets/side_bar_heading.dart';
 class ContentsHeader extends StatelessWidget {
   final String icon;
   final String title;
-  const ContentsHeader({super.key, required this.icon, required this.title});
+  final Color iconColor;
+  const ContentsHeader({
+    super.key,
+    required this.icon,
+    required this.title,
+    this.iconColor = AppColors.textPrimary,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -17,16 +23,13 @@ class ContentsHeader extends StatelessWidget {
           padding: EdgeInsets.all(5),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(5),
-            border: Border.all(color: AppColors.primaryBlue, width: 0.8),
+            border: Border.all(color: iconColor, width: 0.8),
           ),
           child: SvgPicture.asset(
             icon,
             height: 25.r,
             width: 25.r,
-            colorFilter: ColorFilter.mode(
-              AppColors.textPrimary,
-              BlendMode.srcIn,
-            ),
+            colorFilter: ColorFilter.mode(iconColor, BlendMode.srcIn),
           ),
         ),
         SizedBox(width: 10.w),

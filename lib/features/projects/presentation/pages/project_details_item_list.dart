@@ -4,7 +4,7 @@ import 'package:myportfolioapp/features/projects/presentation/widgets/project_ke
 import 'package:myportfolioapp/features/projects/presentation/widgets/project_overview.dart';
 import 'package:myportfolioapp/features/projects/presentation/widgets/project_screenshots.dart';
 import 'package:myportfolioapp/features/projects/presentation/widgets/project_solutions.dart';
-import 'package:myportfolioapp/features/projects/presentation/widgets/tech_stacks.dart';
+import 'package:myportfolioapp/features/projects/presentation/widgets/project_tech_stacks.dart';
 
 class ProjectDetailsItemList extends StatefulWidget {
   const ProjectDetailsItemList({super.key});
@@ -17,7 +17,7 @@ class _ProjectDetailsItemListState extends State<ProjectDetailsItemList> {
   List<Widget> descriptionItems = [
     const ProjectOverview(),
     const ProjectScreenshots(),
-    const TechStacks(),
+    const ProjectTechStacks(),
     const ProjectKeyFeatures(),
     const ProjectChallenges(),
     const ProjectSolutions(),

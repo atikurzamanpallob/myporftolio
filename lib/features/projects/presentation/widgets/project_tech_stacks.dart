@@ -3,13 +3,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:myportfolioapp/core/app_resources/app_icons.dart';
 import 'package:myportfolioapp/core/common/glass_card.dart';
+import 'package:myportfolioapp/core/themes/app_colors.dart';
 import 'package:myportfolioapp/features/projects/presentation/bloc/project_bloc.dart';
 import 'package:myportfolioapp/features/projects/presentation/bloc/project_state.dart';
 import 'package:myportfolioapp/features/projects/presentation/widgets/contents_header.dart';
 import 'package:myportfolioapp/features/projects/presentation/widgets/tech_chip.dart';
 
-class TechStacks extends StatelessWidget {
-  const TechStacks({super.key});
+class ProjectTechStacks extends StatelessWidget {
+  const ProjectTechStacks({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -19,10 +20,14 @@ class TechStacks extends StatelessWidget {
         child: Column(
           crossAxisAlignment: .start,
           children: [
-            ContentsHeader(icon: AppIcons.stack, title: "Tech Stacks"),
+            ContentsHeader(
+              icon: AppIcons.stack,
+              title: "Tech Stacks",
+              iconColor: AppColors.purple,
+            ),
             SizedBox(height: 20.h),
             Padding(
-              padding: const EdgeInsets.only(left: 40),
+              padding: const EdgeInsets.symmetric(horizontal: 5),
               child: BlocBuilder<ProjectBloc, ProjectState>(
                 builder: (context, state) {
                   var techStacks = state.projectItem?.technology ?? [];
