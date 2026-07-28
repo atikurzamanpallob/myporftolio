@@ -29,7 +29,7 @@ class ProjectChallenges extends StatelessWidget {
             ),
             SizedBox(height: 20.h),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 5),
+              padding: const EdgeInsets.symmetric(horizontal: 30),
               child: BlocBuilder<ProjectBloc, ProjectState>(
                 builder: (context, state) {
                   var text = state.projectDetails?.challenges ?? "";

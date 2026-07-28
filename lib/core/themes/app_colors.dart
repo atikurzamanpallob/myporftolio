@@ -49,4 +49,6 @@ class AppColors {
   static const purple = Color(0xFFA700D1);
   static const magenta = Color(0xFFE70C8C);
   static const cyan = Colors.cyanAccent;
+  static const orange = Color(0xFFFF9A1F);
+  static const lightBlue = Colors.lightBlueAccent;
 }

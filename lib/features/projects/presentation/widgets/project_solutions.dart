@@ -29,7 +29,7 @@ class ProjectSolutions extends StatelessWidget {
             ),
             SizedBox(height: 20.h),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 5),
+              padding: const EdgeInsets.symmetric(horizontal: 10),
               child: BlocBuilder<ProjectBloc, ProjectState>(
                 builder: (context, state) {
                   List<String> solutions =
@@ -51,9 +51,7 @@ class ProjectSolutions extends StatelessWidget {
                             Expanded(
                               child: Text(
                                 solutions[i],
-                                style: context.fontStyle.bodySmall?.copyWith(
-                                  color: AppColors.cyan,
-                                ),
+                                style: context.fontStyle.bodySmall,
                               ),
                             ),
                           ],
