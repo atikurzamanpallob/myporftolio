@@ -34,39 +34,34 @@ class ProjectSolutions extends StatelessWidget {
                 builder: (context, state) {
                   List<String> solutions =
                       state.projectDetails?.solutions ?? [];
-                  return GridView.builder(
+                  return ListView.builder(
                     shrinkWrap: true,
                     itemCount: solutions.length,
                     padding: EdgeInsets.zero,
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 1,
-                      crossAxisSpacing: 10.w,
-                      mainAxisSpacing: 10.h,
-                      mainAxisExtent: 60.h,
-                    ),
                     itemBuilder: (context, i) {
-                      return Row(
-                        mainAxisSize: .min,
-                        mainAxisAlignment: .start,
-                        crossAxisAlignment: .start,
-                        children: [
-                          SvgPicture.asset(
-                            AppIcons.greentick,
-                            height: 25.r,
-                            width: 25.r,
-                          ),
-                          SizedBox(width: 10.w),
-                          Expanded(
-                            child: Text(
-                              solutions[i],
-                              maxLines: 2,
-                              overflow: .ellipsis,
-                              style: context.fontStyle.bodySmall?.copyWith(
-                                color: AppColors.cyan,
+                      return Padding(
+                        padding: const EdgeInsets.only(bottom: 10),
+                        child: Row(
+                          mainAxisSize: .min,
+                          mainAxisAlignment: .start,
+                          crossAxisAlignment: .start,
+                          children: [
+                            SvgPicture.asset(
+                              AppIcons.greentick,
+                              height: 25.r,
+                              width: 25.r,
+                            ),
+                            SizedBox(width: 10.w),
+                            Expanded(
+                              child: Text(
+                                solutions[i],
+                                style: context.fontStyle.bodySmall?.copyWith(
+                                  color: AppColors.cyan,
+                                ),
                               ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       );
                     },
                   );
