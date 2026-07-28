@@ -414,7 +414,10 @@ class _AddProjectPageState extends State<AddProjectPage> {
           child: Column(
             crossAxisAlignment: .center,
             children: [
-              ScreenShotPreview(files: screenShots),
+              ScreenShotPreview(
+                files: screenShots,
+                isMobileScreenshot: category?.id == 0,
+              ),
               const SizedBox(height: 16),
               CustomOutlinedButton(
                 onTap: () async {

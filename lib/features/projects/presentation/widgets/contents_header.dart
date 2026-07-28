@@ -19,7 +19,15 @@ class ContentsHeader extends StatelessWidget {
             borderRadius: BorderRadius.circular(5),
             border: Border.all(color: AppColors.primaryBlue, width: 0.8),
           ),
-          child: SvgPicture.asset(icon, height: 25.r, width: 25.r),
+          child: SvgPicture.asset(
+            icon,
+            height: 25.r,
+            width: 25.r,
+            colorFilter: ColorFilter.mode(
+              AppColors.textPrimary,
+              BlendMode.srcIn,
+            ),
+          ),
         ),
         SizedBox(width: 10.w),
         SidebarHeading(title: title),

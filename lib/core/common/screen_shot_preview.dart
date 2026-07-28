@@ -5,7 +5,12 @@ import 'package:myportfolioapp/core/themes/app_colors.dart';
 
 class ScreenShotPreview extends StatefulWidget {
   final List<PlatformFile> files;
-  const ScreenShotPreview({super.key, required this.files});
+  final bool isMobileScreenshot;
+  const ScreenShotPreview({
+    super.key,
+    required this.files,
+    this.isMobileScreenshot = false,
+  });
 
   @override
   State<ScreenShotPreview> createState() => _ScreenShotPreviewState();
@@ -23,8 +28,8 @@ class _ScreenShotPreviewState extends State<ScreenShotPreview> {
           Stack(
             children: [
               Container(
-                height: 200.h,
-                width: 80.w,
+                height: 200.r,
+                width: widget.isMobileScreenshot == true ? 80.w : 200.r,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(5),
                   border: Border.all(width: 0.1, color: AppColors.primaryBlue),
