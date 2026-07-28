@@ -25,7 +25,7 @@ class ProjectHeroSection extends StatelessWidget {
         return Hero(
           tag: 'project_hero',
           child: state.isLoading == true
-              ? CircularProgressIndicator()
+              ? Center(child: CircularProgressIndicator())
               : Container(
                   padding: EdgeInsets.all(20.r),
                   decoration: BoxDecoration(
