@@ -20,6 +20,7 @@ class ProjectChallenges extends StatelessWidget {
         padding: const EdgeInsetsGeometry.all(16),
         child: Column(
           crossAxisAlignment: .start,
+          mainAxisSize: .min,
           children: [
             ContentsHeader(
               icon: AppIcons.challenges,

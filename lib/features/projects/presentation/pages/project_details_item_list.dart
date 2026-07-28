@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:myportfolioapp/features/projects/presentation/widgets/project_challenges.dart';
+import 'package:myportfolioapp/features/projects/presentation/widgets/project_challenge_solutions.dart';
 import 'package:myportfolioapp/features/projects/presentation/widgets/project_key_features.dart';
 import 'package:myportfolioapp/features/projects/presentation/widgets/project_overview.dart';
 import 'package:myportfolioapp/features/projects/presentation/widgets/project_screenshots.dart';
-import 'package:myportfolioapp/features/projects/presentation/widgets/project_solutions.dart';
 import 'package:myportfolioapp/features/projects/presentation/widgets/project_tech_stacks.dart';
 
 class ProjectDetailsItemList extends StatefulWidget {
@@ -19,9 +18,9 @@ class _ProjectDetailsItemListState extends State<ProjectDetailsItemList> {
     const ProjectScreenshots(),
     const ProjectTechStacks(),
     const ProjectKeyFeatures(),
-    const ProjectChallenges(),
-    const ProjectSolutions(),
+    const ProjectChallengeSolutions(),
   ];
+
   @override
   Widget build(BuildContext context) {
     return ListView.builder(

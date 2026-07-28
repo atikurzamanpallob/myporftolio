@@ -26,23 +26,20 @@ class ProjectTechStacks extends StatelessWidget {
               iconColor: AppColors.purple,
             ),
             SizedBox(height: 20.h),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 5),
-              child: BlocBuilder<ProjectBloc, ProjectState>(
-                builder: (context, state) {
-                  var techStacks = state.projectItem?.technology ?? [];
-                  return Wrap(
-                    direction: Axis.horizontal,
-                    spacing: 10.w,
-                    runSpacing: 15.h,
-                    alignment: WrapAlignment.start,
-                    children: [
-                      for (int i = 0; i < techStacks.length; i++)
-                        TechChip(techStack: techStacks[i]),
-                    ],
-                  );
-                },
-              ),
+            BlocBuilder<ProjectBloc, ProjectState>(
+              builder: (context, state) {
+                var techStacks = state.projectItem?.technology ?? [];
+                return Wrap(
+                  direction: Axis.horizontal,
+                  spacing: 10.w,
+                  runSpacing: 15.h,
+                  alignment: WrapAlignment.start,
+                  children: [
+                    for (int i = 0; i < techStacks.length; i++)
+                      TechChip(techStack: techStacks[i]),
+                  ],
+                );
+              },
             ),
           ],
         ),

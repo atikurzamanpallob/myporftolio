@@ -18,6 +18,7 @@ class ContentsHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
+      mainAxisSize: .min,
       children: [
         Container(
           padding: EdgeInsets.all(5),
