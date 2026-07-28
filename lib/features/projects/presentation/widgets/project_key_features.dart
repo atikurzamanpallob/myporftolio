@@ -40,7 +40,11 @@ class ProjectKeyFeatures extends StatelessWidget {
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
 
-                    crossAxisCount: context.isMobile ? 1 : 2,
+                    crossAxisCount: context.isMobile
+                        ? 1
+                        : context.isTablet
+                        ? 2
+                        : 3,
                     mainAxisSpacing: 10.h,
                     crossAxisSpacing: 10.w,
                     itemCount: ob.length,
