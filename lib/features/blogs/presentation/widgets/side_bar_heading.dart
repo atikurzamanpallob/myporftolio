@@ -11,7 +11,7 @@ class SidebarHeading extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       title,
-      style: context.fontStyle.bodySmall?.copyWith(
+      style: context.fontStyle.bodyMedium?.copyWith(
         color: AppColors.textPrimary,
         fontFamily: AppFonts.roboto,
         fontWeight: FontWeight.w600,

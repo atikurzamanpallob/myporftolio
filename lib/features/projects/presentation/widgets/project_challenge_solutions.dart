@@ -17,13 +17,15 @@ class ProjectChallengeSolutions extends StatelessWidget {
         ],
       );
     } else {
-      return const Row(
-        crossAxisAlignment: .start,
-        children: [
-          Expanded(flex: 1, child: ProjectChallenges()),
-          SizedBox(width: 15),
-          Expanded(flex: 1, child: ProjectSolutions()),
-        ],
+      return IntrinsicHeight(
+        child: Row(
+          crossAxisAlignment: .start,
+          children: [
+            Expanded(flex: 1, child: ProjectChallenges()),
+            SizedBox(width: 15),
+            Expanded(flex: 1, child: ProjectSolutions()),
+          ],
+        ),
       );
     }
   }

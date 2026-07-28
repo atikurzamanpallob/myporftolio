@@ -34,17 +34,13 @@ class ProjectSolutions extends StatelessWidget {
                 builder: (context, state) {
                   List<String> solutions =
                       state.projectDetails?.solutions ?? [];
-                  return ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: solutions.length,
-                    padding: EdgeInsets.zero,
-                    itemBuilder: (context, i) {
-                      return Padding(
+                  return Column(
+                    children: List.generate(
+                      solutions.length,
+                      (i) => Padding(
                         padding: const EdgeInsets.only(bottom: 10),
                         child: Row(
-                          mainAxisSize: .min,
-                          mainAxisAlignment: .start,
-                          crossAxisAlignment: .start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             SvgPicture.asset(
                               AppIcons.greentick,
@@ -62,8 +58,8 @@ class ProjectSolutions extends StatelessWidget {
                             ),
                           ],
                         ),
-                      );
-                    },
+                      ),
+                    ),
                   );
                 },
               ),
