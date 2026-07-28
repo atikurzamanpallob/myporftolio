@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:myportfolioapp/core/app_resources/app_icons.dart';
 import 'package:myportfolioapp/core/common/glass_card.dart';
-import 'package:myportfolioapp/core/themes/app_colors.dart';
 import 'package:myportfolioapp/features/projects/domain/entity/project_tech_stack.dart';
+import 'package:myportfolioapp/features/projects/presentation/widgets/contents_header.dart';
 import 'package:myportfolioapp/features/projects/presentation/widgets/tech_chip.dart';
-import '../../../blogs/presentation/widgets/side_bar_heading.dart';
 
 class TechStacks extends StatelessWidget {
   final List<ProjectTechStack> techStacks;
@@ -20,27 +18,7 @@ class TechStacks extends StatelessWidget {
         child: Column(
           crossAxisAlignment: .start,
           children: [
-            Row(
-              children: [
-                Container(
-                  padding: EdgeInsets.all(5),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(5),
-                    border: Border.all(
-                      color: AppColors.primaryBlue,
-                      width: 0.8,
-                    ),
-                  ),
-                  child: SvgPicture.asset(
-                    AppIcons.stack,
-                    height: 20.r,
-                    width: 20.r,
-                  ),
-                ),
-                SizedBox(width: 10.w),
-                SidebarHeading(title: 'Tech Stacks'),
-              ],
-            ),
+            ContentsHeader(icon: AppIcons.stack, title: "Tech Stacks"),
             SizedBox(height: 20.h),
             Padding(
               padding: const EdgeInsets.only(left: 40),

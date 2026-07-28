@@ -1,0 +1,29 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
+import '../../../../core/themes/app_colors.dart';
+import '../../../blogs/presentation/widgets/side_bar_heading.dart';
+
+class ContentsHeader extends StatelessWidget {
+  final String icon;
+  final String title;
+  const ContentsHeader({super.key, required this.icon, required this.title});
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Container(
+          padding: EdgeInsets.all(5),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(5),
+            border: Border.all(color: AppColors.primaryBlue, width: 0.8),
+          ),
+          child: SvgPicture.asset(icon, height: 25.r, width: 25.r),
+        ),
+        SizedBox(width: 10.w),
+        SidebarHeading(title: title),
+      ],
+    );
+  }
+}

@@ -14,10 +14,10 @@ import '../../../../core/utils/responsive.dart';
 
 List<String> items = [
   "Overview",
-  "Key Features",
+  "Screenshots",
   "Tech Stacks",
-  "Challenge",
-  "Approach",
+  "Key Features",
+  "Challenges",
   "Solutions",
 ];
 

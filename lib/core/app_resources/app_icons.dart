@@ -51,4 +51,9 @@ class AppIcons {
 
   //project icons
   static const persons = 'assets/icons/projects/team.svg';
+  static const features = 'assets/icons/projects/features.svg';
+  static const overview = 'assets/icons/projects/overview.svg';
+  static const challenges = 'assets/icons/projects/problem.svg';
+  static const screenshots = 'assets/icons/projects/screenshots.svg';
+  static const solutions = 'assets/icons/projects/solutions.svg';
 }
