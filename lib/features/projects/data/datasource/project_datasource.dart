@@ -2,9 +2,11 @@
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:myportfolioapp/features/dashboard/domain/entity/tech_add_entity.dart';
+import 'package:myportfolioapp/features/projects/data/models/project_details_models.dart';
 import 'package:myportfolioapp/features/projects/data/models/project_item_models.dart';
 import 'package:myportfolioapp/features/projects/data/models/project_techstack_models.dart';
 import 'package:myportfolioapp/features/projects/domain/entity/project_add_item.dart';
+import 'package:myportfolioapp/features/projects/domain/entity/project_details.dart';
 import 'package:myportfolioapp/features/projects/domain/entity/project_item.dart';
 import 'package:myportfolioapp/features/projects/domain/entity/project_tech_stack.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -14,6 +16,8 @@ abstract class ProjectDatasource {
   Future<bool> addTechStacks({required List<TechAddEntity> techStacks});
   Future<List<ProjectItem>> getProjects();
   Future<List<ProjectTechStack>> getTechStacks();
+  Future<ProjectDetails> getProjectDetails({required int projectId});
+  Future<ProjectItem> getProjectInfo({required int projectId});
 }
 
 class ProjectDatasourceImp extends ProjectDatasource {
@@ -183,5 +187,29 @@ class ProjectDatasourceImp extends ProjectDatasource {
     } else {
       return null;
     }
+  }
+
+  @override
+  Future<ProjectDetails> getProjectDetails({required int projectId}) async {
+    var response = await client
+        .from('project_details')
+        .select()
+        .eq('project_id', projectId)
+        .single();
+
+    final ob = ProjectDetailsModels.fromJson(response);
+    return ob.toEntity();
+  }
+
+  @override
+  Future<ProjectItem> getProjectInfo({required int projectId}) async {
+    var response = await client
+        .from('projects')
+        .select()
+        .eq('id', projectId)
+        .single();
+
+    var item = ProjectItemModels.fromJson(response);
+    return item.toEntity();
   }
 }

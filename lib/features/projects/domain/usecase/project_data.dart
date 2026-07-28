@@ -1,5 +1,6 @@
 import 'package:fpdart/fpdart.dart';
 import 'package:myportfolioapp/features/dashboard/domain/entity/tech_add_entity.dart';
+import 'package:myportfolioapp/features/projects/domain/entity/project_details.dart';
 import 'package:myportfolioapp/features/projects/domain/entity/project_item.dart';
 import 'package:myportfolioapp/features/projects/domain/entity/project_tech_stack.dart';
 import 'package:myportfolioapp/features/projects/domain/repository/project_repository.dart';
@@ -22,5 +23,17 @@ class ProjectData {
     required List<TechAddEntity> list,
   }) async {
     return repository.addTechStacks(techList: list);
+  }
+
+  Future<Either<Failure, ProjectItem>> getProjectInfo({
+    required int projectId,
+  }) async {
+    return repository.getProjectInfo(projectId: projectId);
+  }
+
+  Future<Either<Failure, ProjectDetails>> getProjectDetails({
+    required int projectId,
+  }) async {
+    return repository.getProjectDetails(projectId: projectId);
   }
 }

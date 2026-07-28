@@ -15,6 +15,7 @@ import 'package:myportfolioapp/features/dashboard/presentation/pages/dashboard_p
 import 'package:myportfolioapp/features/home/presentation/bloc/home_bloc.dart';
 import 'package:myportfolioapp/features/home/presentation/pages/home_view.dart';
 import 'package:myportfolioapp/features/projects/presentation/bloc/project_bloc.dart';
+import 'package:myportfolioapp/features/projects/presentation/bloc/project_event.dart';
 import 'package:myportfolioapp/features/projects/presentation/pages/project_details_page.dart';
 import 'package:myportfolioapp/features/projects/presentation/pages/projects_page.dart';
 
@@ -48,7 +49,7 @@ final GoRouter router = GoRouter(
       pageBuilder: (context, state) => buildPage(
         state,
         BlocProvider(
-          create: (_) => getIt<ProjectBloc>(),
+          create: (_) => getIt<ProjectBloc>()..add(FetchProjects()),
           child: ProjectsPage(),
         ),
       ),
@@ -57,7 +58,15 @@ final GoRouter router = GoRouter(
       path: ProjectDetailsPage.route,
       pageBuilder: (context, state) {
         final id = int.tryParse(state.pathParameters['id'] ?? '') ?? 0;
-        return buildPage(state, ProjectDetailsPage(projectId: id));
+        return buildPage(
+          state,
+          BlocProvider(
+            create: (_) => getIt<ProjectBloc>()
+              ..add(FetchProjectInfo(projectId: id))
+              ..add(FetchProjectDetails(projectId: id)),
+            child: ProjectDetailsPage(projectId: id),
+          ),
+        );
       },
     ),
     GoRoute(

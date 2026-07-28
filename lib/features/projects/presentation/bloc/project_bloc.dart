@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:myportfolioapp/features/projects/domain/entity/project_item.dart';
 import 'package:myportfolioapp/features/projects/domain/usecase/project_data.dart';
@@ -9,7 +11,8 @@ class ProjectBloc extends Bloc<ProjectEvent, ProjectState> {
   ProjectBloc(this.projectData) : super(ProjectState(filtered: [])) {
     on<FetchProjects>(fetchProjects);
     on<ProjectFilterEvent>(filterProject);
-    add(FetchProjects());
+    on<FetchProjectDetails>(fetchProjectDetails);
+    on<FetchProjectInfo>(fetchProjectInfo);
   }
 
   Future fetchProjects(FetchProjects event, Emitter<ProjectState> emit) async {
@@ -56,5 +59,38 @@ class ProjectBloc extends Bloc<ProjectEvent, ProjectState> {
         ),
       );
     }
+  }
+
+  Future<void> fetchProjectDetails(
+    FetchProjectDetails event,
+    Emitter<ProjectState> emit,
+  ) async {
+    final result = await projectData.getProjectDetails(
+      projectId: event.projectId,
+    );
+    result.fold(
+      (failure) {
+        emit(state.copyWith(error: failure.message));
+      },
+      (projectDetails) {
+        emit(state.copyWith(projectDetails: projectDetails));
+      },
+    );
+  }
+
+  Future<void> fetchProjectInfo(
+    FetchProjectInfo event,
+    Emitter<ProjectState> emit,
+  ) async {
+    emit(state.copyWith(isLoading: true));
+    final result = await projectData.getProjectInfo(projectId: event.projectId);
+    result.fold(
+      (failure) {
+        emit(state.copyWith(isLoading: false, error: failure.message));
+      },
+      (project) {
+        emit(state.copyWith(isLoading: false, projectItem: project));
+      },
+    );
   }
 }
