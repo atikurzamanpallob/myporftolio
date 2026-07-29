@@ -7,14 +7,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:myportfolioapp/core/themes/app_colors.dart';
 import 'package:myportfolioapp/core/app_resources/app_constants.dart';
 import 'package:myportfolioapp/core/app_resources/app_images.dart';
-import 'package:myportfolioapp/features/blogs/domain/entity/blog_details_item.dart';
+import 'package:myportfolioapp/features/blogs/domain/entity/blog_section_item.dart';
 import 'package:flutter_code_view/flutter_code_view.dart';
 
 import '../../../../core/themes/responsive_text_theme.dart';
 import '../../../../core/utils/toast.dart';
 
 class DescriptionItemCard extends StatelessWidget {
-  final BlogDetailsItem? element;
+  final BlogSectionItem? element;
   const DescriptionItemCard({super.key, this.element});
 
   @override

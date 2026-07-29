@@ -2,14 +2,14 @@
 
 import 'package:myportfolioapp/features/blogs/data/models/blog_details_model.dart';
 import 'package:myportfolioapp/features/blogs/data/models/blog_item_models.dart';
-import 'package:myportfolioapp/features/blogs/domain/entity/blog_details_item.dart';
 import 'package:myportfolioapp/features/blogs/domain/entity/blog_item.dart';
+import 'package:myportfolioapp/features/blogs/domain/entity/blog_section_item.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 abstract class BlogDetailsDatasource {
   Future<List<BlogItem>> getRecentPosts();
   Future<BlogItem> getBlogDetails({required int blogId});
-  Future<List<BlogDetailsItem>> getSections({required int blogId});
+  Future<List<BlogSectionItem>> getSections({required int blogId});
 }
 
 class BlogDetailsDatasourceImpl extends BlogDetailsDatasource {
@@ -46,20 +46,15 @@ class BlogDetailsDatasourceImpl extends BlogDetailsDatasource {
   }
 
   @override
-  Future<List<BlogDetailsItem>> getSections({required int blogId}) async {
-    List<BlogDetailsItem> sections = [];
-
+  Future<List<BlogSectionItem>> getSections({required int blogId}) async {
     var response = await client
         .from('blog_details')
         .select()
         .eq('blog_id', blogId)
-        .order('id', ascending: true);
+        .single();
 
-    response.forEach((element) {
-      var item = BlogDetailsModel.fromJson(element);
-      sections.add(item.toEntity());
-    });
+    var item = BlogDetailsModel.fromJson(response);
 
-    return sections;
+    return item.toEntity().sections;
   }
 }

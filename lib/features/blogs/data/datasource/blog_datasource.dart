@@ -59,7 +59,7 @@ class BlogDatasourceImp extends BlogDatasource {
   @override
   Future<bool> addBlogs({required BlogAddItem item}) async {
     try {
-      List<Map<String, dynamic>> blogDetails = [];
+      List<Map<String, dynamic>> blogSections = [];
 
       var blog = await client
           .from('blogs')
@@ -94,8 +94,7 @@ class BlogDatasourceImp extends BlogDatasource {
                     : "image/jpeg",
               )
             : null;
-        blogDetails.add({
-          'blog_id': id,
+        blogSections.add({
           'type': element.type,
           'text': element.text,
           'file': url,
@@ -103,7 +102,10 @@ class BlogDatasourceImp extends BlogDatasource {
           'height': element.height,
         });
       }
-      await client.from('blog_details').insert(blogDetails);
+      await client.from('blog_details').insert({
+        "blog_id": id,
+        "blog_sections": blogSections,
+      });
     } on StorageException catch (e) {
       print("Storage Error");
       print(e.message);

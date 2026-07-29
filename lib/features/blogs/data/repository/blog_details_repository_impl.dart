@@ -1,7 +1,7 @@
 import 'package:fpdart/fpdart.dart';
 import 'package:myportfolioapp/core/errors/failures.dart';
 import 'package:myportfolioapp/features/blogs/data/datasource/blog_details_datasource.dart';
-import 'package:myportfolioapp/features/blogs/domain/entity/blog_details_item.dart';
+import 'package:myportfolioapp/features/blogs/domain/entity/blog_section_item.dart';
 import 'package:myportfolioapp/features/blogs/domain/entity/blog_item.dart';
 import 'package:myportfolioapp/features/blogs/domain/repository/blog_details_repository.dart';
 import 'package:myportfolioapp/features/dashboard/domain/entity/category_list.dart';
@@ -33,7 +33,7 @@ class BlogDetailsRepositoryImpl extends BlogDetailsRepository {
   }
 
   @override
-  Future<Either<Failure, List<BlogDetailsItem>>> getSections({
+  Future<Either<Failure, List<BlogSectionItem>>> getSections({
     required int blogId,
   }) async {
     try {
