@@ -1,18 +1,12 @@
+import 'package:myportfolioapp/features/blogs/domain/entity/blog_section_item.dart';
+
 class BlogDetailsItem {
-  int id;
-  int blogId;
-  int type;
-  String? text;
-  String? fileUrl;
-  double width;
-  double height;
+  final int id;
+  final int blogId;
+  final List<BlogSectionItem> sections;
   BlogDetailsItem({
     required this.id,
     required this.blogId,
-    required this.type,
-    required this.text,
-    required this.fileUrl,
-    required this.width,
-    required this.height,
+    required this.sections,
   });
 }

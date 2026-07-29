@@ -3,7 +3,7 @@ import 'package:myportfolioapp/features/blogs/domain/repository/blog_details_rep
 
 import '../../../../core/errors/failures.dart';
 import '../../../dashboard/domain/entity/category_list.dart';
-import '../entity/blog_details_item.dart';
+import '../entity/blog_section_item.dart';
 import '../entity/blog_item.dart';
 
 class BlogDetailsData {
@@ -20,7 +20,7 @@ class BlogDetailsData {
     return repository.getRecentPosts();
   }
 
-  Future<Either<Failure, List<BlogDetailsItem>>> getSections({
+  Future<Either<Failure, List<BlogSectionItem>>> getSections({
     required int blogId,
   }) async {
     return repository.getSections(blogId: blogId);

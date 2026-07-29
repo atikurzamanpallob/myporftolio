@@ -1,6 +1,6 @@
 // ignore_for_file: must_be_immutable
-import 'package:myportfolioapp/features/blogs/domain/entity/blog_details_item.dart';
 import 'package:myportfolioapp/features/blogs/domain/entity/blog_item.dart';
+import 'package:myportfolioapp/features/blogs/domain/entity/blog_section_item.dart';
 
 import '../../../dashboard/domain/entity/category_list.dart';
 
@@ -33,7 +33,7 @@ class BlogState {
     bool? isLoadMoreLoading,
     List<Category>? category,
     List<BlogItem>? blogs,
-    List<BlogDetailsItem>? blogSections,
+    List<BlogSectionItem>? blogSections,
     int? currentCategory,
     int? currentPage,
     bool? hasReachedMax,
@@ -57,7 +57,7 @@ class BlogDetailsState {
   final List<Category>? category;
   final BlogItem? blog;
   final List<BlogItem>? recentPosts;
-  final List<BlogDetailsItem>? sections;
+  final List<BlogSectionItem>? sections;
   final String? error;
 
   BlogDetailsState({
@@ -72,7 +72,7 @@ class BlogDetailsState {
     List<Category>? category,
     BlogItem? blog,
     List<BlogItem>? recentPosts,
-    List<BlogDetailsItem>? sections,
+    List<BlogSectionItem>? sections,
     String? error,
   }) {
     return BlogDetailsState(

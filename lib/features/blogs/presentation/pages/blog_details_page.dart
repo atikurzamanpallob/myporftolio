@@ -6,7 +6,7 @@ import 'package:myportfolioapp/core/common/glass_card.dart';
 import 'package:myportfolioapp/core/common/nav_bar.dart';
 import 'package:myportfolioapp/core/common/navigation.dart';
 import 'package:myportfolioapp/core/utils/responsive.dart';
-import 'package:myportfolioapp/features/blogs/domain/entity/blog_details_item.dart';
+import 'package:myportfolioapp/features/blogs/domain/entity/blog_section_item.dart';
 import 'package:myportfolioapp/features/blogs/presentation/bloc/blog_details_bloc.dart';
 import 'package:myportfolioapp/features/blogs/presentation/bloc/blog_state.dart';
 import 'package:myportfolioapp/features/blogs/presentation/widgets/back_button.dart';
@@ -125,7 +125,7 @@ class MainContent extends StatelessWidget {
 
 class ContentSections extends StatelessWidget {
   const ContentSections({required this.sections, super.key});
-  final List<BlogDetailsItem> sections;
+  final List<BlogSectionItem> sections;
 
   @override
   Widget build(BuildContext context) {

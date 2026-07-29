@@ -88,7 +88,7 @@ class BlogCard extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(top: 10),
       child: Hero(
-        tag: 'blog-thumbnail',
+        tag: 'blog-thumbnail_${post.id}',
         child: GlassCard(
           child: Container(
             width: double.infinity,
