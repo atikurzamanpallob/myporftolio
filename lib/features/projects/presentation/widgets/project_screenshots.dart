@@ -75,12 +75,13 @@ class _ProjectScreenshotsState extends State<ProjectScreenshots> {
                         children: [
                           IconButton(
                             onPressed: () {
-                              if (counter >= 1) {
+                              if (counter > images.length / 2) {
                                 setState(() {
-                                  counter = counter == images.length
-                                      ? counter - 1
-                                      : counter;
+                                  counter = (images.length / 2).toInt();
                                 });
+                              }
+
+                              if (counter >= 1) {
                                 itemScrollController.scrollTo(
                                   index: counter--,
                                   duration: Duration(milliseconds: 400),
@@ -101,11 +102,6 @@ class _ProjectScreenshotsState extends State<ProjectScreenshots> {
                           IconButton(
                             onPressed: () {
                               if (counter < images.length) {
-                                setState(() {
-                                  counter = counter == 0
-                                      ? counter + 1
-                                      : counter;
-                                });
                                 itemScrollController.scrollTo(
                                   index: counter++,
                                   duration: Duration(milliseconds: 400),

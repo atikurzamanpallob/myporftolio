@@ -51,7 +51,7 @@ class SoftSkillCard extends StatelessWidget {
             SizedBox(height: 10.h),
             Text(
               skill.description,
-              style: context.fontStyle.bodySmall?.copyWith(
+              style: context.fontStyle.labelLarge?.copyWith(
                 height: 1.4,
                 color: AppColors.textSecondary,
               ),

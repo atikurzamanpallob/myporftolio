@@ -23,7 +23,7 @@ class ProjectHeroSection extends StatelessWidget {
       builder: (context, state) {
         var projectInfo = state.projectItem;
         return Hero(
-          tag: 'project_hero',
+          tag: 'project_hero_${projectInfo?.id}',
           child: state.isLoading == true
               ? Center(child: CircularProgressIndicator())
               : Container(

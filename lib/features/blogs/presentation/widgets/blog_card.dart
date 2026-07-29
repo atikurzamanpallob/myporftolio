@@ -51,7 +51,7 @@ class BlogCard extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
       children: [
-        Text(post.categoryName, style: context.fontStyle.bodyMedium),
+        Text(post.categoryName, style: context.fontStyle.bodyLarge),
         SizedBox(height: 8.h),
         Text(
           post.title,

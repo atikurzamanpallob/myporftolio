@@ -27,7 +27,7 @@ class ProjectCard extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(top: 10),
       child: Hero(
-        tag: "project_hero",
+        tag: "project_hero_${project.id}",
         transitionOnUserGestures: true,
         child: GlassCard(
           child: Container(
