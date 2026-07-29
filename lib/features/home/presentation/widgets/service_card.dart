@@ -60,7 +60,7 @@ class ServiceCard extends StatelessWidget {
                     description,
                     maxLines: 3,
                     overflow: TextOverflow.ellipsis,
-                    style: context.fontStyle.bodySmall?.copyWith(
+                    style: context.fontStyle.labelLarge?.copyWith(
                       color: AppColors.textSecondary,
                       height: 1.1,
                     ),

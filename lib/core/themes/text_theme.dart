@@ -14,7 +14,7 @@ const textTheme = TextTheme(
     fontWeight: FontWeight.w400,
   ),
   labelLarge: TextStyle(
-    fontSize: 10,
+    fontSize: 11,
     fontFamily: AppFonts.inter,
     fontWeight: FontWeight.w400,
   ),
