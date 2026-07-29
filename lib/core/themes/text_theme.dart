@@ -20,7 +20,7 @@ const textTheme = TextTheme(
   ),
 
   bodySmall: TextStyle(
-    fontSize: 10.5,
+    fontSize: 11,
     fontFamily: AppFonts.inter,
     fontWeight: FontWeight.w400,
     height: 1.5,
