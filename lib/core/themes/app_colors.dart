@@ -45,5 +45,10 @@ class AppColors {
   static const chipBg = Color(0xFF1A2438);
   static const badgeBg = Color(0xFF2F6FED);
   static const success = Color(0xFF22C55E);
-  static const danger = Color(0xFFEF4444);
+  static const danger = Color(0xFFFF0000);
+  static const purple = Color(0xFFA700D1);
+  static const magenta = Color(0xFFE70C8C);
+  static const cyan = Colors.cyanAccent;
+  static const orange = Color(0xFFFF9A1F);
+  static const lightBlue = Colors.lightBlueAccent;
 }

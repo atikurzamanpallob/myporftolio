@@ -17,7 +17,7 @@ class AuthorCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SidebarHeading(title: 'About The Author'),
+            SidebarHeading(title: 'The Author'),
             SizedBox(height: 16.h),
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,

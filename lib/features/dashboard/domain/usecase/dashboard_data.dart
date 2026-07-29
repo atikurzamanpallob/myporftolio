@@ -5,6 +5,9 @@ import 'package:myportfolioapp/features/dashboard/domain/repository/category_res
 import 'package:myportfolioapp/features/projects/domain/entity/project_add_item.dart';
 import 'package:myportfolioapp/features/projects/domain/usecase/project_data.dart';
 
+import '../../../projects/domain/entity/project_tech_stack.dart';
+import '../entity/tech_add_entity.dart';
+
 class DashboardData {
   ProjectData projectData;
   CategoryRespository repository;
@@ -16,5 +19,15 @@ class DashboardData {
 
   Future<Either<Failure, List<Category>>> getCategoryList() async {
     return repository.getCategoryList();
+  }
+
+  Future<Either<Failure, List<ProjectTechStack>>> getTechStacks() async {
+    return projectData.getTechStacks();
+  }
+
+  Future<Either<Failure, bool>> addtechStacks({
+    required List<TechAddEntity> list,
+  }) async {
+    return projectData.addtechStacks(list: list);
   }
 }

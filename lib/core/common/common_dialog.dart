@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:myportfolioapp/core/themes/app_colors.dart';
 
 void CommonDialog({required Widget child, required BuildContext context}) {
   showDialog(
@@ -13,7 +14,18 @@ void CommonDialog({required Widget child, required BuildContext context}) {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadiusGeometry.circular(10.r),
         ),
-        child: child,
+        child: Stack(
+          alignment: .topRight,
+          children: [
+            child,
+            IconButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              icon: Icon(Icons.close, color: AppColors.danger),
+            ),
+          ],
+        ),
       );
     },
   );

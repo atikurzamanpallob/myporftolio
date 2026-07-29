@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:myportfolioapp/features/blogs/domain/usecase/blog_data.dart';
 import 'package:myportfolioapp/features/dashboard/domain/usecase/dashboard_data.dart';
@@ -11,7 +13,10 @@ class DashBoardBloc extends Bloc<DashboardEvent, DashboardState> {
     on<AddProjectEvent>(addProject);
     on<CategoryFetchEvent>(fetchCategory);
     on<AddBlogEvent>(addBlog);
+    on<AddTechEvent>(addTech);
+    on<FetchTechStacksEvent>(fetchTechStacks);
     add(CategoryFetchEvent());
+    add(FetchTechStacksEvent());
   }
 
   Future<void> addProject(
@@ -61,6 +66,38 @@ class DashBoardBloc extends Bloc<DashboardEvent, DashboardState> {
       },
       (categories) {
         emit(state.copyWith(isCategoryLoading: false, category: categories));
+      },
+    );
+  }
+
+  Future<void> addTech(AddTechEvent event, Emitter<DashboardState> emit) async {
+    emit(state.copyWith(isLoading: true));
+
+    final result = await dashboardData.addtechStacks(list: event.techList);
+    result.fold(
+      (failure) {
+        emit(state.copyWith(isLoading: false, error: failure.message));
+      },
+      (status) {
+        emit(state.copyWith(isLoading: false));
+      },
+    );
+    emit(state.copyWith(isLoading: false));
+  }
+
+  Future fetchTechStacks(
+    FetchTechStacksEvent event,
+    Emitter<DashboardState> emit,
+  ) async {
+    emit(state.copyWith(isTechStackLoading: true));
+    final result = await dashboardData.getTechStacks();
+
+    result.fold(
+      (failure) {
+        emit(state.copyWith(isTechStackLoading: false, error: failure.message));
+      },
+      (techStacks) {
+        emit(state.copyWith(isTechStackLoading: false, techStacks: techStacks));
       },
     );
   }

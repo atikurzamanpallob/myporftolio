@@ -13,6 +13,7 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../../../core/themes/app_colors.dart';
 import '../../../../core/utils/responsive.dart';
 import 'project_thumbnails.dart';
+import 'tech_chip.dart';
 
 class ProjectCard extends StatelessWidget {
   const ProjectCard({super.key, required this.project});
@@ -113,15 +114,7 @@ class _ProjectInfo extends StatelessWidget {
           spacing: 10.w,
           runSpacing: 10.h,
           children: [
-            SvgPicture.asset(
-              AppIcons.stack,
-              height: 30.h,
-              colorFilter: ColorFilter.mode(
-                AppColors.starYellow,
-                BlendMode.srcIn,
-              ),
-            ),
-            for (final tech in project.technology) _TechChip(label: tech),
+            for (final tech in project.technology) TechChip(techStack: tech),
           ],
         ),
         SizedBox(height: 16.h),
@@ -146,29 +139,6 @@ class _ProjectInfo extends StatelessWidget {
           ],
         ),
       ],
-    );
-  }
-}
-
-class _TechChip extends StatelessWidget {
-  const _TechChip({required this.label});
-  final String label;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 8.h),
-      decoration: BoxDecoration(
-        border: Border.all(color: AppColors.divider, width: 1),
-        borderRadius: BorderRadius.circular(8.r),
-      ),
-      child: Text(
-        label,
-        style: context.fontStyle.labelMedium?.copyWith(
-          fontWeight: FontWeight.w500,
-          color: AppColors.green,
-        ),
-      ),
     );
   }
 }

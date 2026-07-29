@@ -2,6 +2,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:myportfolioapp/core/common/thumbnail_preview.dart';
 import 'package:myportfolioapp/core/themes/app_colors.dart';
 import 'package:myportfolioapp/core/common/common_dialog.dart';
 import 'package:myportfolioapp/core/common/labled_date_field.dart';
@@ -19,7 +20,6 @@ import '../../../../core/app_resources/app_fonts.dart';
 import '../../../../core/common/description_field.dart';
 import '../../../../core/common/label_field.dart' hide buildInputDecoration;
 import '../../../../core/common/labled_dropdown.dart';
-import '../../../../core/common/screen_shot_preview.dart';
 import '../../domain/entity/category_list.dart';
 import '../widgets/section_widget.dart';
 
@@ -188,6 +188,7 @@ class _AddBlogPageState extends State<AddBlogPage> {
     return Column(
       children: [
         SectionCard(
+          title: "Basic Info",
           child: Column(
             children: [
               ResponsiveFieldRow(
@@ -274,6 +275,7 @@ class _AddBlogPageState extends State<AddBlogPage> {
         ),
         SizedBox(height: 20.h),
         SectionCard(
+          title: "Add Contents",
           onAdd: () {
             CommonDialog(
               context: context,
@@ -314,7 +316,7 @@ class _AddBlogPageState extends State<AddBlogPage> {
             builder: (field) => Column(
               crossAxisAlignment: .start,
               children: [
-                ScreenshotThumbnailGrid(files: files, column: 1),
+                ThumbnailPreview(files: files, column: 1),
                 const SizedBox(height: 16),
                 _outlinedIconButton(
                   'Add Image',

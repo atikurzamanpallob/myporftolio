@@ -1,3 +1,5 @@
+import 'package:myportfolioapp/features/projects/domain/entity/project_tech_stack.dart';
+
 class ProjectItem {
   final int id;
   final int index;
@@ -6,7 +8,7 @@ class ProjectItem {
   final String description;
   final String link;
   final String company;
-  final List<String> technology;
+  final List<ProjectTechStack> technology;
   List<String> images;
 
   ProjectItem({

@@ -43,7 +43,6 @@ class BlogDatasourceImp extends BlogDatasource {
               .select()
               .order('index', ascending: false)
               .range(from, to);
-    print(response);
 
     response.forEach((element) {
       try {

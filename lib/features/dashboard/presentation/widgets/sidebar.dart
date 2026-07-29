@@ -47,6 +47,12 @@ class _AppSidebarState extends State<AppSidebar> {
                     selected: widget.currentOption == 1,
                     onTap: () => widget.onTap(1),
                   ),
+                  _NavItem(
+                    icon: Icons.account_tree_outlined,
+                    label: 'Add Options',
+                    selected: widget.currentOption == 2,
+                    onTap: () => widget.onTap(2),
+                  ),
                 ],
               ),
             ),
