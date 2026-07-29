@@ -20,20 +20,20 @@ const textTheme = TextTheme(
   ),
 
   bodySmall: TextStyle(
-    fontSize: 12.5,
+    fontSize: 11,
     fontFamily: AppFonts.inter,
     fontWeight: FontWeight.w400,
     height: 1.5,
     color: AppColors.textSecondary,
   ),
   bodyMedium: TextStyle(
-    fontSize: 13,
+    fontSize: 12,
     fontFamily: AppFonts.inter,
     fontWeight: FontWeight.w400,
     height: 1.5,
   ),
   bodyLarge: TextStyle(
-    fontSize: 14,
+    fontSize: 13,
     fontFamily: AppFonts.inter,
     fontWeight: FontWeight.w400,
     height: 1.5,
