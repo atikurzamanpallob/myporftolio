@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/themes/responsive_text_theme.dart';
 import '../../../../core/utils/responsive.dart';
-import '../../data/models/skill_category_models.dart';
+import '../../data/models/soft_skill_models.dart';
 import '../widgets/soft_skill_card.dart';
 
 class SoftSkillsSection extends StatelessWidget {

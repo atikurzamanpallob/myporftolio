@@ -1,7 +1,6 @@
 import '../../../../core/app_resources/app_icons.dart';
 import '../../domain/entity/skill_category.dart';
 import '../../domain/entity/skill_item.dart';
-import '../../domain/entity/soft_skill.dart';
 
 List<SkillCategory> kTechnicalSkills = [
   SkillCategory(
@@ -75,6 +74,8 @@ List<SkillCategory> kTechnicalSkills = [
       SkillItem(name: 'Code Magic', level: 75),
       SkillItem(name: 'Playstore', level: 80),
       SkillItem(name: 'Appstore', level: 70),
+      SkillItem(name: 'Claude', level: 85),
+      SkillItem(name: 'ChatGpt', level: 85),
     ],
   ),
 
@@ -88,33 +89,5 @@ List<SkillCategory> kTechnicalSkills = [
       SkillItem(name: 'Widget Test', level: 70),
       SkillItem(name: 'Problem Solving', level: 80),
     ],
-  ),
-];
-
-const List<SoftSkill> kSoftSkills = [
-  SoftSkill(
-    iconAsset: AppIcons.skillCommunication,
-    title: 'Communication',
-    description: 'Clear & effective communications',
-  ),
-  SoftSkill(
-    iconAsset: AppIcons.skillTeamwork,
-    title: 'Teamwork',
-    description: 'Collaborative & a great team player',
-  ),
-  SoftSkill(
-    iconAsset: AppIcons.skillTimeManagement,
-    title: 'Time Management',
-    description: 'Complete task, project before deadline',
-  ),
-  SoftSkill(
-    iconAsset: AppIcons.skillAdapt,
-    title: 'Adaptability',
-    description: 'Quick to learn and adapt to new challenges',
-  ),
-  SoftSkill(
-    iconAsset: AppIcons.skillProblem,
-    title: 'Problem Solving',
-    description: 'Analytical thinking and finding the right solution',
   ),
 ];
