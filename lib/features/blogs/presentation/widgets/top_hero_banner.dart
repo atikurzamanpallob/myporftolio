@@ -20,7 +20,7 @@ class HeroBanner extends StatelessWidget {
   Widget build(BuildContext context) {
     final bool isMobile = Responsive.isMobile(context);
     return Hero(
-      tag: 'blog-thumbnail',
+      tag: 'blog-thumbnail_${detail?.id}',
       child: GlassCard(
         child: ClipRRect(
           borderRadius: BorderRadius.circular(10.r),
