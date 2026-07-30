@@ -28,8 +28,8 @@ class StatItem extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Container(
-          width: 56.r,
-          height: 56.r,
+          width: 45.r,
+          height: 45.r,
           padding: EdgeInsets.all(10.r),
           decoration: BoxDecoration(
             color: AppColors.iconCircleFill,

@@ -3,10 +3,10 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:myportfolioapp/core/di/injection.dart';
 import 'package:myportfolioapp/core/supabase/supabase_client.dart';
+import 'package:myportfolioapp/core/themes/responsive_size.dart';
 import 'package:myportfolioapp/core/themes/text_theme.dart';
 
 import 'core/themes/app_colors.dart';
-import 'core/utils/responsive.dart';
 import 'core/common/routes.dart';
 
 void main() async {
@@ -22,12 +22,8 @@ class PortfolioApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Re-evaluated on every rebuild (e.g. browser window resize), so the
-    // ScreenUtil "design size" adapts between mobile / tablet / desktop.
-    final width = MediaQuery.sizeOf(context).width;
-    final designSize = Responsive.designSizeFor(width);
     return ScreenUtilInit(
-      designSize: designSize,
+      designSize: context.getDesignSize,
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (context, child) {

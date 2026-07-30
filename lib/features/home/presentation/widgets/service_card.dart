@@ -2,32 +2,25 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:myportfolioapp/core/common/glass_card.dart';
+import 'package:myportfolioapp/features/home/domain/entity/service_item.dart';
 
 import '../../../../core/themes/app_colors.dart';
 import '../../../../core/themes/responsive_text_theme.dart';
 
 class ServiceCard extends StatelessWidget {
-  const ServiceCard({
-    super.key,
-    required this.iconAsset,
-    required this.title,
-    required this.description,
-  });
+  const ServiceCard({super.key, required this.serviceItem});
 
-  final String iconAsset;
-  final String title;
-  final String description;
+  final ServiceItem serviceItem;
 
   @override
   Widget build(BuildContext context) {
     return GlassCard(
       child: Container(
-        width: double.infinity,
         padding: EdgeInsets.all(20.r),
         decoration: BoxDecoration(borderRadius: BorderRadius.circular(8.r)),
         child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: .center,
+          mainAxisSize: .min,
           children: [
             Container(
               width: 52.r,
@@ -41,7 +34,7 @@ class ServiceCard extends StatelessWidget {
                   width: 1.5,
                 ),
               ),
-              child: SvgPicture.asset(iconAsset),
+              child: SvgPicture.asset(serviceItem.icon),
             ),
             SizedBox(width: 16.w),
             Expanded(
@@ -49,7 +42,7 @@ class ServiceCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    title,
+                    serviceItem.title,
                     style: context.fontStyle.bodyLarge?.copyWith(
                       fontWeight: FontWeight.w600,
                       color: AppColors.textPrimary,
@@ -57,7 +50,7 @@ class ServiceCard extends StatelessWidget {
                   ),
                   SizedBox(height: 5.h),
                   Text(
-                    description,
+                    serviceItem.desc,
                     maxLines: 3,
                     overflow: TextOverflow.ellipsis,
                     style: context.fontStyle.labelLarge?.copyWith(
