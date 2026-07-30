@@ -89,7 +89,7 @@ class RecentPostItem extends StatelessWidget {
                       post.title,
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
-                      style: context.fontStyle.labelLarge?.copyWith(
+                      style: context.fontStyle.labelMedium?.copyWith(
                         color: AppColors.textPrimary,
                       ),
                     ),

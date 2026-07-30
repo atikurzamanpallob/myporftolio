@@ -5,12 +5,12 @@ import 'package:go_router/go_router.dart';
 import 'package:myportfolioapp/core/app_resources/app_icons.dart';
 import 'package:myportfolioapp/core/common/custom_outlined_button.dart';
 import 'package:myportfolioapp/core/common/glass_card.dart';
+import 'package:myportfolioapp/core/themes/responsive_size.dart';
 import 'package:myportfolioapp/core/themes/responsive_text_theme.dart';
 import 'package:myportfolioapp/features/blogs/domain/entity/blog_item.dart';
 
 import '../../../../core/themes/app_colors.dart';
 import '../../../../core/app_resources/app_images.dart';
-import '../../../../core/utils/responsive.dart';
 import '../pages/blog_details_page.dart';
 import 'meta_item.dart';
 
@@ -21,8 +21,54 @@ class BlogCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bool isMobile = Responsive.isMobile(context);
-    final thumbnail = Container(
+    final bool isMobile = context.isMobile;
+    return Padding(
+      padding: const EdgeInsets.only(top: 10),
+      child: Hero(
+        tag: 'blog-thumbnail_${post.id}',
+        child: GlassCard(
+          child: Container(
+            width: double.infinity,
+            padding: EdgeInsets.all(isMobile ? 16.r : 24.r),
+            decoration: BoxDecoration(borderRadius: BorderRadius.circular(8.r)),
+            child: isMobile
+                ? Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      thumbnail(isMobile),
+                      SizedBox(height: 16.h),
+                      info(context),
+                      SizedBox(height: 16.h),
+                      Align(
+                        alignment: Alignment.centerRight,
+                        child: readMore(context),
+                      ),
+                    ],
+                  )
+                : IntrinsicHeight(
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+
+                      children: [
+                        thumbnail(isMobile),
+                        SizedBox(width: 24.w),
+                        Expanded(child: info(context)),
+                        SizedBox(width: 16.w),
+                        Align(
+                          alignment: Alignment.topRight,
+                          child: readMore(context),
+                        ),
+                      ],
+                    ),
+                  ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget thumbnail(bool isMobile) {
+    return Container(
       width: isMobile ? double.infinity : 330.w,
       height: isMobile ? 160.h : 210.h,
       decoration: BoxDecoration(
@@ -46,8 +92,10 @@ class BlogCard extends StatelessWidget {
         ),
       ),
     );
+  }
 
-    final info = Column(
+  Widget info(BuildContext context) {
+    return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -77,50 +125,14 @@ class BlogCard extends StatelessWidget {
         ),
       ],
     );
+  }
 
-    final readMore = CustomOutlinedButton(
+  Widget readMore(BuildContext context) {
+    return CustomOutlinedButton(
       onTap: () {
         context.go(BlogDetailsPage.routeFor(post.id));
       },
       label: 'Read More',
-    );
-
-    return Padding(
-      padding: const EdgeInsets.only(top: 10),
-      child: Hero(
-        tag: 'blog-thumbnail_${post.id}',
-        child: GlassCard(
-          child: Container(
-            width: double.infinity,
-            padding: EdgeInsets.all(isMobile ? 16.r : 24.r),
-            decoration: BoxDecoration(borderRadius: BorderRadius.circular(8.r)),
-            child: isMobile
-                ? Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      thumbnail,
-                      SizedBox(height: 16.h),
-                      info,
-                      SizedBox(height: 16.h),
-                      Align(alignment: Alignment.centerRight, child: readMore),
-                    ],
-                  )
-                : IntrinsicHeight(
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-
-                      children: [
-                        thumbnail,
-                        SizedBox(width: 24.w),
-                        Expanded(child: info),
-                        SizedBox(width: 16.w),
-                        Align(alignment: Alignment.topRight, child: readMore),
-                      ],
-                    ),
-                  ),
-          ),
-        ),
-      ),
     );
   }
 }

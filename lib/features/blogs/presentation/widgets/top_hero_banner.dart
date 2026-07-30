@@ -13,14 +13,15 @@ import '../../../../core/utils/responsive.dart';
 import 'category_chip.dart';
 
 class HeroBanner extends StatelessWidget {
-  const HeroBanner({required this.detail, super.key});
+  const HeroBanner({required this.detail, super.key, required this.blogId});
   final BlogItem? detail;
+  final int blogId;
 
   @override
   Widget build(BuildContext context) {
     final bool isMobile = Responsive.isMobile(context);
     return Hero(
-      tag: 'blog-thumbnail_${detail?.id}',
+      tag: 'blog-thumbnail_$blogId',
       child: GlassCard(
         child: ClipRRect(
           borderRadius: BorderRadius.circular(10.r),

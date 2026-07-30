@@ -32,7 +32,11 @@ class ProjectDetailsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bool showDrawer = !Responsive.isDesktop(context);
-
+    final double hPad = context.isMobile
+        ? 16
+        : context.isDesktop
+        ? 80
+        : 40;
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: NavBar(
@@ -47,35 +51,21 @@ class ProjectDetailsPage extends StatelessWidget {
           : null,
       bottomNavigationBar: const FooterSection(),
 
-      body: ProjectBody(),
-    );
-  }
-}
-
-class ProjectBody extends StatelessWidget {
-  const ProjectBody({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    final double hPad = context.isMobile
-        ? 16
-        : context.isDesktop
-        ? 80
-        : 40;
-    return SingleChildScrollView(
-      child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: hPad.w),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(height: 10.h),
-            ProjectBackButton(),
-            SizedBox(height: 20.h),
-            ProjectHeroSection(),
-            SizedBox(height: 20.h),
-            context.isMobile ? mobileContent() : desktopContent(),
-            SizedBox(height: 48.h),
-          ],
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: hPad.w),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(height: 10.h),
+              ProjectBackButton(),
+              SizedBox(height: 20.h),
+              ProjectHeroSection(projectId: projectId),
+              SizedBox(height: 20.h),
+              context.isMobile ? mobileContent() : desktopContent(),
+              SizedBox(height: 48.h),
+            ],
+          ),
         ),
       ),
     );

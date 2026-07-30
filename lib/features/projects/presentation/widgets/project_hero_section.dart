@@ -15,15 +15,15 @@ import '../../../../core/common/custom_outlined_button.dart';
 import '../../../../core/themes/responsive_text_theme.dart';
 
 class ProjectHeroSection extends StatelessWidget {
-  const ProjectHeroSection({super.key});
-
+  const ProjectHeroSection({super.key, required this.projectId});
+  final int projectId;
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ProjectBloc, ProjectState>(
       builder: (context, state) {
         var projectInfo = state.projectItem;
         return Hero(
-          tag: 'project_hero_${projectInfo?.id}',
+          tag: 'project_hero_$projectId',
           child: state.isLoading == true
               ? Center(child: CircularProgressIndicator())
               : Container(

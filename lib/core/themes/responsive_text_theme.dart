@@ -4,7 +4,6 @@ extension ResponsiveTextTheme on BuildContext {
   TextTheme get fontStyle {
     final theme = Theme.of(this).textTheme;
     final width = MediaQuery.sizeOf(this).width;
-
     double factor;
 
     if (width >= 1440) {

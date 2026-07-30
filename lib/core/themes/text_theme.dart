@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:myportfolioapp/core/app_resources/app_fonts.dart';
 import 'package:myportfolioapp/core/themes/app_colors.dart';
 
-const textTheme = TextTheme(
+var textTheme = TextTheme(
   labelSmall: TextStyle(
     fontSize: 8,
     fontFamily: AppFonts.inter,
     fontWeight: FontWeight.w400,
   ),
   labelMedium: TextStyle(
-    fontSize: 9,
+    fontSize: 9.5.sp,
     fontFamily: AppFonts.inter,
     fontWeight: FontWeight.w400,
   ),
@@ -20,7 +21,7 @@ const textTheme = TextTheme(
   ),
 
   bodySmall: TextStyle(
-    fontSize: 11,
+    fontSize: 11.5,
     fontFamily: AppFonts.inter,
     fontWeight: FontWeight.w400,
     height: 1.5,

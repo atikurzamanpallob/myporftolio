@@ -26,6 +26,13 @@ class BlogDetailsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bool showDrawer = !Responsive.isDesktop(context);
+    final bool isMobile = Responsive.isMobile(context);
+    final bool isDesktop = Responsive.isDesktop(context);
+    final double hPad = isMobile
+        ? 16
+        : isDesktop
+        ? 80
+        : 40;
 
     return Scaffold(
       backgroundColor: AppColors.background,
@@ -41,65 +48,49 @@ class BlogDetailsPage extends StatelessWidget {
           : null,
       bottomNavigationBar: const FooterSection(),
 
-      body: BlogDetailBody(),
-    );
-  }
-}
-
-class BlogDetailBody extends StatelessWidget {
-  const BlogDetailBody({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    final bool isMobile = Responsive.isMobile(context);
-    final bool isDesktop = Responsive.isDesktop(context);
-    final double hPad = isMobile
-        ? 16
-        : isDesktop
-        ? 80
-        : 40;
-
-    return BlocBuilder<BlogDetailsBloc, BlogDetailsState>(
-      builder: (context, state) {
-        return SingleChildScrollView(
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: hPad.w),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(height: 10.h),
-                BlogBackButton(),
-                SizedBox(height: 20.h),
-                if (isDesktop)
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Expanded(flex: 7, child: MainContent()),
-                      SizedBox(width: 24.w),
-                      SizedBox(width: 290.w, child: Sidebar()),
-                    ],
-                  )
-                else
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      MainContent(),
-                      SizedBox(height: 32.h),
-                      Sidebar(),
-                    ],
-                  ),
-                SizedBox(height: 48.h),
-              ],
+      body: BlocBuilder<BlogDetailsBloc, BlogDetailsState>(
+        builder: (context, state) {
+          return SingleChildScrollView(
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: hPad.w),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(height: 10.h),
+                  BlogBackButton(),
+                  SizedBox(height: 20.h),
+                  if (isDesktop)
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Expanded(flex: 7, child: MainContent(blogId: blogId)),
+                        SizedBox(width: 24.w),
+                        SizedBox(width: 290.w, child: Sidebar()),
+                      ],
+                    )
+                  else
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        MainContent(blogId: blogId),
+                        SizedBox(height: 32.h),
+                        Sidebar(),
+                      ],
+                    ),
+                  SizedBox(height: 48.h),
+                ],
+              ),
             ),
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
   }
 }
 
 class MainContent extends StatelessWidget {
-  const MainContent({super.key});
+  const MainContent({super.key, required this.blogId});
+  final int blogId;
 
   @override
   Widget build(BuildContext context) {
@@ -108,7 +99,7 @@ class MainContent extends StatelessWidget {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            HeroBanner(detail: state.blog),
+            HeroBanner(detail: state.blog, blogId: blogId),
             SizedBox(height: 20.h),
             GlassCard(
               child: Padding(
