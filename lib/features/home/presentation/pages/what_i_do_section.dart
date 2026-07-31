@@ -19,7 +19,7 @@ class WhatIDoSection extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text('What I Do', style: context.fontStyle.headlineSmall),
-          SizedBox(height: 10.h),
+          SizedBox(height: 15.h),
           context.isMobile
               ? mobileView()
               : context.isTablet || context.isLaptop

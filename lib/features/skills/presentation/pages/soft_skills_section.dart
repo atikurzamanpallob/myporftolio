@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:myportfolioapp/core/themes/responsive_size.dart';
 
 import '../../../../core/themes/responsive_text_theme.dart';
-import '../../../../core/utils/responsive.dart';
 import '../../data/models/soft_skill_models.dart';
 import '../widgets/soft_skill_card.dart';
 
@@ -11,44 +11,85 @@ class SoftSkillsSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bool isMobile = Responsive.isMobile(context);
-    final bool isTablet = Responsive.isTablet(context);
-    final bool isDesktop = Responsive.isDesktop(context);
-
-    // 1 column on mobile, 2 on tablet, 3 on desktop (5 items wrap nicely).
-    final int columns = isMobile ? 1 : (isTablet ? 2 : 5);
-    final double spacing = 16.w;
-
     return Padding(
       padding: EdgeInsets.symmetric(
-        horizontal: isMobile ? 16.w : 40.w,
+        horizontal: context.isMobile ? 16.w : 40.w,
         vertical: 10.h,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text('Soft Skills', style: context.fontStyle.headlineSmall),
-          SizedBox(height: 16.h),
-          LayoutBuilder(
-            builder: (context, constraints) {
-              final double cardWidth =
-                  (constraints.maxWidth - spacing * (columns - 1)) / columns;
-              return Wrap(
-                spacing: spacing,
-                runSpacing: spacing,
-                children: [
-                  for (int i = 0; i < kSoftSkills.length; i++)
-                    SizedBox(
-                      width: cardWidth,
-                      child: SoftSkillCard(
-                        skill: kSoftSkills[i],
-                        isDesktop: isDesktop,
-                      ),
-                    ),
-                ],
-              );
-            },
+          SizedBox(height: 15.h),
+          context.isMobile
+              ? mobileView()
+              : context.isTablet || context.isLaptop
+              ? tabletView()
+              : desktopView(),
+        ],
+      ),
+    );
+  }
+
+  Widget mobileView() {
+    return Column(
+      children: [
+        for (int i = 0; i < kSoftSkills.length; i++)
+          Padding(
+            padding: EdgeInsets.only(
+              bottom: i == kSoftSkills.length - 1 ? 0 : 10.h,
+            ),
+            child: SoftSkillCard(skill: kSoftSkills[i]),
           ),
+      ],
+    );
+  }
+
+  Widget tabletView() {
+    return Column(
+      children: [
+        IntrinsicHeight(
+          child: Row(
+            children: [
+              Expanded(child: SoftSkillCard(skill: kSoftSkills[0])),
+              SizedBox(width: 10.w),
+              Expanded(child: SoftSkillCard(skill: kSoftSkills[1])),
+            ],
+          ),
+        ),
+        SizedBox(height: 10.h),
+        IntrinsicHeight(
+          child: Row(
+            children: [
+              Expanded(child: SoftSkillCard(skill: kSoftSkills[2])),
+              SizedBox(width: 10.w),
+              Expanded(child: SoftSkillCard(skill: kSoftSkills[3])),
+            ],
+          ),
+        ),
+        SizedBox(height: 10.h),
+        IntrinsicHeight(
+          child: Row(
+            children: [Expanded(child: SoftSkillCard(skill: kSoftSkills[4]))],
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget desktopView() {
+    return IntrinsicHeight(
+      child: Row(
+        children: [
+          Expanded(child: SoftSkillCard(skill: kSoftSkills[0])),
+          SizedBox(width: 10.w),
+          Expanded(child: SoftSkillCard(skill: kSoftSkills[1])),
+          SizedBox(width: 10.w),
+          Expanded(child: SoftSkillCard(skill: kSoftSkills[2])),
+          SizedBox(width: 10.w),
+          Expanded(child: SoftSkillCard(skill: kSoftSkills[3])),
+          SizedBox(width: 10.w),
+          Expanded(child: SoftSkillCard(skill: kSoftSkills[4])),
         ],
       ),
     );

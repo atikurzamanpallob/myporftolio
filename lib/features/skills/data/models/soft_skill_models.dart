@@ -5,12 +5,12 @@ const List<SoftSkill> kSoftSkills = [
   SoftSkill(
     iconAsset: AppIcons.skillCommunication,
     title: 'Communication',
-    description: 'Clear & effective communications',
+    description: 'Clear & effective communications with teams and clients',
   ),
   SoftSkill(
     iconAsset: AppIcons.skillTeamwork,
     title: 'Teamwork',
-    description: 'Collaborative & a great team player',
+    description: 'Collaborative & a great team player & great associate',
   ),
   SoftSkill(
     iconAsset: AppIcons.skillTimeManagement,
