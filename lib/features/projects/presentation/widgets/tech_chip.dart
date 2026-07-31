@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:myportfolioapp/core/themes/responsive_size.dart';
 
 import '../../../../core/themes/app_colors.dart';
 import '../../../../core/themes/responsive_text_theme.dart';
@@ -15,13 +16,17 @@ class TechChip extends StatelessWidget {
     return Container(
       padding: EdgeInsets.all(8),
       decoration: BoxDecoration(
-        border: Border.all(color: AppColors.textPrimary, width: 0.5),
+        border: Border.all(color: AppColors.textPrimary, width: 0.7),
         borderRadius: BorderRadius.circular(8.r),
       ),
       child: Row(
         mainAxisSize: .min,
         children: [
-          SvgPicture.network(techStack.iconUrl, width: 35.r, height: 35.r),
+          SvgPicture.network(
+            techStack.iconUrl,
+            width: context.isMobile ? 20.r : 35.r,
+            height: context.isMobile ? 20.r : 35.r,
+          ),
 
           SizedBox(width: 10.w),
           Text(
