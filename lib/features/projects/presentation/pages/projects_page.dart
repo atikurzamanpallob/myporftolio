@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:myportfolioapp/core/common/hero_header.dart';
+import 'package:myportfolioapp/core/themes/responsive_size.dart';
 import '../../../../core/common/nav_bar.dart';
 import '../../../../core/common/navigation.dart';
 import '../../../../core/utils/responsive.dart';
@@ -31,7 +32,9 @@ class ProjectsPage extends StatelessWidget {
       bottomNavigationBar: const FooterSection(),
 
       body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 20.w),
+        padding: EdgeInsets.symmetric(
+          horizontal: context.isMobile ? 10.w : 20.w,
+        ),
         child: Column(
           crossAxisAlignment: .start,
           children: [

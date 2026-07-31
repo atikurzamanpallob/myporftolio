@@ -24,8 +24,8 @@ class TechChip extends StatelessWidget {
         children: [
           SvgPicture.network(
             techStack.iconUrl,
-            width: context.isMobile ? 20.r : 35.r,
-            height: context.isMobile ? 20.r : 35.r,
+            width: getSize(context),
+            height: getSize(context),
           ),
 
           SizedBox(width: 10.w),
@@ -39,5 +39,13 @@ class TechChip extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  double getSize(BuildContext context) {
+    return context.isMobile
+        ? 20.r
+        : context.isTablet || context.isLaptop
+        ? 25.r
+        : 35.r;
   }
 }
