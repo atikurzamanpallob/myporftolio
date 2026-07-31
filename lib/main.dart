@@ -3,8 +3,6 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:lottie/lottie.dart';
-import 'package:myportfolioapp/core/app_resources/app_animation.dart';
 import 'package:myportfolioapp/core/app_resources/app_images.dart';
 import 'package:myportfolioapp/core/di/injection.dart';
 import 'package:myportfolioapp/core/supabase/supabase_client.dart';
@@ -46,7 +44,6 @@ class PortfolioApp extends StatelessWidget {
               ),
               child: BackdropFilter(
                 filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
-                child: Lottie.asset(AppAnimation.cpu),
               ),
             ),
 
