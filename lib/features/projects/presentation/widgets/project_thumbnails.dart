@@ -3,14 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:myportfolioapp/core/app_resources/app_images.dart';
 
-import '../../../../core/themes/app_colors.dart';
-
 class ProjectThumbnails extends StatelessWidget {
   const ProjectThumbnails({
     super.key,
     required this.imageUrls,
-    this.width = 130,
-    this.height = 210,
+    this.width = 180,
+    this.height = 180,
   });
 
   final List<String> imageUrls;
@@ -19,33 +17,10 @@ class ProjectThumbnails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: width.w + 18.w,
-      height: height.h,
-      child: Stack(
-        children: [
-          Positioned(
-            left: 0,
-            top: 14.h,
-            child: _PhoneFrame(
-              width: width.w,
-              height: height.h - 14.h,
-              imageUrl: imageUrls.isNotEmpty ? imageUrls.first : "",
-              muted: true,
-            ),
-          ),
-          Positioned(
-            right: 0,
-            top: 0,
-            child: _PhoneFrame(
-              width: width.w,
-              height: height.h - 14.h,
-              imageUrl: imageUrls.isNotEmpty ? imageUrls.last : "",
-              muted: false,
-            ),
-          ),
-        ],
-      ),
+    return _PhoneFrame(
+      width: width.r,
+      height: height.r,
+      imageUrl: imageUrls.isNotEmpty ? imageUrls.first : "",
     );
   }
 }
@@ -55,13 +30,11 @@ class _PhoneFrame extends StatelessWidget {
     required this.width,
     required this.height,
     required this.imageUrl,
-    required this.muted,
   });
 
   final double width;
   final double height;
   final String imageUrl;
-  final bool muted;
 
   @override
   Widget build(BuildContext context) {
@@ -69,34 +42,12 @@ class _PhoneFrame extends StatelessWidget {
       width: width,
       height: height,
       padding: EdgeInsets.all(3.r),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(14.r),
-        border: Border.all(color: AppColors.divider, width: 1),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.35),
-            blurRadius: 12,
-            offset: const Offset(0, 6),
-          ),
-        ],
-      ),
+      decoration: BoxDecoration(borderRadius: BorderRadius.circular(14.r)),
       child: DecoratedBox(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(8.r),
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: muted
-                ? [AppColors.iconCircleFill, AppColors.cardBackground]
-                : [
-                    AppColors.primaryBlue.withValues(alpha: 0.85),
-                    AppColors.background,
-                  ],
-          ),
-        ),
+        decoration: BoxDecoration(borderRadius: BorderRadius.circular(8.r)),
         child: CachedNetworkImage(
           imageUrl: imageUrl,
+          fit: BoxFit.fill,
           errorWidget: (context, url, error) =>
               Image.asset(AppImages.placehHolder),
           placeholder: (context, url) => Stack(

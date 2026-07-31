@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:myportfolioapp/core/themes/app_colors.dart';
 import 'package:myportfolioapp/core/common/glass_card.dart';
 import 'package:myportfolioapp/core/common/nav_bar.dart';
 import 'package:myportfolioapp/core/common/navigation.dart';
@@ -35,7 +34,6 @@ class BlogDetailsPage extends StatelessWidget {
         : 40;
 
     return Scaffold(
-      backgroundColor: AppColors.background,
       appBar: NavBar(
         activeItem: activeItem,
         onItemTap: (item) => navigateToSection(context, item),

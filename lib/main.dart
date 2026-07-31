@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -31,12 +33,21 @@ class PortfolioApp extends StatelessWidget {
         return Stack(
           alignment: Alignment.center,
           children: [
-            Image.asset(
-              AppImages.appBackground,
-              fit: BoxFit.fill,
+            Container(
               width: double.infinity,
               height: double.infinity,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage(AppImages.appBackground),
+                  fit: BoxFit.fill,
+                ),
+              ),
+              child: BackdropFilter(
+                filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
+                child: Container(),
+              ),
             ),
+
             MaterialApp.router(
               routerConfig: router,
               title: 'Pallob | Flutter Developer',

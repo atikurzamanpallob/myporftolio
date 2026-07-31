@@ -46,12 +46,18 @@ class HeroHeader extends StatelessWidget {
             ],
           ),
           SizedBox(height: 14.h),
-          Text(
-            bodyText,
-            style: context.fontStyle.bodyMedium?.copyWith(
-              color: AppColors.textSecondary,
-            ),
+          TypewriterText(
+            speed: Duration(milliseconds: 20),
+            segments: [
+              TypewriterSegment(
+                text: bodyText,
+                style: context.fontStyle.bodyMedium!.copyWith(
+                  color: AppColors.starYellow,
+                ),
+              ),
+            ],
           ),
+
           extraWidget != null
               ? Padding(
                   padding: EdgeInsets.only(top: 20.h),

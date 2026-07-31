@@ -46,7 +46,6 @@ class ProjectsPage extends StatelessWidget {
             SizedBox(height: 8.h),
             Expanded(child: ProjectsListSection()),
             SizedBox(height: 20.h),
-            const FooterSection(),
           ],
         ),
       ),

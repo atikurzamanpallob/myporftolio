@@ -4,7 +4,7 @@ class TypewriterText extends StatefulWidget {
   const TypewriterText({
     super.key,
     required this.segments,
-    this.speed = const Duration(milliseconds: 80),
+    this.speed = const Duration(milliseconds: 70),
   });
 
   final List<TypewriterSegment> segments;

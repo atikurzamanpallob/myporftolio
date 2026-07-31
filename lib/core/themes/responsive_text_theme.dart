@@ -8,15 +8,15 @@ extension ResponsiveTextTheme on BuildContext {
     double factor;
 
     if (width < Breakpoints.mobile) {
-      factor = 0.85;
-    } else if (width < Breakpoints.smallTablet) {
       factor = 0.95;
-    } else if (width < Breakpoints.laptop) {
+    } else if (width < Breakpoints.smallTablet) {
       factor = 1.05;
+    } else if (width < Breakpoints.laptop) {
+      factor = 1.10;
     } else if (width < Breakpoints.desktop) {
-      factor = 1.15;
+      factor = 1.20;
     } else {
-      factor = 1.25;
+      factor = 1.30;
     }
 
     TextStyle? scale(TextStyle? style) {

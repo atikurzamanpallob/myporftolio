@@ -15,7 +15,7 @@ class TechChip extends StatelessWidget {
     return Container(
       padding: EdgeInsets.all(8),
       decoration: BoxDecoration(
-        border: Border.all(color: AppColors.divider, width: 1),
+        border: Border.all(color: AppColors.textPrimary, width: 0.5),
         borderRadius: BorderRadius.circular(8.r),
       ),
       child: Row(
