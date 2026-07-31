@@ -43,7 +43,7 @@ class PortfolioApp extends StatelessWidget {
                 ),
               ),
               child: BackdropFilter(
-                filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
+                filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
                 child: Container(),
               ),
             ),

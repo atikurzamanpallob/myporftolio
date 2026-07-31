@@ -52,7 +52,8 @@ class HeroHeader extends StatelessWidget {
               TypewriterSegment(
                 text: bodyText,
                 style: context.fontStyle.bodyMedium!.copyWith(
-                  color: AppColors.starYellow,
+                  color: AppColors.textSecondary,
+                  fontWeight: FontWeight.w500,
                 ),
               ),
             ],
