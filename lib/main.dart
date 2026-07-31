@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:myportfolioapp/core/app_resources/app_images.dart';
 import 'package:myportfolioapp/core/di/injection.dart';
 import 'package:myportfolioapp/core/supabase/supabase_client.dart';
 import 'package:myportfolioapp/core/themes/responsive_size.dart';
@@ -27,20 +28,31 @@ class PortfolioApp extends StatelessWidget {
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (context, child) {
-        return MaterialApp.router(
-          routerConfig: router,
-          title: 'Pallob | Flutter Developer',
-          debugShowCheckedModeBanner: false,
-          theme: ThemeData(
-            scaffoldBackgroundColor: AppColors.background,
-            fontFamily: 'Roboto',
-            colorScheme: ColorScheme.fromSeed(
-              seedColor: AppColors.primaryBlue,
-              brightness: Brightness.dark,
+        return Stack(
+          alignment: Alignment.center,
+          children: [
+            Image.asset(
+              AppImages.appBackground,
+              fit: BoxFit.fill,
+              width: double.infinity,
+              height: double.infinity,
             ),
-            textTheme: textTheme,
-            useMaterial3: true,
-          ),
+            MaterialApp.router(
+              routerConfig: router,
+              title: 'Pallob | Flutter Developer',
+              debugShowCheckedModeBanner: false,
+              theme: ThemeData(
+                fontFamily: 'Roboto',
+                scaffoldBackgroundColor: Colors.transparent,
+                colorScheme: ColorScheme.fromSeed(
+                  seedColor: AppColors.primaryBlue,
+                  brightness: Brightness.dark,
+                ),
+                textTheme: textTheme,
+                useMaterial3: true,
+              ),
+            ),
+          ],
         );
       },
     );

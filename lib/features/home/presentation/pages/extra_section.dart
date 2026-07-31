@@ -24,6 +24,7 @@ class ExtraSection extends StatelessWidget {
     return Column(
       crossAxisAlignment: crossAlign,
       children: [
+        SizedBox(height: 10.h),
         _DownloadResumeButton(),
         SizedBox(height: 10.h),
         BlocBuilder<HomeBloc, HomeState>(

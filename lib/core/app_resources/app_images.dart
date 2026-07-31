@@ -8,4 +8,5 @@ class AppImages {
   static const contactImage = 'assets/images/contact_image.jpg';
   static const placehHolder = 'assets/images/placeholder.jpg';
   static const blogPlaceholder = 'assets/images/blog_placeholder.jpg';
+  static const appBackground = 'assets/images/app_background.jpg';
 }

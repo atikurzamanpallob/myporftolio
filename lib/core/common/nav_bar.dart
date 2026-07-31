@@ -35,7 +35,7 @@ class NavBar extends StatelessWidget implements PreferredSizeWidget {
 
     return Container(
       height: preferredSize.height,
-      color: AppColors.navBackground,
+      //   color: AppColors.navBackground,
       padding: EdgeInsets.symmetric(
         horizontal: Responsive.isMobile(context) ? 16.w : 40.w,
       ),

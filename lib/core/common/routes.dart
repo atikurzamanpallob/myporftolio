@@ -128,7 +128,10 @@ CustomTransitionPage buildPage(GoRouterState state, Widget child) {
     child: child,
     transitionDuration: const Duration(milliseconds: 300),
     transitionsBuilder: (context, animation, secondaryAnimation, child) {
-      return FadeTransition(opacity: animation, child: child);
+      return ScaleTransition(
+        scale: animation,
+        child: FadeTransition(opacity: animation, child: child),
+      );
     },
   );
 }
