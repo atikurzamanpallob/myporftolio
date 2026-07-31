@@ -99,7 +99,7 @@ class SkillCategoryCard extends StatelessWidget {
                           animationDuration: Duration(seconds: 2),
                           progressColor: AppColors.green,
                           borderRadius: BorderRadiusGeometry.circular(2.r),
-                          backgroundColor: AppColors.background,
+                          backgroundColor: Colors.brown,
                           minHeight: 3,
                         ),
                       ),
