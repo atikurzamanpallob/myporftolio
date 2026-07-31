@@ -4,8 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:myportfolioapp/core/common/hero_header.dart';
 
-import '../../../../core/themes/app_colors.dart';
-import '../../../../core/app_resources/app_images.dart';
 import '../../../../core/common/nav_bar.dart';
 import '../../../../core/common/navigation.dart';
 import '../../../../core/utils/responsive.dart';
@@ -27,7 +25,6 @@ class CareerPage extends StatelessWidget {
           'Building scalable mobile and web applications, collaborating with '
           'teams ,turning idea into\nproducts and solve real world problems '
           'with engineered solutions',
-      backgroundImage: AppImages.careerImage,
     ),
     SizedBox(height: 8.h),
     const WorkTimeline(),
@@ -40,7 +37,6 @@ class CareerPage extends StatelessWidget {
     final bool showDrawer = !Responsive.isDesktop(context);
 
     return Scaffold(
-      backgroundColor: AppColors.background,
       appBar: NavBar(
         activeItem: activeItem,
         onItemTap: (item) => navigateToSection(context, item),

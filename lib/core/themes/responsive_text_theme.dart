@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:myportfolioapp/core/constants/break_points.dart';
 
 extension ResponsiveTextTheme on BuildContext {
   TextTheme get fontStyle {
@@ -6,17 +7,21 @@ extension ResponsiveTextTheme on BuildContext {
     final width = MediaQuery.sizeOf(this).width;
     double factor;
 
-    if (width >= 1440) {
-      factor = 1;
-    } else if (width >= 834) {
-      factor = width / 834;
+    if (width < Breakpoints.mobile) {
+      factor = 0.95;
+    } else if (width < Breakpoints.smallTablet) {
+      factor = 1.05;
+    } else if (width < Breakpoints.laptop) {
+      factor = 1.10;
+    } else if (width < Breakpoints.desktop) {
+      factor = 1.20;
     } else {
-      factor = width / 390;
+      factor = 1.30;
     }
 
     TextStyle? scale(TextStyle? style) {
       if (style == null) return null;
-      return style.copyWith(fontSize: style.fontSize! * factor.clamp(0.2, 1.3));
+      return style.copyWith(fontSize: style.fontSize! * factor);
     }
 
     return theme.copyWith(

@@ -1,19 +1,44 @@
 import 'package:flutter/material.dart';
+import 'package:myportfolioapp/core/constants/break_points.dart';
 
 extension ResponsiveSize on BuildContext {
-  static const double mobileMax = 700;
-  static const double tabletMax = 1100;
-
   bool get isMobile {
-    return MediaQuery.sizeOf(this).width < mobileMax;
+    final width = MediaQuery.sizeOf(this).width;
+    return width <= Breakpoints.mobile;
   }
 
   bool get isTablet {
-    final w = MediaQuery.sizeOf(this).width;
-    return w >= mobileMax && w < tabletMax;
+    final width = MediaQuery.sizeOf(this).width;
+    return width > Breakpoints.mobile && width <= Breakpoints.smallTablet;
+  }
+
+  bool get isLaptop {
+    final width = MediaQuery.sizeOf(this).width;
+    return width > Breakpoints.smallTablet && width <= Breakpoints.laptop;
   }
 
   bool get isDesktop {
-    return MediaQuery.sizeOf(this).width >= tabletMax;
+    final width = MediaQuery.sizeOf(this).width;
+    return width > Breakpoints.laptop && width <= Breakpoints.desktop;
+  }
+
+  Size get getDesignSize {
+    double width = MediaQuery.sizeOf(this).width;
+    if (width <= Breakpoints.mobile) {
+      // Phone (Figma mobile frame)
+      return const Size(390, 844);
+    } else if (width > Breakpoints.mobile && width <= Breakpoints.smallTablet) {
+      // Small tablet
+      return const Size(768, 1024);
+    } else if (width > Breakpoints.smallTablet && width <= Breakpoints.laptop) {
+      // Large tablet / Small laptop
+      return const Size(1024, 768);
+    } else if (width > Breakpoints.laptop && width <= Breakpoints.desktop) {
+      // Desktop
+      return const Size(1440, 1024);
+    } else {
+      // Large desktop
+      return const Size(1920, 1080);
+    }
   }
 }

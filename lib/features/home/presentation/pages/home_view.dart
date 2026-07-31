@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:myportfolioapp/core/themes/responsive_size.dart';
 import 'package:myportfolioapp/features/home/presentation/pages/extra_section.dart';
-import '../../../../core/app_resources/app_images.dart';
 import '../../../../core/common/hero_header.dart';
-import '../../../../core/themes/app_colors.dart';
 import '../../../../core/common/navigation.dart';
 import '../../../../core/utils/responsive.dart';
 import 'about_section.dart';
@@ -31,7 +30,7 @@ class _HomePageState extends State<HomePage> {
     final bool showDrawer = !Responsive.isDesktop(context);
 
     return Scaffold(
-      backgroundColor: AppColors.background,
+      //  backgroundColor: AppColors.background,
       appBar: NavBar(
         activeItem: activeItem,
         onItemTap: (item) => navigateToSection(context, item),
@@ -43,22 +42,26 @@ class _HomePageState extends State<HomePage> {
             )
           : null,
       bottomNavigationBar: const FooterSection(),
-      body: ListView(
-        padding: EdgeInsets.symmetric(horizontal: 20.w),
+      body: Stack(
+        alignment: .center,
         children: [
-          const HeroHeader(
-            heading1: 'I Build Beautiful & High\nPerformance apps With ',
-            heading2: 'Flutter',
-            bodyText:
-                'I create cross-platform applications that are fast, scalable '
-                '\n& provide smooth user experience.',
-            backgroundImage: AppImages.homeImage,
-            extraWidget: ExtraSection(),
+          ListView(
+            padding: EdgeInsets.symmetric(horizontal: 20.w),
+            children: [
+              const HeroHeader(
+                heading1: 'I Build Beautiful & High\nPerformance apps With ',
+                heading2: 'Flutter',
+                bodyText:
+                    'I create cross-platform applications that are fast, scalable '
+                    '\n& provide smooth user experience.',
+                extraWidget: ExtraSection(),
+              ),
+              SizedBox(height: context.isMobile ? 5.h : 30.h),
+              const AboutSection(),
+              SizedBox(height: 20.h),
+              const WhatIDoSection(),
+            ],
           ),
-          SizedBox(height: 7.h),
-          const AboutSection(),
-          SizedBox(height: 20.h),
-          const WhatIDoSection(),
         ],
       ),
     );

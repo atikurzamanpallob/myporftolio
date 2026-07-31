@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:myportfolioapp/core/app_resources/app_images.dart';
 import 'package:myportfolioapp/features/blogs/domain/entity/blog_item.dart';
 import 'package:myportfolioapp/features/blogs/presentation/bloc/blog_bloc.dart';
 import 'package:myportfolioapp/features/blogs/presentation/bloc/blog_event.dart';
@@ -61,13 +60,7 @@ class _BlogsListSectionState extends State<BlogsListSection> {
               state.isBlogLoading
                   ? Expanded(child: Center(child: CircularProgressIndicator()))
                   : list.isEmpty
-                  ? Expanded(
-                      child: Image.asset(
-                        width: double.infinity,
-                        AppImages.blogPlaceholder,
-                        fit: BoxFit.cover,
-                      ),
-                    )
+                  ? Expanded(child: Text(""))
                   : Expanded(
                       child: ListView.builder(
                         controller: scrollController,

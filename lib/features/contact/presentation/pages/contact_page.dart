@@ -2,9 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:myportfolioapp/core/common/glass_card.dart';
 import 'package:myportfolioapp/core/common/hero_header.dart';
-
-import '../../../../core/themes/app_colors.dart';
-import '../../../../core/app_resources/app_images.dart';
 import '../../../../core/common/nav_bar.dart';
 import '../../../../core/common/navigation.dart';
 import '../../../../core/utils/responsive.dart';
@@ -26,7 +23,6 @@ class ContactPage extends StatelessWidget {
     final bool isMobile = Responsive.isMobile(context);
 
     return Scaffold(
-      backgroundColor: AppColors.background,
       appBar: NavBar(
         activeItem: activeItem,
         onItemTap: (item) => navigateToSection(context, item),
@@ -47,7 +43,6 @@ class ContactPage extends StatelessWidget {
             bodyText:
                 'Have project in mind or just want to say Hi? I would love to hear from you.'
                 '\nLet’s turn your ideas into real products.',
-            backgroundImage: AppImages.contactImage,
           ),
           SizedBox(height: 24.h),
           Padding(

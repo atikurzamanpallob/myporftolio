@@ -9,7 +9,6 @@ import 'package:myportfolioapp/features/projects/presentation/widgets/project_he
 import '../../../../core/common/footer_section.dart';
 import '../../../../core/common/nav_bar.dart';
 import '../../../../core/common/navigation.dart';
-import '../../../../core/themes/app_colors.dart';
 import '../../../../core/utils/responsive.dart';
 
 List<String> items = [
@@ -38,7 +37,6 @@ class ProjectDetailsPage extends StatelessWidget {
         ? 80
         : 40;
     return Scaffold(
-      backgroundColor: AppColors.background,
       appBar: NavBar(
         activeItem: activeItem,
         onItemTap: (item) => navigateToSection(context, item),

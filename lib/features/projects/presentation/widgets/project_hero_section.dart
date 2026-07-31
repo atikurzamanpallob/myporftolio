@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:myportfolioapp/core/app_resources/app_icons.dart';
-import 'package:myportfolioapp/core/app_resources/app_images.dart';
 import 'package:myportfolioapp/core/themes/app_colors.dart';
 import 'package:myportfolioapp/core/themes/responsive_size.dart';
 import 'package:myportfolioapp/features/blogs/presentation/widgets/meta_item.dart';
@@ -75,10 +74,7 @@ class ProjectHeroSection extends StatelessWidget {
         borderRadius: BorderRadius.circular(10),
         child: Stack(
           alignment: .center,
-          children: [
-            Image.asset(AppImages.projectImage, fit: BoxFit.cover),
-            ProjectThumbnails(imageUrls: urls),
-          ],
+          children: [ProjectThumbnails(imageUrls: urls)],
         ),
       ),
     );

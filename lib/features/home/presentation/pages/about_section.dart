@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:myportfolioapp/core/common/glass_card.dart';
+import 'package:myportfolioapp/core/themes/responsive_size.dart';
 import 'package:myportfolioapp/features/home/domain/entity/home_info.dart';
 
 import '../../../../core/themes/app_colors.dart';
 import '../../../../core/app_resources/app_icons.dart';
 import '../../../../core/app_resources/app_images.dart';
 import '../../../../core/themes/responsive_text_theme.dart';
-import '../../../../core/utils/responsive.dart';
 import '../bloc/home_bloc.dart';
 import '../bloc/home_state.dart';
 import '../widgets/stat_item.dart';
@@ -19,8 +19,7 @@ class AboutSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bool isDesktop = Responsive.isDesktop(context);
-    final bool isMobile = Responsive.isMobile(context);
+    final bool isMobile = context.isMobile;
 
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: isMobile ? 16.w : 40.w),
@@ -32,55 +31,13 @@ class AboutSection extends StatelessWidget {
           child: BlocBuilder<HomeBloc, HomeState>(
             builder: (context, state) {
               final info = state.homeInfo;
-              if (isDesktop) {
-                return IntrinsicHeight(
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      profileImage(
-                        info: info,
-                        isMobile: isMobile,
-                        isDesktop: isDesktop,
-                      ),
-                      SizedBox(width: 28.w),
-                      Expanded(
-                        child: descriptionText(info: info, context: context),
-                      ),
-                      SizedBox(width: 28.w),
-                      VerticalDivider(
-                        color: AppColors.textPrimary,
-                        thickness: 5,
-                        width: 10,
-                        radius: BorderRadius.circular(10.r),
-                      ),
-                      SizedBox(width: 28.w),
-                      Expanded(
-                        child: stats(
-                          info: info,
-                          isMobile: isMobile,
-                          isDesktop: isDesktop,
-                        ),
-                      ),
-                    ],
-                  ),
-                );
+
+              if (context.isMobile) {
+                return mobileView(context, info);
+              } else if (context.isTablet || context.isLaptop) {
+                return tabletView(context, info);
               } else {
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    profileImage(
-                      info: info,
-                      isMobile: isMobile,
-                      isDesktop: isDesktop,
-                    ),
-                    SizedBox(height: 10.h),
-                    descriptionText(info: info, context: context),
-                    SizedBox(height: 24.h),
-                    Divider(color: AppColors.divider, thickness: 1),
-                    SizedBox(height: 20.h),
-                    stats(isMobile: isMobile, isDesktop: isDesktop),
-                  ],
-                );
+                return desktopView(context, info);
               }
             },
           ),
@@ -89,27 +46,92 @@ class AboutSection extends StatelessWidget {
     );
   }
 
-  Widget _wrapStat(Widget child) =>
-      Align(alignment: Alignment.centerLeft, child: child);
+  Widget mobileView(BuildContext context, HomeInfo? info) {
+    return Column(
+      crossAxisAlignment: .start,
+      children: [
+        Center(
+          child: profileImage(
+            imageUrl: info?.profileUrl ?? "",
+            width: 200.w,
+            height: 210.h,
+          ),
+        ),
+        SizedBox(height: 10.h),
+        descriptionText(info: info, context: context),
+        SizedBox(height: 16.h),
+        Divider(color: AppColors.divider, thickness: 1),
+        SizedBox(height: 16.h),
+        stats(context, info),
+      ],
+    );
+  }
+
+  Widget tabletView(BuildContext context, HomeInfo? info) {
+    return Column(
+      children: [
+        Row(
+          children: [
+            profileImage(
+              imageUrl: info?.profileUrl ?? "",
+              width: 230.w,
+              height: 200.h,
+            ),
+            SizedBox(width: 10.w),
+            Expanded(
+              child: descriptionText(info: info, context: context),
+            ),
+          ],
+        ),
+        SizedBox(height: 16.h),
+        Divider(color: AppColors.divider, thickness: 1),
+        SizedBox(height: 16.h),
+        stats(context, info),
+      ],
+    );
+  }
+
+  Widget desktopView(BuildContext context, HomeInfo? info) {
+    return IntrinsicHeight(
+      child: Row(
+        children: [
+          profileImage(
+            imageUrl: info?.profileUrl ?? "",
+            width: 230.w,
+            height: 250.h,
+          ),
+          SizedBox(width: 20.w),
+          Expanded(
+            flex: 7,
+            child: descriptionText(info: info, context: context),
+          ),
+          SizedBox(width: 10.w),
+          VerticalDivider(color: AppColors.divider, thickness: 2),
+          SizedBox(width: 10.w),
+          Expanded(flex: 3, child: stats(context, info)),
+        ],
+      ),
+    );
+  }
 
   Widget profileImage({
-    HomeInfo? info,
-    required bool isMobile,
-    required bool isDesktop,
+    required String imageUrl,
+    required double width,
+    required double height,
   }) {
     final image = Image.asset(
       AppImages.profile,
-      width: isDesktop ? 220.w : (isMobile ? 320.w : 200.w),
-      height: isDesktop ? 270.h : (isMobile ? 245.h : 218.h),
-      fit: BoxFit.cover,
+      width: width,
+      height: height,
+      fit: BoxFit.fill,
     );
 
     return ClipRRect(
       borderRadius: BorderRadius.circular(10.r),
       child: CachedNetworkImage(
-        imageUrl: info?.profileUrl ?? "",
-        width: isDesktop ? 220.w : (isMobile ? 320.w : 200.w),
-        height: isDesktop ? 270.h : (isMobile ? 245.h : 218.h),
+        imageUrl: imageUrl,
+        width: width,
+        height: height,
         fit: BoxFit.cover,
         errorWidget: (context, url, error) => image,
         placeholder: (context, url) => image,
@@ -130,73 +152,33 @@ class AboutSection extends StatelessWidget {
     );
   }
 
-  Widget stats({
-    HomeInfo? info,
-    required bool isMobile,
-    required bool isDesktop,
-  }) {
-    if (isMobile) {
-      return Column(
-        children: [
-          _wrapStat(
-            StatItem(
-              iconAsset: AppIcons.experience,
-              value: info?.totalExperience ?? '5.5 +',
-              label: 'Years Of Experience',
-            ),
-          ),
-          SizedBox(height: 15.h),
-          _wrapStat(
-            StatItem(
-              iconAsset: AppIcons.projects,
-              value: info?.totalProjects ?? '15 +',
-              label: 'Projects Completed',
-            ),
-          ),
-          SizedBox(height: 15.h),
-          _wrapStat(
-            StatItem(
-              iconAsset: AppIcons.client,
-              value: info?.clientSatisfaction ?? '100 %',
-              label: 'Client Satisfaction',
-            ),
-          ),
-        ],
-      );
-    } else {
-      return Flex(
-        direction: isDesktop ? Axis.vertical : Axis.horizontal,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: isDesktop
-            ? CrossAxisAlignment.start
-            : CrossAxisAlignment.center,
-        children: [
-          StatItem(
-            iconAsset: AppIcons.experience,
-            value: info?.totalExperience ?? '5.5 +',
-            label: 'Years Of Experience',
-          ),
-          SizedBox(
-            height: isDesktop ? 15.h : 0.0,
-            width: isDesktop ? 0.0 : 12.w,
-          ),
-          StatItem(
-            iconAsset: AppIcons.projects,
-            value: info?.totalProjects ?? '15 +',
-            label: 'Projects Completed',
-          ),
-          SizedBox(
-            height: isDesktop ? 15.h : 0.0,
-            width: isDesktop ? 0.0 : 12.w,
-          ),
-          StatItem(
-            iconAsset: AppIcons.client,
-            value: info?.clientSatisfaction ?? '100 %',
-            label: 'Client Satisfaction',
-          ),
-        ],
-      );
-    }
+  Widget stats(BuildContext context, HomeInfo? info) {
+    return Wrap(
+      alignment: .start,
+      crossAxisAlignment: .start,
+      direction: context.isTablet || context.isLaptop
+          ? Axis.horizontal
+          : Axis.vertical,
+      children: [
+        StatItem(
+          iconAsset: AppIcons.experience,
+          value: info?.totalExperience ?? '5.5 +',
+          label: 'Years Of Experience',
+        ),
+        SizedBox(width: 20.w, height: 20.h),
+        StatItem(
+          iconAsset: AppIcons.projects,
+          value: info?.totalProjects ?? '15 +',
+          label: 'Projects Completed',
+        ),
+        SizedBox(width: 20.w, height: 20.h),
+        StatItem(
+          iconAsset: AppIcons.client,
+          value: info?.clientSatisfaction ?? '100 %',
+          label: 'Client Satisfaction',
+        ),
+      ],
+    );
   }
 }
 
