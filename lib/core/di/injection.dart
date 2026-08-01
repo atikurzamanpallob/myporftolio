@@ -36,6 +36,8 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import '../../features/blogs/data/repository/blog_details_repository_impl.dart';
 import '../../features/blogs/domain/repository/blog_details_repository.dart';
 import '../../features/blogs/presentation/bloc/blog_details_bloc.dart';
+import '../../features/career/data/datasources/career_local_datsoure_impl.dart';
+import '../../features/career/data/datasources/career_remote_datsoure_impl.dart';
 import '../../features/home/data/datasource/home_remote_datasource.dart';
 import '../../features/home/presentation/bloc/home_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -82,10 +84,18 @@ Future<void> injectDependency() async {
   //career dependency
 
   getIt.registerLazySingleton<CareerDatasource>(
-    () => CareerDatasourceImp(getIt()),
+    () => CareerRemoteDatasourceImp(getIt(), getIt<Box>()),
+    instanceName: "remote",
+  );
+  getIt.registerLazySingleton<CareerDatasource>(
+    () => CareerLocalDatasourceImp(getIt<Box>()),
+    instanceName: "local",
   );
   getIt.registerLazySingleton<CareerRepository>(
-    () => CareerRepositoryImpl(getIt()),
+    () => CareerRepositoryImpl(
+      getIt<CareerDatasource>(instanceName: "remote"),
+      getIt<CareerDatasource>(instanceName: "local"),
+    ),
   );
   getIt.registerLazySingleton(() => CareerData(getIt()));
   getIt.registerFactory(() => CareerBloc(getIt()));
