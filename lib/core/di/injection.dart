@@ -80,16 +80,20 @@ Future<void> injectDependency() async {
   //home dependency
   getIt.registerLazySingleton<HomeDatasource>(
     () => HomeLocalDataImpl(getIt<Box>(instanceName: BoxName.homeBox)),
+    instanceName: "local",
   );
   getIt.registerLazySingleton<HomeDatasource>(
     () => HomeRemoteDataImp(getIt(), getIt<Box>(instanceName: BoxName.homeBox)),
+    instanceName: "remote",
   );
+
   getIt.registerLazySingleton<HomeRepository>(
     () => HomeRepositoryImp(
-      getIt<HomeRemoteDataImp>(),
-      getIt<HomeLocalDataImpl>(),
+      getIt<HomeDatasource>(instanceName: "remote"),
+      getIt<HomeDatasource>(instanceName: "local"),
     ),
   );
+
   getIt.registerLazySingleton(() => GetHomeData(getIt()));
   getIt.registerFactory(() => HomeBloc(getIt()));
 

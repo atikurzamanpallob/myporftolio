@@ -13,7 +13,6 @@ class HomeLocalDataImpl implements HomeDatasource {
   Future<List<ContactInfo>> getContactInfo() async {
     List<ContactInfo> list = [];
     final response = homeBox.get("contact_list", defaultValue: []);
-
     for (var v in response) {
       final model = ContactModel.fromJson(v);
       list.add(model.toEntity());
