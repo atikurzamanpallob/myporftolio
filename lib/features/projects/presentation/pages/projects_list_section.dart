@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:myportfolioapp/core/themes/responsive_size.dart';
 import 'package:myportfolioapp/features/projects/domain/entity/project_item.dart';
 import 'package:myportfolioapp/features/projects/presentation/bloc/project_bloc.dart';
 import 'package:myportfolioapp/features/projects/presentation/bloc/project_event.dart';
@@ -8,7 +9,6 @@ import 'package:myportfolioapp/features/projects/presentation/bloc/project_state
 
 import '../../../../core/app_resources/app_fonts.dart';
 import '../../../../core/themes/app_colors.dart';
-import '../../../../core/utils/responsive.dart';
 import '../widgets/project_card.dart';
 import '../widgets/project_filter_bar.dart';
 
@@ -22,7 +22,7 @@ class ProjectsListSection extends StatefulWidget {
 class _ProjectsListSectionState extends State<ProjectsListSection> {
   @override
   Widget build(BuildContext context) {
-    final bool isMobile = Responsive.isMobile(context);
+    final bool isMobile = context.isMobile;
     return BlocBuilder<ProjectBloc, ProjectState>(
       builder: (context, state) {
         List<ProjectItem> filtered = state.filtered;
