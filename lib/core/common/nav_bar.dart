@@ -3,13 +3,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:myportfolioapp/core/common/common_dialog.dart';
+import 'package:myportfolioapp/core/themes/responsive_size.dart';
 import 'package:myportfolioapp/core/themes/responsive_text_theme.dart';
 import 'package:myportfolioapp/features/dashboard/presentation/pages/dashboard_page.dart';
 import 'package:myportfolioapp/features/dashboard/presentation/pages/login_window.dart';
 
 import '../themes/app_colors.dart';
 import '../app_resources/app_icons.dart';
-import '../utils/responsive.dart';
 
 const List<String> kNavItems = [
   'Home',
@@ -21,29 +21,32 @@ const List<String> kNavItems = [
 ];
 
 class NavBar extends StatelessWidget implements PreferredSizeWidget {
-  const NavBar({super.key, required this.activeItem, this.onItemTap});
+  const NavBar({
+    super.key,
+    required this.activeItem,
+    this.onItemTap,
+    this.backButton,
+  });
 
   final String activeItem;
   final ValueChanged<String>? onItemTap;
+  final Widget? backButton;
 
   @override
   Size get preferredSize => Size.fromHeight(64.h);
 
   @override
   Widget build(BuildContext context) {
-    final bool showFullNav = Responsive.isDesktop(context);
-
     return Container(
       height: preferredSize.height,
-      //   color: AppColors.navBackground,
       padding: EdgeInsets.symmetric(
-        horizontal: Responsive.isMobile(context) ? 16.w : 40.w,
+        horizontal: context.isDesktop ? 40.w : 16.w,
       ),
       child: Row(
         children: [
-          _Logo(),
+          Logo(backButton: backButton),
           const Spacer(),
-          if (showFullNav)
+          if (context.isDesktop)
             Row(
               children: kNavItems
                   .map(
@@ -69,24 +72,35 @@ class NavBar extends StatelessWidget implements PreferredSizeWidget {
   }
 }
 
-class _Logo extends StatelessWidget {
+class Logo extends StatelessWidget {
+  const Logo({this.backButton, super.key});
+
+  final Widget? backButton;
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
-        InkWell(
-          onLongPress: () {
-            CommonDialog(
-              context: context,
-              child: LoginWindow(
-                onLoggedIn: () {
-                  context.go(DashboardPage.route, extra: {"is_loggedin": true});
-                },
+        backButton ??
+            InkWell(
+              onLongPress: () {
+                CommonDialog(
+                  context: context,
+                  child: LoginWindow(
+                    onLoggedIn: () {
+                      context.go(
+                        DashboardPage.route,
+                        extra: {"is_loggedin": true},
+                      );
+                    },
+                  ),
+                );
+              },
+              child: SvgPicture.asset(
+                AppIcons.flutter,
+                width: 34.r,
+                height: 34.r,
               ),
-            );
-          },
-          child: SvgPicture.asset(AppIcons.flutter, width: 34.r, height: 34.r),
-        ),
+            ),
         SizedBox(width: 10.w),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -179,7 +193,7 @@ class NavDrawer extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Padding(padding: EdgeInsets.all(20.r), child: _Logo()),
+            Padding(padding: EdgeInsets.all(20.r), child: Logo()),
             Divider(color: AppColors.divider, height: 1),
             ...kNavItems.map(
               (item) => ListTile(

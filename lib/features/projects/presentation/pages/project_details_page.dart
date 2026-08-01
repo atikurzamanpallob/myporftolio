@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:myportfolioapp/core/themes/responsive_size.dart';
 import 'package:myportfolioapp/features/projects/presentation/widgets/page_contents_card.dart';
-import 'package:myportfolioapp/features/projects/presentation/widgets/project_back_button.dart';
 import 'package:myportfolioapp/features/projects/presentation/pages/project_details_item_list.dart';
+import 'package:myportfolioapp/features/projects/presentation/widgets/project_back_button.dart';
 import 'package:myportfolioapp/features/projects/presentation/widgets/project_hero_section.dart';
 
 import '../../../../core/common/footer_section.dart';
@@ -31,6 +31,7 @@ class ProjectDetailsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: NavBar(
+        backButton: ProjectBackButton(),
         activeItem: activeItem,
         onItemTap: (item) => navigateToSection(context, item),
       ),
@@ -52,8 +53,6 @@ class ProjectDetailsPage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(height: 10.h),
-              ProjectBackButton(),
               SizedBox(height: 20.h),
               ProjectHeroSection(projectId: projectId),
               SizedBox(height: 20.h),
