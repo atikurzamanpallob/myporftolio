@@ -36,11 +36,14 @@ import '../../features/blogs/data/repository/blog_details_repository_impl.dart';
 import '../../features/blogs/domain/repository/blog_details_repository.dart';
 import '../../features/blogs/presentation/bloc/blog_details_bloc.dart';
 import '../../features/home/presentation/bloc/home_bloc.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 final getIt = GetIt.instance;
 
 Future<void> injectDependency() async {
   getIt.registerLazySingleton<SupabaseClient>(() => Supabase.instance.client);
+
+  await Hive.initFlutter();
 
   //home dependency
   getIt.registerLazySingleton<HomeDatasource>(() => HomeDataSourceImp(getIt()));
