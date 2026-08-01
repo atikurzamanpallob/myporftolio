@@ -168,22 +168,24 @@ class _DownloadResumeButton extends StatelessWidget {
           child: Container(
             padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 7.h),
             decoration: BoxDecoration(
-              border: Border.all(color: AppColors.green, width: 0.8),
+              color: AppColors.green,
+              border: Border.all(color: AppColors.textPrimary, width: 0.8),
               borderRadius: BorderRadius.circular(8.r),
             ),
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  'My Resume',
+                  'Resume',
                   style: context.fontStyle.bodySmall?.copyWith(
-                    color: AppColors.green,
+                    color: AppColors.background,
+                    fontWeight: FontWeight.w700,
                   ),
                 ),
                 SizedBox(width: 10.w),
                 Icon(
                   Icons.file_download_outlined,
-                  color: Colors.green,
+                  color: AppColors.background,
                   size: 20.r,
                 ),
               ],

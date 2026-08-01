@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:myportfolioapp/core/common/glass_card.dart';
 import 'package:myportfolioapp/core/common/nav_bar.dart';
 import 'package:myportfolioapp/core/common/navigation.dart';
+import 'package:myportfolioapp/core/themes/responsive_size.dart';
 import 'package:myportfolioapp/core/utils/responsive.dart';
 import 'package:myportfolioapp/features/blogs/domain/entity/blog_section_item.dart';
 import 'package:myportfolioapp/features/blogs/presentation/bloc/blog_details_bloc.dart';
@@ -24,7 +25,7 @@ class BlogDetailsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bool showDrawer = !Responsive.isDesktop(context);
+    final bool showDrawer = !context.isDesktop;
     final bool isMobile = Responsive.isMobile(context);
     final bool isDesktop = Responsive.isDesktop(context);
     final double hPad = isMobile
@@ -35,6 +36,7 @@ class BlogDetailsPage extends StatelessWidget {
 
     return Scaffold(
       appBar: NavBar(
+        backButton: BlogBackButton(),
         activeItem: activeItem,
         onItemTap: (item) => navigateToSection(context, item),
       ),
@@ -54,8 +56,6 @@ class BlogDetailsPage extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(height: 10.h),
-                  BlogBackButton(),
                   SizedBox(height: 20.h),
                   if (isDesktop)
                     Row(

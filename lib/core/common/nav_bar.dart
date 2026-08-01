@@ -46,26 +46,29 @@ class NavBar extends StatelessWidget implements PreferredSizeWidget {
         children: [
           Logo(backButton: backButton),
           const Spacer(),
-          if (context.isDesktop)
-            Row(
-              children: kNavItems
-                  .map(
-                    (item) => _NavItem(
-                      label: item,
-                      onHover: () {},
-                      isActive: item == activeItem,
-                      onTap: () => onItemTap?.call(item),
+          context.isDesktop
+              ? Row(
+                  children: kNavItems
+                      .map(
+                        (item) => _NavItem(
+                          label: item,
+                          onHover: () {},
+                          isActive: item == activeItem,
+                          onTap: () => onItemTap?.call(item),
+                        ),
+                      )
+                      .toList(),
+                )
+              : Builder(
+                  builder: (context) => IconButton(
+                    icon: Icon(
+                      Icons.menu_rounded,
+                      color: Colors.white,
+                      size: 28.r,
                     ),
-                  )
-                  .toList(),
-            )
-          else
-            Builder(
-              builder: (context) => IconButton(
-                icon: Icon(Icons.menu_rounded, color: Colors.white, size: 28.r),
-                onPressed: () => Scaffold.of(context).openEndDrawer(),
-              ),
-            ),
+                    onPressed: () => Scaffold.of(context).openEndDrawer(),
+                  ),
+                ),
         ],
       ),
     );

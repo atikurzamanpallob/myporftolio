@@ -49,11 +49,6 @@ class CategoriesCard extends StatelessWidget {
                               ),
                             ),
                           ),
-                          Icon(
-                            Icons.chevron_right_rounded,
-                            size: 16.r,
-                            color: AppColors.textMuted,
-                          ),
                         ],
                       ),
                     ),
