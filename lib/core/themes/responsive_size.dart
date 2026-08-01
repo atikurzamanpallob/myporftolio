@@ -19,7 +19,7 @@ extension ResponsiveSize on BuildContext {
 
   bool get isDesktop {
     final width = MediaQuery.sizeOf(this).width;
-    return width > Breakpoints.laptop && width <= Breakpoints.desktop;
+    return width > Breakpoints.laptop;
   }
 
   Size get getDesignSize {

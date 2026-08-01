@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:myportfolioapp/core/themes/app_colors.dart';
+import 'package:myportfolioapp/core/themes/responsive_text_theme.dart';
 import 'package:myportfolioapp/features/blogs/domain/entity/blog_item.dart';
 import 'package:myportfolioapp/features/blogs/presentation/bloc/blog_bloc.dart';
 import 'package:myportfolioapp/features/blogs/presentation/bloc/blog_event.dart';
@@ -60,7 +62,25 @@ class _BlogsListSectionState extends State<BlogsListSection> {
               state.isBlogLoading
                   ? Expanded(child: Center(child: CircularProgressIndicator()))
                   : list.isEmpty
-                  ? Expanded(child: Text(""))
+                  ? Expanded(
+                      child: Center(
+                        child: Row(
+                          mainAxisAlignment: .center,
+                          children: [
+                            Icon(
+                              Icons.info_outline,
+                              color: AppColors.orange,
+                              size: 35.r,
+                            ),
+                            SizedBox(width: 10.w),
+                            Text(
+                              "No blogs in this topic yet",
+                              style: context.fontStyle.headlineMedium,
+                            ),
+                          ],
+                        ),
+                      ),
+                    )
                   : Expanded(
                       child: ListView.builder(
                         controller: scrollController,
