@@ -105,7 +105,7 @@ final GoRouter router = GoRouter(
       path: DashboardPage.route,
       pageBuilder: (context, state) {
         final extra = state.extra as Map<String, dynamic>?;
-        final bool isLoggedIn = extra?['is_loggedin'] ?? true;
+        final bool isLoggedIn = extra?['is_loggedin'] ?? false;
         return buildPage(
           state,
           BlocProvider(
