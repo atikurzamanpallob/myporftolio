@@ -1,0 +1,38 @@
+import 'package:hive/hive.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
+
+import '../../domain/entity/contact_info.dart';
+import '../../domain/entity/home_info.dart';
+import '../models/contact_model.dart';
+import '../models/home_info_model.dart';
+import 'home_datasource.dart';
+
+class HomeRemoteDataImp implements HomeDatasource {
+  SupabaseClient client;
+  Box homeBox;
+  HomeRemoteDataImp(this.client, this.homeBox);
+
+  @override
+  Future<List<ContactInfo>> getContactInfo() async {
+    List<ContactInfo> list = [];
+    final response = await client
+        .from('contacts')
+        .select()
+        .order('id', ascending: true);
+    await homeBox.put("contact_list", response);
+
+    for (var v in response) {
+      final model = ContactModel.fromJson(v);
+      list.add(model.toEntity());
+    }
+    return list;
+  }
+
+  @override
+  Future<HomeInfo?> getHomeInfo() async {
+    final response = await client.from('home').select().single();
+    await homeBox.put("home_info", response);
+    var infoModels = HomeInfoModel.fromJson(response);
+    return infoModels.toEntity();
+  }
+}

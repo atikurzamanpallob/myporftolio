@@ -1,4 +1,5 @@
 import 'package:get_it/get_it.dart';
+import 'package:myportfolioapp/core/constants/box_name.dart';
 import 'package:myportfolioapp/features/blogs/data/datasource/blog_datasource.dart';
 import 'package:myportfolioapp/features/blogs/data/datasource/blog_details_datasource.dart';
 import 'package:myportfolioapp/features/blogs/data/repository/blog_repository_impl.dart';
@@ -22,6 +23,7 @@ import 'package:myportfolioapp/features/dashboard/domain/repository/category_res
 import 'package:myportfolioapp/features/dashboard/domain/usecase/dashboard_data.dart';
 import 'package:myportfolioapp/features/dashboard/presentation/bloc/dashboard_bloc.dart';
 import 'package:myportfolioapp/features/home/data/datasource/home_datasource.dart';
+import 'package:myportfolioapp/features/home/data/datasource/home_local_datasource.dart';
 import 'package:myportfolioapp/features/home/data/repository/home_repository_imp.dart';
 import 'package:myportfolioapp/features/home/domain/repository/home_repository.dart';
 import 'package:myportfolioapp/features/home/domain/usecase/get_home_data.dart';
@@ -35,6 +37,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import '../../features/blogs/data/repository/blog_details_repository_impl.dart';
 import '../../features/blogs/domain/repository/blog_details_repository.dart';
 import '../../features/blogs/presentation/bloc/blog_details_bloc.dart';
+import '../../features/home/data/datasource/home_remote_datasource.dart';
 import '../../features/home/presentation/bloc/home_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
@@ -44,10 +47,49 @@ Future<void> injectDependency() async {
   getIt.registerLazySingleton<SupabaseClient>(() => Supabase.instance.client);
 
   await Hive.initFlutter();
+  final home = await Hive.openBox(BoxName.homeBox);
+  final career = await Hive.openBox(BoxName.careerBox);
+  final project = await Hive.openBox(BoxName.projectBox);
+  final blog = await Hive.openBox(BoxName.blogBox);
+  final prjectDetails = await Hive.openBox(BoxName.projectDetailsBox);
+  final blogDetails = await Hive.openBox(BoxName.blogDetailsBox);
+
+  getIt.registerLazySingleton<Box>(() => home, instanceName: BoxName.homeBox);
+
+  getIt.registerLazySingleton<Box>(
+    () => career,
+    instanceName: BoxName.careerBox,
+  );
+  getIt.registerLazySingleton<Box>(
+    () => project,
+    instanceName: BoxName.projectBox,
+  );
+
+  getIt.registerLazySingleton<Box>(() => blog, instanceName: BoxName.blogBox);
+
+  getIt.registerLazySingleton<Box>(
+    () => prjectDetails,
+    instanceName: BoxName.projectDetailsBox,
+  );
+
+  getIt.registerLazySingleton<Box>(
+    () => blogDetails,
+    instanceName: BoxName.blogDetailsBox,
+  );
 
   //home dependency
-  getIt.registerLazySingleton<HomeDatasource>(() => HomeDataSourceImp(getIt()));
-  getIt.registerLazySingleton<HomeRepository>(() => HomeRepositoryImp(getIt()));
+  getIt.registerLazySingleton<HomeDatasource>(
+    () => HomeLocalDataImpl(getIt<Box>(instanceName: BoxName.homeBox)),
+  );
+  getIt.registerLazySingleton<HomeDatasource>(
+    () => HomeRemoteDataImp(getIt(), getIt<Box>(instanceName: BoxName.homeBox)),
+  );
+  getIt.registerLazySingleton<HomeRepository>(
+    () => HomeRepositoryImp(
+      getIt<HomeRemoteDataImp>(),
+      getIt<HomeLocalDataImpl>(),
+    ),
+  );
   getIt.registerLazySingleton(() => GetHomeData(getIt()));
   getIt.registerFactory(() => HomeBloc(getIt()));
 
