@@ -1,4 +1,5 @@
 import 'package:get_it/get_it.dart';
+import 'package:hive/hive.dart';
 import 'package:myportfolioapp/features/blogs/data/datasource/blog_datasource.dart';
 import 'package:myportfolioapp/features/blogs/data/datasource/blog_details_datasource.dart';
 import 'package:myportfolioapp/features/blogs/data/repository/blog_repository_impl.dart';
@@ -23,6 +24,7 @@ import 'package:myportfolioapp/features/dashboard/domain/usecase/dashboard_data.
 import 'package:myportfolioapp/features/dashboard/presentation/bloc/dashboard_bloc.dart';
 import 'package:myportfolioapp/features/home/data/datasource/home_datasource.dart';
 import 'package:myportfolioapp/features/home/data/repository/home_repository_imp.dart';
+import 'package:myportfolioapp/features/home/domain/entity/contact_info.dart';
 import 'package:myportfolioapp/features/home/domain/repository/home_repository.dart';
 import 'package:myportfolioapp/features/home/domain/usecase/get_home_data.dart';
 import 'package:myportfolioapp/features/projects/data/datasource/project_datasource.dart';
@@ -36,11 +38,18 @@ import '../../features/blogs/data/repository/blog_details_repository_impl.dart';
 import '../../features/blogs/domain/repository/blog_details_repository.dart';
 import '../../features/blogs/presentation/bloc/blog_details_bloc.dart';
 import '../../features/home/presentation/bloc/home_bloc.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 final getIt = GetIt.instance;
 
 Future<void> injectDependency() async {
   getIt.registerLazySingleton<SupabaseClient>(() => Supabase.instance.client);
+
+  await Hive.initFlutter();
+
+  // Open boxes
+  final contactBox = await Hive.openBox<ContactInfo>('contacts');
+  final userBox = await Hive.openBox('user');
 
   //home dependency
   getIt.registerLazySingleton<HomeDatasource>(() => HomeDataSourceImp(getIt()));
