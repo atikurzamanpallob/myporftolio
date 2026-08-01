@@ -6,12 +6,17 @@ import 'package:myportfolioapp/features/home/domain/entity/home_info.dart';
 import 'package:myportfolioapp/features/home/domain/repository/home_repository.dart';
 
 class HomeRepositoryImp implements HomeRepository {
-  HomeDatasource datasource;
-  HomeRepositoryImp(this.datasource);
+  HomeDatasource remote, local;
+  HomeRepositoryImp(this.remote, this.local);
   @override
   Future<Either<Failure, List<ContactInfo>>> getContactInfo() async {
     try {
-      return Right(await datasource.getContactInfo());
+      List<ContactInfo> list = await local.getContactInfo();
+      if (list.isEmpty) {
+        return Right(await remote.getContactInfo());
+      } else {
+        return Right(list);
+      }
     } catch (e) {
       return Left(Failure(e.toString()));
     }
@@ -20,7 +25,12 @@ class HomeRepositoryImp implements HomeRepository {
   @override
   Future<Either<Failure, HomeInfo?>> getHomeInfo() async {
     try {
-      return Right(await datasource.getHomeInfo());
+      var homeInfo = await local.getHomeInfo();
+      if (homeInfo == null) {
+        return Right(await remote.getHomeInfo());
+      } else {
+        return Right(homeInfo);
+      }
     } catch (e) {
       return Left(Failure(e.toString()));
     }

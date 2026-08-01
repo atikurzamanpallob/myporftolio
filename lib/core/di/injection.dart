@@ -22,6 +22,7 @@ import 'package:myportfolioapp/features/dashboard/domain/repository/category_res
 import 'package:myportfolioapp/features/dashboard/domain/usecase/dashboard_data.dart';
 import 'package:myportfolioapp/features/dashboard/presentation/bloc/dashboard_bloc.dart';
 import 'package:myportfolioapp/features/home/data/datasource/home_datasource.dart';
+import 'package:myportfolioapp/features/home/data/datasource/home_local_datasource.dart';
 import 'package:myportfolioapp/features/home/data/repository/home_repository_imp.dart';
 import 'package:myportfolioapp/features/home/domain/repository/home_repository.dart';
 import 'package:myportfolioapp/features/home/domain/usecase/get_home_data.dart';
@@ -35,6 +36,9 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import '../../features/blogs/data/repository/blog_details_repository_impl.dart';
 import '../../features/blogs/domain/repository/blog_details_repository.dart';
 import '../../features/blogs/presentation/bloc/blog_details_bloc.dart';
+import '../../features/career/data/datasources/career_local_datsoure_impl.dart';
+import '../../features/career/data/datasources/career_remote_datsoure_impl.dart';
+import '../../features/home/data/datasource/home_remote_datasource.dart';
 import '../../features/home/presentation/bloc/home_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
@@ -44,10 +48,26 @@ Future<void> injectDependency() async {
   getIt.registerLazySingleton<SupabaseClient>(() => Supabase.instance.client);
 
   await Hive.initFlutter();
+  final appbox = await Hive.openBox("appbox");
+  getIt.registerSingleton<Box>(appbox);
 
   //home dependency
-  getIt.registerLazySingleton<HomeDatasource>(() => HomeDataSourceImp(getIt()));
-  getIt.registerLazySingleton<HomeRepository>(() => HomeRepositoryImp(getIt()));
+  getIt.registerLazySingleton<HomeDatasource>(
+    () => HomeLocalDataImpl(getIt<Box>()),
+    instanceName: "local",
+  );
+  getIt.registerLazySingleton<HomeDatasource>(
+    () => HomeRemoteDataImp(getIt(), getIt<Box>()),
+    instanceName: "remote",
+  );
+
+  getIt.registerLazySingleton<HomeRepository>(
+    () => HomeRepositoryImp(
+      getIt<HomeDatasource>(instanceName: "remote"),
+      getIt<HomeDatasource>(instanceName: "local"),
+    ),
+  );
+
   getIt.registerLazySingleton(() => GetHomeData(getIt()));
   getIt.registerFactory(() => HomeBloc(getIt()));
 
@@ -64,10 +84,18 @@ Future<void> injectDependency() async {
   //career dependency
 
   getIt.registerLazySingleton<CareerDatasource>(
-    () => CareerDatasourceImp(getIt()),
+    () => CareerRemoteDatasourceImp(getIt(), getIt<Box>()),
+    instanceName: "remote",
+  );
+  getIt.registerLazySingleton<CareerDatasource>(
+    () => CareerLocalDatasourceImp(getIt<Box>()),
+    instanceName: "local",
   );
   getIt.registerLazySingleton<CareerRepository>(
-    () => CareerRepositoryImpl(getIt()),
+    () => CareerRepositoryImpl(
+      getIt<CareerDatasource>(instanceName: "remote"),
+      getIt<CareerDatasource>(instanceName: "local"),
+    ),
   );
   getIt.registerLazySingleton(() => CareerData(getIt()));
   getIt.registerFactory(() => CareerBloc(getIt()));

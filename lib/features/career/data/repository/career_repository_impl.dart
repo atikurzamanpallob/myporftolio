@@ -6,12 +6,17 @@ import 'package:myportfolioapp/features/career/domain/entity/work_experience_ite
 import 'package:myportfolioapp/features/career/domain/repository/career_repository.dart';
 
 class CareerRepositoryImpl implements CareerRepository {
-  CareerDatasource datasource;
-  CareerRepositoryImpl(this.datasource);
+  CareerDatasource remote, local;
+  CareerRepositoryImpl(this.remote, this.local);
   @override
   Future<Either<Failure, List<CertificationItem>>> getCertificates() async {
     try {
-      return Right(await datasource.getCertificates());
+      List<CertificationItem> list = await local.getCertificates();
+      if (list.isEmpty) {
+        return Right(await remote.getCertificates());
+      } else {
+        return Right(list);
+      }
     } catch (e) {
       return Left(Failure(e.toString()));
     }
@@ -20,7 +25,12 @@ class CareerRepositoryImpl implements CareerRepository {
   @override
   Future<Either<Failure, List<WorkExperienceItem>>> getExperience() async {
     try {
-      return Right(await datasource.getExperiences());
+      List<WorkExperienceItem> list = await local.getExperiences();
+      if (list.isEmpty) {
+        return Right(await remote.getExperiences());
+      } else {
+        return Right(await local.getExperiences());
+      }
     } catch (e) {
       return Left(Failure(e.toString()));
     }
