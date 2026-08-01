@@ -1,5 +1,4 @@
 import 'package:get_it/get_it.dart';
-import 'package:myportfolioapp/core/constants/box_name.dart';
 import 'package:myportfolioapp/features/blogs/data/datasource/blog_datasource.dart';
 import 'package:myportfolioapp/features/blogs/data/datasource/blog_details_datasource.dart';
 import 'package:myportfolioapp/features/blogs/data/repository/blog_repository_impl.dart';
@@ -47,43 +46,16 @@ Future<void> injectDependency() async {
   getIt.registerLazySingleton<SupabaseClient>(() => Supabase.instance.client);
 
   await Hive.initFlutter();
-  final home = await Hive.openBox(BoxName.homeBox);
-  final career = await Hive.openBox(BoxName.careerBox);
-  final project = await Hive.openBox(BoxName.projectBox);
-  final blog = await Hive.openBox(BoxName.blogBox);
-  final prjectDetails = await Hive.openBox(BoxName.projectDetailsBox);
-  final blogDetails = await Hive.openBox(BoxName.blogDetailsBox);
-
-  getIt.registerLazySingleton<Box>(() => home, instanceName: BoxName.homeBox);
-
-  getIt.registerLazySingleton<Box>(
-    () => career,
-    instanceName: BoxName.careerBox,
-  );
-  getIt.registerLazySingleton<Box>(
-    () => project,
-    instanceName: BoxName.projectBox,
-  );
-
-  getIt.registerLazySingleton<Box>(() => blog, instanceName: BoxName.blogBox);
-
-  getIt.registerLazySingleton<Box>(
-    () => prjectDetails,
-    instanceName: BoxName.projectDetailsBox,
-  );
-
-  getIt.registerLazySingleton<Box>(
-    () => blogDetails,
-    instanceName: BoxName.blogDetailsBox,
-  );
+  final appbox = await Hive.openBox("appbox");
+  getIt.registerSingleton<Box>(appbox);
 
   //home dependency
   getIt.registerLazySingleton<HomeDatasource>(
-    () => HomeLocalDataImpl(getIt<Box>(instanceName: BoxName.homeBox)),
+    () => HomeLocalDataImpl(getIt<Box>()),
     instanceName: "local",
   );
   getIt.registerLazySingleton<HomeDatasource>(
-    () => HomeRemoteDataImp(getIt(), getIt<Box>(instanceName: BoxName.homeBox)),
+    () => HomeRemoteDataImp(getIt(), getIt<Box>()),
     instanceName: "remote",
   );
 

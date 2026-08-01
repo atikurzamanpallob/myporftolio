@@ -9,8 +9,8 @@ import 'home_datasource.dart';
 
 class HomeRemoteDataImp implements HomeDatasource {
   SupabaseClient client;
-  Box homeBox;
-  HomeRemoteDataImp(this.client, this.homeBox);
+  Box box;
+  HomeRemoteDataImp(this.client, this.box);
 
   @override
   Future<List<ContactInfo>> getContactInfo() async {
@@ -19,7 +19,7 @@ class HomeRemoteDataImp implements HomeDatasource {
         .from('contacts')
         .select()
         .order('id', ascending: true);
-    await homeBox.put("contact_list", response);
+    await box.put("contact_list", response);
 
     for (var v in response) {
       final model = ContactModel.fromJson(v);
@@ -31,7 +31,7 @@ class HomeRemoteDataImp implements HomeDatasource {
   @override
   Future<HomeInfo?> getHomeInfo() async {
     final response = await client.from('home').select().single();
-    await homeBox.put("home_info", response);
+    await box.put("home_info", response);
     var infoModels = HomeInfoModel.fromJson(response);
     return infoModels.toEntity();
   }
