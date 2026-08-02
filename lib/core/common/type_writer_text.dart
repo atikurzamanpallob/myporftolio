@@ -27,15 +27,16 @@ class _TypewriterTextState extends State<TypewriterText> {
   Future<void> startTyping() async {
     while (currentSegment < widget.segments.length) {
       await Future.delayed(widget.speed);
+      if (mounted) {
+        setState(() {
+          currentChar++;
 
-      setState(() {
-        currentChar++;
-
-        if (currentChar > widget.segments[currentSegment].text.length) {
-          currentSegment++;
-          currentChar = 0;
-        }
-      });
+          if (currentChar > widget.segments[currentSegment].text.length) {
+            currentSegment++;
+            currentChar = 0;
+          }
+        });
+      }
     }
   }
 
