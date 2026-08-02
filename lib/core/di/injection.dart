@@ -1,10 +1,9 @@
 import 'package:get_it/get_it.dart';
 import 'package:myportfolioapp/features/blogs/data/datasource/blog_datasource.dart';
-import 'package:myportfolioapp/features/blogs/data/datasource/blog_details_datasource.dart';
+import 'package:myportfolioapp/features/blogs/data/datasource/blog_remote_data_impl.dart';
 import 'package:myportfolioapp/features/blogs/data/repository/blog_repository_impl.dart';
 import 'package:myportfolioapp/features/blogs/domain/repository/blog_repository.dart';
 import 'package:myportfolioapp/features/blogs/domain/usecase/blog_data.dart';
-import 'package:myportfolioapp/features/blogs/domain/usecase/blog_details_data.dart';
 import 'package:myportfolioapp/features/blogs/presentation/bloc/blog_bloc.dart';
 import 'package:myportfolioapp/features/career/data/datasources/career_datasource.dart';
 import 'package:myportfolioapp/features/career/data/repository/career_repository_impl.dart';
@@ -16,6 +15,7 @@ import 'package:myportfolioapp/features/contact/data/repositories/contact_reposi
 import 'package:myportfolioapp/features/contact/domain/repositories/contact_repository.dart';
 import 'package:myportfolioapp/features/contact/domain/usecase/contact_data.dart';
 import 'package:myportfolioapp/features/contact/presentation/bloc/contact_bloc.dart';
+import 'package:myportfolioapp/features/dashboard/data/datasource/category_data_remote_impl.dart';
 import 'package:myportfolioapp/features/dashboard/data/datasource/category_datasource.dart';
 import 'package:myportfolioapp/features/dashboard/data/repository/category_repository_impl.dart';
 import 'package:myportfolioapp/features/dashboard/domain/repository/category_respository.dart';
@@ -33,11 +33,11 @@ import 'package:myportfolioapp/features/projects/domain/usecase/project_data.dar
 import 'package:myportfolioapp/features/projects/presentation/bloc/project_bloc.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-import '../../features/blogs/data/repository/blog_details_repository_impl.dart';
-import '../../features/blogs/domain/repository/blog_details_repository.dart';
+import '../../features/blogs/data/datasource/blog_local_data_impl.dart';
 import '../../features/blogs/presentation/bloc/blog_details_bloc.dart';
 import '../../features/career/data/datasources/career_local_datsoure_impl.dart';
 import '../../features/career/data/datasources/career_remote_datsoure_impl.dart';
+import '../../features/dashboard/data/datasource/category_data_local_impl.dart';
 import '../../features/home/data/datasource/home_remote_datasource.dart';
 import '../../features/home/presentation/bloc/home_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -118,31 +118,43 @@ Future<void> injectDependency() async {
   getIt.registerLazySingleton(() => ProjectData(getIt()));
   getIt.registerFactory(() => ProjectBloc(getIt()));
 
+  getIt.registerLazySingleton<CategoryDatasource>(
+    () => CategoryRemoteDataImp(getIt(), getIt()),
+    instanceName: "remote",
+  );
+  getIt.registerLazySingleton<CategoryDatasource>(
+    () => CategoryLocalDataImp(getIt()),
+    instanceName: "local",
+  );
   //blogs dependency
-  getIt.registerLazySingleton<BlogDatasource>(() => BlogDatasourceImp(getIt()));
+  getIt.registerLazySingleton<BlogRemoteDatasource>(
+    () => BlogRemoteDataImp(getIt(), getIt()),
+  );
+  getIt.registerLazySingleton<BlogLocalDatasource>(
+    () => BlogLocalDataImp(getIt()),
+  );
   getIt.registerLazySingleton<BlogRepository>(
-    () => BlogRepositoryImpl(getIt(), getIt()),
+    () => BlogRepositoryImpl(
+      getIt(),
+      getIt(),
+      getIt<CategoryDatasource>(instanceName: "remote"),
+      getIt<CategoryDatasource>(instanceName: "local"),
+    ),
   );
   getIt.registerLazySingleton(() => BlogData(getIt()));
   getIt.registerFactory(() => BlogBloc(getIt()));
 
   //blog details
-  getIt.registerLazySingleton<BlogDetailsDatasource>(
-    () => BlogDetailsDatasourceImpl(getIt()),
-  );
 
-  getIt.registerLazySingleton<BlogDetailsRepository>(
-    () => BlogDetailsRepositoryImpl(getIt(), getIt()),
-  );
-  getIt.registerLazySingleton(() => BlogDetailsData(getIt()));
   getIt.registerFactory(() => BlogDetailsBloc(getIt()));
 
   //dashboard
-  getIt.registerLazySingleton<CategoryDatasource>(
-    () => CategoryDatasourceImp(getIt()),
-  );
+
   getIt.registerLazySingleton<CategoryRespository>(
-    () => CategoryRepositoryImpl(getIt()),
+    () => CategoryRepositoryImpl(
+      getIt<CategoryDatasource>(instanceName: "remote"),
+      getIt<CategoryDatasource>(instanceName: "local"),
+    ),
   );
   getIt.registerLazySingleton(
     () => DashboardData(projectData: getIt(), repository: getIt()),

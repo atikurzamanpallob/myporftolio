@@ -5,12 +5,18 @@ import 'package:myportfolioapp/features/dashboard/domain/entity/category_list.da
 import 'package:myportfolioapp/features/dashboard/domain/repository/category_respository.dart';
 
 class CategoryRepositoryImpl extends CategoryRespository {
-  CategoryDatasource categoryDatasource;
-  CategoryRepositoryImpl(this.categoryDatasource);
+  CategoryDatasource remote, local;
+  CategoryRepositoryImpl(this.remote, this.local);
   @override
   Future<Either<Failure, List<Category>>> getCategoryList() async {
     try {
-      return Right(await categoryDatasource.getCategoryList());
+      List<Category> list = await local.getCategoryList();
+
+      if (list.isNotEmpty) {
+        return Right(list);
+      } else {
+        return Right(await remote.getCategoryList());
+      }
     } catch (e) {
       return Left(Failure(e.toString()));
     }
