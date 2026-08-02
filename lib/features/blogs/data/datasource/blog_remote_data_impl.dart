@@ -194,7 +194,7 @@ class BlogRemoteDataImp extends BlogRemoteDatasource {
         .single();
 
     var item = BlogDetailsModel.fromJson(response);
-    box.put("blog_details_$blogId", {
+    box.put("blog_sections_$blogId", {
       "timestamp": TimeFormatter.getTimestamp(),
       "response": Map<String, dynamic>.from(response),
     });

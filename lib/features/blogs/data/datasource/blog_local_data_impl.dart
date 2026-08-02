@@ -46,26 +46,19 @@ class BlogLocalDataImp extends BlogLocalDatasource {
 
   @override
   Future<BlogItem?> getBlogDetails({required int blogId}) async {
-    try {
-      var ob = Map<String, dynamic>.from(
-        box.get(
-          "blog_details_$blogId",
-          defaultValue: {"timestamp": null, "response": null},
-        ),
-      );
-      print("this is details object:");
-      print(ob);
-      if (TimeFormatter.difference(ob['timestamp']) > 10) {
-        return null;
-      } else {
-        var item = BlogItemModels.fromJson(
-          Map<String, dynamic>.from(ob["response"]),
-        );
-        return item.toEntity();
-      }
-    } catch (e) {
-      print("This is exception:${e.toString()}");
+    var ob = Map<String, dynamic>.from(
+      box.get(
+        "blog_details_$blogId",
+        defaultValue: {"timestamp": null, "response": null},
+      ),
+    );
+    if (TimeFormatter.difference(ob['timestamp']) > 10) {
       return null;
+    } else {
+      var item = BlogItemModels.fromJson(
+        Map<String, dynamic>.from(ob["response"]),
+      );
+      return item.toEntity();
     }
   }
 
@@ -95,7 +88,7 @@ class BlogLocalDataImp extends BlogLocalDatasource {
   Future<List<BlogSectionItem>> getSections({required int blogId}) async {
     var ob = Map<String, dynamic>.from(
       box.get(
-        "blog_details_$blogId",
+        "blog_sections_$blogId",
         defaultValue: {"timestamp": null, "response": []},
       ),
     );

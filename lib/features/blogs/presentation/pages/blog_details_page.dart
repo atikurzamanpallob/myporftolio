@@ -52,7 +52,6 @@ class BlogDetailsPage extends StatelessWidget {
 
       body: BlocBuilder<BlogDetailsBloc, BlogDetailsState>(
         builder: (context, state) {
-          print(state.error);
           return SingleChildScrollView(
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: hPad.w),
