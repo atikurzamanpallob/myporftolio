@@ -8,9 +8,10 @@ import 'package:myportfolioapp/features/dashboard/data/datasource/category_datas
 import 'package:myportfolioapp/features/dashboard/domain/entity/category_list.dart';
 
 class BlogRepositoryImpl extends BlogRepository {
-  BlogDatasource datasource;
-  CategoryDatasource categoryDatasource;
-  BlogRepositoryImpl(this.datasource, this.categoryDatasource);
+  BlogRemoteDatasource remote;
+  BlogLocalDatasource local;
+  CategoryDatasource catRemote, catLocal;
+  BlogRepositoryImpl(this.remote, this.local, this.catRemote, this.catLocal);
 
   @override
   Future<Either<Failure, List<BlogItem>>> getBlogs({
@@ -19,13 +20,18 @@ class BlogRepositoryImpl extends BlogRepository {
     int? categoryId,
   }) async {
     try {
-      return Right(
-        await datasource.getBlogs(
-          page: page,
-          limit: limit,
-          categoryId: categoryId,
-        ),
-      );
+      List<BlogItem> list = await local.getBlogs(page: page, limit: limit);
+      if (list.isNotEmpty) {
+        return Right(list);
+      } else {
+        return Right(
+          await remote.getBlogs(
+            page: page,
+            limit: limit,
+            categoryId: categoryId,
+          ),
+        );
+      }
     } catch (e) {
       return Left(Failure(e.toString()));
     }
@@ -34,7 +40,12 @@ class BlogRepositoryImpl extends BlogRepository {
   @override
   Future<Either<Failure, List<Category>>> getCategoryList() async {
     try {
-      return Right(await categoryDatasource.getCategoryList());
+      List<Category> list = await catLocal.getCategoryList();
+      if (list.isNotEmpty) {
+        return Right(list);
+      } else {
+        return Right(await catRemote.getCategoryList());
+      }
     } catch (e) {
       return Left(Failure(e.toString()));
     }
@@ -43,7 +54,7 @@ class BlogRepositoryImpl extends BlogRepository {
   @override
   Future<Either<Failure, bool>> addBlog({required BlogAddItem item}) async {
     try {
-      return Right(await datasource.addBlogs(item: item));
+      return Right(await remote.addBlogs(item: item));
     } catch (e) {
       return Left(Failure(e.toString()));
     }
