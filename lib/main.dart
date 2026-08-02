@@ -1,3 +1,5 @@
+// ignore_for_file: depend_on_referenced_packages
+
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
@@ -8,12 +10,14 @@ import 'package:myportfolioapp/core/di/injection.dart';
 import 'package:myportfolioapp/core/supabase/supabase_client.dart';
 import 'package:myportfolioapp/core/themes/responsive_size.dart';
 import 'package:myportfolioapp/core/themes/text_theme.dart';
-
 import 'core/themes/app_colors.dart';
 import 'core/common/routes.dart';
+import 'package:flutter_web_plugins/url_strategy.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  usePathUrlStrategy();
+
   await dotenv.load();
   await initSupabase();
   await injectDependency();
