@@ -53,6 +53,8 @@ class BlogLocalDataImp extends BlogLocalDatasource {
           defaultValue: {"timestamp": null, "response": null},
         ),
       );
+      print("this is details object:");
+      print(ob);
       if (TimeFormatter.difference(ob['timestamp']) > 10) {
         return null;
       } else {
