@@ -20,7 +20,7 @@ class CategoryRemoteDataImp extends CategoryDatasource {
 
     box.put("category_list", {
       "timestamp": TimeFormatter.getTimestamp(),
-      "response": response,
+      "response": response.map((e) => Map<String, dynamic>.from(e)).toList(),
     });
 
     for (var v in response) {

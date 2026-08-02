@@ -18,7 +18,7 @@ class CareerRemoteDatasourceImp implements CareerDatasource {
     var response = await client.from('certification').select();
     box.put("certifications", {
       "timestamp": TimeFormatter.getTimestamp(),
-      "response": response,
+      "response": response.map((e) => Map<String, dynamic>.from(e)).toList(),
     });
     for (var v in response) {
       final model = CertificateItemModel.fromJson(v);
@@ -36,7 +36,7 @@ class CareerRemoteDatasourceImp implements CareerDatasource {
         .order('id', ascending: false);
     box.put("experience", {
       "timestamp": TimeFormatter.getTimestamp(),
-      "response": response,
+      "response": response.map((e) => Map<String, dynamic>.from(e)).toList(),
     });
     for (var v in response) {
       final model = WorkExperienceItemModel.fromJson(v);

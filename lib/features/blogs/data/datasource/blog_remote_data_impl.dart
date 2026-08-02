@@ -43,7 +43,7 @@ class BlogRemoteDataImp extends BlogRemoteDatasource {
 
     box.put("blog_list_${page}_${categoryId ?? -1}", {
       "timestamp": TimeFormatter.getTimestamp(),
-      "response": response,
+      "response": response.map((e) => Map<String, dynamic>.from(e)).toList(),
     });
     for (var element in response) {
       try {
@@ -158,7 +158,7 @@ class BlogRemoteDataImp extends BlogRemoteDatasource {
 
     box.put("blog_details_$blogId", {
       "timestamp": TimeFormatter.getTimestamp(),
-      "response": response,
+      "response": Map<String, dynamic>.from(response),
     });
 
     var item = BlogItemModels.fromJson(response);
@@ -175,7 +175,7 @@ class BlogRemoteDataImp extends BlogRemoteDatasource {
         .limit(4);
     box.put("blog_recent_post", {
       "timestamp": TimeFormatter.getTimestamp(),
-      "response": response,
+      "response": response.map((e) => Map<String, dynamic>.from(e)).toList(),
     });
     for (var element in response) {
       var ob = BlogItemModels.fromJson(element);
@@ -196,7 +196,7 @@ class BlogRemoteDataImp extends BlogRemoteDatasource {
     var item = BlogDetailsModel.fromJson(response);
     box.put("blog_details_$blogId", {
       "timestamp": TimeFormatter.getTimestamp(),
-      "response": response,
+      "response": Map<String, dynamic>.from(response),
     });
 
     return item.toEntity().sections;

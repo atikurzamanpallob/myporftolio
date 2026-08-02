@@ -112,7 +112,7 @@ class ProjectRemoteDataImp extends ProjectRemoteDatasource {
         .order('index', ascending: false);
     box.put("project_list", {
       "timestamp": TimeFormatter.getTimestamp(),
-      "response": response,
+      "response": response.map((e) => Map<String, dynamic>.from(e)).toList(),
     });
 
     response.forEach((v) {
@@ -163,7 +163,7 @@ class ProjectRemoteDataImp extends ProjectRemoteDatasource {
 
     box.put("tech_stacks", {
       "timestamp": TimeFormatter.getTimestamp(),
-      "response": response,
+      "response": response.map((e) => Map<String, dynamic>.from(e)).toList(),
     });
     response.forEach((v) {
       final tech = ProjectTechstackModels.fromJson(v);
@@ -204,7 +204,7 @@ class ProjectRemoteDataImp extends ProjectRemoteDatasource {
 
     box.put("project_details_$projectId", {
       "timestamp": TimeFormatter.getTimestamp(),
-      "response": response,
+      "response": Map<String, dynamic>.from(response),
     });
     final ob = ProjectDetailsModels.fromJson(response);
     return ob.toEntity();
@@ -220,7 +220,7 @@ class ProjectRemoteDataImp extends ProjectRemoteDatasource {
 
     box.put("project_info_$projectId", {
       "timestamp": TimeFormatter.getTimestamp(),
-      "response": response,
+      "response": Map<String, dynamic>.from(response),
     });
     var item = ProjectItemModels.fromJson(response);
     return item.toEntity();
