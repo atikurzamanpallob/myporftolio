@@ -46,7 +46,6 @@ class _BlogsListSectionState extends State<BlogsListSection> {
       ),
       child: BlocBuilder<BlogBloc, BlogState>(
         builder: (context, state) {
-          print("This is error:${state.error}");
           List<BlogItem> list = state.blogs;
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,

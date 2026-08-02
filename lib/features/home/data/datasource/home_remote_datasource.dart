@@ -23,7 +23,7 @@ class HomeRemoteDataImp implements HomeDatasource {
 
     await box.put("contact_list", {
       "timestamp": TimeFormatter.getTimestamp(),
-      "response": response,
+      "response": response.map((e) => Map<String, dynamic>.from(e)).toList(),
     });
 
     for (var v in response) {
@@ -38,7 +38,7 @@ class HomeRemoteDataImp implements HomeDatasource {
     final response = await client.from('home').select().single();
     await box.put("home_info", {
       "timestamp": TimeFormatter.getTimestamp(),
-      "response": response,
+      "response": Map<String, dynamic>.from(response),
     });
     var infoModels = HomeInfoModel.fromJson(response);
     return infoModels.toEntity();
