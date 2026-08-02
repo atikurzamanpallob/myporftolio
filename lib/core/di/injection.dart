@@ -42,6 +42,9 @@ import '../../features/home/data/datasource/home_remote_datasource.dart';
 import '../../features/home/presentation/bloc/home_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
+import '../../features/projects/data/datasource/project_local_data_impl.dart';
+import '../../features/projects/data/datasource/project_remote_data_impl.dart';
+
 final getIt = GetIt.instance;
 
 Future<void> injectDependency() async {
@@ -102,11 +105,15 @@ Future<void> injectDependency() async {
 
   //project dependency
 
-  getIt.registerLazySingleton<ProjectDatasource>(
-    () => ProjectDatasourceImp(getIt()),
+  getIt.registerLazySingleton<ProjectRemoteDatasource>(
+    () => ProjectRemoteDataImp(getIt(), getIt()),
+  );
+
+  getIt.registerLazySingleton<ProjectLocalDatasource>(
+    () => ProjectLocalDataImp(getIt()),
   );
   getIt.registerLazySingleton<ProjectRepository>(
-    () => ProjectRepositoryImpl(getIt()),
+    () => ProjectRepositoryImpl(getIt(), getIt()),
   );
   getIt.registerLazySingleton(() => ProjectData(getIt()));
   getIt.registerFactory(() => ProjectBloc(getIt()));

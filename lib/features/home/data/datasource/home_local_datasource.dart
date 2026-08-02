@@ -18,8 +18,7 @@ class HomeLocalDataImpl implements HomeDatasource {
       defaultValue: {"timestamp": null, "response": []},
     );
 
-    if (ob['timestamp'] == null ||
-        TimeFormatter.difference(ob['timestamp']) > 10) {
+    if (TimeFormatter.difference(ob['timestamp']) > 10) {
       return [];
     } else {
       for (var v in ob["response"]) {
@@ -36,10 +35,7 @@ class HomeLocalDataImpl implements HomeDatasource {
       "home_info",
       defaultValue: {"timestamp": null, "response": null},
     );
-
-    if (ob['timestamp'] == null ||
-        TimeFormatter.difference(ob['timestamp']) > 10 ||
-        ob['response'] == null) {
+    if (TimeFormatter.difference(ob['timestamp']) > 10) {
       return null;
     } else {
       var infoModels = HomeInfoModel.fromJson(ob['response']);
