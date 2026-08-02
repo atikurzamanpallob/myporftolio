@@ -98,7 +98,7 @@ Navigation is handled with `go_router`. Routes are defined in `lib/core/common/r
 
 1. **Clone the repository**
    ```bash
-   git clone <your-repo-url>
+   git clone https://github.com/atikurzamanpallob/myporftolio.git
    cd myportfolioapp
    ```
 
