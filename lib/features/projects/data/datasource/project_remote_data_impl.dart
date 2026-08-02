@@ -23,7 +23,7 @@ class ProjectRemoteDataImp extends ProjectRemoteDatasource {
 
   @override
   Future<bool> addProject({required ProjectAddItem model}) async {
-    List<String> imageUrls = [], solutions = [], screenshots = [];
+    List<String> solutions = [], screenshots = [];
     List<Map<String, dynamic>> techList = [], keyFeatures = [];
     try {
       model.technology.forEach((tech) {
@@ -59,16 +59,13 @@ class ProjectRemoteDataImp extends ProjectRemoteDatasource {
           .single();
       int projectId = project['id'];
 
-      if (model.files.isNotEmpty) {
-        await Future.forEach(model.files, (file) async {
-          String? url = await getFileUrls(file: file, id: projectId);
-          if (url != null) {
-            imageUrls.add(url);
-          }
-        });
+      String? url = await getFileUrls(file: model.thumbnail, id: projectId);
+      if (url != null) {
+        
+
         await client
             .from('projects')
-            .update({'images': imageUrls})
+            .update({'thumbnail': url})
             .eq('id', projectId);
       }
 

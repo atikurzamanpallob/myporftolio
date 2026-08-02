@@ -32,7 +32,8 @@ class AddProjectPage extends StatefulWidget {
 }
 
 class _AddProjectPageState extends State<AddProjectPage> {
-  List<PlatformFile> files = [], screenShots = [];
+  List<PlatformFile> screenShots = [];
+  PlatformFile? thumbnail;
   List<KeyFeatureEntity> keyFeatures = [];
   List<TextEditingController> solutions = [];
   Category? category;
@@ -67,7 +68,6 @@ class _AddProjectPageState extends State<AddProjectPage> {
     mainList.clear();
     solutions.clear();
     keyFeatures.clear();
-    files.clear();
     screenShots.clear();
   }
 
@@ -173,7 +173,7 @@ class _AddProjectPageState extends State<AddProjectPage> {
           Icons.send_outlined,
           onTap: () {
             if (formKey.currentState?.validate() ?? false) {
-              if (techStacks.isNotEmpty && files.isNotEmpty) {
+              if (techStacks.isNotEmpty && thumbnail != null) {
                 context.read<DashBoardBloc>().add(
                   AddProjectEvent(
                     model: ProjectAddItem(
@@ -184,7 +184,7 @@ class _AddProjectPageState extends State<AddProjectPage> {
                       description: descriptionController.text,
                       link: projectLinkController.text,
                       technology: techStacks,
-                      files: files,
+                      thumbnail: thumbnail!,
                       role: projectRoleController.text,
                       platform: projectPlatformController.text,
                       overview: overviewController.text,
@@ -389,17 +389,22 @@ class _AddProjectPageState extends State<AddProjectPage> {
           child: Column(
             crossAxisAlignment: .center,
             children: [
-              ThumbnailPreview(files: files),
+              thumbnail != null
+                  ? ThumbnailPreview(files: [thumbnail!])
+                  : const SizedBox(
+                      height: 100,
+                      child: Center(child: Text("No Thumbnail")),
+                    ),
               const SizedBox(height: 16),
               CustomOutlinedButton(
                 onTap: () async {
                   FilePickerResult? results = await FilePicker.pickFiles(
-                    allowMultiple: true,
+                    allowMultiple: false,
                     type: FileType.custom,
                     withData: true,
                     allowedExtensions: ['jpg', 'jpeg', 'png'],
                   );
-                  files = results?.files ?? [];
+                  thumbnail = results?.files.first;
                   setState(() {});
                 },
                 label: "Add Images",

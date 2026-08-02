@@ -53,7 +53,7 @@ class ProjectHeroSection extends StatelessWidget {
   ) {
     return Column(
       children: [
-        ProjectThumbnails(imageUrls: projectInfo?.images ?? []),
+        ProjectThumbnails(imageUrl: projectInfo?.thumbnail ?? ""),
         SizedBox(height: 10.h),
         projectInfoWidget(context, projectInfo, details),
       ],
@@ -71,7 +71,7 @@ class ProjectHeroSection extends StatelessWidget {
           children: [
             Expanded(child: projectInfoWidget(context, projectInfo, details)),
             SizedBox(width: 10.w),
-            ProjectThumbnails(imageUrls: projectInfo?.images ?? []),
+            ProjectThumbnails(imageUrl: projectInfo?.thumbnail ?? ""),
           ],
         ),
       ],
@@ -90,7 +90,7 @@ class ProjectHeroSection extends StatelessWidget {
           child: projectInfoWidget(context, projectInfo, details),
         ),
         Expanded(flex: 2, child: SizedBox()),
-        ProjectThumbnails(imageUrls: projectInfo?.images ?? []),
+        ProjectThumbnails(imageUrl: projectInfo?.thumbnail ?? ""),
       ],
     );
   }

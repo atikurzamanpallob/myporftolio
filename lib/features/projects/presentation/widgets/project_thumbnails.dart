@@ -6,22 +6,18 @@ import 'package:myportfolioapp/core/app_resources/app_images.dart';
 class ProjectThumbnails extends StatelessWidget {
   const ProjectThumbnails({
     super.key,
-    required this.imageUrls,
+    required this.imageUrl,
     this.width = 180,
     this.height = 180,
   });
 
-  final List<String> imageUrls;
+  final String imageUrl;
   final double width;
   final double height;
 
   @override
   Widget build(BuildContext context) {
-    return _PhoneFrame(
-      width: width.r,
-      height: height.r,
-      imageUrl: imageUrls.isNotEmpty ? imageUrls.first : "",
-    );
+    return _PhoneFrame(width: width.r, height: height.r, imageUrl: imageUrl);
   }
 }
 
