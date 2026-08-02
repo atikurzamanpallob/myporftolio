@@ -5,10 +5,10 @@ import 'package:myportfolioapp/features/blogs/presentation/bloc/blog_event.dart'
 import 'package:myportfolioapp/features/blogs/presentation/bloc/blog_state.dart';
 
 import '../../../dashboard/domain/entity/category_list.dart';
-import '../../domain/usecase/blog_details_data.dart';
+import '../../domain/usecase/blog_data.dart';
 
 class BlogDetailsBloc extends Bloc<BlogEvent, BlogDetailsState> {
-  BlogDetailsData blogDetailsData;
+  BlogData blogDetailsData;
 
   BlogDetailsBloc(this.blogDetailsData) : super(BlogDetailsState()) {
     on<DetailsFetchEvent>(fetchDetails);
@@ -70,7 +70,7 @@ class BlogDetailsBloc extends Bloc<BlogEvent, BlogDetailsState> {
     CategoryFetchEvent event,
     Emitter<BlogDetailsState> emit,
   ) async {
-    final result = await blogDetailsData.getCategoryList();
+    final result = await blogDetailsData.getCategories();
 
     result.fold(
       (failure) {

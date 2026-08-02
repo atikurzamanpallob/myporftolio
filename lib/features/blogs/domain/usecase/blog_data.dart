@@ -5,6 +5,8 @@ import 'package:myportfolioapp/features/blogs/domain/entity/blog_item.dart';
 import 'package:myportfolioapp/features/blogs/domain/repository/blog_repository.dart';
 import 'package:myportfolioapp/features/dashboard/domain/entity/category_list.dart';
 
+import '../entity/blog_section_item.dart';
+
 class BlogData {
   BlogRepository repository;
   BlogData(this.repository);
@@ -27,5 +29,21 @@ class BlogData {
 
   Future<Either<Failure, bool>> addBlog(BlogAddItem item) async {
     return repository.addBlog(item: item);
+  }
+
+  Future<Either<Failure, BlogItem?>> getBlogDetails({
+    required int blogId,
+  }) async {
+    return repository.getBlogDetails(blogId: blogId);
+  }
+
+  Future<Either<Failure, List<BlogItem>>> getRecentPosts() async {
+    return repository.getRecentPosts();
+  }
+
+  Future<Either<Failure, List<BlogSectionItem>>> getSections({
+    required int blogId,
+  }) async {
+    return repository.getSections(blogId: blogId);
   }
 }

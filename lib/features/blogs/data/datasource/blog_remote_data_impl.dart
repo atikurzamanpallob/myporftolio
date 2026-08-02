@@ -5,11 +5,12 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:myportfolioapp/core/utils/time_formatter.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-
+import 'package:myportfolioapp/features/blogs/data/models/blog_details_model.dart';
+import 'package:myportfolioapp/features/blogs/data/models/blog_item_models.dart';
 import '../../../../core/app_resources/app_constants.dart';
 import '../../domain/entity/blog_add_item.dart';
 import '../../domain/entity/blog_item.dart';
-import '../models/blog_item_models.dart';
+import '../../domain/entity/blog_section_item.dart';
 import 'blog_datasource.dart';
 
 class BlogRemoteDataImp extends BlogRemoteDatasource {
@@ -145,5 +146,59 @@ class BlogRemoteDataImp extends BlogRemoteDatasource {
     } else {
       return null;
     }
+  }
+
+  @override
+  Future<BlogItem> getBlogDetails({required int blogId}) async {
+    var response = await client
+        .from('blogs')
+        .select()
+        .eq('id', blogId)
+        .single();
+
+    box.put("blog_details_$blogId", {
+      "timestamp": TimeFormatter.getTimestamp(),
+      "response": response,
+    });
+
+    var item = BlogItemModels.fromJson(response);
+    return item.toEntity();
+  }
+
+  @override
+  Future<List<BlogItem>> getRecentPosts() async {
+    List<BlogItem> items = [];
+    var response = await client
+        .from('blogs')
+        .select()
+        .order('id', ascending: false)
+        .limit(4);
+    box.put("blog_recent_post", {
+      "timestamp": TimeFormatter.getTimestamp(),
+      "response": response,
+    });
+    for (var element in response) {
+      var ob = BlogItemModels.fromJson(element);
+      items.add(ob.toEntity());
+    }
+
+    return items;
+  }
+
+  @override
+  Future<List<BlogSectionItem>> getSections({required int blogId}) async {
+    var response = await client
+        .from('blog_details')
+        .select()
+        .eq('blog_id', blogId)
+        .single();
+
+    var item = BlogDetailsModel.fromJson(response);
+    box.put("blog_details_$blogId", {
+      "timestamp": TimeFormatter.getTimestamp(),
+      "response": response,
+    });
+
+    return item.toEntity().sections;
   }
 }

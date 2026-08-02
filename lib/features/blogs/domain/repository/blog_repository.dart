@@ -4,6 +4,8 @@ import 'package:myportfolioapp/features/blogs/domain/entity/blog_add_item.dart';
 import 'package:myportfolioapp/features/blogs/domain/entity/blog_item.dart';
 import 'package:myportfolioapp/features/dashboard/domain/entity/category_list.dart';
 
+import '../entity/blog_section_item.dart';
+
 abstract class BlogRepository {
   Future<Either<Failure, List<Category>>> getCategoryList();
   Future<Either<Failure, bool>> addBlog({required BlogAddItem item});
@@ -11,5 +13,10 @@ abstract class BlogRepository {
     required int page,
     required int limit,
     int? categoryId,
+  });
+  Future<Either<Failure, BlogItem?>> getBlogDetails({required int blogId});
+  Future<Either<Failure, List<BlogItem>>> getRecentPosts();
+  Future<Either<Failure, List<BlogSectionItem>>> getSections({
+    required int blogId,
   });
 }

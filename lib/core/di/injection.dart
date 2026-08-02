@@ -1,11 +1,9 @@
 import 'package:get_it/get_it.dart';
 import 'package:myportfolioapp/features/blogs/data/datasource/blog_datasource.dart';
-import 'package:myportfolioapp/features/blogs/data/datasource/blog_details_datasource.dart';
 import 'package:myportfolioapp/features/blogs/data/datasource/blog_remote_data_impl.dart';
 import 'package:myportfolioapp/features/blogs/data/repository/blog_repository_impl.dart';
 import 'package:myportfolioapp/features/blogs/domain/repository/blog_repository.dart';
 import 'package:myportfolioapp/features/blogs/domain/usecase/blog_data.dart';
-import 'package:myportfolioapp/features/blogs/domain/usecase/blog_details_data.dart';
 import 'package:myportfolioapp/features/blogs/presentation/bloc/blog_bloc.dart';
 import 'package:myportfolioapp/features/career/data/datasources/career_datasource.dart';
 import 'package:myportfolioapp/features/career/data/repository/career_repository_impl.dart';
@@ -36,8 +34,6 @@ import 'package:myportfolioapp/features/projects/presentation/bloc/project_bloc.
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../features/blogs/data/datasource/blog_local_data_impl.dart';
-import '../../features/blogs/data/repository/blog_details_repository_impl.dart';
-import '../../features/blogs/domain/repository/blog_details_repository.dart';
 import '../../features/blogs/presentation/bloc/blog_details_bloc.dart';
 import '../../features/career/data/datasources/career_local_datsoure_impl.dart';
 import '../../features/career/data/datasources/career_remote_datsoure_impl.dart';
@@ -149,14 +145,7 @@ Future<void> injectDependency() async {
   getIt.registerFactory(() => BlogBloc(getIt()));
 
   //blog details
-  getIt.registerLazySingleton<BlogDetailsDatasource>(
-    () => BlogDetailsDatasourceImpl(getIt()),
-  );
 
-  getIt.registerLazySingleton<BlogDetailsRepository>(
-    () => BlogDetailsRepositoryImpl(getIt(), getIt()),
-  );
-  getIt.registerLazySingleton(() => BlogDetailsData(getIt()));
   getIt.registerFactory(() => BlogDetailsBloc(getIt()));
 
   //dashboard

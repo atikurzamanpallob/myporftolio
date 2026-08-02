@@ -3,6 +3,8 @@
 import 'package:myportfolioapp/features/blogs/domain/entity/blog_add_item.dart';
 import 'package:myportfolioapp/features/blogs/domain/entity/blog_item.dart';
 
+import '../../domain/entity/blog_section_item.dart';
+
 abstract class BlogRemoteDatasource {
   Future<List<BlogItem>> getBlogs({
     required int page,
@@ -10,6 +12,9 @@ abstract class BlogRemoteDatasource {
     int? categoryId,
   });
   Future<bool> addBlogs({required BlogAddItem item});
+  Future<List<BlogItem>> getRecentPosts();
+  Future<BlogItem?> getBlogDetails({required int blogId});
+  Future<List<BlogSectionItem>> getSections({required int blogId});
 }
 
 abstract class BlogLocalDatasource {
@@ -18,4 +23,7 @@ abstract class BlogLocalDatasource {
     required int limit,
     int? categoryId,
   });
+  Future<List<BlogItem>> getRecentPosts();
+  Future<BlogItem?> getBlogDetails({required int blogId});
+  Future<List<BlogSectionItem>> getSections({required int blogId});
 }
