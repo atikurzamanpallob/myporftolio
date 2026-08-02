@@ -11,16 +11,18 @@ class CategoryLocalDataImp extends CategoryDatasource {
   @override
   Future<List<Category>> getCategoryList() async {
     List<Category> categoryList = [];
-    var ob = box.get(
-      "category_list",
-      defaultValue: {"timestamp": null, "response": []},
+    var ob = Map<String, dynamic>.from(
+      box.get(
+        "category_list",
+        defaultValue: {"timestamp": null, "response": []},
+      ),
     );
 
     if (TimeFormatter.difference(ob['timestamp']) > 10) {
       return [];
     } else {
       for (var v in ob["response"]) {
-        final category = CategoryModel.fromJson(v);
+        final category = CategoryModel.fromJson(Map<String, dynamic>.from(v));
         categoryList.add(category.toEntity());
       }
 

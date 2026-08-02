@@ -21,7 +21,9 @@ class CareerLocalDatasourceImp implements CareerDatasource {
       return [];
     } else {
       for (var v in ob["response"]) {
-        final model = CertificateItemModel.fromJson(v);
+        final model = CertificateItemModel.fromJson(
+          Map<String, dynamic>.from(v),
+        );
         certificates.add(model.toEntity());
       }
       return certificates;
@@ -31,15 +33,16 @@ class CareerLocalDatasourceImp implements CareerDatasource {
   @override
   Future<List<WorkExperienceItem>> getExperiences() async {
     List<WorkExperienceItem> experience = [];
-    var ob = box.get(
-      "experience",
-      defaultValue: {"timestamp": null, "response": []},
+    var ob = Map<String, dynamic>.from(
+      box.get("experience", defaultValue: {"timestamp": null, "response": []}),
     );
     if (TimeFormatter.difference(ob['timestamp']) > 10) {
       return [];
     } else {
       for (var v in ob["response"]) {
-        final model = WorkExperienceItemModel.fromJson(v);
+        final model = WorkExperienceItemModel.fromJson(
+          Map<String, dynamic>.from(v),
+        );
         experience.add(model.toEntity());
       }
       return experience;

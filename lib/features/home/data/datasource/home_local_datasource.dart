@@ -13,16 +13,17 @@ class HomeLocalDataImpl implements HomeDatasource {
   @override
   Future<List<ContactInfo>> getContactInfo() async {
     List<ContactInfo> list = [];
-    final ob = box.get(
-      "contact_list",
-      defaultValue: {"timestamp": null, "response": []},
+    final ob = Map<String, dynamic>.from(
+      box.get(
+        "contact_list",
+        defaultValue: {"timestamp": null, "response": []},
+      ),
     );
-
     if (TimeFormatter.difference(ob['timestamp']) > 10) {
       return [];
     } else {
       for (var v in ob["response"]) {
-        final model = ContactModel.fromJson(v);
+        final model = ContactModel.fromJson(Map<String, dynamic>.from(v));
         list.add(model.toEntity());
       }
       return list;
@@ -31,14 +32,15 @@ class HomeLocalDataImpl implements HomeDatasource {
 
   @override
   Future<HomeInfo?> getHomeInfo() async {
-    final ob = box.get(
-      "home_info",
-      defaultValue: {"timestamp": null, "response": null},
+    final ob = Map<String, dynamic>.from(
+      box.get("home_info", defaultValue: {"timestamp": null, "response": null}),
     );
     if (TimeFormatter.difference(ob['timestamp']) > 10) {
       return null;
     } else {
-      var infoModels = HomeInfoModel.fromJson(ob['response']);
+      var infoModels = HomeInfoModel.fromJson(
+        Map<String, dynamic>.from(ob['response']),
+      );
       return infoModels.toEntity();
     }
   }

@@ -9,7 +9,7 @@ class TimeFormatter {
   }
 
   static String getTimestamp() {
-    return DateFormat("yyyy-MM-dd HH:mm:ss SSS.Z").format(DateTime.now());
+    return DateFormat("yyyy-MM-dd HH:mm:ss").format(DateTime.now());
   }
 
   static int difference(String? timestamp) {

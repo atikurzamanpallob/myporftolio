@@ -20,6 +20,7 @@ class HomeRemoteDataImp implements HomeDatasource {
         .from('contacts')
         .select()
         .order('id', ascending: true);
+
     await box.put("contact_list", {
       "timestamp": TimeFormatter.getTimestamp(),
       "response": response,

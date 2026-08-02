@@ -15,16 +15,20 @@ class ProjectLocalDataImp extends ProjectLocalDatasource {
   @override
   Future<List<ProjectItem>> getProjects() async {
     List<ProjectItem> projects = [];
-    var ob = box.get(
-      "project_list",
-      defaultValue: {"timestamp": null, "response": []},
+    var ob = Map<String, dynamic>.from(
+      box.get(
+        "project_list",
+        defaultValue: {"timestamp": null, "response": []},
+      ),
     );
 
     if (TimeFormatter.difference(ob['timestamp']) > 10) {
       return [];
     } else {
       ob["response"].forEach((v) {
-        final project = ProjectItemModels.fromJson(v);
+        final project = ProjectItemModels.fromJson(
+          Map<String, dynamic>.from(v),
+        );
         projects.add(project.toEntity());
       });
 
@@ -35,16 +39,17 @@ class ProjectLocalDataImp extends ProjectLocalDatasource {
   @override
   Future<List<ProjectTechStack>> getTechStacks() async {
     List<ProjectTechStack> techStacks = [];
-    var ob = box.get(
-      "tech_stacks",
-      defaultValue: {"timestamp": null, "response": []},
+    var ob = Map<String, dynamic>.from(
+      box.get("tech_stacks", defaultValue: {"timestamp": null, "response": []}),
     );
 
     if (TimeFormatter.difference(ob['timestamp']) > 10) {
       return [];
     } else {
       ob["response"].forEach((v) {
-        final tech = ProjectTechstackModels.fromJson(v);
+        final tech = ProjectTechstackModels.fromJson(
+          Map<String, dynamic>.from(v),
+        );
         techStacks.add(tech.toEntity());
       });
       return techStacks;
@@ -53,28 +58,36 @@ class ProjectLocalDataImp extends ProjectLocalDatasource {
 
   @override
   Future<ProjectDetails?> getProjectDetails({required int projectId}) async {
-    var ob = box.get(
-      "project_details_$projectId",
-      defaultValue: {"timestamp": null, "response": null},
+    var ob = Map<String, dynamic>.from(
+      box.get(
+        "project_details_$projectId",
+        defaultValue: {"timestamp": null, "response": null},
+      ),
     );
     if (TimeFormatter.difference(ob['timestamp']) > 10) {
       return null;
     } else {
-      final model = ProjectDetailsModels.fromJson(ob["response"]);
+      final model = ProjectDetailsModels.fromJson(
+        Map<String, dynamic>.from(ob["response"]),
+      );
       return model.toEntity();
     }
   }
 
   @override
   Future<ProjectItem?> getProjectInfo({required int projectId}) async {
-    var ob = box.get(
-      "project_info_$projectId",
-      defaultValue: {"timestamp": "null", "response": null},
+    var ob = Map<String, dynamic>.from(
+      box.get(
+        "project_info_$projectId",
+        defaultValue: {"timestamp": "null", "response": null},
+      ),
     );
     if (TimeFormatter.difference(ob['timestamp']) > 10) {
       return null;
     } else {
-      var item = ProjectItemModels.fromJson(ob["response"]);
+      var item = ProjectItemModels.fromJson(
+        Map<String, dynamic>.from(ob["response"]),
+      );
       return item.toEntity();
     }
   }

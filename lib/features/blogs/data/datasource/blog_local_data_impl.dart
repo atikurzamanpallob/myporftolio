@@ -19,9 +19,11 @@ class BlogLocalDataImp extends BlogLocalDatasource {
   }) async {
     List<BlogItem> blogs = [];
 
-    final ob = box.get(
-      "blog_list_${page}_${categoryId ?? -1}",
-      defaultValue: {"timestamp": null, "response": []},
+    final ob = Map<String, dynamic>.from(
+      box.get(
+        "blog_list_${page}_${categoryId ?? -1}",
+        defaultValue: {"timestamp": null, "response": []},
+      ),
     );
 
     if (TimeFormatter.difference(ob['timestamp']) > 10) {
@@ -29,7 +31,9 @@ class BlogLocalDataImp extends BlogLocalDatasource {
     } else {
       for (var element in ob["response"]) {
         try {
-          var blog = BlogItemModels.fromJson(element);
+          var blog = BlogItemModels.fromJson(
+            Map<String, dynamic>.from(element),
+          );
           blogs.add(blog.toEntity());
         } catch (e, stack) {
           print(e.toString());
@@ -42,14 +46,18 @@ class BlogLocalDataImp extends BlogLocalDatasource {
 
   @override
   Future<BlogItem?> getBlogDetails({required int blogId}) async {
-    var ob = box.get(
-      "blog_details_$blogId",
-      defaultValue: {"timestamp": null, "response": null},
+    var ob = Map<String, dynamic>.from(
+      box.get(
+        "blog_details_$blogId",
+        defaultValue: {"timestamp": null, "response": null},
+      ),
     );
     if (TimeFormatter.difference(ob['timestamp']) > 10) {
       return null;
     } else {
-      var item = BlogItemModels.fromJson(ob["response"]);
+      var item = BlogItemModels.fromJson(
+        Map<String, dynamic>.from(ob["response"]),
+      );
       return item.toEntity();
     }
   }
@@ -57,16 +65,18 @@ class BlogLocalDataImp extends BlogLocalDatasource {
   @override
   Future<List<BlogItem>> getRecentPosts() async {
     List<BlogItem> items = [];
-    var ob = box.get(
-      "blog_recent_post",
-      defaultValue: {"timestamp": null, "response": []},
+    var ob = Map<String, dynamic>.from(
+      box.get(
+        "blog_recent_post",
+        defaultValue: {"timestamp": null, "response": []},
+      ),
     );
 
     if (TimeFormatter.difference(ob['timestamp']) > 10) {
       return [];
     } else {
       for (var element in ob["response"]) {
-        var ob = BlogItemModels.fromJson(element);
+        var ob = BlogItemModels.fromJson(Map<String, dynamic>.from(element));
         items.add(ob.toEntity());
       }
 
@@ -76,15 +86,19 @@ class BlogLocalDataImp extends BlogLocalDatasource {
 
   @override
   Future<List<BlogSectionItem>> getSections({required int blogId}) async {
-    var ob = box.get(
-      "blog_details_$blogId",
-      defaultValue: {"timestamp": null, "response": []},
+    var ob = Map<String, dynamic>.from(
+      box.get(
+        "blog_details_$blogId",
+        defaultValue: {"timestamp": null, "response": []},
+      ),
     );
 
     if (TimeFormatter.difference(ob['timestamp']) > 10) {
       return [];
     } else {
-      var item = BlogDetailsModel.fromJson(ob["response"]);
+      var item = BlogDetailsModel.fromJson(
+        Map<String, dynamic>.from(ob["response"]),
+      );
       return item.toEntity().sections;
     }
   }
