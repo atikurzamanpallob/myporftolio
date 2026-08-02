@@ -1,4 +1,5 @@
 import 'package:hive/hive.dart';
+import 'package:myportfolioapp/core/utils/time_formatter.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../domain/entity/contact_info.dart';
@@ -19,7 +20,10 @@ class HomeRemoteDataImp implements HomeDatasource {
         .from('contacts')
         .select()
         .order('id', ascending: true);
-    await box.put("contact_list", response);
+    await box.put("contact_list", {
+      "timestamp": TimeFormatter.getTimestamp(),
+      "response": response,
+    });
 
     for (var v in response) {
       final model = ContactModel.fromJson(v);
@@ -31,7 +35,10 @@ class HomeRemoteDataImp implements HomeDatasource {
   @override
   Future<HomeInfo?> getHomeInfo() async {
     final response = await client.from('home').select().single();
-    await box.put("home_info", response);
+    await box.put("home_info", {
+      "timestamp": TimeFormatter.getTimestamp(),
+      "response": response,
+    });
     var infoModels = HomeInfoModel.fromJson(response);
     return infoModels.toEntity();
   }
