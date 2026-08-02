@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:myportfolioapp/core/themes/app_colors.dart';
 import 'package:myportfolioapp/core/common/glass_card.dart';
+
+import '../../../../core/utils/load_variables.dart';
 
 class LoginWindow extends StatefulWidget {
   final Function onLoggedIn;
@@ -64,8 +65,8 @@ class _LoginWindowState extends State<LoginWindow> {
               onPressed: () {
                 if (nameController.text.isNotEmpty &&
                     passwordController.text.isNotEmpty) {
-                  String userName = dotenv.get("USER_NAME");
-                  String password = dotenv.get("USER_PASS");
+                  String userName = USER_NAME;
+                  String password = USER_PASS;
                   if (nameController.text == userName &&
                       password == passwordController.text) {
                     widget.onLoggedIn();

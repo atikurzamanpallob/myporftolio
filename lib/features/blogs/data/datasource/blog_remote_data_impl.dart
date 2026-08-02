@@ -1,13 +1,13 @@
 // ignore_for_file: avoid_print
 
 import 'package:file_picker/file_picker.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:myportfolioapp/core/utils/time_formatter.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:myportfolioapp/features/blogs/data/models/blog_details_model.dart';
 import 'package:myportfolioapp/features/blogs/data/models/blog_item_models.dart';
 import '../../../../core/app_resources/app_constants.dart';
+import '../../../../core/utils/load_variables.dart';
 import '../../domain/entity/blog_add_item.dart';
 import '../../domain/entity/blog_item.dart';
 import '../../domain/entity/blog_section_item.dart';
@@ -130,7 +130,7 @@ class BlogRemoteDataImp extends BlogRemoteDatasource {
     required int id,
     String contentType = "image/jpeg",
   }) async {
-    final storageUrl = dotenv.get("STORAGE_URL");
+    final storageUrl = STORAGE_URL;
 
     if (file != null) {
       final fileName =
