@@ -16,7 +16,7 @@ class ProjectAddItem {
   final String challenges;
   final List<ProjectTechStack> technology;
   final List<KeyFeatureEntity> keyFeatures;
-  final List<PlatformFile> files;
+  final PlatformFile thumbnail;
   final List<PlatformFile> screenshots;
   final List<TextEditingController> solutions;
 
@@ -33,7 +33,7 @@ class ProjectAddItem {
     required this.challenges,
     required this.technology,
     required this.keyFeatures,
-    required this.files,
+    required this.thumbnail,
     required this.screenshots,
     required this.solutions,
   });

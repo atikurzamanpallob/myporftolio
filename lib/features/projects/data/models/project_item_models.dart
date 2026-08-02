@@ -11,7 +11,7 @@ class ProjectItemModels extends ProjectItem {
     required super.type,
     required super.description,
     required super.technology,
-    required super.images,
+    required super.thumbnail,
     required super.company,
   });
 
@@ -39,7 +39,7 @@ class ProjectItemModels extends ProjectItem {
       company: json['company'],
       description: json['description'],
       technology: technologies,
-      images: images,
+      thumbnail: json['thumbnail'],
     );
   }
 
@@ -51,7 +51,7 @@ class ProjectItemModels extends ProjectItem {
     map['type'] = type;
     map['description'] = description;
     map['technology'] = technology;
-    map['images'] = images;
+    map['thumbnail'] = thumbnail;
     map['company'] = company;
     return map;
   }
@@ -66,7 +66,7 @@ class ProjectItemModels extends ProjectItem {
       company: company,
       description: description,
       technology: technology,
-      images: images,
+      thumbnail: thumbnail,
     );
   }
 }

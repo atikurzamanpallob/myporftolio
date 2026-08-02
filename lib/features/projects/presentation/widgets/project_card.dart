@@ -46,7 +46,7 @@ class ProjectCard extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Center(child: ProjectThumbnails(imageUrls: project.images)),
+        Center(child: ProjectThumbnails(imageUrl: project.thumbnail)),
         SizedBox(height: 16.h),
         projectInfo(context),
         SizedBox(height: 16.h),
@@ -64,7 +64,7 @@ class ProjectCard extends StatelessWidget {
         Row(
           crossAxisAlignment: .start,
           children: [
-            ProjectThumbnails(imageUrls: project.images),
+            ProjectThumbnails(imageUrl: project.thumbnail),
             SizedBox(width: 10.w),
             Expanded(child: nameDescription(context)),
           ],
@@ -111,7 +111,7 @@ class ProjectCard extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          ProjectThumbnails(imageUrls: project.images),
+          ProjectThumbnails(imageUrl: project.thumbnail),
           SizedBox(width: 28.w),
           Expanded(child: projectInfo(context)),
           SizedBox(width: 20.w),

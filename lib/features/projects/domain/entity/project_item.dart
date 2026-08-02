@@ -9,7 +9,7 @@ class ProjectItem {
   final String link;
   final String company;
   final List<ProjectTechStack> technology;
-  List<String> images;
+  String thumbnail;
 
   ProjectItem({
     required this.id,
@@ -20,6 +20,6 @@ class ProjectItem {
     required this.company,
     required this.description,
     required this.technology,
-    required this.images,
+    required this.thumbnail,
   });
 }
