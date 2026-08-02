@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -44,6 +46,7 @@ class _BlogsListSectionState extends State<BlogsListSection> {
       ),
       child: BlocBuilder<BlogBloc, BlogState>(
         builder: (context, state) {
+          print("This is error:${state.error}");
           List<BlogItem> list = state.blogs;
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
