@@ -41,7 +41,7 @@ class BlogRemoteDataImp extends BlogRemoteDatasource {
               .order('index', ascending: false)
               .range(from, to);
 
-    box.put("blog_list_$page", {
+    box.put("blog_list_${page}_${categoryId ?? -1}", {
       "timestamp": TimeFormatter.getTimestamp(),
       "response": response,
     });

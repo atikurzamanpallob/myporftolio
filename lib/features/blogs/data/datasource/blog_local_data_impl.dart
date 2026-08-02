@@ -20,7 +20,7 @@ class BlogLocalDataImp extends BlogLocalDatasource {
     List<BlogItem> blogs = [];
 
     final ob = box.get(
-      "blog_list_$page",
+      "blog_list_${page}_${categoryId ?? -1}",
       defaultValue: {"timestamp": null, "response": []},
     );
 
