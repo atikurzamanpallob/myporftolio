@@ -9,14 +9,15 @@ import 'package:myportfolioapp/features/projects/domain/entity/project_tech_stac
 import 'package:myportfolioapp/features/projects/domain/repository/project_repository.dart';
 
 class ProjectRepositoryImpl extends ProjectRepository {
-  ProjectDatasource datasource;
-  ProjectRepositoryImpl(this.datasource);
+  ProjectRemoteDatasource remote;
+  ProjectLocalDatasource local;
+  ProjectRepositoryImpl(this.remote, this.local);
   @override
   Future<Either<Failure, bool>> addProject({
     required ProjectAddItem models,
   }) async {
     try {
-      return Right(await datasource.addProject(model: models));
+      return Right(await remote.addProject(model: models));
     } catch (e) {
       return Left(Failure(e.toString()));
     }
@@ -25,7 +26,7 @@ class ProjectRepositoryImpl extends ProjectRepository {
   @override
   Future<Either<Failure, List<ProjectItem>>> getProject() async {
     try {
-      return Right(await datasource.getProjects());
+      return Right(await remote.getProjects());
     } catch (e) {
       return Left(Failure(e.toString()));
     }
@@ -36,7 +37,7 @@ class ProjectRepositoryImpl extends ProjectRepository {
     required List<TechAddEntity> techList,
   }) async {
     try {
-      return Right(await datasource.addTechStacks(techStacks: techList));
+      return Right(await remote.addTechStacks(techStacks: techList));
     } catch (e) {
       return Left(Failure(e.toString()));
     }
@@ -45,7 +46,7 @@ class ProjectRepositoryImpl extends ProjectRepository {
   @override
   Future<Either<Failure, List<ProjectTechStack>>> getTechStacks() async {
     try {
-      return Right(await datasource.getTechStacks());
+      return Right(await remote.getTechStacks());
     } catch (e) {
       return Left(Failure(e.toString()));
     }
@@ -56,7 +57,7 @@ class ProjectRepositoryImpl extends ProjectRepository {
     required int projectId,
   }) async {
     try {
-      return Right(await datasource.getProjectDetails(projectId: projectId));
+      return Right(await remote.getProjectDetails(projectId: projectId));
     } catch (e) {
       return Left(Failure(e.toString()));
     }
@@ -67,7 +68,7 @@ class ProjectRepositoryImpl extends ProjectRepository {
     required int projectId,
   }) async {
     try {
-      return Right(await datasource.getProjectInfo(projectId: projectId));
+      return Right(await remote.getProjectInfo(projectId: projectId));
     } catch (e) {
       return Left(Failure(e.toString()));
     }

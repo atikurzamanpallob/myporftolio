@@ -17,8 +17,7 @@ class CareerLocalDatasourceImp implements CareerDatasource {
       defaultValue: {"timestamp": null, "response": []},
     );
 
-    if (ob['timestamp'] == null ||
-        TimeFormatter.difference(ob['timestamp']) > 10) {
+    if (TimeFormatter.difference(ob['timestamp']) > 10) {
       return [];
     } else {
       for (var v in ob["response"]) {
@@ -36,8 +35,7 @@ class CareerLocalDatasourceImp implements CareerDatasource {
       "experience",
       defaultValue: {"timestamp": null, "response": []},
     );
-    if (ob['timestamp'] == null ||
-        TimeFormatter.difference(ob['timestamp']) > 10) {
+    if (TimeFormatter.difference(ob['timestamp']) > 10) {
       return [];
     } else {
       for (var v in ob["response"]) {
