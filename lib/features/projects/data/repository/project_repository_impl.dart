@@ -26,7 +26,12 @@ class ProjectRepositoryImpl extends ProjectRepository {
   @override
   Future<Either<Failure, List<ProjectItem>>> getProject() async {
     try {
-      return Right(await remote.getProjects());
+      List<ProjectItem> list = await local.getProjects();
+      if (list.isNotEmpty) {
+        return Right(list);
+      } else {
+        return Right(await remote.getProjects());
+      }
     } catch (e) {
       return Left(Failure(e.toString()));
     }
@@ -46,7 +51,12 @@ class ProjectRepositoryImpl extends ProjectRepository {
   @override
   Future<Either<Failure, List<ProjectTechStack>>> getTechStacks() async {
     try {
-      return Right(await remote.getTechStacks());
+      List<ProjectTechStack> list = await local.getTechStacks();
+      if (list.isNotEmpty) {
+        return Right(list);
+      } else {
+        return Right(await remote.getTechStacks());
+      }
     } catch (e) {
       return Left(Failure(e.toString()));
     }
@@ -57,7 +67,12 @@ class ProjectRepositoryImpl extends ProjectRepository {
     required int projectId,
   }) async {
     try {
-      return Right(await remote.getProjectDetails(projectId: projectId));
+      var projectDetails = await local.getProjectDetails(projectId: projectId);
+      if (projectDetails == null) {
+        return Right(await remote.getProjectDetails(projectId: projectId));
+      } else {
+        return Right(projectDetails);
+      }
     } catch (e) {
       return Left(Failure(e.toString()));
     }
@@ -68,7 +83,12 @@ class ProjectRepositoryImpl extends ProjectRepository {
     required int projectId,
   }) async {
     try {
-      return Right(await remote.getProjectInfo(projectId: projectId));
+      var projectItem = await local.getProjectInfo(projectId: projectId);
+      if (projectItem == null) {
+        return Right(await remote.getProjectInfo(projectId: projectId));
+      } else {
+        return Right(projectItem);
+      }
     } catch (e) {
       return Left(Failure(e.toString()));
     }

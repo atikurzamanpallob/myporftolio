@@ -22,7 +22,11 @@ class BlogRepositoryImpl extends BlogRepository {
     int? categoryId,
   }) async {
     try {
-      List<BlogItem> list = await local.getBlogs(page: page, limit: limit);
+      List<BlogItem> list = await local.getBlogs(
+        page: page,
+        limit: limit,
+        categoryId: categoryId,
+      );
       if (list.isNotEmpty) {
         return Right(list);
       } else {
