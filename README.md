@@ -133,8 +133,5 @@ flutter build web
 
 The output will be in `build/web/`, ready to deploy to any static hosting provider.
 
-## Notes
 
-- The app uses `usePathUrlStrategy()` for clean URLs (no `#` in the path) when deployed on the web.
-- The Dashboard route is gated behind a simple login check (`is_loggedin` flag passed via route extras) — intended for the site owner to manage content (projects, blogs, tech stacks) without redeploying.
 
