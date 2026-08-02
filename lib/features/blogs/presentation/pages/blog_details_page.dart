@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -50,6 +52,7 @@ class BlogDetailsPage extends StatelessWidget {
 
       body: BlocBuilder<BlogDetailsBloc, BlogDetailsState>(
         builder: (context, state) {
+          print(state.error);
           return SingleChildScrollView(
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: hPad.w),
