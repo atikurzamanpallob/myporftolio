@@ -1,4 +1,5 @@
 import 'package:hive/hive.dart';
+import '../../../../core/utils/time_formatter.dart';
 import '../../domain/entity/certificate_item.dart';
 import '../../domain/entity/work_experience_item.dart';
 import '../models/certificate_item_model.dart';
@@ -11,23 +12,39 @@ class CareerLocalDatasourceImp implements CareerDatasource {
   @override
   Future<List<CertificationItem>> getCertificates() async {
     List<CertificationItem> certificates = [];
-    var response = box.get("certifications", defaultValue: []);
-    for (var v in response) {
-      final model = CertificateItemModel.fromJson(v);
-      certificates.add(model.toEntity());
+    var ob = box.get(
+      "certifications",
+      defaultValue: {"timestamp": null, "response": []},
+    );
+
+    if (ob['timestamp'] == null ||
+        TimeFormatter.difference(ob['timestamp']) > 10) {
+      return [];
+    } else {
+      for (var v in ob["response"]) {
+        final model = CertificateItemModel.fromJson(v);
+        certificates.add(model.toEntity());
+      }
+      return certificates;
     }
-    return certificates;
   }
 
   @override
   Future<List<WorkExperienceItem>> getExperiences() async {
     List<WorkExperienceItem> experience = [];
-    var response = box.get("experience", defaultValue: []);
-    for (var v in response) {
-      final model = WorkExperienceItemModel.fromJson(v);
-
-      experience.add(model.toEntity());
+    var ob = box.get(
+      "experience",
+      defaultValue: {"timestamp": null, "response": []},
+    );
+    if (ob['timestamp'] == null ||
+        TimeFormatter.difference(ob['timestamp']) > 10) {
+      return [];
+    } else {
+      for (var v in ob["response"]) {
+        final model = WorkExperienceItemModel.fromJson(v);
+        experience.add(model.toEntity());
+      }
+      return experience;
     }
-    return experience;
   }
 }
