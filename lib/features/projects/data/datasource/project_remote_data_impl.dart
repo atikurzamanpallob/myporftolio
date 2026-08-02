@@ -1,11 +1,11 @@
 // ignore_for_file: avoid_print, avoid_function_literals_in_foreach_calls
 
 import 'package:file_picker/file_picker.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:myportfolioapp/core/utils/time_formatter.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+import '../../../../core/utils/load_variables.dart';
 import '../../../dashboard/domain/entity/tech_add_entity.dart';
 import '../../domain/entity/project_add_item.dart';
 import '../../domain/entity/project_details.dart';
@@ -61,8 +61,6 @@ class ProjectRemoteDataImp extends ProjectRemoteDatasource {
 
       String? url = await getFileUrls(file: model.thumbnail, id: projectId);
       if (url != null) {
-        
-
         await client
             .from('projects')
             .update({'thumbnail': url})
@@ -126,7 +124,7 @@ class ProjectRemoteDataImp extends ProjectRemoteDatasource {
 
   @override
   Future<bool> addTechStacks({required List<TechAddEntity> techStacks}) async {
-    final storageUrl = dotenv.get("STORAGE_URL");
+    final storageUrl = STORAGE_URL;
     List<Map<String, dynamic>> techMaps = [];
 
     await Future.forEach(techStacks, (tech) async {
@@ -174,7 +172,7 @@ class ProjectRemoteDataImp extends ProjectRemoteDatasource {
     required int id,
     String contentType = "image/jpeg",
   }) async {
-    final storageUrl = dotenv.get("STORAGE_URL");
+    final storageUrl = STORAGE_URL;
 
     if (file != null) {
       final fileName = sanitizeFileName(file.name);

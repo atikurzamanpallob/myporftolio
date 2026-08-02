@@ -3,7 +3,6 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:myportfolioapp/core/app_resources/app_images.dart';
 import 'package:myportfolioapp/core/di/injection.dart';
@@ -14,11 +13,12 @@ import 'core/themes/app_colors.dart';
 import 'core/common/routes.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
 
+import 'core/utils/load_variables.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   usePathUrlStrategy();
-
-  await dotenv.load();
+  loadVariables();
   await initSupabase();
   await injectDependency();
   runApp(const PortfolioApp());
