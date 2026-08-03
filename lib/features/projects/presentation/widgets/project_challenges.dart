@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:myportfolioapp/core/themes/app_colors.dart';
 import 'package:myportfolioapp/core/themes/responsive_text_theme.dart';
 
@@ -29,13 +30,43 @@ class ProjectChallenges extends StatelessWidget {
             ),
             SizedBox(height: 20.h),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 30),
+              padding: const EdgeInsets.symmetric(horizontal: 10),
               child: BlocBuilder<ProjectBloc, ProjectState>(
                 builder: (context, state) {
-                  var text = state.projectDetails?.challenges ?? "";
-                  return Text(
-                    text,
-                    style: context.fontStyle.bodySmall?.copyWith(height: 1.5),
+                  List<String> challenges =
+                      state.projectDetails?.challenges ?? [];
+                  return Column(
+                    children: List.generate(
+                      challenges.length,
+                      (i) => Padding(
+                        padding: const EdgeInsets.only(bottom: 10),
+                        child: Row(
+                          crossAxisAlignment: .center,
+                          children: [
+                            SvgPicture.asset(
+                              AppIcons.warning,
+                              height: 25.r,
+                              width: 25.r,
+                            ),
+                            SizedBox(width: 10.w),
+
+                            Expanded(
+                              child: Column(
+                                mainAxisAlignment: .start,
+                                crossAxisAlignment: .start,
+                                children: [
+                                  Text(
+                                    challenges[i],
+                                    textAlign: TextAlign.left,
+                                    style: context.fontStyle.bodySmall,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
                   );
                 },
               ),

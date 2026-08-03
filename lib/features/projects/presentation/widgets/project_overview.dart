@@ -35,11 +35,9 @@ class ProjectOverview extends StatelessWidget {
               ),
               child: BlocBuilder<ProjectBloc, ProjectState>(
                 builder: (context, state) {
-                  return Expanded(
-                    child: Text(
-                      state.projectDetails?.overview ?? "",
-                      style: context.fontStyle.bodySmall,
-                    ),
+                  return Text(
+                    state.projectDetails?.overview ?? "",
+                    style: context.fontStyle.bodySmall,
                   );
                 },
               ),

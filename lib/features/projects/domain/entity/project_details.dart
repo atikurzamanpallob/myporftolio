@@ -4,7 +4,7 @@ class ProjectDetails {
   final String overview;
   final String platform;
   final String role;
-  final String challenges;
+  final List<String> challenges;
   final List<String> screenshots;
   final List<String> solutions;
   final List<KeyFeature> keyfeatures;

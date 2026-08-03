@@ -23,7 +23,7 @@ class ProjectRemoteDataImp extends ProjectRemoteDatasource {
 
   @override
   Future<bool> addProject({required ProjectAddItem model}) async {
-    List<String> solutions = [], screenshots = [];
+    List<String> solutions = [], screenshots = [], challenges = [];
     List<Map<String, dynamic>> techList = [], keyFeatures = [];
     try {
       model.technology.forEach((tech) {
@@ -42,6 +42,10 @@ class ProjectRemoteDataImp extends ProjectRemoteDatasource {
       });
       model.solutions.forEach((solution) {
         solutions.add(solution.text);
+      });
+
+      model.challenges.forEach((challege) {
+        challenges.add(challege.text);
       });
 
       var project = await client
@@ -82,7 +86,7 @@ class ProjectRemoteDataImp extends ProjectRemoteDatasource {
         "platform": model.platform,
         "overview": model.overview,
         "key_features": keyFeatures,
-        "challenges": model.challenges,
+        "challenges": challenges,
         "solutions": solutions,
         "screenshots": screenshots,
       });

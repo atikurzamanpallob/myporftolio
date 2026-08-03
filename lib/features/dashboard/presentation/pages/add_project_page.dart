@@ -35,7 +35,7 @@ class _AddProjectPageState extends State<AddProjectPage> {
   List<PlatformFile> screenShots = [];
   PlatformFile? thumbnail;
   List<KeyFeatureEntity> keyFeatures = [];
-  List<TextEditingController> solutions = [];
+  List<TextEditingController> solutions = [], challenges = [];
   Category? category;
   var descriptionController = TextEditingController();
   var overviewController = TextEditingController();
@@ -43,7 +43,6 @@ class _AddProjectPageState extends State<AddProjectPage> {
   var projectLinkController = TextEditingController();
   var projectPlatformController = TextEditingController();
   var projectRoleController = TextEditingController();
-  var challengesController = TextEditingController();
   var problemController = TextEditingController();
   var indexController = TextEditingController();
   var companyName = TextEditingController();
@@ -61,7 +60,6 @@ class _AddProjectPageState extends State<AddProjectPage> {
     projectLinkController.dispose();
     projectPlatformController.dispose();
     projectRoleController.dispose();
-    challengesController.dispose();
     indexController.dispose();
     companyName.dispose();
     techStacks.clear();
@@ -188,7 +186,7 @@ class _AddProjectPageState extends State<AddProjectPage> {
                       role: projectRoleController.text,
                       platform: projectPlatformController.text,
                       overview: overviewController.text,
-                      challenges: challengesController.text,
+                      challenges: challenges,
                       solutions: solutions,
                       keyFeatures: keyFeatures,
                       screenshots: screenShots,
@@ -349,19 +347,19 @@ class _AddProjectPageState extends State<AddProjectPage> {
           keyFeatures: keyFeatures,
         ),
         SizedBox(height: 20.h),
-        SectionCard(
+        SolutionApproachWidget(
+          solution: challenges,
           title: "Challenges",
-          child: ResponsiveFieldRow(
-            children: [
-              DescriptionField(
-                hints: "write here..",
-                hasLimit: false,
-                controller: challengesController,
-                minLines: 4,
-                maxLines: 4,
-              ),
-            ],
-          ),
+          onAdd: () {
+            setState(() {
+              challenges.add(TextEditingController());
+            });
+          },
+          onRemove: (index) {
+            setState(() {
+              challenges.removeAt(index);
+            });
+          },
         ),
         SizedBox(height: 20.h),
         SolutionApproachWidget(

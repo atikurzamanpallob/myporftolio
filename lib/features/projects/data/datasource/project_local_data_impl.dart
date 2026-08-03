@@ -79,7 +79,7 @@ class ProjectLocalDataImp extends ProjectLocalDatasource {
     var ob = Map<String, dynamic>.from(
       box.get(
         "project_info_$projectId",
-        defaultValue: {"timestamp": "null", "response": null},
+        defaultValue: {"timestamp": null, "response": null},
       ),
     );
     if (TimeFormatter.difference(ob['timestamp']) > 10) {

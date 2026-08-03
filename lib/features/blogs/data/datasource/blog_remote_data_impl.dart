@@ -155,7 +155,6 @@ class BlogRemoteDataImp extends BlogRemoteDatasource {
         .select()
         .eq('id', blogId)
         .single();
-    print(response);
     box.put("blog_details_$blogId", {
       "timestamp": TimeFormatter.getTimestamp(),
       "response": Map<String, dynamic>.from(response),

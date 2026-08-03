@@ -7,17 +7,19 @@ class SolutionApproachWidget extends StatelessWidget {
   final List<TextEditingController> solution;
   final Function onAdd;
   final Function(int) onRemove;
+  final String? title;
   const SolutionApproachWidget({
     super.key,
     required this.solution,
     required this.onAdd,
     required this.onRemove,
+    this.title,
   });
 
   @override
   Widget build(BuildContext context) {
     return SectionCard(
-      title: "Solution & Approach",
+      title: title ?? "Solution & Approach",
       onAdd: () {
         onAdd();
       },
@@ -39,7 +41,9 @@ class SolutionApproachWidget extends StatelessWidget {
                     ),
                   ),
                   child: CustomFormFiled(
-                    hints: "Solution-${index + 1}",
+                    hints: title == null
+                        ? "Solution-${index + 1}"
+                        : "Challenge-${index + 1}",
                     controller: solution[index],
                   ),
                 ),

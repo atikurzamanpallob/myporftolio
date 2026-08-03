@@ -14,7 +14,7 @@ class ProjectDetailsModels extends ProjectDetails {
   });
 
   factory ProjectDetailsModels.fromJson(Map<String, dynamic> json) {
-    List<String> screenshots = [], solutions = [];
+    List<String> screenshots = [], solutions = [], challenges = [];
     List<KeyFeature> keyFeatures = [];
     if (json['screenshots'] != null) {
       json['screenshots'].forEach((v) {
@@ -27,10 +27,15 @@ class ProjectDetailsModels extends ProjectDetails {
         solutions.add(v);
       });
     }
+    if (json['challenges'] != null) {
+      json['challenges'].forEach((v) {
+        challenges.add(v);
+      });
+    }
 
     if (json['key_features'] != null) {
       json['key_features'].forEach((v) {
-        var ob = KeyFeatureModels.fromJson(v);
+        var ob = KeyFeatureModels.fromJson(Map<String, dynamic>.from(v));
         keyFeatures.add(ob.toEntity());
       });
     }
@@ -40,7 +45,7 @@ class ProjectDetailsModels extends ProjectDetails {
       projectId: json['project_id'],
       platform: json['platform'],
       overview: json['overview'],
-      challenges: json['challenges'],
+      challenges: challenges,
       role: json['role'],
       screenshots: screenshots,
       solutions: solutions,

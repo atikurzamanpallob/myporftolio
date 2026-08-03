@@ -13,7 +13,7 @@ class ProjectAddItem {
   final String role;
   final String platform;
   final String overview;
-  final String challenges;
+  final List<TextEditingController> challenges;
   final List<ProjectTechStack> technology;
   final List<KeyFeatureEntity> keyFeatures;
   final PlatformFile thumbnail;
