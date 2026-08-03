@@ -56,4 +56,5 @@ class AppIcons {
   static const challenges = 'assets/icons/projects/problem.svg';
   static const screenshots = 'assets/icons/projects/screenshots.svg';
   static const solutions = 'assets/icons/projects/solutions.svg';
+  static const warning = 'assets/icons/projects/warning.svg';
 }

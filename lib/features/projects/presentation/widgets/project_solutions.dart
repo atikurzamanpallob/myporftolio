@@ -40,7 +40,8 @@ class ProjectSolutions extends StatelessWidget {
                       (i) => Padding(
                         padding: const EdgeInsets.only(bottom: 10),
                         child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+
                           children: [
                             SvgPicture.asset(
                               AppIcons.greentick,
@@ -49,9 +50,15 @@ class ProjectSolutions extends StatelessWidget {
                             ),
                             SizedBox(width: 10.w),
                             Expanded(
-                              child: Text(
-                                solutions[i],
-                                style: context.fontStyle.bodySmall,
+                              child: Column(
+                                mainAxisAlignment: .start,
+                                crossAxisAlignment: .start,
+                                children: [
+                                  Text(
+                                    solutions[i],
+                                    style: context.fontStyle.bodySmall,
+                                  ),
+                                ],
                               ),
                             ),
                           ],

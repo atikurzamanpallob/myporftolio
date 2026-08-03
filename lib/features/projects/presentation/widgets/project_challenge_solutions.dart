@@ -8,7 +8,7 @@ class ProjectChallengeSolutions extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (context.isMobile) {
+    if (context.isMobile | context.isTablet | context.isLaptop) {
       return const Column(
         children: [
           ProjectChallenges(),

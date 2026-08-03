@@ -14,7 +14,7 @@ class ProjectDetailsModels extends ProjectDetails {
   });
 
   factory ProjectDetailsModels.fromJson(Map<String, dynamic> json) {
-    List<String> screenshots = [], solutions = [];
+    List<String> screenshots = [], solutions = [], challenges = [];
     List<KeyFeature> keyFeatures = [];
     if (json['screenshots'] != null) {
       json['screenshots'].forEach((v) {
@@ -25,6 +25,11 @@ class ProjectDetailsModels extends ProjectDetails {
     if (json['solutions'] != null) {
       json['solutions'].forEach((v) {
         solutions.add(v);
+      });
+    }
+    if (json['challenges'] != null) {
+      json['challenges'].forEach((v) {
+        challenges.add(v);
       });
     }
 
@@ -40,7 +45,7 @@ class ProjectDetailsModels extends ProjectDetails {
       projectId: json['project_id'],
       platform: json['platform'],
       overview: json['overview'],
-      challenges: json['challenges'],
+      challenges: challenges,
       role: json['role'],
       screenshots: screenshots,
       solutions: solutions,

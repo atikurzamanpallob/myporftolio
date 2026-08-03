@@ -59,9 +59,9 @@ class ContactPage extends StatelessWidget {
                 : Row(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
-                      const Expanded(flex: 4, child: TrustBadgesColumn()),
+                      const Expanded(flex: 5, child: TrustBadgesColumn()),
                       SizedBox(width: 24.w),
-                      const Expanded(flex: 6, child: AvailabilityCard()),
+                      const Expanded(flex: 5, child: AvailabilityCard()),
                     ],
                   ),
           ),
