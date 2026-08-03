@@ -107,6 +107,7 @@ class MainContent extends StatelessWidget {
                 child: ContentSections(sections: state.sections ?? []),
               ),
             ),
+            SizedBox(height: 20.h),
           ],
         );
       },
@@ -122,6 +123,7 @@ class ContentSections extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView.builder(
       shrinkWrap: true,
+      physics: NeverScrollableScrollPhysics(),
       itemCount: sections.length,
       itemBuilder: (context, index) {
         return DescriptionItemCard(element: sections[index]);

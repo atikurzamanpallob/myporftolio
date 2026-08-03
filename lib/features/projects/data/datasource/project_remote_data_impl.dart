@@ -5,7 +5,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:myportfolioapp/core/utils/time_formatter.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-import '../../../../core/utils/load_variables.dart';
+import '../../../../core/supabase/supabase_client.dart';
 import '../../../dashboard/domain/entity/tech_add_entity.dart';
 import '../../domain/entity/project_add_item.dart';
 import '../../domain/entity/project_details.dart';

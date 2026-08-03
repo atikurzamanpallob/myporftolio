@@ -13,12 +13,9 @@ import 'core/themes/app_colors.dart';
 import 'core/common/routes.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
 
-import 'core/utils/load_variables.dart';
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   usePathUrlStrategy();
-  loadVariables();
   await initSupabase();
   await injectDependency();
   runApp(const PortfolioApp());
@@ -75,4 +72,3 @@ class PortfolioApp extends StatelessWidget {
 }
 
 // flutter run -d web-server --web-port=8080
-

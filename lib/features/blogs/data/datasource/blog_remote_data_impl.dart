@@ -7,7 +7,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:myportfolioapp/features/blogs/data/models/blog_details_model.dart';
 import 'package:myportfolioapp/features/blogs/data/models/blog_item_models.dart';
 import '../../../../core/app_resources/app_constants.dart';
-import '../../../../core/utils/load_variables.dart';
+import '../../../../core/supabase/supabase_client.dart';
 import '../../domain/entity/blog_add_item.dart';
 import '../../domain/entity/blog_item.dart';
 import '../../domain/entity/blog_section_item.dart';
