@@ -25,6 +25,11 @@ jobs:
 
       - name: Get Packages
         run: flutter pub get
+      
+      - name: Create .env
+        run: |
+            echo "URL=" > .env
+            echo "PUBLIC_KEY=" >> .env
 
       - name: Build Web
         run: |
