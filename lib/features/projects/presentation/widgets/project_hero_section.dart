@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -10,8 +11,8 @@ import 'package:myportfolioapp/features/projects/domain/entity/project_details.d
 import 'package:myportfolioapp/features/projects/domain/entity/project_item.dart';
 import 'package:myportfolioapp/features/projects/presentation/bloc/project_bloc.dart';
 import 'package:myportfolioapp/features/projects/presentation/bloc/project_state.dart';
-import 'package:myportfolioapp/features/projects/presentation/widgets/project_thumbnails.dart';
 import 'package:url_launcher/url_launcher.dart';
+import '../../../../core/app_resources/app_images.dart';
 import '../../../../core/common/custom_outlined_button.dart';
 import '../../../../core/themes/responsive_text_theme.dart';
 
@@ -53,7 +54,7 @@ class ProjectHeroSection extends StatelessWidget {
   ) {
     return Column(
       children: [
-        ProjectThumbnails(imageUrl: projectInfo?.thumbnail ?? ""),
+        thumbnailImage(context, projectInfo),
         SizedBox(height: 10.h),
         projectInfoWidget(context, projectInfo, details),
       ],
@@ -67,13 +68,9 @@ class ProjectHeroSection extends StatelessWidget {
   ) {
     return Column(
       children: [
-        Row(
-          children: [
-            Expanded(child: projectInfoWidget(context, projectInfo, details)),
-            SizedBox(width: 10.w),
-            ProjectThumbnails(imageUrl: projectInfo?.thumbnail ?? ""),
-          ],
-        ),
+        thumbnailImage(context, projectInfo),
+        SizedBox(height: 10.h),
+        projectInfoWidget(context, projectInfo, details),
       ],
     );
   }
@@ -84,13 +81,14 @@ class ProjectHeroSection extends StatelessWidget {
     ProjectDetails? details,
   ) {
     return Row(
+      crossAxisAlignment: .start,
       children: [
         Expanded(
-          flex: 6,
+          flex: 1,
           child: projectInfoWidget(context, projectInfo, details),
         ),
-        Expanded(flex: 2, child: SizedBox()),
-        ProjectThumbnails(imageUrl: projectInfo?.thumbnail ?? ""),
+        SizedBox(width: 10.w),
+        Expanded(flex: 1, child: thumbnailImage(context, projectInfo)),
       ],
     );
   }
@@ -102,6 +100,7 @@ class ProjectHeroSection extends StatelessWidget {
   ) {
     return Column(
       crossAxisAlignment: .start,
+      mainAxisAlignment: .spaceBetween,
       children: [
         Text(
           projectInfo?.name ?? "",
@@ -135,7 +134,7 @@ class ProjectHeroSection extends StatelessWidget {
             ),
           ],
         ),
-        SizedBox(height: 15.h),
+        SizedBox(height: 25.h),
         CustomOutlinedButton(
           onTap: () {
             launchUrl(Uri.parse(projectInfo?.link ?? ""));
@@ -147,6 +146,39 @@ class ProjectHeroSection extends StatelessWidget {
           iconData: Icons.open_in_new,
         ),
       ],
+    );
+  }
+
+  Widget thumbnailImage(BuildContext context, ProjectItem? projectInfo) {
+    return CachedNetworkImage(
+      imageUrl: projectInfo?.thumbnail ?? "",
+      fit: BoxFit.contain,
+      height: context.isMobile
+          ? 180.h
+          : context.isTablet || context.isLaptop
+          ? 300.h
+          : 390.h,
+      width: double.infinity,
+      errorWidget: (_, _, _) => Image.asset(
+        AppImages.placehHolder,
+        fit: BoxFit.cover,
+        height: context.isMobile
+            ? 180.h
+            : context.isTablet || context.isLaptop
+            ? 300.h
+            : 390.h,
+        width: double.infinity,
+      ),
+      placeholder: (_, _) => Image.asset(
+        AppImages.placehHolder,
+        fit: BoxFit.cover,
+        height: context.isMobile
+            ? 180.h
+            : context.isTablet || context.isLaptop
+            ? 300.h
+            : 390.h,
+        width: double.infinity,
+      ),
     );
   }
 }

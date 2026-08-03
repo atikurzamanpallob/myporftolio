@@ -20,7 +20,9 @@ class ProjectItemModels extends ProjectItem {
     List<String> images = [];
     if (json['technology'] != null) {
       json['technology'].forEach((v) {
-        technologies.add(ProjectTechstackModels.fromJson(v));
+        technologies.add(
+          ProjectTechstackModels.fromJson(Map<String, dynamic>.from(v)),
+        );
       });
     }
 

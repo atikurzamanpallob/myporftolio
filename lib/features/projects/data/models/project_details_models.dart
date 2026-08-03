@@ -30,7 +30,7 @@ class ProjectDetailsModels extends ProjectDetails {
 
     if (json['key_features'] != null) {
       json['key_features'].forEach((v) {
-        var ob = KeyFeatureModels.fromJson(v);
+        var ob = KeyFeatureModels.fromJson(Map<String, dynamic>.from(v));
         keyFeatures.add(ob.toEntity());
       });
     }
