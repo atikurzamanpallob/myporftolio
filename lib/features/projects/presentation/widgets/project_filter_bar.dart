@@ -10,10 +10,12 @@ class ProjectFilterBar extends StatelessWidget {
     super.key,
     required this.selected,
     required this.onSelected,
+    required this.totalItem,
     this.alignment = WrapAlignment.end,
   });
 
   final int selected;
+  final int totalItem;
   final ValueChanged<int> onSelected;
   final WrapAlignment alignment;
 
@@ -26,6 +28,7 @@ class ProjectFilterBar extends StatelessWidget {
       children: [
         for (final project in projectOptions)
           _FilterPill(
+            totalItem: totalItem,
             label: project.name,
             active: project.id == selected,
             onTap: () => onSelected(project.id),
@@ -40,10 +43,12 @@ class _FilterPill extends StatelessWidget {
     required this.label,
     required this.active,
     required this.onTap,
+    required this.totalItem,
   });
 
   final String label;
   final bool active;
+  final int totalItem;
   final VoidCallback onTap;
 
   @override
@@ -63,7 +68,7 @@ class _FilterPill extends StatelessWidget {
           ),
         ),
         child: Text(
-          label,
+          active ? "$label ($totalItem)" : label,
           style: context.fontStyle.bodyMedium?.copyWith(
             color: active ? Colors.white : AppColors.textSecondary,
           ),

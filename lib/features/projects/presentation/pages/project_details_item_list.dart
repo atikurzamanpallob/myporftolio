@@ -25,6 +25,7 @@ class _ProjectDetailsItemListState extends State<ProjectDetailsItemList> {
   Widget build(BuildContext context) {
     return ListView.builder(
       itemCount: descriptionItems.length,
+      physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
       itemBuilder: (ctx, i) {
         return Padding(

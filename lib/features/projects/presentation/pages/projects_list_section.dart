@@ -35,6 +35,7 @@ class _ProjectsListSectionState extends State<ProjectsListSection> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               ProjectFilterBar(
+                totalItem: filtered.length,
                 selected: state.currentFilter,
                 alignment: isMobile ? WrapAlignment.start : WrapAlignment.end,
                 onSelected: (option) {
